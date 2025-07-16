@@ -1,0 +1,48 @@
+---
+// src/components/Header.astro
+---
+
+<header>
+  <a href="/" class="logo">Fiduciaire-Expert.lu</a>
+  <nav>
+    <a href="/">Accueil</a>
+    <a href="/services">Services</a>
+    <a href="/a-propos">À Propos</a>
+    <a href="/contact">Contact</a>
+  </nav>
+</header>
+
+<style>
+  header {
+    /* C'est la magie du "sticky" */
+    position: sticky;
+    top: 0;
+    
+    /* Style général */
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10; /* Pour s'assurer qu'il passe au-dessus des autres contenus */
+  }
+
+  .logo {
+    font-weight: bold;
+    color: #0d2b4f; /* Le bleu de votre section Hero */
+    text-decoration: none;
+  }
+
+  nav a {
+    margin-left: 1.5rem;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  nav a:hover {
+    color: #B8860B; /* Le doré qu'on a choisi */
+  }
+</style>

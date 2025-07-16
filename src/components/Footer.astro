@@ -1,0 +1,54 @@
+---
+// src/components/Footer.astro
+const currentYear = new Date().getFullYear();
+---
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <p>&copy; {currentYear} Fiduciaire-Expert.lu. Tous droits réservés.</p>
+      <nav>
+        <a href="/">Accueil</a>
+        <a href="/services">Services</a>
+        <a href="/articles">Articles</a>
+        <a href="/mentions-legales">Mentions Légales</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background-color: #0d2b4f; /* Le même bleu foncé que le Hero */
+    color: white;
+    padding: 2rem;
+    margin-top: 4rem; /* Espace au-dessus du footer */
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Pour les petits écrans */
+    gap: 1rem;
+  }
+
+  .footer-content p {
+    margin: 0;
+  }
+
+  nav a {
+    color: rgba(255, 255, 255, 0.8);
+    margin-left: 1.5rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  nav a:hover {
+    color: white;
+  }
+</style>

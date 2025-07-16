@@ -1,0 +1,85 @@
+---
+// src/components/ServicesHighlight.astro
+---
+<section class="services-section">
+  <div class="container">
+    <h2>Nos domaines d'expertise</h2>
+    <div class="services-grid">
+      
+      <div class="service-card">
+        <div class="icon">📊</div>
+        <h3>Comptabilité & fiscalité</h3>
+        <p>Tenue de comptabilité, déclarations TVA et bilans annuels conformes à la législation luxembourgeoise.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="icon">💼</div>
+        <h3>Création d'entreprise</h3>
+        <p>Accompagnement complet pour la constitution de votre société (SA, SARL, SCI ou SAS).</p>
+      </div>
+
+      <div class="service-card">
+        <div class="icon">📈</div>
+        <h3>Conseil & gestion Salariale</h3>
+        <p>Établissement des fiches de paie, déclarations sociales et conseil en droit du travail.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-section {
+    padding: 4rem 2rem;
+    background-color: #f8f9fa; /* Un fond gris très clair pour contraster */
+    text-align: center;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  h2 {
+    font-size: 2rem;
+    color: #0d2b4f; /* Le bleu foncé du Hero */
+    margin-bottom: 3rem;
+  }
+
+  .services-grid {
+    display: grid;
+    /* Grille responsive : les cartes s'adaptent à la largeur de l'écran */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .service-card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .service-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #0d2b4f;
+  }
+
+  .service-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+  }
+</style>

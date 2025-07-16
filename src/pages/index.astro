@@ -1,16 +1,14 @@
 ---
-
+import Hero from '../components/Hero.astro';
+import ServicesHighlight from '../components/ServicesHighlight.astro';
+import AboutAndCTA from '../components/AboutAndCTA.astro'; // <-- 1. IMPORTER
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Fiduciaire Expert | Votre cabinet comptable au Luxembourg.">
+  <main>
+    <Hero />
+    <ServicesHighlight />
+    <AboutAndCTA /> {/* <-- 2. PLACER ICI */}
+  </main>
+</Layout>

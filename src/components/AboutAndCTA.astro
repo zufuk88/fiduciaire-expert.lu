@@ -1,0 +1,86 @@
+---
+// src/components/AboutAndCTA.astro
+---
+<section class="about-cta-section">
+  <div class="container">
+    <div class="content-wrapper">
+      <div class="about-text">
+        <h2>Plus qu'un expert-comptable, votre  partenaire.</h2>
+        <p>
+          Chez Fiduciaire-Expert, nous croyons en une approche personnalisée. Votre réalité est unique, nos conseils le sont aussi. Nous nous engageons à être réactifs, transparents et à vos côtés à chaque étape du développement de votre entreprise au Luxembourg.
+        </p>
+      </div>
+      <div class="cta-box">
+        <h3>Prêt à simplifier votre gestion ?</h3>
+        <p>Discutons de vos besoins lors d'un premier entretien.</p>
+        <a href="/contact" class="cta-button">Contactez-nous</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-cta-section {
+    padding: 4rem 2rem;
+    background-color: white;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+    gap: 3rem;
+    align-items: center;
+  }
+
+  /* La mise en page en 2 colonnes s'active sur les écrans plus grands */
+  @media (min-width: 768px) {
+    .content-wrapper {
+      grid-template-columns: 2fr 1fr; /* La partie texte est plus large */
+    }
+  }
+
+  .about-text h2 {
+    font-size: 2rem;
+    color: #0d2b4f;
+    margin-bottom: 1rem;
+  }
+
+  .about-text p {
+    line-height: 1.7;
+    color: #555;
+  }
+
+  .cta-box {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #e9ecef;
+  }
+  
+  .cta-box h3 {
+    margin-top: 0;
+    color: #0d2b4f;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background-color: #B8860B; /* Notre doré */
+    color: white;
+    padding: 0.8rem 2.5rem;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 1rem;
+    transition: transform 0.2s ease;
+  }
+
+  .cta-button:hover {
+    transform: scale(1.05);
+  }
+</style>
