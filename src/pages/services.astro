@@ -1,9 +1,149 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+// On recrée la liste complète des 8 services avec leurs descriptions détaillées
+const allServices = [
+  {
+    title: "Comptabilité et Préparation de Bilan",
+    description: "Nous assurons une tenue de comptabilité générale rigoureuse, la préparation de vos bilans et comptes annuels, ainsi que leur dépôt sur la plateforme eCDF, en parfaite conformité avec la législation luxembourgeoise.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" /><path d="M9 17h6" /></svg>`
+  },
+  {
+    title: "Secrétariat Juridique",
+    description: "Nous vous déchargeons de la complexité administrative en gérant la préparation des assemblées générales (AG), la rédaction des procès-verbaux et l'accomplissement des formalités légales auprès du RCSL.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" /></svg>`
+  },
+  {
+    title: "Création et Liquidation de Société",
+    description: "De A à Z, nous vous accompagnons dans le lancement ou la cessation de votre activité : choix de la forme juridique (SA, SARL-S), rédaction des statuts en lien avec le notaire, et gestion complète des procédures de liquidation.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21h18" /><path d="M5 21v-14l8 -4v18" /><path d="M19 21v-10l-6 -4" /><path d="M9 9l0 .01" /><path d="M9 12l0 .01" /><path d="M9 15l0 .01" /><path d="M9 18l0 .01" /></svg>`
+  },
+  {
+    title: "Déclarations Fiscales et TVA",
+    description: "Assurez votre conformité et optimisez votre charge fiscale. Nous préparons et déposons l'ensemble de vos déclarations fiscales pour l'impôt sur le revenu (IRC) et la TVA, périodiques et annuelles.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 14l6 -6" /><path d="M9 14l0 6" /><path d="M9 14h6" /><path d="M14 11.5v-7.5h-10v10h7.5" /><path d="M13 19h7v-7m-2 -1l3 3l-3 3" /></svg>`
+  },
+  {
+    title: "Conseil Fiscal et Social",
+    description: "Au-delà des chiffres, nous vous apportons un conseil stratégique pour optimiser votre fiscalité personnelle et d'entreprise, ainsi que pour naviguer les complexités du droit du travail et de la sécurité sociale au Luxembourg.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 8a3 3 0 0 1 0 6" /><path d="M10 8v11a1 1 0 0 1 -1 1h-1a1 1 0 0 1 -1 -1v-5" /><path d="M12 8h0l4.524 -3.77a0.9 .9 0 0 1 1.476 .692v12.156a0.9 .9 0 0 1 -1.476 .692l-4.524 -3.77h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h8" /></svg>`
+  },
+  {
+    title: "Due Diligence & Business Plan",
+    description: "Que vous cherchiez à acquérir une entreprise ou à convaincre des investisseurs, nous réalisons des audits d'acquisition (due diligence), des évaluations d'entreprise et la structuration de business plans robustes.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 7v5l3 3" /><path d="M15 4.5l-3 -1.5l-3 1.5" /><path d="M12 12l-3 -1.5" /><path d="M12 12l3 -1.5" /></svg>`
+  },
+  {
+    title: "Fiches de Salaires (Gestion de la Paie)",
+    description: "La gestion de la paie est une tâche critique. Nous nous chargeons de l'établissement des fiches de salaires mensuelles pour vos employés, ainsi que de toutes les déclarations sociales et administratives auprès de la CCSS.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M14 14.5a3.5 3.5 0 1 0 -4 0" /><path d="M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M12 3v2" /><path d="M12 19v2" /><path d="M3 12h2" /><path d="M19 12h2" /></svg>`
+  },
+  {
+    title: "Domiciliation",
+    description: "Nous offrons un service de domiciliation pour votre société, vous fournissant une adresse de siège social prestigieuse au Luxembourg, conformément aux exigences de la loi sur la domiciliation.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" /></svg>`
+  },
+];
 ---
-<Layout title="Nos Services - Fiduciaire Expert">
-  <main style="padding: 4rem 2rem; text-align: center;">
-    <h1>Nos Services</h1>
-    <p>Le contenu de cette page sera bientôt disponible.</p>
+
+<Layout title="Nos Services d'Expertise Comptable au Luxembourg | Fiduciaire Expert">
+  <main class="services-page">
+
+    <section class="page-header">
+      <div class="container-narrow">
+        <h1>Un Partenaire, Toutes les Compétences</h1>
+        <p>Nous offrons un accompagnement complet et sur-mesure pour les entrepreneurs, PME et grandes sociétés au Luxembourg. Découvrez une approche intégrée de l'expertise comptable.</p>
+      </div>
+    </section>
+
+    <section class="services-grid-section">
+      <div class="container">
+        <div class="services-grid">
+          {allServices.map(service => (
+            <div class="service-card">
+              <div class="icon" set:html={service.icon} />
+              <h2>{service.title}</h2>
+              <p>{service.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container-narrow">
+        <h2>Un projet en tête ?</h2>
+        <p>Discutons de vos besoins spécifiques. Notre premier entretien est sans engagement et nous permettra de vous proposer une solution parfaitement adaptée.</p>
+        <a href="/contact" class="cta-button">Prendre rendez-vous</a>
+      </div>
+    </section>
+
   </main>
 </Layout>
+
+<style>
+  /* Styles Généraux */
+  .container, .container-narrow { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+  .container-narrow { max-width: 800px; }
+  
+  /* En-tête de la page */
+  .page-header { text-align: center; padding: 5rem 2rem; }
+  .page-header h1 { font-size: 2.8rem; color: var(--bleu-profond); margin-bottom: 1rem; }
+  .page-header p { font-size: 1.2rem; line-height: 1.7; color: var(--texte-secondaire); }
+  
+  /* Grille des services */
+  .services-grid-section { 
+    padding: 5rem 2rem;
+    background-color: var(--fond-clair);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke-width='2' stroke='%23e9ecef'%3e%3cpath d='M0 32 L32 0 M-8 24 L24 -8 M8 40 L40 8'/%3e%3c/svg%3e");
+  }
+  .services-grid { 
+    display: grid;
+    /* La grille peut maintenant avoir 3 colonnes sur de très grands écrans */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+  .service-card { 
+    background-color: white; 
+    padding: 2.5rem; 
+    border-radius: 12px; 
+    box-shadow: 0 8px 30px rgba(0,0,0,0.05); 
+    display: flex;
+    flex-direction: column;
+    text-align: left; /* On aligne le texte à gauche pour une meilleure lisibilité */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+  .service-card .icon { 
+    color: var(--or-premium); 
+    margin-bottom: 1.5rem; 
+    /* On s'assure que l'icône reste à gauche */
+    align-self: flex-start;
+  }
+  .service-card .icon svg { width: 44px; height: 44px; stroke-width: 1.5; }
+  .service-card h2 { 
+    font-size: 1.3rem; 
+    color: var(--bleu-profond); 
+    margin-top: 0; 
+    margin-bottom: 1rem; 
+  }
+  .service-card p { 
+    color: var(--texte-secondaire); 
+    line-height: 1.6; 
+    font-size: 0.95rem; 
+    flex-grow: 1; /* Permet aux cartes de même hauteur de s'aligner */
+  }
+
+  /* Section Appel à l'Action (CTA) */
+  .cta-section { 
+    padding: 5rem 2rem; 
+    text-align: center;
+    background-color: white;
+  }
+  .cta-section h2 { font-size: 2.5rem; color: var(--bleu-profond); margin-top: 0; margin-bottom: 1rem; }
+  .cta-button { display: inline-block; background-color: var(--or-premium); color: var(--bleu-profond); padding: 1rem 2.5rem; text-decoration: none; border-radius: 8px; font-weight: bold; transition: transform 0.2s ease; margin-top: 1rem;}
+  .cta-button:hover { transform: scale(1.05); }
+</style>

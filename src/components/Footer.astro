@@ -4,51 +4,47 @@ const currentYear = new Date().getFullYear();
 ---
 <footer>
   <div class="container">
-    <div class="footer-content">
-      <p>&copy; {currentYear} Fiduciaire-Expert.lu. Tous droits réservés.</p>
-      <nav>
-        <a href="/">Accueil</a>
-        <a href="/services">Services</a>
-        <a href="/articles">Articles</a>
-        <a href="/mentions-legales">Mentions Légales</a>
-      </nav>
-    </div>
+    <p>&copy; {currentYear} Fiduciaire-Expert.lu. Tous droits réservés.</p>
+    <a href="/mentions-legales" class="footer-link">Mentions Légales</a>
   </div>
 </footer>
 
 <style>
   footer {
-    background-color: #0d2b4f; /* Le même bleu foncé que le Hero */
-    color: white;
+    /* MODIFIÉ : Fond gris clair */
+    background-color: var(--fond-clair);
+    /* MODIFIÉ : Couleur de texte par défaut (pour le copyright) */
+    color: var(--texte-secondaire);
     padding: 2rem;
-    margin-top: 4rem; /* Espace au-dessus du footer */
+    border-top: 1px solid #e0e0e0; /* On ajoute une fine bordure pour la séparation */
   }
 
   .container {
     max-width: 1100px;
     margin: 0 auto;
-  }
-
-  .footer-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; /* Pour les petits écrans */
+    flex-wrap: wrap;
     gap: 1rem;
   }
 
-  .footer-content p {
+  p {
     margin: 0;
+    font-size: 0.9rem;
   }
 
-  nav a {
-    color: rgba(255, 255, 255, 0.8);
-    margin-left: 1.5rem;
+  .footer-link {
+    /* MODIFIÉ : Couleur du lien en noir doux */
+    color: var(--texte-principal);
     text-decoration: none;
+    font-weight: 500;
     transition: color 0.2s ease;
+    font-size: 0.9rem;
   }
 
-  nav a:hover {
-    color: white;
+  .footer-link:hover {
+    /* MODIFIÉ : Couleur dorée au survol pour garder une touche de couleur */
+    color: var(--or-premium);
   }
 </style>

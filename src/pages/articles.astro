@@ -1,10 +1,95 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+// Astro trouve automatiquement tous vos articles dans le dossier !
+const allPosts = await Astro.glob('./articles/*.md');
 ---
-<Layout title="Articles - Fiduciaire Expert">
-  <main style="padding: 4rem 2rem; text-align: center;">
-    <h1>Nos Articles et Actualités</h1>
-    <p>Retrouvez ici nos analyses sur la fiscalité et la comptabilité au Luxembourg.</p>
-    <p>Le contenu de cette page sera bientôt disponible.</p>
+
+<Layout title="Nos Articles">
+  <main class="page-content">
+    <div class="title-container">
+      <h1>Nos Articles & Actualités</h1>
+    </div>
+
+    <div class="posts-grid">
+      {allPosts.map((post) => (
+        <a href={post.url} class="card">
+          <img src={post.frontmatter.image} alt="" class="card-image"/>
+          <div class="card-content">
+            <span class="category-tag">{post.frontmatter.category}</span>
+            <h2 class="card-title">{post.frontmatter.title}</h2>
+            <div class="author-info">
+              <span class="author-name">{post.frontmatter.author}</span>
+              <span class="date">{post.frontmatter.date}</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
   </main>
 </Layout>
+
+<style>
+  .page-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  .title-container h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 3rem;
+    color: #1a1a1a;
+  }
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+  .card {
+    display: block;
+    background-color: white;
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  }
+  .card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* L'image remplit l'espace sans se déformer */
+  }
+  .card-content {
+    padding: 1.5rem;
+  }
+  .category-tag {
+    display: inline-block;
+    background-color: #f0f0f0;
+    color: #555;
+    padding: 0.25rem 0.75rem;
+    border-radius: 99px; /* Forme de pilule */
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.4;
+  }
+  .author-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 1rem;
+  }
+</style>

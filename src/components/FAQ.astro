@@ -1,0 +1,134 @@
+---
+// src/components/FAQ.astro
+const faqData = [
+  {
+    question: "Quels types de services comptables offrez-vous au Luxembourg ?",
+    answer: "Nous offrons une gamme complète de services pour les sociétés et indépendants au Luxembourg, incluant la tenue de comptabilité, les bilans annuels, les déclarations de TVA, la gestion des salaires, et le conseil fiscal. Vous pouvez découvrir le détail sur notre <a href='/services'>page services</a>.",
+  },
+  {
+    question: "Combien coûtent les services d'un expert-comptable ?",
+    answer: "Nos tarifs sont adaptés à la taille et à la complexité de votre entreprise. Nous privilégions une approche transparente avec des forfaits mensuels ou des devis clairs. La meilleure façon d'obtenir une estimation précise est de nous <a href='/contact'>contacter pour un premier entretien gratuit</a>.",
+  },
+  {
+    question: "Quels sont les délais pour créer une société (SARL, SA) ?",
+    answer: "La création d'une société au Luxembourg, incluant le passage chez le notaire et l'immatriculation, prend généralement entre 2 et 4 semaines. Nous optimisons chaque étape pour accélérer le processus tout en garantissant la conformité.",
+  },
+  {
+    question: "Pourquoi choisir votre fiduciaire plutôt qu'une autre ?",
+    answer: "Nous combinons l'expertise technique d'un grand cabinet avec la réactivité et l'approche personnalisée d'une structure à taille humaine. Votre dossier n'est pas un numéro ; nous construisons une relation de partenariat sur le long terme pour soutenir votre croissance.",
+  },
+];
+---
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqData.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer.replace(/<[^>]*>/g, '') // On retire le HTML pour le script
+    }
+  }))
+})} />
+
+<section class="faq-section">
+  <div class="container">
+    <h2>Questions fréquentes</h2>
+    <div class="faq-list">
+      {faqData.map(item => (
+        <details class="faq-item">
+          <summary class="faq-question">
+            {item.question}
+            <span class="icon">+</span>
+          </summary>
+          <div class="faq-answer" set:html={item.answer} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ... votre CSS reste identique ... */
+  .faq-section {
+    padding: 4rem 2rem;
+    background-color: var(--fond-clair);
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--bleu-profond);
+    margin-bottom: 3rem;
+  }
+  .faq-list {
+    border-top: 1px solid #e0e0e0;
+  }
+  .faq-item {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 1.5rem 0;
+  }
+  .faq-question {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--texte-principal);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+  }
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+  .faq-answer {
+    padding-top: 1rem;
+    color: var(--texte-secondaire);
+    line-height: 1.7;
+  }
+  .faq-answer a {
+    color: var(--bleu-profond);
+    font-weight: 600;
+    text-decoration: none;
+  }
+   .faq-answer a:hover {
+    text-decoration: underline;
+  }
+  .faq-item .icon {
+    font-size: 1.5rem;
+    font-weight: 300;
+    transition: transform 0.2s ease;
+  }
+  .faq-item[open] .icon {
+    transform: rotate(45deg);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // On sélectionne tous les éléments <details> de notre FAQ
+    const accordions = document.querySelectorAll('.faq-item');
+
+    accordions.forEach(accordion => {
+      // L'événement 'toggle' se déclenche quand on ouvre ou ferme l'élément
+      accordion.addEventListener('toggle', () => {
+        // Si l'élément que l'on vient de manipuler est en train de s'ouvrir...
+        if (accordion.open) {
+          // ...alors on parcourt à nouveau TOUS les accordéons
+          accordions.forEach(otherAccordion => {
+            // Et si ce n'est pas celui sur lequel on a cliqué...
+            if (otherAccordion !== accordion) {
+              // ...on le ferme.
+              otherAccordion.open = false;
+            }
+          });
+        }
+      });
+    });
+  });
+</script>
