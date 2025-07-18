@@ -9,13 +9,10 @@ import Layout from '../layouts/Layout.astro';
         <h1>Entrons en contact</h1>
         <p>Utilisez le formulaire ci-dessous ou nos coordonnées directes. Nous vous répondrons dans les plus brefs délais.</p>
       </div>
-
       <div class="contact-grid">
-        
         <div class="form-container">
-          <form name="contact" method="POST" data-netlify="true">
+          <form name="contact" method="POST" data-netlify="true" action="/merci">
             <input type="hidden" name="form-name" value="contact" />
-            
             <div class="form-group-split">
               <div class="form-group">
                 <label for="prenom">Prénom</label>
@@ -26,176 +23,66 @@ import Layout from '../layouts/Layout.astro';
                 <input type="text" id="nom" name="nom" required />
               </div>
             </div>
-            
             <div class="form-group">
               <label for="email">Adresse Email</label>
               <input type="email" id="email" name="email" required />
             </div>
-            
             <div class="form-group">
               <label for="telephone">Téléphone</label>
               <input type="tel" id="telephone" name="telephone" />
             </div>
-
             <div class="form-group">
               <label for="message">Votre message</label>
               <textarea id="message" name="message" rows="5" required></textarea>
             </div>
-
             <button type="submit" class="cta-button">Envoyer le message</button>
           </form>
         </div>
-
         <div class="info-container">
           <h2>Nos Coordonnées</h2>
-          
           <div class="info-block">
             <h3>Adresse Postale</h3>
             <p>123 Avenue de la Liberté<br>L-4321 Esch-sur-Alzette<br>Luxembourg</p>
           </div>
-
           <div class="info-block">
             <h3>Téléphone</h3>
             <p><a href="tel:+352123456789">(+352) 12 34 56 789</a></p>
           </div>
-
           <div class="info-block">
             <h3>Email</h3>
             <p><a href="mailto:contact@fiduciaire-expert.lu">contact@fiduciaire-expert.lu</a></p>
           </div>
-
           <div class="info-block">
             <h3>Horaires d'ouverture</h3>
             <p>Lundi - Vendredi<br>09:00 - 17:00</p>
           </div>
         </div>
-
       </div>
     </div>
   </main>
 </Layout>
 
 <style>
-  .contact-page {
-    padding: 4rem 2rem;
-    background-color: var(--fond-clair);
-  }
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  .page-header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-  .page-header h1 {
-    font-size: 2.5rem;
-    color: var(--bleu-profond);
-    margin-bottom: 0.5rem;
-  }
-  .page-header p {
-    font-size: 1.1rem;
-    color: var(--texte-secondaire);
-  }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr; /* 1 colonne sur mobile */
-    gap: 3rem;
-    background-color: white;
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  }
-  
-  @media (min-width: 992px) {
-    .contact-grid {
-      grid-template-columns: 2fr 1fr; /* 2 colonnes sur grand écran */
-      padding: 3rem;
-    }
-  }
-
-  /* Style du formulaire */
-  .form-group {
-    margin-bottom: 1.5rem;
-  }
-  .form-group-split {
-    display: flex;
-    gap: 1.5rem;
-    flex-direction: column;
-  }
-  @media (min-width: 576px) {
-    .form-group-split {
-      flex-direction: row;
-    }
-    .form-group-split .form-group {
-      flex: 1;
-    }
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: var(--texte-principal);
-  }
-
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  textarea {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-    box-sizing: border-box; /* Important pour que le padding n'agrandisse pas la boîte */
-  }
-  
-  textarea {
-    resize: vertical;
-  }
-  
-  .cta-button {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: var(--bleu-profond);
-    background-color: var(--or-premium);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  .cta-button:hover {
-    background-color: #e1c16e;
-  }
-  
-  /* Style des infos de contact */
-  .info-container h2 {
-    margin-top: 0;
-    color: var(--bleu-profond);
-  }
-  .info-block {
-    margin-bottom: 1.5rem;
-  }
-  .info-block h3 {
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-    color: var(--texte-principal);
-  }
-  .info-block p {
-    margin: 0;
-    line-height: 1.6;
-    color: var(--texte-secondaire);
-  }
-  .info-block a {
-    color: var(--bleu-profond);
-    text-decoration: none;
-    font-weight: 500;
-  }
-  .info-block a:hover {
-    text-decoration: underline;
-  }
+  /* ... Le CSS reste exactement le même ... */
+  .contact-page { padding: 4rem 2rem; background-color: var(--fond-clair); }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .page-header { text-align: center; margin-bottom: 3rem; }
+  .page-header h1 { font-size: 2.5rem; color: var(--bleu-profond); margin-bottom: 0.5rem; }
+  .page-header p { font-size: 1.1rem; color: var(--texte-secondaire); }
+  .contact-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; background-color: white; padding: 2rem; border-radius: 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); }
+  @media (min-width: 992px) { .contact-grid { grid-template-columns: 2fr 1fr; padding: 3rem; } }
+  .form-group { margin-bottom: 1.5rem; }
+  .form-group-split { display: flex; gap: 1.5rem; flex-direction: column; }
+  @media (min-width: 576px) { .form-group-split { flex-direction: row; } .form-group-split .form-group { flex: 1; } }
+  label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--texte-principal); }
+  input[type="text"], input[type="email"], input[type="tel"], textarea { width: 100%; padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
+  textarea { resize: vertical; }
+  .cta-button { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: bold; color: var(--bleu-profond); background-color: var(--or-premium); border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.2s ease; }
+  .cta-button:hover { background-color: #e1c16e; }
+  .info-container h2 { margin-top: 0; color: var(--bleu-profond); }
+  .info-block { margin-bottom: 1.5rem; }
+  .info-block h3 { margin-bottom: 0.5rem; font-size: 1rem; color: var(--texte-principal); }
+  .info-block p { margin: 0; line-height: 1.6; color: var(--texte-secondaire); }
+  .info-block a { color: var(--bleu-profond); text-decoration: none; font-weight: 500; }
+  .info-block a:hover { text-decoration: underline; }
 </style>

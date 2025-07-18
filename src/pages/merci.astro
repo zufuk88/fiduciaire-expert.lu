@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Message Reçu - Fiduciaire Expert">
+  <main class="thank-you-page">
+    <div class="container-narrow">
+      <div class="icon">✅</div>
+      <h1>Merci pour votre message !</h1>
+      <p>Nous l'avons bien reçu et nous reviendrons vers vous dans les plus brefs délais, généralement sous 24 heures ouvrées.</p>
+      <a href="/" class="cta-button">Retour à l'accueil</a>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .thank-you-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    min-height: 50vh;
+  }
+  .container-narrow {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+  }
+  h1 {
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+  }
+  p {
+    font-size: 1.1rem;
+    color: var(--texte-secondaire);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  .cta-button {
+    display: inline-block;
+    background-color: var(--or-premium);
+    color: var(--bleu-profond);
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: transform 0.2s ease;
+  }
+  .cta-button:hover {
+    transform: scale(1.05);
+  }
+</style>
