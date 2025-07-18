@@ -11,8 +11,17 @@ import Layout from '../layouts/Layout.astro';
       </div>
       <div class="contact-grid">
         <div class="form-container">
-          <form name="contact" method="POST" data-netlify="true" action="/merci">
+          {/* AMÉLIORATIONS : Ajout de 'netlify-honeypot' pour anti-spam et 'netlify' pour une meilleure détection */}
+          <form name="contact" method="POST" action="/merci" data-netlify="true" netlify-honeypot="bot-field" netlify>
             <input type="hidden" name="form-name" value="contact" />
+            
+            {/* Champ anti-spam caché pour les utilisateurs humains */}
+            <p class="hidden">
+              <label>
+                Ne pas remplir si vous êtes humain : <input name="bot-field" />
+              </label>
+            </p>
+            
             <div class="form-group-split">
               <div class="form-group">
                 <label for="prenom">Prénom</label>
@@ -63,7 +72,12 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-  /* ... Le CSS reste exactement le même ... */
+  /* On ajoute une règle pour cacher le champ anti-spam */
+  .hidden {
+    display: none;
+  }
+
+  /* Le reste du CSS est identique */
   .contact-page { padding: 4rem 2rem; background-color: var(--fond-clair); }
   .container { max-width: 1100px; margin: 0 auto; }
   .page-header { text-align: center; margin-bottom: 3rem; }
