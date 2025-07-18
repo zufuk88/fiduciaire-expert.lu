@@ -7,13 +7,11 @@ const pageTitle = frontmatter.seoTitle || frontmatter.title;
 
 <Layout title={pageTitle} description={frontmatter.description}>
   <article class="article-wrapper">
-
     {frontmatter.image && (
       <figure class="featured-image-container">
         <img src={frontmatter.image} alt={frontmatter.imageAlt || `Image d'illustration pour l'article ${frontmatter.title}`} class="featured-image"/>
       </figure>
     )}
-
     <header class="article-header">
       <div class="container-narrow">
         {frontmatter.category && <p class="category">{frontmatter.category}</p>}
@@ -25,127 +23,74 @@ const pageTitle = frontmatter.seoTitle || frontmatter.title;
         )}
       </div>
     </header>
-
     <div class="post-body-container">
       <div class="container-narrow post-body">
         <slot />
       </div>
     </div>
-
   </article>
 </Layout>
 
 <style>
-  .container-narrow {
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-  .article-wrapper {
-    padding-bottom: 4rem;
-  }
+  /* ... (tous les styles précédents restent identiques) ... */
+  .container-narrow { max-width: 780px; margin: 0 auto; padding: 0 2rem; }
+  .article-wrapper { padding-bottom: 4rem; }
+  .article-header { padding: 3rem 2rem 4rem 2rem; text-align: center; }
+  .category { color: var(--or-premium); font-weight: 600; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  .article-header h1 { font-size: clamp(2rem, 5vw, 3.2rem); color: var(--bleu-profond); line-height: 1.2; margin-top: 0; margin-bottom: 1.5rem; }
+  .meta { color: var(--texte-secondaire); }
+  .meta .author { font-weight: 600; }
+  .featured-image-container { margin: 0; padding: 0; }
+  .featured-image { width: 100%; max-height: 550px; object-fit: cover; display: block; }
+  .post-body-container { background-color: var(--fond-clair); padding: 4rem 0; }
+  .post-body { font-size: 1.1rem; line-height: 1.8; color: var(--texte-principal); background-color: white; padding: 3rem; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-radius: 12px; margin-top: -8rem; position: relative; }
+  .post-body :global(> :first-child) { margin-top: 0; }
+  .post-body :global(h2), .post-body :global(h3), .post-body :global(h4) { color: var(--bleu-profond); line-height: 1.4; margin: 3rem 0 1.5rem 0; }
+  .post-body :global(ul), .post-body :global(ol) { padding-left: 25px; }
+  .post-body :global(li) { margin-bottom: 0.75rem; }
+  .post-body :global(a) { color: var(--bleu-profond); font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--or-premium); transition: background-color 0.2s ease; }
+  .post-body :global(a:hover) { background-color: #fffbe8; }
+  .post-body :global(strong) { color: var(--texte-principal); font-weight: 700; }
+  .post-body :global(blockquote) { margin: 2rem 0; padding: 1.5rem; background-color: var(--fond-clair); border-left: 4px solid var(--or-premium); border-radius: 4px; font-size: 1.05rem; font-style: italic; }
+  .post-body :global(table) { width: 100%; margin: 2.5rem 0; border-collapse: collapse; font-size: 0.95rem; border: none; box-shadow: none; }
+  .post-body :global(th), .post-body :global(td) { padding: 1rem; text-align: left; border: none; border-bottom: 1px solid #e9ecef; vertical-align: top; }
+  .post-body :global(th) { font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--texte-secondaire); background-color: transparent; }
+  .post-body :global(tbody tr:hover) { background-color: var(--fond-clair); }
+  .post-body :global(tr:last-child td) { border-bottom: none; }
+  .post-body :global(details) { margin: 0.5rem 0; border-bottom: 1px solid #e0e0e0; padding: 0.5rem 0; border-radius: 0; background-color: transparent; }
+  .post-body :global(details:first-of-type) { border-top: 1px solid #e0e0e0; }
+  .post-body :global(summary) { position: relative; padding: 1rem 0; padding-right: 2rem; font-weight: 600; color: var(--bleu-profond); cursor: pointer; list-style: none; }
+  .post-body :global(summary::-webkit-details-marker) { display: none; }
+  .post-body :global(summary::after) { content: '+'; position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%); font-size: 1.5rem; font-weight: 300; color: var(--or-premium); transition: transform 0.2s ease; }
+  .post-body :global(details[open] > summary::after) { transform: translateY(-50%) rotate(45deg); }
+  .post-body :global(details > p) { padding: 0 0 1rem 0; margin: 0; }
+  .post-body :global(img) { max-width: 100%; height: auto; border-radius: 8px; margin: 2rem 0; }
 
-  /* --- Section En-tête --- */
-  .article-header {
-    /* On ajuste le padding pour l'inversion */
-    padding: 3rem 2rem 4rem 2rem;
-    text-align: center;
-  }
-  .category {
-    color: var(--or-premium);
-    font-weight: 600;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .article-header h1 {
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    color: var(--bleu-profond);
-    line-height: 1.2;
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-  }
-  .meta {
-    color: var(--texte-secondaire);
-  }
-  .meta .author {
-    font-weight: 600;
-  }
-  
-  /* --- Section Image --- */
-  .featured-image-container {
-    /* On supprime la marge du bas qui n'est plus utile ici */
-    margin: 0;
-    padding: 0;
-  }
-  .featured-image {
-    width: 100%;
-    max-height: 550px;
-    object-fit: cover;
-    display: block;
-  }
-
-  /* --- Section Contenu --- */
-  .post-body-container {
-    /* On remet le fond clair ici pour un joli contraste */
+  /* --- STYLE AJOUTÉ POUR LE NOUVEAU BOUTON D'ACTION --- */
+  .post-body :global(.article-cta) {
     background-color: var(--fond-clair);
-    padding: 4rem 0;
-  }
-  .post-body {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: var(--texte-principal);
-    /* On ajoute un fond blanc au texte pour le faire ressortir */
-    background-color: white;
-    padding: 3rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     border-radius: 12px;
-    margin-top: -8rem; /* <-- EFFET DE SUPERPOSITION */
-    position: relative; /* Nécessaire pour que le margin-top fonctionne bien */
+    padding: 2.5rem;
+    text-align: center;
+    margin: 4rem 0 2rem 0;
   }
-
-  /* --- Styles pour les éléments générés par Markdown --- */
-  .post-body > :first-child { margin-top: 0; }
-  .post-body h2, .post-body h3, .post-body h4 {
-    color: var(--bleu-profond);
-    line-height: 1.4;
-    margin: 3rem 0 1.5rem 0;
+  .post-body :global(.article-cta h3) {
+    margin-top: 0;
   }
-  .post-body ul, .post-body ol { padding-left: 25px; }
-  .post-body li { margin-bottom: 0.75rem; }
-  .post-body a {
+  .post-body :global(.cta-button) {
+    display: inline-block;
+    background-color: var(--or-premium);
     color: var(--bleu-profond);
-    font-weight: 600;
+    padding: 1rem 2.5rem;
     text-decoration: none;
-    border-bottom: 2px solid var(--or-premium);
-    transition: background-color 0.2s ease;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: transform 0.2s ease;
+    margin-top: 1rem;
   }
-  .post-body a:hover { background-color: #fffbe8; }
-  .post-body strong { color: var(--texte-principal); font-weight: 700; }
-  .post-body blockquote {
-    margin: 2rem 0;
-    padding: 1.5rem;
-    background-color: var(--fond-clair);
-    border-left: 4px solid var(--or-premium);
-    border-radius: 4px;
-    font-size: 1.05rem;
-    font-style: italic;
+  .post-body :global(.cta-button:hover) {
+    transform: scale(1.05);
+    background-color: var(--or-premium); /* On s'assure qu'il ne change pas de couleur */
   }
-  .post-body table {
-    width: 100%;
-    margin: 2rem 0;
-    border-collapse: collapse;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  }
-  .post-body th, .post-body td {
-    padding: 0.75rem 1rem;
-    border: 1px solid #dee2e6;
-    text-align: left;
-  }
-  .post-body th { background-color: var(--fond-clair); font-weight: 600; }
-  .post-body details { margin: 1rem 0; border: 1px solid #e0e0e0; border-radius: 8px; }
-  .post-body summary { padding: 1rem; font-weight: 600; cursor: pointer; }
-  .post-body details[open] summary { border-bottom: 1px solid #e0e0e0; }
-  .post-body details p { padding: 1rem; margin: 0; }
-  .post-body img { max-width: 100%; height: auto; border-radius: 8px; margin: 2rem 0; }
 </style>
