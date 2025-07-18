@@ -1,19 +1,31 @@
 ---
-// Pas de code JavaScript nécessaire pour l'instant
+  // Pas de JavaScript nécessaire
 ---
-<section>
+
+<section aria-labelledby="hero-title">
   <div class="container">
     <div class="hero-grid">
       
+      <!-- Texte principal -->
       <div class="hero-text">
-        <h1>Fiduciaire Expert pour votre comptabilité au Luxembourg</h1>
-        <p>Nous transformons la complexité administrative en tranquillité d'esprit pour que vous puissiez vous concentrer sur votre croissance.</p>
+        <h1 id="hero-title">Votre fiduciaire d'expert-comptable au Luxembourg</h1>
+        <p>
+          Nous transformons la complexité administrative en tranquillité d'esprit.
+          Notre cabinet vous accompagne dans vos obligations fiscales, comptables et sociales.
+        </p>
       </div>
       
+      <!-- Call-to-action -->
       <div class="hero-cta">
-        <h2>Vous avez une question ?</h2>
-        <p>Parlons de votre projet.</p>
-        <a href="/contact" class="cta-button">Contactez-nous</a>
+        <h2>Besoin d’un expert fiable et disponible&nbsp;?</h2>
+        <p>Discutons de vos besoins et de votre projet.</p>
+        <a
+          href="/contact"
+          class="cta-button"
+          aria-label="Accéder au formulaire de contact de la fiduciaire"
+        >
+          Contactez-nous
+        </a>
       </div>
 
     </div>
@@ -29,7 +41,6 @@
     background-position: center;
     min-height: 85vh;
     padding: 4rem 2rem;
-    
     display: flex;
     align-items: center;
   }
@@ -45,7 +56,7 @@
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   @media (min-width: 768px) {
     .hero-grid {
       grid-template-columns: 1.5fr 1fr;
@@ -81,10 +92,9 @@
     text-align: center;
     color: white;
     backdrop-filter: blur(10px);
-    
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  
+
   .hero-cta:hover {
     transform: translateY(-10px) scale(1.03);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
@@ -98,10 +108,8 @@
 
   .cta-button {
     display: inline-block;
-    /* On utilise nos variables de couleur */
     background-color: var(--or-premium);
     color: var(--bleu-profond);
-    
     padding: 1rem 2.5rem;
     text-decoration: none;
     border-radius: 8px;

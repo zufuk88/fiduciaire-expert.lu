@@ -4,9 +4,14 @@ import ServicesHighlight from '../components/ServicesHighlight.astro';
 import AboutAndCTA from '../components/AboutAndCTA.astro';
 import FAQ from '../components/FAQ.astro';
 import Layout from '../layouts/Layout.astro';
+
+const title = "Fiduciaire Expert | Votre cabinet comptable au Luxembourg";
+const description = "Expert-comptable au Luxembourg pour indépendants, PME et sociétés. Comptabilité, fiscalité et accompagnement personnalisé. Premier rendez-vous gratuit.";
+const canonical = "https://www.fiduciaire-expert.lu/";
+const ogImage = "/images/fiduciaire-cover.jpg"; // change si tu as une image OG spécifique
 ---
 
-<Layout title="Fiduciaire Expert | Votre cabinet comptable au Luxembourg.">
+<Layout {title} {description} {canonical} {ogImage}>
   <main>
     <Hero />
     <ServicesHighlight />

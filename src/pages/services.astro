@@ -42,11 +42,70 @@ const allServices = [
     title: "Domiciliation",
     description: "Nous offrons un service de domiciliation pour votre société, vous fournissant une adresse de siège social prestigieuse au Luxembourg, conformément aux exigences de la loi sur la domiciliation.",
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" /></svg>`
-  },
+  }
 ];
 ---
 
-<Layout title="Nos Services d'Expertise Comptable au Luxembourg | Fiduciaire Expert">
+<head>
+  <!-- Meta et SEO -->
+  <meta name="description" content="Fiduciaire Expert vous accompagne au Luxembourg : comptabilité, fiscalité, paie, domiciliation et conseil pour PME et entrepreneurs. premier entretien offert." />
+  <link rel="canonical" href="https://votresite.lu/services" />
+
+  <!-- Open Graph / Twitter Cards -->
+  <meta property="og:title" content="Nos Services d'Expertise Comptable au Luxembourg | Fiduciaire Expert" />
+  <meta property="og:description" content="Découvrez nos services : comptabilité, fiscalité, paie, domiciliation et conseil pour entrepreneurs et PME au Luxembourg." />
+  <meta property="og:image" content="https://votresite.lu/og-image-services.jpg" />
+  <meta property="og:url" content="https://votresite.lu/services" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Données structurées JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Fiduciaire Expert",
+    "url": "https://votresite.lu/services",
+    "logo": "https://votresite.lu/logo.png",
+    "image": "https://votresite.lu/og-image-services.jpg",
+    "description": "Fiduciaire Expert propose comptabilité, fiscalité, paie, domiciliation et conseil au Luxembourg.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1 Rue de l’Expert",
+      "addressLocality": "Luxembourg",
+      "postalCode": "L-1234",
+      "addressCountry": "LU"
+    },
+    "telephone": "+352 1234 5678",
+    "areaServed": "LU",
+    "serviceType": [
+      "Comptabilité générale",
+      "Secrétariat juridique",
+      "Création de société",
+      "Déclarations fiscales",
+      "Conseil fiscal et social",
+      "Due diligence",
+      "Paie",
+      "Domiciliation"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Nos services",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Comptabilité et Préparation de Bilan" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Secrétariat Juridique" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Création et Liquidation de Société" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Déclarations Fiscales et TVA" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Conseil Fiscal et Social" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Due Diligence & Business Plan" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Fiches de Salaires (Gestion de la Paie)" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Domiciliation" } }
+      ]
+    }
+  }
+  </script>
+</head>
+
+<Layout title="Nos Services d'Expertise Comptable au Luxembourg | Fiduciaire Expert" description="Fiduciaire Expert vous accompagne au Luxembourg : comptabilité, fiscalité, paie, domiciliation et conseil pour PME et entrepreneurs.">
   <main class="services-page">
 
     <section class="page-header">
@@ -56,12 +115,13 @@ const allServices = [
       </div>
     </section>
 
-    <section class="services-grid-section">
+    <section class="services-grid-section" aria-labelledby="services-title">
+      <h2 id="services-title" class="visually-hidden">Nos 8 services</h2>
       <div class="container">
         <div class="services-grid">
           {allServices.map(service => (
             <div class="service-card">
-              <div class="icon" set:html={service.icon} />
+              <div class="icon" role="img" aria-label={service.title} set:html={service.icon} />
               <h2>{service.title}</h2>
               <p>{service.description}</p>
             </div>
@@ -82,6 +142,18 @@ const allServices = [
 </Layout>
 
 <style>
+  /* Utility pour le caché visuel */
+  .visually-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
   /* Styles Généraux */
   .container, .container-narrow { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
   .container-narrow { max-width: 800px; }
@@ -99,7 +171,6 @@ const allServices = [
   }
   .services-grid { 
     display: grid;
-    /* La grille peut maintenant avoir 3 colonnes sur de très grands écrans */
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
   }
@@ -110,7 +181,7 @@ const allServices = [
     box-shadow: 0 8px 30px rgba(0,0,0,0.05); 
     display: flex;
     flex-direction: column;
-    text-align: left; /* On aligne le texte à gauche pour une meilleure lisibilité */
+    text-align: left;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   .service-card:hover {
@@ -120,7 +191,6 @@ const allServices = [
   .service-card .icon { 
     color: var(--or-premium); 
     margin-bottom: 1.5rem; 
-    /* On s'assure que l'icône reste à gauche */
     align-self: flex-start;
   }
   .service-card .icon svg { width: 44px; height: 44px; stroke-width: 1.5; }
@@ -134,7 +204,7 @@ const allServices = [
     color: var(--texte-secondaire); 
     line-height: 1.6; 
     font-size: 0.95rem; 
-    flex-grow: 1; /* Permet aux cartes de même hauteur de s'aligner */
+    flex-grow: 1;
   }
 
   /* Section Appel à l'Action (CTA) */
