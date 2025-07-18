@@ -6,13 +6,19 @@
     <img src="/images/Logo.png" alt="Logo de Fiduciaire Expert" />
   </a>
 
-  <nav>
+  <nav id="main-nav">
     <a href="/">Accueil</a>
     <a href="/services">Services</a>
     <a href="/articles">Articles</a>
     <a href="/a-propos">À Propos</a>
     <a href="/contact">Contact</a>
   </nav>
+
+  <button id="burger-menu" type="button" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </header>
 
 <style>
@@ -20,38 +26,141 @@
     position: sticky;
     top: 0;
     width: 100%;
-    z-index: 10;
+    z-index: 1000; /* On augmente le z-index pour qu'il soit au-dessus du menu mobile */
     display: flex;
     align-items: center;
-    gap: 2rem;
+    justify-content: space-between; /* On remet space-between pour séparer logo et menu/burger */
     padding: 1rem 2rem;
     background-color: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
 
-  .logo-link {
-    display: flex;
-    align-items: center;
-  }
-  
   .logo-link img {
-    /* MODIFICATION ICI : On augmente la hauteur du logo */
     height: 55px;
     width: auto;
+    display: block;
   }
 
-  nav a {
-    margin-right: 1.5rem;
-    color: var(--texte-principal);
-    text-decoration: none;
-    transition: color 0.2s ease;
+  /* --- Styles pour Mobile (par défaut) --- */
+  
+  /* On cache la navigation classique */
+  nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bleu-profond);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  /* Quand le menu est ouvert (grâce au JS) */
+  nav.is-open {
+    display: flex;
   }
   
-  nav a:last-child {
-    margin-right: 0;
+  nav a {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-decoration: none;
   }
 
-  nav a:hover {
-    color: var(--or-premium);
+  /* Style du bouton burger */
+  #burger-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1010; /* Pour être au-dessus du menu overlay */
+  }
+  #burger-menu span {
+    width: 2rem;
+    height: 0.25rem;
+    background: var(--bleu-profond);
+    border-radius: 10px;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: 1px;
+  }
+
+  /* Animation du burger en croix */
+  #burger-menu.is-open span {
+    background: white;
+  }
+  #burger-menu.is-open span:nth-child(1) {
+    transform: rotate(45deg);
+  }
+  #burger-menu.is-open span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  #burger-menu.is-open span:nth-child(3) {
+    transform: rotate(-45deg);
+  }
+
+  /* --- Styles pour Tablette et Ordinateur --- */
+  @media (min-width: 768px) {
+    /* On cache le bouton burger */
+    #burger-menu {
+      display: none;
+    }
+    
+    /* On ré-affiche la navigation normale */
+    nav {
+      display: flex;
+      position: static;
+      width: auto;
+      height: auto;
+      background-color: transparent;
+      flex-direction: row;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--texte-principal);
+      font-size: 1rem;
+      padding: 0.25rem 0;
+      font-weight: normal;
+    }
+
+    nav a:hover {
+      color: var(--or-premium);
+    }
+
+    /* On rétablit le layout du header pour bureau */
+    header {
+      justify-content: flex-start; /* Aligne les éléments à gauche */
+      gap: 2rem;
+    }
   }
 </style>
+
+<script>
+  // On sélectionne le bouton et le menu
+  const burgerButton = document.getElementById('burger-menu');
+  const mainNav = document.getElementById('main-nav');
+
+  // On écoute le clic sur le bouton
+  burgerButton.addEventListener('click', () => {
+    // On ajoute/supprime la classe 'is-open' sur le bouton et le menu
+    burgerButton.classList.toggle('is-open');
+    mainNav.classList.toggle('is-open');
+
+    // Bonus : On empêche le scroll de la page quand le menu est ouvert
+    if (mainNav.classList.contains('is-open')) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  });
+</script>
