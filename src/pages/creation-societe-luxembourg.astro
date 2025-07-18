@@ -1,0 +1,1142 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Types de sociétés avec leurs spécificités
+const societyTypes = [
+  {
+    type: "SARL-S (Société à Responsabilité Limitée Simplifiée)",
+    capital: "1€ minimum",
+    notaire: false,
+    description: "Forme simplifiée sans passage obligatoire chez le notaire. Idéale pour les petites structures et les startups.",
+    avantages: ["Création rapide (3-5 jours)", "Coût réduit", "Formalités simplifiées", "Pas de notaire obligatoire"],
+    inconvenients: ["Capital limité", "Moins de prestige", "Restrictions sur certaines activités"],
+    delai: "3-5 jours",
+    cout: "À partir de 1.200€"
+  },
+  {
+    type: "SARL (Société à Responsabilité Limitée)",
+    capital: "12.500€ minimum",
+    notaire: true,
+    description: "Forme classique nécessitant un passage chez le notaire. Structure adaptée aux PME.",
+    avantages: ["Crédibilité renforcée", "Capital substantiel", "Flexibilité de gestion", "Protection des associés"],
+    inconvenients: ["Coût plus élevé", "Formalités notariales", "Délais plus longs"],
+    delai: "7-10 jours",
+    cout: "À partir de 2.500€"
+  },
+  {
+    type: "SA (Société Anonyme)",
+    capital: "31.000€ minimum",
+    notaire: true,
+    description: "Société de capitaux avec passage obligatoire chez le notaire. Adaptée aux projets d'envergure.",
+    avantages: ["Prestige maximum", "Accès aux investisseurs", "Transmission facilitée", "Croissance illimitée"],
+    inconvenients: ["Capital élevé", "Formalités lourdes", "Coûts importants", "Governance complexe"],
+    delai: "10-15 jours",
+    cout: "À partir de 4.000€"
+  },
+  {
+    type: "SCI (Société Civile Immobilière)",
+    capital: "Variable",
+    notaire: false,
+    description: "Société civile sans passage obligatoire chez le notaire. Spécialisée dans l'immobilier.",
+    avantages: ["Gestion immobilière optimisée", "Transmission facilitée", "Fiscalité avantageuse", "Pas de notaire"],
+    inconvenients: ["Activité limitée à l'immobilier", "Responsabilité indéfinie", "Moins de protection"],
+    delai: "5-7 jours",
+    cout: "À partir de 1.500€"
+  }
+];
+
+// Documents juridiques du cycle de vie
+const legalDocuments = [
+  {
+    category: "Constitution & Gouvernance",
+    documents: [
+      "Statuts constitutifs",
+      "Procès-verbaux d'assemblées générales (PV AG)",
+      "Résolutions écrites des associés",
+      "Registre des décisions",
+      "Pacte d'actionnaires/associés"
+    ]
+  },
+  {
+    category: "Modifications Statutaires",
+    documents: [
+      "Augmentation de capital social",
+      "Réduction de capital social",
+      "Modification d'objet social",
+      "Changement de dénomination",
+      "Transfert de siège social"
+    ]
+  },
+  {
+    category: "Opérations Contractuelles",
+    documents: [
+      "Contrats commerciaux stratégiques",
+      "Accords de partenariat",
+      "Contrats de prestation intra-groupe",
+      "Conventions de compte courant",
+      "Accords de licence et propriété intellectuelle"
+    ]
+  },
+  {
+    category: "Restructurations & Transmissions",
+    documents: [
+      "Cessions de parts sociales/actions",
+      "Fusion-absorption",
+      "Scission de société",
+      "Apport partiel d'actif",
+      "Liquidation amiable ou judiciaire"
+    ]
+  },
+  {
+    category: "Compliance Fiscale",
+    documents: [
+      "Analyse des prix de transfert",
+      "Documentation prix de pleine concurrence",
+      "Justification des comptes courants d'associés",
+      "Études de valorisation d'entreprise",
+      "Rapport de documentation transfer pricing"
+    ]
+  }
+];
+
+// Données structurées
+const constitutionSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Constitution Société Luxembourg - Création SARL, SA, SCI",
+  "description": "Création de société au Luxembourg : SARL-S sans notaire, SARL, SA, SCI. Accompagnement juridique complet du cycle de vie de votre entreprise.",
+  "provider": {
+    "@type": "Organization",
+    "name": "Fiduciaire Expert Luxembourg"
+  },
+  "areaServed": "Luxembourg",
+  "serviceType": "Constitution société Luxembourg"
+};
+
+const metaDescription = "Constitution société Luxembourg : SARL-S sans notaire, SARL, SA, SCI. Expert juridique pour création, vie sociale, fusion, cession. Accompagnement complet cycle de vie.";
+---
+
+<Layout 
+  title="Constitution Société Luxembourg | Création SARL, SA, SCI - Expert Juridique"
+  description={metaDescription}
+>
+  <main class="constitution-page" itemscope itemtype="https://schema.org/Service">
+
+    <!-- Breadcrumb SEO -->
+    <nav class="breadcrumb" aria-label="Fil d'ariane">
+      <div class="container">
+        <ol class="breadcrumb-list">
+          <li><a href="/">Accueil</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><span aria-current="page">Constitution Société Luxembourg</span></li>
+        </ol>
+      </div>
+    </nav>
+
+    <!-- Header section -->
+    <section class="page-header">
+      <div class="container">
+        <h1 itemprop="name">
+          Constitution Société Luxembourg : 
+          <span class="highlight">Expert Juridique & Création d'Entreprise</span>
+        </h1>
+        <p class="page-subtitle" itemprop="description">
+          Création de <strong>SARL, SA, SCI et SARL-S</strong> au Luxembourg avec accompagnement juridique complet. 
+          De la constitution à la gestion du cycle de vie : fusion, cession, prix de transfert. 
+          <em>Expertise notariale et formalités RCSL incluses</em>.
+        </p>
+        
+        <div class="header-stats">
+          <div class="stat-item">
+            <span class="stat-number">+200</span>
+            <span class="stat-label">Sociétés créées</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">5-15</span>
+            <span class="stat-label">Jours de délai</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Conformité RCSL</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comparatif formes juridiques -->
+    <section class="society-types-section">
+      <div class="container">
+        <h2>Choisir la Forme Juridique Adaptée au Luxembourg</h2>
+        <p class="section-intro">
+          <strong>Notaire obligatoire ou non ?</strong> Capital minimum ? Délais ? 
+          Découvrez les spécificités de chaque forme de société luxembourgeoise.
+        </p>
+        
+        <div class="society-grid">
+          {societyTypes.map(society => (
+            <div class="society-card" class:list={[{'no-notaire': !society.notaire}]}>
+              <div class="society-header">
+                <h3>{society.type}</h3>
+                {!society.notaire && (
+                  <span class="no-notaire-badge">Sans notaire</span>
+                )}
+                <div class="society-specs">
+                  <div class="spec-item">
+                    <span class="spec-label">Capital :</span>
+                    <span class="spec-value">{society.capital}</span>
+                  </div>
+                  <div class="spec-item">
+                    <span class="spec-label">Délai :</span>
+                    <span class="spec-value">{society.delai}</span>
+                  </div>
+                  <div class="spec-item">
+                    <span class="spec-label">À partir de :</span>
+                    <span class="spec-value price">{society.cout}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="society-content">
+                <p class="society-description">{society.description}</p>
+                
+                <div class="advantages-section">
+                  <h4>✅ Avantages</h4>
+                  <ul class="advantages-list">
+                    {society.avantages.map(avantage => (
+                      <li>{avantage}</li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div class="disadvantages-section">
+                  <h4>⚠️ Points d'attention</h4>
+                  <ul class="disadvantages-list">
+                    {society.inconvenients.map(inconvenient => (
+                      <li>{inconvenient}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="society-cta">
+                <a href={`/contact?service=creation-${society.type.toLowerCase().replace(/[^a-z]/g, '-')}`} 
+                   class="society-btn">
+                  Créer cette société
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Processus de création -->
+    <section class="creation-process">
+      <div class="container">
+        <h2>Notre Processus de Création Société Luxembourg</h2>
+        
+        <div class="process-timeline">
+          <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>Audit & Conseil Stratégique</h3>
+              <p><strong>Analyse de votre projet</strong> et recommandation de la forme juridique optimale. 
+                 Étude des implications fiscales et sociales au Luxembourg.</p>
+              <ul class="step-details">
+                <li>Analyse du projet d'entreprise</li>
+                <li>Conseil sur la forme juridique</li>
+                <li>Optimisation fiscale IRC/TVA</li>
+                <li>Stratégie de financement</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>Rédaction des Statuts</h3>
+              <p><strong>Rédaction personnalisée des statuts</strong> adaptés à votre activité. 
+                 Coordination avec le notaire pour les formes l'exigeant (SARL, SA).</p>
+              <ul class="step-details">
+                <li>Statuts sur-mesure</li>
+                <li>Clauses de protection</li>
+                <li>Gouvernance optimisée</li>
+                <li>Rendez-vous notarial (si requis)</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>Formalités RCSL & Immatriculation</h3>
+              <p><strong>Dépôt au Registre de Commerce</strong> et accomplissement de toutes les 
+                 formalités légales luxembourgeoises.</p>
+              <ul class="step-details">
+                <li>Immatriculation RCSL</li>
+                <li>Publication au Mémorial</li>
+                <li>Numéro TVA luxembourgeois</li>
+                <li>Inscriptions obligatoires</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3>Mise en Conformité & Suivi</h3>
+              <p><strong>Accompagnement post-création</strong> pour la mise en place de la 
+                 gouvernance et le respect des obligations légales.</p>
+              <ul class="step-details">
+                <li>Première assemblée générale</li>
+                <li>Ouverture compte bancaire</li>
+                <li>Déclarations fiscales initiales</li>
+                <li>Formation à la gouvernance</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cycle de vie juridique -->
+    <section class="legal-lifecycle">
+      <div class="container">
+        <h2>Accompagnement Juridique : Cycle de Vie Complet</h2>
+        <p class="section-intro">
+          <strong>La vie d'une société génère de nombreux actes juridiques.</strong> 
+          Nous vous accompagnons à chaque étape avec une expertise approfondie du droit luxembourgeois.
+        </p>
+        
+        <div class="lifecycle-grid">
+          {legalDocuments.map(category => (
+            <div class="lifecycle-card">
+              <h3>{category.category}</h3>
+              <ul class="documents-list">
+                {category.documents.map(document => (
+                  <li>
+                    <span class="doc-icon">📄</span>
+                    <span class="doc-name">{document}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Expertise prix de transfert -->
+    <section class="transfer-pricing">
+      <div class="container">
+        <h2>Expertise Prix de Transfert & Pleine Concurrence</h2>
+        
+        <div class="transfer-content">
+          <div class="transfer-text">
+            <h3>Analyse des Prix de Transfert Luxembourg</h3>
+            <p>
+              Les <strong>prix de transfert</strong> constituent un enjeu fiscal majeur pour les sociétés 
+              luxembourgeoises en relation avec des entités liées. Nous réalisons les <strong>analyses 
+              de pleine concurrence</strong> exigées par l'administration fiscale.
+            </p>
+            
+            <div class="transfer-services">
+              <h4>Nos Services Transfer Pricing</h4>
+              <div class="services-grid">
+                <div class="service-item">
+                  <h5>📊 Études de Benchmark</h5>
+                  <p>Analyse comparative des prix pratiqués sur le marché pour des transactions similaires</p>
+                </div>
+                <div class="service-item">
+                  <h5>💰 Comptes Courants d'Associés</h5>
+                  <p>Justification des conditions de <strong>pleine concurrence</strong> pour les avances et prêts</p>
+                </div>
+                <div class="service-item">
+                  <h5>📑 Documentation Obligatoire</h5>
+                  <p>Préparation des dossiers de documentation transfer pricing conformes</p>
+                </div>
+                <div class="service-item">
+                  <h5>🔍 Audits & Contrôles</h5>
+                  <p>Assistance lors des contrôles fiscaux sur les prix de transfert</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="transfer-highlight">
+            <h4>🚨 Obligations Légales Luxembourg</h4>
+            <ul class="obligations-list">
+              <li><strong>Documentation obligatoire</strong> pour transactions > 250.000€</li>
+              <li><strong>Principe de pleine concurrence</strong> pour toutes relations liées</li>
+              <li><strong>Justification des taux d'intérêt</strong> sur comptes courants</li>
+              <li><strong>Valorisation des services intra-groupe</strong></li>
+              <li><strong>Sanctions fiscales</strong> en cas de non-conformité</li>
+            </ul>
+            
+            <div class="transfer-cta">
+              <h5>Besoin d'une Analyse ?</h5>
+              <p>Nos experts analysent vos prix de transfert et sécurisent votre conformité fiscale.</p>
+              <a href="/contact?service=transfer-pricing" class="transfer-btn">
+                Demander une analyse
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Constitution -->
+    <section class="constitution-faq">
+      <div class="container">
+        <h2>Questions Fréquentes - Constitution Société Luxembourg</h2>
+        
+        <div class="faq-grid">
+          <details class="faq-item">
+            <summary>Quelle différence entre SARL et SARL-S au Luxembourg ?</summary>
+            <div class="faq-answer">
+              <p>La <strong>SARL-S (Simplifiée)</strong> ne nécessite <strong>pas de passage chez le notaire</strong> 
+                 et peut être créée avec un capital de 1€ seulement. La SARL classique exige un notaire, 
+                 un capital de 12.500€ minimum, mais offre plus de crédibilité.</p>
+            </div>
+          </details>
+          
+          <details class="faq-item">
+            <summary>Pourquoi la SCI ne nécessite-t-elle pas de notaire ?</summary>
+            <div class="faq-answer">
+              <p>La <strong>SCI (Société Civile Immobilière)</strong> est une société civile, non commerciale. 
+                 Elle n'est donc <strong>pas soumise à l'obligation notariale</strong> contrairement aux 
+                 sociétés commerciales (SARL, SA). Seuls les statuts suffisent.</p>
+            </div>
+          </details>
+          
+          <details class="faq-item">
+            <summary>Qu'est-ce que l'analyse des prix de pleine concurrence ?</summary>
+            <div class="faq-answer">
+              <p>L'<strong>analyse de pleine concurrence</strong> consiste à vérifier que les prix pratiqués 
+                 entre sociétés liées correspondent à ceux qui seraient pratiqués entre entreprises 
+                 indépendantes. Obligatoire au Luxembourg pour éviter les redressements fiscaux.</p>
+            </div>
+          </details>
+          
+          <details class="faq-item">
+            <summary>Quels documents juridiques faut-il prévoir après la création ?</summary>
+            <div class="faq-answer">
+              <p>Après la création, votre société devra produire : <strong>PV d'assemblées générales</strong>, 
+                 résolutions, contrats commerciaux, et selon l'évolution : augmentations de capital, 
+                 cessions de parts, fusions, analyses prix de transfert...</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="final-constitution-cta">
+      <div class="container">
+        <h2>Prêt à Créer Votre Société au Luxembourg ?</h2>
+        <p>
+          <strong>+200 sociétés créées</strong> avec succès. Expertise juridique complète du cycle de vie. 
+          <strong>Consultation gratuite</strong> pour choisir la forme juridique optimale.
+        </p>
+        
+        <div class="cta-options">
+          <a href="/contact?service=creation-societe" class="cta-btn primary">
+            Créer ma société
+          </a>
+          <a href="tel:+352123456789" class="cta-btn secondary">
+            📞 Conseil immédiat
+          </a>
+        </div>
+        
+        <div class="cta-guarantees">
+          <span class="guarantee">✅ Conseil juridique expert</span>
+          <span class="guarantee">✅ Formalités RCSL incluses</span>
+          <span class="guarantee">✅ Accompagnement post-création</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Données structurées -->
+  <script type="application/ld+json" set:html={JSON.stringify(constitutionSchema, null, 2)} />
+</Layout>
+
+<style>
+  /* Breadcrumb */
+  .breadcrumb {
+    background: rgba(248, 249, 250, 0.8);
+    padding: 1rem 0;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .breadcrumb-list {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.9rem;
+  }
+  
+  .breadcrumb-list li:not(:last-child)::after {
+    content: "›";
+    margin-left: 0.5rem;
+    color: var(--texte-secondaire);
+  }
+  
+  .breadcrumb-list a {
+    color: var(--bleu-profond);
+    text-decoration: none;
+  }
+
+  /* Container */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Header */
+  .page-header {
+    padding: 4rem 0 3rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, white 100%);
+    text-align: center;
+  }
+  
+  .page-header h1 {
+    font-size: 3rem;
+    color: var(--bleu-profond);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  
+  .highlight {
+    color: var(--or-premium);
+  }
+  
+  .page-subtitle {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: var(--texte-secondaire);
+    margin-bottom: 3rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .header-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+  
+  .stat-item {
+    text-align: center;
+  }
+  
+  .stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--or-premium);
+    margin-bottom: 0.5rem;
+  }
+  
+  .stat-label {
+    color: var(--texte-secondaire);
+    font-weight: 600;
+  }
+
+  /* Society types section */
+  .society-types-section {
+    padding: 5rem 0;
+    background: var(--fond-clair);
+  }
+  
+  .society-types-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+  }
+  
+  .section-intro {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--texte-secondaire);
+    margin-bottom: 4rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .society-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+  
+  .society-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+  
+  .society-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .society-card.no-notaire {
+    border: 2px solid var(--or-premium);
+  }
+  
+  .society-card.no-notaire::before {
+    content: '⭐ SANS NOTAIRE';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--or-premium);
+    color: var(--bleu-profond);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 10;
+  }
+  
+  .society-header {
+    padding: 2rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .society-header h3 {
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+  
+  .society-specs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .spec-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .spec-label {
+    color: var(--texte-secondaire);
+    font-size: 0.9rem;
+  }
+  
+  .spec-value {
+    font-weight: 600;
+    color: var(--bleu-profond);
+  }
+  
+  .spec-value.price {
+    color: var(--or-premium);
+    font-size: 1.1rem;
+  }
+  
+  .society-content {
+    padding: 2rem;
+  }
+  
+  .society-description {
+    margin-bottom: 2rem;
+    color: var(--texte-secondaire);
+    line-height: 1.6;
+  }
+  
+  .advantages-section,
+  .disadvantages-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  .advantages-section h4,
+  .disadvantages-section h4 {
+    margin-bottom: 0.8rem;
+    color: var(--bleu-profond);
+    font-size: 1rem;
+  }
+  
+  .advantages-list,
+  .disadvantages-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .advantages-list li,
+  .disadvantages-list li {
+    padding: 0.3rem 0;
+    color: var(--texte-secondaire);
+    font-size: 0.9rem;
+    position: relative;
+    padding-left: 1.5rem;
+  }
+  
+  .advantages-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #28a745;
+    font-weight: bold;
+  }
+  
+  .disadvantages-list li::before {
+    content: "⚠";
+    position: absolute;
+    left: 0;
+    color: #ffc107;
+  }
+  
+  .society-cta {
+    padding: 1.5rem 2rem;
+    background: var(--fond-clair);
+    text-align: center;
+  }
+  
+  .society-btn {
+    display: inline-block;
+    background: var(--or-premium);
+    color: var(--bleu-profond);
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .society-btn:hover {
+    background: #ffdd77;
+    transform: translateY(-2px);
+  }
+
+  /* Creation process */
+  .creation-process {
+    padding: 5rem 0;
+    background: white;
+  }
+  
+  .creation-process h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 4rem;
+  }
+  
+  .process-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+  
+  .process-step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  
+  .step-number {
+    width: 60px;
+    height: 60px;
+    background: var(--or-premium);
+    color: var(--bleu-profond);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  
+  .step-content h3 {
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  .step-content p {
+    color: var(--texte-secondaire);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  
+  .step-details {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
+  }
+  
+  .step-details li {
+    color: var(--texte-secondaire);
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .step-details li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--or-premium);
+    font-weight: bold;
+  }
+
+  /* Legal lifecycle */
+  .legal-lifecycle {
+    padding: 5rem 0;
+    background: var(--fond-clair);
+  }
+  
+  .legal-lifecycle h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+  }
+  
+  .lifecycle-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  
+  .lifecycle-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+  
+  .lifecycle-card h3 {
+    color: var(--bleu-profond);
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    border-bottom: 2px solid var(--or-premium);
+    padding-bottom: 0.5rem;
+  }
+  
+  .documents-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .documents-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  
+  .doc-icon {
+    font-size: 1.2rem;
+  }
+  
+  .doc-name {
+    color: var(--texte-secondaire);
+    font-size: 0.95rem;
+  }
+
+  /* Transfer pricing */
+  .transfer-pricing {
+    padding: 5rem 0;
+    background: white;
+  }
+  
+  .transfer-pricing h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 3rem;
+  }
+  
+  .transfer-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  @media (min-width: 992px) {
+    .transfer-content {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+  
+  .transfer-text h3 {
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+  }
+  
+  .transfer-text p {
+    color: var(--texte-secondaire);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  
+  .transfer-services h4 {
+    color: var(--bleu-profond);
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+  }
+  
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .service-item {
+    background: var(--fond-clair);
+    padding: 1.5rem;
+    border-radius: 8px;
+  }
+  
+  .service-item h5 {
+    color: var(--bleu-profond);
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+  
+  .service-item p {
+    color: var(--texte-secondaire);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+  
+  .transfer-highlight {
+    background: var(--fond-clair);
+    padding: 2rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--or-premium);
+  }
+  
+  .transfer-highlight h4 {
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+  }
+  
+  .obligations-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+  }
+  
+  .obligations-list li {
+    padding: 0.5rem 0;
+    color: var(--texte-secondaire);
+    position: relative;
+    padding-left: 1.5rem;
+  }
+  
+  .obligations-list li::before {
+    content: "📋";
+    position: absolute;
+    left: 0;
+    font-size: 0.9rem;
+  }
+  
+  .transfer-cta {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .transfer-cta h5 {
+    color: var(--bleu-profond);
+    margin-bottom: 0.5rem;
+  }
+  
+  .transfer-cta p {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .transfer-btn {
+    display: inline-block;
+    background: var(--or-premium);
+    color: var(--bleu-profond);
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .transfer-btn:hover {
+    background: #ffdd77;
+  }
+
+  /* FAQ */
+  .constitution-faq {
+    padding: 5rem 0;
+    background: var(--fond-clair);
+  }
+  
+  .constitution-faq h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 3rem;
+  }
+  
+  .faq-grid {
+    display: grid;
+    gap: 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .faq-item {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+  }
+  
+  .faq-item summary {
+    padding: 1.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--bleu-profond);
+    list-style: none;
+  }
+  
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  .faq-answer {
+    padding: 0 1.5rem 1.5rem;
+    color: var(--texte-secondaire);
+    line-height: 1.7;
+  }
+
+  /* Final CTA */
+  .final-constitution-cta {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, var(--bleu-profond) 0%, #1a3a5f 100%);
+    color: white;
+    text-align: center;
+  }
+  
+  .final-constitution-cta h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: white;
+  }
+  
+  .final-constitution-cta p {
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+  }
+  
+  .cta-options {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .cta-btn {
+    padding: 1.2rem 2.5rem;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+  }
+  
+  .cta-btn.primary {
+    background: var(--or-premium);
+    color: var(--bleu-profond);
+  }
+  
+  .cta-btn.primary:hover {
+    background: #ffdd77;
+    transform: translateY(-2px);
+  }
+  
+  .cta-btn.secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+  
+  .cta-btn.secondary:hover {
+    background: white;
+    color: var(--bleu-profond);
+  }
+  
+  .cta-guarantees {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .guarantee {
+    color: var(--or-premium);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2.2rem;
+    }
+    
+    .header-stats {
+      gap: 1.5rem;
+    }
+    
+    .society-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .process-step {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    
+    .transfer-content {
+      grid-template-columns: 1fr;
+    }
+    
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .cta-options {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .cta-guarantees {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>

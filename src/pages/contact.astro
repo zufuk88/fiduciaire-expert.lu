@@ -1,102 +1,655 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const contactSchema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Contact Expert-Comptable Luxembourg",
+  "description": "Contactez Fiduciaire Expert Luxembourg. Consultation gratuite, devis sous 24h.",
+  "url": "https://www.fiduciaire-expert.lu/contact"
+};
+
+const metaDescription = "Contactez Fiduciaire Expert Luxembourg : consultation gratuite, devis sous 24h. Expert-comptable agréé pour PME luxembourgeoises.";
 ---
 
-<Layout title="Contactez-nous - Fiduciaire Expert">
+<Layout 
+  title="Contact Expert-Comptable Luxembourg | Fiduciaire Expert"
+  description={metaDescription}
+>
   <main class="contact-page">
-    <div class="container">
-      <div class="page-header">
-        <h1>Entrons en contact</h1>
-        <p>Utilisez le formulaire ci-dessous ou nos coordonnées directes. Nous vous répondrons dans les plus brefs délais.</p>
+
+    <!-- Header épuré -->
+    <section class="page-header">
+      <div class="container">
+        <h1>Contactez-nous</h1>
+        <p class="subtitle">
+          Consultation gratuite • Devis sous 24h • Expert-comptable agréé Luxembourg
+        </p>
       </div>
-      <div class="contact-grid">
-        <div class="form-container">
-          {/* AMÉLIORATIONS : Ajout de 'netlify-honeypot' pour anti-spam et 'netlify' pour une meilleure détection */}
-          <form name="contact" method="POST" action="/merci" data-netlify="true" netlify-honeypot="bot-field" netlify>
-            <input type="hidden" name="form-name" value="contact" />
-            
-            {/* Champ anti-spam caché pour les utilisateurs humains */}
-            <p class="hidden">
-              <label>
-                Ne pas remplir si vous êtes humain : <input name="bot-field" />
-              </label>
-            </p>
-            
-            <div class="form-group-split">
-              <div class="form-group">
-                <label for="prenom">Prénom</label>
-                <input type="text" id="prenom" name="prenom" required />
-              </div>
-              <div class="form-group">
-                <label for="nom">Nom</label>
-                <input type="text" id="nom" name="nom" required />
-              </div>
+    </section>
+
+    <!-- Contact immédiat -->
+    <section class="contact-direct">
+      <div class="container">
+        <div class="contact-options">
+          <a href="tel:+352123456789" class="contact-card phone">
+            <span class="icon">📞</span>
+            <div class="contact-info">
+              <h3>Appel Direct</h3>
+              <p>+352 12 34 56 789</p>
             </div>
-            <div class="form-group">
-              <label for="email">Adresse Email</label>
-              <input type="email" id="email" name="email" required />
+          </a>
+          
+          <a href="mailto:contact@fiduciaire-expert.lu" class="contact-card email">
+            <span class="icon">✉️</span>
+            <div class="contact-info">
+              <h3>Email</h3>
+              <p>contact@fiduciaire-expert.lu</p>
             </div>
-            <div class="form-group">
-              <label for="telephone">Téléphone</label>
-              <input type="tel" id="telephone" name="telephone" />
+          </a>
+          
+          <div class="contact-card location">
+            <span class="icon">📍</span>
+            <div class="contact-info">
+              <h3>Bureau</h3>
+              <p>123 Avenue de la Liberté<br>L-4321 Esch-sur-Alzette</p>
             </div>
-            <div class="form-group">
-              <label for="message">Votre message</label>
-              <textarea id="message" name="message" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="cta-button">Envoyer le message</button>
-          </form>
-        </div>
-        <div class="info-container">
-          <h2>Nos Coordonnées</h2>
-          <div class="info-block">
-            <h3>Adresse Postale</h3>
-            <p>123 Avenue de la Liberté<br>L-4321 Esch-sur-Alzette<br>Luxembourg</p>
-          </div>
-          <div class="info-block">
-            <h3>Téléphone</h3>
-            <p><a href="tel:+352123456789">(+352) 12 34 56 789</a></p>
-          </div>
-          <div class="info-block">
-            <h3>Email</h3>
-            <p><a href="mailto:contact@fiduciaire-expert.lu">contact@fiduciaire-expert.lu</a></p>
-          </div>
-          <div class="info-block">
-            <h3>Horaires d'ouverture</h3>
-            <p>Lundi - Vendredi<br>09:00 - 17:00</p>
           </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Formulaire principal -->
+    <section class="form-section">
+      <div class="container">
+        <div class="form-layout">
+          
+          <!-- Formulaire -->
+          <div class="form-container">
+            <h2>Demander un devis</h2>
+            <p>Remplissez ce formulaire pour recevoir votre devis personnalisé.</p>
+            
+            <form name="contact" 
+                  method="POST" 
+                  action="/merci" 
+                  data-netlify="true" 
+                  netlify-honeypot="bot-field" 
+                  netlify>
+              
+              <input type="hidden" name="form-name" value="contact" />
+              
+              <p class="hidden">
+                <label>Ne pas remplir : <input name="bot-field" /></label>
+              </p>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="prenom">Prénom *</label>
+                  <input type="text" id="prenom" name="prenom" required />
+                </div>
+                <div class="form-group">
+                  <label for="nom">Nom *</label>
+                  <input type="text" id="nom" name="nom" required />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+              
+              <div class="form-group">
+                <label for="telephone">Téléphone</label>
+                <input type="tel" id="telephone" name="telephone" />
+              </div>
+              
+              <div class="form-group">
+                <label for="entreprise">Entreprise</label>
+                <input type="text" id="entreprise" name="entreprise" />
+              </div>
+              
+              <div class="form-group">
+                <label for="service">Service souhaité</label>
+                <select id="service" name="service">
+                  <option value="">Choisir un service</option>
+                  <option value="comptabilite">Comptabilité</option>
+                  <option value="creation-societe">Création société</option>
+                  <option value="fiscalite">Fiscalité</option>
+                  <option value="domiciliation">Domiciliation</option>
+                  <option value="gestion-paie">Gestion paie</option>
+                  <option value="autre">Autre</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="message">Message *</label>
+                <textarea id="message" name="message" rows="4" required 
+                          placeholder="Décrivez brièvement votre besoin..."></textarea>
+              </div>
+              
+              <div class="form-group consent">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="consent" required />
+                  J'accepte d'être contacté concernant ma demande
+                </label>
+              </div>
+              
+              <button type="submit" class="submit-btn">
+                Envoyer ma demande
+              </button>
+              
+              <p class="form-note">
+                Réponse garantie sous 24h • Sans engagement
+              </p>
+            </form>
+          </div>
+          
+          <!-- Informations -->
+          <div class="info-sidebar">
+            <div class="info-card">
+              <h3>Fiduciaire Expert</h3>
+              <p>Expert-comptable agréé Luxembourg<br>
+                 Spécialisé PME et entrepreneurs</p>
+              
+              <div class="info-details">
+                <div class="detail-item">
+                  <strong>Adresse</strong>
+                  <p>123 Avenue de la Liberté<br>
+                     L-4321 Esch-sur-Alzette</p>
+                </div>
+                
+                <div class="detail-item">
+                  <strong>Horaires</strong>
+                  <p>Lundi - Vendredi<br>
+                     09:00 - 17:00</p>
+                </div>
+                
+                <div class="detail-item">
+                  <strong>Contact</strong>
+                  <p>
+                    <a href="tel:+352123456789">+352 12 34 56 789</a><br>
+                    <a href="mailto:contact@fiduciaire-expert.lu">contact@fiduciaire-expert.lu</a>
+                  </p>
+                </div>
+              </div>
+              
+              <div class="certifications">
+                <h4>Certifications</h4>
+                <ul>
+                  <li>Expert-comptable agréé</li>
+                  <li>Membre IRE</li>
+                  <li>15+ années d'expérience</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Accordéon -->
+    <section class="faq-section">
+      <div class="container">
+        <h2>Questions fréquentes</h2>
+        <div class="faq-accordion">
+          <details class="faq-item" open>
+            <summary class="faq-question">
+              <span>La consultation est-elle gratuite ?</span>
+              <span class="faq-icon">+</span>
+            </summary>
+            <div class="faq-answer">
+              <p>Oui, la première consultation est gratuite et sans engagement.</p>
+            </div>
+          </details>
+          
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span>Sous quel délai recevrai-je une réponse ?</span>
+              <span class="faq-icon">+</span>
+            </summary>
+            <div class="faq-answer">
+              <p>Nous répondons sous 24h maximum à toute demande.</p>
+            </div>
+          </details>
+          
+          <details class="faq-item">
+            <summary class="faq-question">
+              <span>Quels sont vos tarifs ?</span>
+              <span class="faq-icon">+</span>
+            </summary>
+            <div class="faq-answer">
+              <p>Nos tarifs varient selon vos besoins. Devis gratuit et personnalisé.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
   </main>
+
+  <script type="application/ld+json" set:html={JSON.stringify(contactSchema)} />
+  
+  <script>
+    // Script pour l'accordéon exclusif
+    document.addEventListener('DOMContentLoaded', function() {
+      const faqItems = document.querySelectorAll('.faq-item');
+      
+      faqItems.forEach(item => {
+        const summary = item.querySelector('summary');
+        const icon = item.querySelector('.faq-icon');
+        
+        summary.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Fermer tous les autres items
+          faqItems.forEach(otherItem => {
+            if (otherItem !== item && otherItem.hasAttribute('open')) {
+              otherItem.removeAttribute('open');
+              otherItem.querySelector('.faq-icon').textContent = '+';
+            }
+          });
+          
+          // Toggle l'item actuel
+          if (item.hasAttribute('open')) {
+            item.removeAttribute('open');
+            icon.textContent = '+';
+          } else {
+            item.setAttribute('open', '');
+            icon.textContent = '−';
+          }
+        });
+        
+        // Initialiser l'icône
+        if (item.hasAttribute('open')) {
+          icon.textContent = '−';
+        } else {
+          icon.textContent = '+';
+        }
+      });
+    });
+  </script>
 </Layout>
 
 <style>
-  /* On ajoute une règle pour cacher le champ anti-spam */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
   .hidden {
     display: none;
   }
 
-  /* Le reste du CSS est identique */
-  .contact-page { padding: 4rem 2rem; background-color: var(--fond-clair); }
-  .container { max-width: 1100px; margin: 0 auto; }
-  .page-header { text-align: center; margin-bottom: 3rem; }
-  .page-header h1 { font-size: 2.5rem; color: var(--bleu-profond); margin-bottom: 0.5rem; }
-  .page-header p { font-size: 1.1rem; color: var(--texte-secondaire); }
-  .contact-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; background-color: white; padding: 2rem; border-radius: 16px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); }
-  @media (min-width: 992px) { .contact-grid { grid-template-columns: 2fr 1fr; padding: 3rem; } }
-  .form-group { margin-bottom: 1.5rem; }
-  .form-group-split { display: flex; gap: 1.5rem; flex-direction: column; }
-  @media (min-width: 576px) { .form-group-split { flex-direction: row; } .form-group-split .form-group { flex: 1; } }
-  label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--texte-principal); }
-  input[type="text"], input[type="email"], input[type="tel"], textarea { width: 100%; padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; box-sizing: border-box; }
-  textarea { resize: vertical; }
-  .cta-button { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: bold; color: var(--bleu-profond); background-color: var(--or-premium); border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.2s ease; }
-  .cta-button:hover { background-color: #e1c16e; }
-  .info-container h2 { margin-top: 0; color: var(--bleu-profond); }
-  .info-block { margin-bottom: 1.5rem; }
-  .info-block h3 { margin-bottom: 0.5rem; font-size: 1rem; color: var(--texte-principal); }
-  .info-block p { margin: 0; line-height: 1.6; color: var(--texte-secondaire); }
-  .info-block a { color: var(--bleu-profond); text-decoration: none; font-weight: 500; }
-  .info-block a:hover { text-decoration: underline; }
+  /* Header épuré */
+  .page-header {
+    padding: 3rem 0 2rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, white 100%);
+    text-align: center;
+  }
+  
+  .page-header h1 {
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+  }
+  
+  .subtitle {
+    font-size: 1.1rem;
+    color: var(--texte-secondaire);
+  }
+
+  /* Contact direct */
+  .contact-direct {
+    padding: 3rem 0;
+    background: white;
+  }
+  
+  .contact-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .contact-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: var(--fond-clair);
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease;
+  }
+  
+  .contact-card:hover {
+    transform: translateY(-3px);
+  }
+  
+  .contact-card .icon {
+    font-size: 2rem;
+  }
+  
+  .contact-info h3 {
+    color: var(--bleu-profond);
+    margin-bottom: 0.3rem;
+    font-size: 1.1rem;
+  }
+  
+  .contact-info p {
+    color: var(--texte-secondaire);
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  /* Section formulaire */
+  .form-section {
+    padding: 4rem 0;
+    background: var(--fond-clair);
+  }
+  
+  .form-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    background: white;
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  }
+  
+  @media (min-width: 992px) {
+    .form-layout {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  /* Formulaire */
+  .form-container h2 {
+    color: var(--bleu-profond);
+    margin-bottom: 0.5rem;
+    font-size: 1.8rem;
+  }
+  
+  .form-container p {
+    color: var(--texte-secondaire);
+    margin-bottom: 2rem;
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  @media (min-width: 576px) {
+    .form-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--texte-principal);
+  }
+  
+  input, select, textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--or-premium);
+  }
+  
+  textarea {
+    resize: vertical;
+  }
+  
+  .consent {
+    margin: 1.5rem 0;
+  }
+  
+  .checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: normal;
+    font-size: 0.9rem;
+  }
+  
+  .checkbox-label input {
+    width: auto;
+    margin: 0;
+  }
+  
+  .submit-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--bleu-profond);
+    background: var(--or-premium);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background: #ffdd77;
+    transform: translateY(-2px);
+  }
+  
+  .form-note {
+    text-align: center;
+    margin-top: 1rem;
+    color: var(--texte-secondaire);
+    font-size: 0.9rem;
+  }
+
+  /* Sidebar info */
+  .info-card {
+    background: var(--fond-clair);
+    padding: 2rem;
+    border-radius: 12px;
+    height: fit-content;
+  }
+  
+  .info-card h3 {
+    color: var(--bleu-profond);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+  }
+  
+  .info-card > p {
+    color: var(--texte-secondaire);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+  
+  .detail-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .detail-item:last-child {
+    border-bottom: none;
+  }
+  
+  .detail-item strong {
+    display: block;
+    color: var(--bleu-profond);
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+  }
+  
+  .detail-item p {
+    margin: 0;
+    color: var(--texte-secondaire);
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  
+  .detail-item a {
+    color: var(--bleu-profond);
+    text-decoration: none;
+  }
+  
+  .detail-item a:hover {
+    color: var(--or-premium);
+  }
+  
+  .certifications {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e9ecef;
+  }
+  
+  .certifications h4 {
+    color: var(--bleu-profond);
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+  
+  .certifications ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .certifications li {
+    padding: 0.2rem 0;
+    color: var(--texte-secondaire);
+    font-size: 0.9rem;
+    position: relative;
+    padding-left: 1rem;
+  }
+  
+  .certifications li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--or-premium);
+    font-weight: bold;
+  }
+
+  /* FAQ Accordéon */
+  .faq-section {
+    padding: 4rem 0;
+    background: white;
+  }
+  
+  .faq-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--bleu-profond);
+    margin-bottom: 3rem;
+  }
+  
+  .faq-accordion {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .faq-item {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .faq-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background: var(--fond-clair);
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+    color: var(--bleu-profond);
+    transition: background-color 0.3s ease;
+  }
+  
+  .faq-question:hover {
+    background: #e9ecef;
+  }
+  
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+  
+  .faq-icon {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--or-premium);
+    transition: transform 0.3s ease;
+  }
+  
+  .faq-item[open] .faq-question {
+    background: var(--bleu-profond);
+    color: white;
+  }
+  
+  .faq-item[open] .faq-icon {
+    color: var(--or-premium);
+    transform: rotate(45deg);
+  }
+  
+  .faq-answer {
+    padding: 1.5rem;
+    background: white;
+    border-top: 1px solid #e9ecef;
+  }
+  
+  .faq-answer p {
+    margin: 0;
+    color: var(--texte-secondaire);
+    line-height: 1.6;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2rem;
+    }
+    
+    .contact-options {
+      grid-template-columns: 1fr;
+    }
+    
+    .form-layout {
+      padding: 2rem;
+    }
+    
+    .faq-question {
+      padding: 1rem;
+    }
+    
+    .faq-answer {
+      padding: 1rem;
+    }
+  }
 </style>

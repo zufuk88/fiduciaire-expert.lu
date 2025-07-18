@@ -3,20 +3,36 @@
 const faqData = [
   {
     question: "Quels types de services comptables offrez-vous au Luxembourg ?",
-    answer: "Nous offrons une gamme complète de services pour les sociétés et indépendants au Luxembourg, incluant la tenue de comptabilité, les bilans annuels, les déclarations de TVA, la gestion des salaires, et le conseil fiscal. Vous pouvez découvrir le détail sur notre <a href='/services'>page services</a>.",
+    answer: "Nous offrons une gamme complète de services pour les <strong>sociétés et indépendants au Luxembourg</strong>, incluant la tenue de comptabilité conforme à la législation luxembourgeoise, les bilans annuels avec dépôt sur <strong>eCDF</strong>, les déclarations de <strong>TVA Luxembourg</strong>, la gestion des salaires avec déclarations <strong>CCSS</strong>, et le conseil fiscal <strong>IRC</strong>. Vous pouvez découvrir le détail sur notre <a href='/services'>page services</a>.",
   },
   {
-    question: "Combien coûtent les services d'un expert-comptable ?",
-    answer: "Nos tarifs sont adaptés à la taille et à la complexité de votre entreprise. Nous privilégions une approche transparente avec des budgets mensuels et des devis clairs. La meilleure façon d'obtenir une estimation précise est de nous <a href='/contact'>contacter pour un premier échange</a>.",
+    question: "Combien coûte un expert-comptable au Luxembourg ?",
+    answer: "Nos tarifs d'<strong>expert-comptable Luxembourg</strong> sont adaptés à la taille et à la complexité de votre entreprise. Pour une <strong>PME luxembourgeoise</strong>, comptez entre 200€ et 800€/mois selon vos besoins. Nous privilégions une approche transparente avec des budgets mensuels et des devis clairs. <strong>La première consultation est gratuite</strong> ! <a href='/contact'>Contactez-nous pour votre devis personnalisé</a>.",
   },
   {
-    question: "Quels sont les délais pour créer une société (SA, SARL, SCI, SCSp ou SAS) ?",
-    answer: "La création d'une société au Luxembourg, si elle incclut le passage chez le notaire et l'immatriculation, prend généralement entre 2 et 3 mois. Nous optimisons chaque étape pour accélérer le processus tout en garantissant la conformité.",
+    question: "Quels sont les délais pour créer une société au Luxembourg (SA, SARL, SCI) ?",
+    answer: "La <strong>création d'une société au Luxembourg</strong> prend généralement <strong>5 à 7 jours ouvrables</strong> pour les formalités administratives après passage chez le notaire. Pour une <strong>SARL Luxembourg</strong> ou <strong>SA Luxembourg</strong>, nous optimisons chaque étape : rédaction des statuts, immatriculation au <strong>RCSL</strong>, et ouverture de compte bancaire. <em>Nous accélérons le processus tout en garantissant la conformité</em>.",
   },
   {
-    question: "Pourquoi choisir la Fiduciaire Expert plutôt qu'une autre ?",
-    answer: "Nous combinons l'expertise technique d'un grand cabinet avec la réactivité et l'approche personnalisée d'une structure à taille humaine. Votre dossier n'est pas un numéro ; nous construisons une relation de partenariat sur le long terme pour soutenir votre croissance.",
+    question: "Pourquoi choisir Fiduciaire Expert plutôt qu'un autre cabinet au Luxembourg ?",
+    answer: "Nous combinons l'expertise technique d'un grand cabinet avec la <strong>réactivité et l'approche personnalisée</strong> d'une structure à taille humaine. Contrairement à nos concurrents, nous garantissons un <strong>délai de réponse sous 24h</strong> et un <strong>interlocuteur unique</strong> pour votre dossier. <em>Votre dossier n'est pas un numéro</em> ; nous construisons une relation de partenariat sur le long terme pour soutenir votre croissance au Luxembourg.",
   },
+  {
+    question: "Dois-je obligatoirement faire appel à un expert-comptable au Luxembourg ?",
+    answer: "Au Luxembourg, faire appel à un <strong>expert-comptable agréé</strong> n'est pas légalement obligatoire, mais fortement recommandé. La complexité de la législation luxembourgeoise (TVA, IRC, déclarations CCSS) et les sanctions en cas d'erreur font qu'un <strong>cabinet comptable spécialisé</strong> vous fait économiser temps et argent. <em>La tranquillité d'esprit n'a pas de prix</em> !",
+  },
+  {
+    question: "Comment se déroule la domiciliation d'entreprise au Luxembourg ?",
+    answer: "La <strong>domiciliation au Luxembourg</strong> vous permet d'avoir une adresse de siège social prestigieuse sans louer de bureaux. Nous proposons un service complet incluant la <strong>réception de courrier</strong>, la <strong>permanence téléphonique</strong>, et la conformité avec la loi de domiciliation luxembourgeoise. Tarif à partir de 150€/mois. <a href='/contact'>Demandez votre devis domiciliation</a>.",
+  },
+  {
+    question: "Quelles sont les obligations fiscales d'une société au Luxembourg ?",
+    answer: "Une <strong>société luxembourgeoise</strong> doit respecter plusieurs obligations : déclaration annuelle <strong>IRC</strong> (impôt sur le revenu des collectivités), déclarations <strong>TVA trimestrielles</strong> ou mensuelles, dépôt des comptes annuels sur <strong>eCDF</strong>, et tenue d'une comptabilité conforme. Nos experts vous accompagnent pour être en conformité totale avec l'administration fiscale luxembourgeoise.",
+  },
+  {
+    question: "Combien de temps faut-il pour obtenir un premier rendez-vous ?",
+    answer: "Nous garantissons un <strong>premier rendez-vous sous 48h</strong> maximum ! Notre équipe est réactive et disponible pour répondre à vos urgences comptables. <strong>La première consultation est gratuite et sans engagement</strong>. Vous pouvez nous joindre directement au <strong>+352 XX XX XX XX</strong> ou via notre <a href='/contact'>formulaire de contact</a>.",
+  }
 ];
 ---
 
@@ -33,46 +49,97 @@ const faqData = [
   }))
 })} />
 
-<section class="faq-section">
+<section class="faq-section" aria-labelledby="faq-title">
   <div class="container">
-    <h2>Questions fréquentes</h2>
+    <div class="faq-header">
+      <h2 id="faq-title">Questions Fréquentes - Expert-Comptable Luxembourg</h2>
+      <p class="faq-subtitle">
+        Tout ce que vous devez savoir sur nos services comptables au Luxembourg
+      </p>
+    </div>
+    
     <div class="faq-list">
-      {faqData.map(item => (
-        <details class="faq-item">
-          <summary class="faq-question">
+      {faqData.map((item, index) => (
+        <details class="faq-item" itemscope itemtype="https://schema.org/Question">
+          <summary class="faq-question" itemprop="name">
             {item.question}
             <span class="icon">+</span>
           </summary>
-          <div class="faq-answer" set:html={item.answer} />
+          <div class="faq-answer" itemscope itemtype="https://schema.org/Answer">
+            <div itemprop="text" set:html={item.answer} />
+          </div>
         </details>
       ))}
+    </div>
+    
+    <!-- CTA global FAQ -->
+    <div class="faq-cta">
+      <h3>Votre question n'est pas dans la liste ?</h3>
+      <p>Nos experts-comptables luxembourgeois sont là pour répondre à toutes vos questions spécifiques</p>
+      <div class="faq-cta-buttons">
+        <a href="/contact" class="cta-button primary" 
+           aria-label="Poser votre question à notre expert-comptable Luxembourg">
+          Poser ma question
+        </a>
+        <a href="tel:+352123456789" class="cta-button secondary"
+           aria-label="Appeler directement notre cabinet Luxembourg">
+          📞 Appel direct
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  /* ... votre CSS reste identique ... */
   .faq-section {
-    padding: 4rem 2rem;
-    background-color: var(--fond-clair);
+    padding: 5rem 2rem;
+    background: linear-gradient(135deg, var(--fond-clair) 0%, #e9ecef 100%);
   }
+  
   .container {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
   }
-  h2 {
+  
+  .faq-header {
     text-align: center;
-    font-size: 2rem;
+    margin-bottom: 4rem;
+  }
+  
+  .faq-header h2 {
+    font-size: 2.5rem;
     color: var(--bleu-profond);
+    margin-bottom: 1rem;
+  }
+  
+  .faq-subtitle {
+    font-size: 1.2rem;
+    color: var(--texte-secondaire);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .faq-list {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
     margin-bottom: 3rem;
   }
-  .faq-list {
-    border-top: 1px solid #e0e0e0;
-  }
+  
   .faq-item {
-    border-bottom: 1px solid #e0e0e0;
-    padding: 1.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s ease;
   }
+  
+  .faq-item:last-child {
+    border-bottom: none;
+  }
+  
+  .faq-item:hover {
+    background-color: rgba(248, 249, 250, 0.5);
+  }
+  
   .faq-question {
     font-size: 1.1rem;
     font-weight: 600;
@@ -82,48 +149,150 @@ const faqData = [
     justify-content: space-between;
     align-items: center;
     list-style: none;
+    padding: 1.5rem 2rem;
+    transition: color 0.2s ease;
   }
+  
   .faq-question::-webkit-details-marker {
     display: none;
   }
+  
+  .faq-question:hover {
+    color: var(--bleu-profond);
+  }
+  
   .faq-answer {
-    padding-top: 1rem;
+    padding: 0 2rem 1.5rem 2rem;
     color: var(--texte-secondaire);
     line-height: 1.7;
+    font-size: 1rem;
   }
+  
   .faq-answer a {
     color: var(--bleu-profond);
     font-weight: 600;
     text-decoration: none;
+    transition: color 0.2s ease;
   }
-   .faq-answer a:hover {
+  
+  .faq-answer a:hover {
+    color: var(--or-premium);
     text-decoration: underline;
   }
+  
   .faq-item .icon {
     font-size: 1.5rem;
     font-weight: 300;
-    transition: transform 0.2s ease;
+    transition: transform 0.3s ease;
+    color: var(--or-premium);
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--or-premium);
+    border-radius: 50%;
+    flex-shrink: 0;
   }
+  
   .faq-item[open] .icon {
     transform: rotate(45deg);
+    background: var(--or-premium);
+    color: white;
+  }
+  
+  .faq-cta {
+    background: white;
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+  
+  .faq-cta h3 {
+    font-size: 1.8rem;
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+  }
+  
+  .faq-cta p {
+    color: var(--texte-secondaire);
+    margin-bottom: 2rem;
+  }
+  
+  .faq-cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+  
+  .cta-button.primary {
+    background: var(--or-premium);
+    color: var(--bleu-profond);
+  }
+  
+  .cta-button.primary:hover {
+    background: #ffdd77;
+    transform: translateY(-2px);
+  }
+  
+  .cta-button.secondary {
+    background: transparent;
+    color: var(--bleu-profond);
+    border: 2px solid var(--bleu-profond);
+  }
+  
+  .cta-button.secondary:hover {
+    background: var(--bleu-profond);
+    color: white;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .faq-header h2 {
+      font-size: 2rem;
+    }
+    
+    .faq-question {
+      padding: 1.2rem 1.5rem;
+      font-size: 1rem;
+    }
+    
+    .faq-answer {
+      padding: 0 1.5rem 1.2rem 1.5rem;
+    }
+    
+    .faq-cta {
+      padding: 2rem 1.5rem;
+    }
+    
+    .faq-cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // On sélectionne tous les éléments <details> de notre FAQ
     const accordions = document.querySelectorAll('.faq-item');
 
     accordions.forEach(accordion => {
-      // L'événement 'toggle' se déclenche quand on ouvre ou ferme l'élément
       accordion.addEventListener('toggle', () => {
-        // Si l'élément que l'on vient de manipuler est en train de s'ouvrir...
         if (accordion.open) {
-          // ...alors on parcourt à nouveau TOUS les accordéons
           accordions.forEach(otherAccordion => {
-            // Et si ce n'est pas celui sur lequel on a cliqué...
             if (otherAccordion !== accordion) {
-              // ...on le ferme.
               otherAccordion.open = false;
             }
           });

@@ -13,17 +13,47 @@ const { title } = Astro.props;
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="description" content="Site de la fiduciaire expert pour le luxembourg" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- Favicons -->
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Fiduciaire" />
     <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Open Graph pour LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content="Fiduciaire Expert Luxembourg - Services comptables et fiscaux professionnels" />
+    <meta property="og:url" content="https://fiduciaire-expert.lu" />
+    <meta property="og:site_name" content="Fiduciaire Expert Luxembourg" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content="Fiduciaire Expert Luxembourg - Services comptables et fiscaux professionnels" />
+
+    <!-- Données structurées Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Fiduciaire Expert Luxembourg",
+      "url": "https://fiduciaire-expert.lu",
+      "sameAs": ["https://www.linkedin.com/company/fiduciaire-expert-luxembourg/"],
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "LU"
+      }
+    }
+    </script>
+
     <title>{title}</title>
   </head>
   <body>
@@ -32,6 +62,7 @@ const { title } = Astro.props;
     <Footer />
   </body>
 </html>
+
 <style is:global>
   :root {
     --bleu-profond: #0d2b4f;
@@ -40,6 +71,7 @@ const { title } = Astro.props;
     --fond-clair: #f8f9fa;
     --texte-principal: #212529;
     --texte-secondaire: #6c757d;
+    --linkedin-blue: #0077b5;
   }
 
   html {
@@ -59,17 +91,58 @@ const { title } = Astro.props;
     flex-direction: column;
   }
 
-  /*
-    Cette règle cible la balise <main> qui vient de vos pages
-    (index.astro, services.astro, etc.) via le <slot />
-  */
   main {
-    flex-grow: 1; /* Pousse le footer en bas */
+    flex-grow: 1;
   }
 
   *,
   *::before,
   *::after {
     box-sizing: inherit;
+  }
+
+  /* Styles pour les liens sociaux */
+  .social-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: var(--bleu-profond);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid var(--argent-element);
+    background: var(--fond-clair);
+  }
+
+  .social-links a:hover {
+    color: var(--linkedin-blue);
+    border-color: var(--linkedin-blue);
+    background: rgba(0, 119, 181, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .linkedin-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
+  @media (max-width: 768px) {
+    .social-links {
+      gap: 0.5rem;
+    }
+    
+    .social-links a {
+      width: 35px;
+      height: 35px;
+    }
   }
 </style>

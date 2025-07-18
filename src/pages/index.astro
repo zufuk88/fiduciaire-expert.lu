@@ -5,10 +5,136 @@ import AboutAndCTA from '../components/AboutAndCTA.astro';
 import FAQ from '../components/FAQ.astro';
 import Layout from '../layouts/Layout.astro';
 
-const title = "Fiduciaire Expert | Votre cabinet comptable au Luxembourg";
-const description = "Expert-comptable au Luxembourg pour indépendants, PME et sociétés. Comptabilité, fiscalité et accompagnement personnalisé. Premier rendez-vous gratuit.";
+const title = "Fiduciaire Expert Luxembourg | Expert-Comptable & Création Société";
+const description = "Fiduciaire Expert Luxembourg : comptabilité, fiscalité, création société et domiciliation. Expert-comptable pour PME et indépendants. Consultation gratuite.";
 const canonical = "https://www.fiduciaire-expert.lu/";
-const ogImage = "/images/fiduciaire-cover.jpg"; // change si tu as une image OG spécifique
+const ogImage = "/images/fiduciaire-cover.jpg";
+
+// Données structurées pour la page d'accueil
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.fiduciaire-expert.lu/#organization",
+      "name": "Fiduciaire Expert Luxembourg",
+      "url": "https://www.fiduciaire-expert.lu",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.fiduciaire-expert.lu/images/logo.png"
+      },
+      "image": "https://www.fiduciaire-expert.lu/images/fiduciaire-cover.jpg",
+      "description": "Expert-comptable au Luxembourg pour indépendants, PME et sociétés. Comptabilité, fiscalité et accompagnement personnalisé.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "LU"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Luxembourg"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/fiduciaire-expert-luxembourg/"
+      ]
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://www.fiduciaire-expert.lu/#localbusiness",
+      "name": "Fiduciaire Expert Luxembourg",
+      "url": "https://www.fiduciaire-expert.lu",
+      "telephone": "+352-XX-XX-XX-XX",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "LU"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 49.6116,
+        "longitude": 6.1319
+      },
+      "openingHours": ["Mo-Fr 09:00-17:00"],
+      "serviceArea": {
+        "@type": "Country",
+        "name": "Luxembourg"
+      }
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://www.fiduciaire-expert.lu/#service",
+      "name": "Services Comptables et Fiscaux",
+      "provider": {
+        "@id": "https://www.fiduciaire-expert.lu/#organization"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Luxembourg"
+      },
+      "serviceType": [
+        "Comptabilité générale",
+        "Fiscalité",
+        "Création de société",
+        "Domiciliation",
+        "Secrétariat juridique",
+        "Gestion de la paie",
+        "Conseil fiscal et social",
+        "Due diligence"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "description": "Premier rendez-vous gratuit",
+        "price": "0",
+        "priceCurrency": "EUR"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.fiduciaire-expert.lu/#website",
+      "url": "https://www.fiduciaire-expert.lu",
+      "name": "Fiduciaire Expert Luxembourg",
+      "description": "Expert-comptable au Luxembourg pour indépendants, PME et sociétés",
+      "publisher": {
+        "@id": "https://www.fiduciaire-expert.lu/#organization"
+      },
+      "inLanguage": "fr-LU",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.fiduciaire-expert.lu/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.fiduciaire-expert.lu/#webpage",
+      "url": "https://www.fiduciaire-expert.lu",
+      "name": "Fiduciaire Expert Luxembourg | Expert-Comptable & Création Société",
+      "isPartOf": {
+        "@id": "https://www.fiduciaire-expert.lu/#website"
+      },
+      "about": {
+        "@id": "https://www.fiduciaire-expert.lu/#organization"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://www.fiduciaire-expert.lu/images/fiduciaire-cover.jpg"
+      },
+      "datePublished": "2024-01-01T00:00:00+00:00",
+      "dateModified": "2024-12-01T00:00:00+00:00",
+      "description": "Fiduciaire Expert Luxembourg : comptabilité, fiscalité, création société et domiciliation. Expert-comptable pour PME et indépendants. Consultation gratuite.",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Accueil",
+            "item": "https://www.fiduciaire-expert.lu"
+          }
+        ]
+      }
+    }
+  ]
+};
 ---
 
 <Layout {title} {description} {canonical} {ogImage}>
@@ -18,4 +144,7 @@ const ogImage = "/images/fiduciaire-cover.jpg"; // change si tu as une image OG 
     <AboutAndCTA />
     <FAQ />
   </main>
+
+  <!-- Données structurées JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData, null, 2)} />
 </Layout>

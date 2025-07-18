@@ -1,100 +1,331 @@
 ---
-// src/components/ServicesHighlight.astro
+// Données structurées pour les services
+const servicesSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "provider": {
+    "@type": "Organization",
+    "name": "Fiduciaire Expert Luxembourg"
+  },
+  "areaServed": "Luxembourg",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services Comptables Luxembourg",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Comptabilité et Fiscalité Luxembourg",
+          "description": "Tenue comptabilité, déclarations TVA et bilans Luxembourg"
+        }
+      },
+      {
+        "@type": "Offer", 
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Création Société Luxembourg",
+          "description": "Constitution SA, SARL, SCI Luxembourg avec secrétariat juridique"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service", 
+          "name": "Gestion Paie Luxembourg",
+          "description": "Fiches paie, déclarations CCSS et conseils droit social Luxembourg"
+        }
+      }
+    ]
+  }
+};
 ---
-<section class="services-section">
+
+<section class="services-section" aria-labelledby="services-title">
   <div class="container">
-    <h2>Nos domaines d'expertise</h2>
+    <div class="services-header">
+      <h2 id="services-title">Nos Services d'Expert-Comptable au Luxembourg</h2>
+      <p class="services-subtitle">
+        Spécialisés dans l'accompagnement des <strong>PME luxembourgeoises</strong> et <strong>entrepreneurs</strong>
+      </p>
+    </div>
+    
     <div class="services-grid">
       
-      <div class="service-card">
+      <article class="service-card" itemscope itemtype="https://schema.org/Service">
         <div class="icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calculator"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 3m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" /><path d="M8 7m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v1a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z" /><path d="M8 14l0 .01" /><path d="M12 14l0 .01" /><path d="M16 14l0 .01" /><path d="M8 17l0 .01" /><path d="M12 17l0 .01" /><path d="M16 17l0 .01" /></svg>
         </div>
-        <h3>Comptabilité & fiscalité</h3>
-        <p>Tenue de votre comptabilité, déclarations TVA et bilans annuels conformes à la législation luxembourgeoise.</p>
-      </div>
+        <h3 itemprop="name">Comptabilité & Fiscalité Luxembourg</h3>
+        <p itemprop="description">
+          <strong>Tenue comptabilité conforme</strong> à la législation luxembourgeoise : 
+          déclarations TVA, bilans annuels, dépôt eCDF. 
+          <em>Expertise fiscale IRC et optimisation</em>.
+        </p>
+        <div class="service-features">
+          <span class="feature">✓ Déclarations TVA</span>
+          <span class="feature">✓ Bilans eCDF</span>
+          <span class="feature">✓ Conseil fiscal IRC</span>
+        </div>
+        <a href="/services#comptabilite" class="service-link" 
+           aria-label="En savoir plus sur nos services comptables Luxembourg">
+          En savoir plus →
+        </a>
+      </article>
 
-      <div class="service-card">
+      <article class="service-card featured" itemscope itemtype="https://schema.org/Service">
+        <div class="featured-badge">⭐ Populaire</div>
         <div class="icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" /><path d="M13.5 6.5l4 4" /></svg>
         </div>
-        <h3>Secrétariat juridique</h3>
-        <p>Accompagnement  pour la constitution de votre société (SA, SARL, SCI, SCSp ou SAS) et établissment de la documentation légale obligatoire.</p>
-      </div>
+        <h3 itemprop="name">Création Société Luxembourg</h3>
+        <p itemprop="description">
+          <strong>Constitution rapide SA, SARL, SCI, SCSp, SAS</strong> au Luxembourg. 
+          Secrétariat juridique complet, rédaction statuts, 
+          <em>formalités RCSL en 5 jours</em>.
+        </p>
+        <div class="service-features">
+          <span class="feature">✓ Tous types sociétés</span>
+          <span class="feature">✓ Formalités RCSL</span>
+          <span class="feature">✓ Délai 5 jours</span>
+        </div>
+        <a href="/services#creation-societe" class="service-link primary" 
+           aria-label="Créer votre société au Luxembourg - Devis gratuit">
+          Devis gratuit →
+        </a>
+      </article>
 
-      <div class="service-card">
+      <article class="service-card" itemscope itemtype="https://schema.org/Service">
         <div class="icon icon-filled">
           <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-coin-euro"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 3.34a10 10 0 1 1 -15 8.66l.005 -.324a10 10 0 0 1 14.995 -8.336zm-5 2.66c-2.052 0 -3.768 1.449 -4.549 3.5h-.451a1 1 0 0 0 -.117 1.993l.134 .007a7.298 7.298 0 0 0 0 1h-.017a1 1 0 0 0 0 2h.452c.78 2.053 2.496 3.5 4.548 3.5c1.141 0 2.217 -.457 3.084 -1.27a1 1 0 0 0 -1.368 -1.46c-.509 .478 -1.102 .73 -1.716 .73c-.922 0 -1.776 -.578 -2.335 -1.499l1.335 -.001a1 1 0 0 0 0 -2h-1.977a5.342 5.342 0 0 1 0 -1h1.977a1 1 0 0 0 0 -2h-1.336c.56 -.921 1.414 -1.5 2.336 -1.5c.615 0 1.208 .252 1.717 .73a1 1 0 0 0 1.368 -1.46c-.867 -.812 -1.943 -1.27 -3.085 -1.27z" /></svg>
         </div>
-        <h3>Gestion des salaires</h3>
-        <p>Établissement des fiches de paie, déclarations sociales CCSS, échanges avec la CNS et conseils en matière de droit social.</p>
-      </div>
+        <h3 itemprop="name">Gestion Paie Luxembourg</h3>
+        <p itemprop="description">
+          <strong>Fiches de paie conformes</strong> droit social luxembourgeois : 
+          déclarations CCSS, échanges CNS, conseils RH. 
+          <em>Expertise conventions collectives</em>.
+        </p>
+        <div class="service-features">
+          <span class="feature">✓ Fiches paie CCSS</span>
+          <span class="feature">✓ Déclarations CNS</span>
+          <span class="feature">✓ Conseil RH</span>
+        </div>
+        <a href="/services#gestion-paie" class="service-link" 
+           aria-label="Externaliser votre paie au Luxembourg">
+          Découvrir →
+        </a>
+      </article>
 
     </div>
+    
+    <!-- CTA global -->
+    <div class="services-cta">
+      <h3>Besoin d'un accompagnement personnalisé ?</h3>
+      <p>Discutons de vos besoins spécifiques en comptabilité ou création société</p>
+      <a href="/contact" class="cta-button" 
+         aria-label="Demander un devis personnalisé expert-comptable Luxembourg">
+        Demander un devis
+      </a>
+    </div>
   </div>
+  
+  <!-- Données structurées -->
+  <script type="application/ld+json" set:html={JSON.stringify(servicesSchema)} />
 </section>
 
 <style>
   .services-section {
-    padding: 4rem 2rem;
+    padding: 5rem 2rem;
     background-color: var(--fond-clair);
     text-align: center;
   }
+  
   .container {
     max-width: 1100px;
     margin: 0 auto;
   }
-  h2 {
-    font-size: 2rem;
-    color: var(--bleu-profond);
-    margin-bottom: 3rem;
+  
+  .services-header {
+    margin-bottom: 4rem;
   }
+  
+  .services-header h2 {
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+  }
+  
+  .services-subtitle {
+    font-size: 1.2rem;
+    color: var(--texte-secondaire);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
   .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 4rem;
   }
+  
   .service-card {
     background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    text-align: left;
   }
+  
   .service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
   }
+  
+  .service-card.featured {
+    border: 2px solid var(--or-premium);
+    transform: scale(1.05);
+  }
+  
+  .featured-badge {
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background: var(--or-premium);
+    color: var(--bleu-profond);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  
   .icon {
-    margin-bottom: 1rem;
-    height: 48px; /* On fixe une hauteur pour l'alignement */
+    margin-bottom: 1.5rem;
+    height: 48px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
   }
   
-  /* Règle par défaut pour les icônes "contour" */
   .icon svg {
     stroke: var(--or-premium);
-    fill: none; /* On s'assure qu'il n'y a pas de remplissage par défaut */
+    fill: none;
     width: 48px;
     height: 48px;
   }
   
-  /* Règle spécifique pour les icônes "pleines" grâce à notre nouvelle classe */
   .icon.icon-filled svg {
     fill: var(--or-premium);
-    stroke: none; /* On s'assure qu'il n'y a pas de contour */
+    stroke: none;
   }
 
   .service-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-    color: var(--texte-principal);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--bleu-profond);
+    line-height: 1.3;
   }
+  
   .service-card p {
-    font-size: 0.95rem;
+    font-size: 1rem;
     line-height: 1.6;
     color: var(--texte-secondaire);
+    margin-bottom: 1.5rem;
+  }
+  
+  .service-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .feature {
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--bleu-profond);
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  
+  .service-link {
+    display: inline-block;
+    color: var(--bleu-profond);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+  }
+  
+  .service-link:hover {
+    color: var(--or-premium);
+  }
+  
+  .service-link.primary {
+    background: var(--or-premium);
+    color: var(--bleu-profond);
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+  }
+  
+  .service-link.primary:hover {
+    background: #ffdd77;
+  }
+  
+  .services-cta {
+    background: white;
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+  }
+  
+  .services-cta h3 {
+    font-size: 1.8rem;
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+  }
+  
+  .services-cta p {
+    color: var(--texte-secondaire);
+    margin-bottom: 2rem;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    background-color: var(--or-premium);
+    color: var(--bleu-profond);
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .cta-button:hover {
+    background-color: #ffdd77;
+    transform: scale(1.05);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .services-header h2 {
+      font-size: 2rem;
+    }
+    
+    .service-card.featured {
+      transform: none;
+    }
+    
+    .services-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .services-cta {
+      padding: 2rem;
+    }
   }
 </style>

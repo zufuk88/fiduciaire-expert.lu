@@ -1,95 +1,671 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// Astro trouve automatiquement tous vos articles dans le dossier !
+// Articles avec tri par date décroissante
 const allPosts = await Astro.glob('./articles/*.md');
+const sortedPosts = allPosts.sort((a, b) => 
+  new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
+);
+
+// Données structurées pour le blog
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Blog Expert-Comptable Luxembourg",
+  "description": "Conseils comptables, fiscaux et juridiques pour entreprises luxembourgeoises par Fiduciaire Expert",
+  "url": "https://www.fiduciaire-expert.lu/articles",
+  "author": {
+    "@type": "Organization",
+    "name": "Fiduciaire Expert Luxembourg",
+    "url": "https://www.fiduciaire-expert.lu"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Fiduciaire Expert Luxembourg",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.fiduciaire-expert.lu/images/logo.png"
+    }
+  },
+  "blogPost": sortedPosts.map(post => ({
+    "@type": "BlogPosting",
+    "headline": post.frontmatter.title,
+    "description": post.frontmatter.description || post.frontmatter.title,
+    "url": `https://www.fiduciaire-expert.lu${post.url}`,
+    "datePublished": post.frontmatter.date,
+    "author": {
+      "@type": "Person",
+      "name": post.frontmatter.author
+    },
+    "image": post.frontmatter.image ? `https://www.fiduciaire-expert.lu${post.frontmatter.image}` : null
+  }))
+};
+
+// Génération automatique de la meta-description
+const metaDescription = `Blog Expert-Comptable Luxembourg : conseils comptables, fiscaux et création société. ${sortedPosts.length} articles par nos experts fiduciaires. Guides pratiques PME.`;
 ---
 
-<Layout title="Nos Articles">
-  <main class="page-content">
-    <div class="title-container">
-      <h1>Nos derniers articles</h1>
-    </div>
+<Layout 
+  title="Blog Expert-Comptable Luxembourg | Conseils Comptables & Fiscaux"
+  description={metaDescription}
+>
+  <main class="blog-page" itemscope itemtype="https://schema.org/Blog">
+    
+    <!-- Breadcrumb SEO -->
+    <nav class="breadcrumb" aria-label="Fil d'ariane">
+      <div class="container">
+        <ol class="breadcrumb-list">
+          <li><a href="/">Accueil</a></li>
+          <li><span aria-current="page">Blog Expert-Comptable Luxembourg</span></li>
+        </ol>
+      </div>
+    </nav>
 
-    <div class="posts-grid">
-      {allPosts.map((post) => (
-        <a href={post.url} class="card">
-          <img src={post.frontmatter.image} alt="" class="card-image"/>
-          <div class="card-content">
-            <span class="category-tag">{post.frontmatter.category}</span>
-            <h2 class="card-title">{post.frontmatter.title}</h2>
-            <div class="author-info">
-              <span class="author-name">{post.frontmatter.author}</span>
-              <span class="date">{post.frontmatter.date}</span>
+    <!-- Header section optimisée -->
+    <section class="blog-header">
+      <div class="container">
+        <div class="header-content">
+          <h1 itemprop="name">
+            Blog Expert-Comptable Luxembourg : 
+            <span class="highlight">Conseils & Actualités</span>
+          </h1>
+          <p class="blog-subtitle" itemprop="description">
+            Découvrez nos <strong>conseils d'experts-comptables</strong> pour optimiser votre 
+            <strong>comptabilité et fiscalité au Luxembourg</strong>. Guides pratiques pour 
+            <strong>PME et entrepreneurs luxembourgeois</strong>.
+          </p>
+          
+          <!-- Stats du blog -->
+          <div class="blog-stats">
+            <div class="stat-item">
+              <span class="stat-number">{sortedPosts.length}</span>
+              <span class="stat-label">Articles</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">15+</span>
+              <span class="stat-label">Experts</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">5</span>
+              <span class="stat-label">Catégories</span>
             </div>
           </div>
-        </a>
-      ))}
-    </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filtres par catégorie -->
+    <section class="blog-filters">
+      <div class="container">
+        <h2 class="filters-title">Parcourir par catégorie</h2>
+        <div class="filters-grid">
+          <a href="/articles/comptabilite" class="filter-card">
+            <span class="filter-icon">📊</span>
+            <h3>Comptabilité Luxembourg</h3>
+            <p>Bilans, eCDF, normes comptables</p>
+          </a>
+          <a href="/articles/fiscalite" class="filter-card">
+            <span class="filter-icon">💰</span>
+            <h3>Fiscalité IRC & TVA</h3>
+            <p>Optimisation fiscale, déclarations</p>
+          </a>
+          <a href="/articles/creation-societe" class="filter-card">
+            <span class="filter-icon">🏢</span>
+            <h3>Création Société</h3>
+            <p>SA, SARL, formalités RCSL</p>
+          </a>
+          <a href="/articles/social" class="filter-card">
+            <span class="filter-icon">👥</span>
+            <h3>Social & Paie</h3>
+            <p>CCSS, CNS, droit du travail</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Articles grid optimisée -->
+    <section class="articles-section">
+      <div class="container">
+        <h2 class="section-title">Derniers Articles de nos Experts</h2>
+        
+        <div class="posts-grid">
+          {sortedPosts.map((post, index) => (
+            <article class="article-card" 
+                     itemscope 
+                     itemtype="https://schema.org/BlogPosting">
+              <a href={post.url} class="card-link" 
+                 aria-label={`Lire l'article : ${post.frontmatter.title}`}>
+                
+                <div class="card-image-container">
+                  <img src={post.frontmatter.image || '/images/default-article.jpg'} 
+                       alt={`Illustration pour l'article : ${post.frontmatter.title}`}
+                       class="card-image"
+                       itemprop="image"
+                       loading={index < 4 ? 'eager' : 'lazy'}
+                       width="400"
+                       height="200" />
+                  
+                  {post.frontmatter.featured && (
+                    <span class="featured-badge">⭐ À la une</span>
+                  )}
+                </div>
+                
+                <div class="card-content">
+                  <div class="card-meta">
+                    <span class="category-tag" itemprop="articleSection">
+                      {post.frontmatter.category}
+                    </span>
+                    <time class="reading-time">
+                      {post.frontmatter.readingTime || '3 min'}
+                    </time>
+                  </div>
+                  
+                  <h3 class="card-title" itemprop="headline">
+                    {post.frontmatter.title}
+                  </h3>
+                  
+                  <p class="card-excerpt" itemprop="description">
+                    {post.frontmatter.description || post.frontmatter.excerpt}
+                  </p>
+                  
+                  <div class="card-footer">
+                    <div class="author-info">
+                      <span class="author-name" itemprop="author">
+                        {post.frontmatter.author}
+                      </span>
+                      <span class="author-role">Expert-Comptable</span>
+                    </div>
+                    <time class="publish-date" 
+                          datetime={post.frontmatter.date}
+                          itemprop="datePublished">
+                      {new Date(post.frontmatter.date).toLocaleDateString('fr-FR', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </time>
+                  </div>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter signup -->
+    <section class="newsletter-section">
+      <div class="container">
+        <div class="newsletter-content">
+          <h2>Restez Informé des Actualités Comptables</h2>
+          <p>Recevez nos <strong>conseils d'experts-comptables</strong> et les <strong>dernières actualités fiscales Luxembourg</strong> directement dans votre boîte mail.</p>
+          
+          <form class="newsletter-form" action="/newsletter" method="post">
+            <input type="email" 
+                   name="email" 
+                   placeholder="Votre email professionnel" 
+                   required 
+                   aria-label="Adresse email pour newsletter">
+            <button type="submit" class="newsletter-btn">
+              S'abonner gratuitement
+            </button>
+          </form>
+          
+          <p class="newsletter-info">
+            📧 <strong>1 email/mois</strong> • ❌ <strong>Pas de spam</strong> • ✅ <strong>Désinscription facile</strong>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Expert -->
+    <section class="expert-cta">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Besoin d'un Conseil Personnalisé ?</h2>
+          <p>Nos articles ne répondent pas à votre situation spécifique ? 
+             <strong>Contactez nos experts-comptables</strong> pour un conseil personnalisé.</p>
+          
+          <div class="cta-buttons">
+            <a href="/contact" class="cta-btn primary">
+              Consultation gratuite
+            </a>
+            <a href="tel:+352123456789" class="cta-btn secondary">
+              📞 +352 XX XX XX XX
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <!-- Données structurées -->
+  <script type="application/ld+json" set:html={JSON.stringify(blogSchema, null, 2)} />
 </Layout>
 
 <style>
-  .page-content {
+  /* Breadcrumb */
+  .breadcrumb {
+    background: rgba(248, 249, 250, 0.8);
+    padding: 1rem 0;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .breadcrumb-list {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.9rem;
+  }
+  
+  .breadcrumb-list li:not(:last-child)::after {
+    content: "›";
+    margin-left: 0.5rem;
+    color: var(--texte-secondaire);
+  }
+  
+  .breadcrumb-list a {
+    color: var(--bleu-profond);
+    text-decoration: none;
+  }
+  
+  .breadcrumb-list a:hover {
+    text-decoration: underline;
+  }
+
+  /* Container */
+  .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 0 2rem;
   }
-  .title-container h1 {
+
+  /* Header section */
+  .blog-header {
+    padding: 4rem 0 3rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, white 100%);
+    text-align: center;
+  }
+  
+  .blog-header h1 {
     font-size: 3rem;
     font-weight: 800;
-    margin-bottom: 3rem;
-    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+    color: var(--bleu-profond);
+    line-height: 1.2;
   }
-  .posts-grid {
+  
+  .highlight {
+    color: var(--or-premium);
+  }
+  
+  .blog-subtitle {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: var(--texte-secondaire);
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .blog-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 3rem;
+  }
+  
+  .stat-item {
+    text-align: center;
+  }
+  
+  .stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--or-premium);
+    margin-bottom: 0.5rem;
+  }
+  
+  .stat-label {
+    color: var(--texte-secondaire);
+    font-weight: 600;
+  }
+
+  /* Filters section */
+  .blog-filters {
+    padding: 4rem 0;
+    background: white;
+  }
+  
+  .filters-title {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--bleu-profond);
+    margin-bottom: 3rem;
+  }
+  
+  .filters-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
   }
-  .card {
-    display: block;
-    background-color: white;
-    border-radius: 16px;
-    overflow: hidden;
+  
+  .filter-card {
+    background: var(--fond-clair);
+    padding: 2rem;
+    border-radius: 12px;
     text-decoration: none;
     color: inherit;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.3s ease;
+    text-align: center;
+    border: 1px solid transparent;
   }
-  .card:hover {
+  
+  .filter-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border-color: var(--or-premium);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   }
+  
+  .filter-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  
+  .filter-card h3 {
+    color: var(--bleu-profond);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+  
+  .filter-card p {
+    color: var(--texte-secondaire);
+    font-size: 0.9rem;
+  }
+
+  /* Articles section */
+  .articles-section {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, var(--fond-clair) 0%, #e9ecef 100%);
+  }
+  
+  .section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 3rem;
+  }
+  
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+  }
+  
+  .article-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .article-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  }
+  
+  .card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .card-image-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
   .card-image {
     width: 100%;
     height: 200px;
-    object-fit: cover; /* L'image remplit l'espace sans se déformer */
+    object-fit: cover;
+    transition: transform 0.3s ease;
   }
-  .card-content {
-    padding: 1.5rem;
+  
+  .article-card:hover .card-image {
+    transform: scale(1.05);
   }
-  .category-tag {
-    display: inline-block;
-    background-color: #f0f0f0;
-    color: #555;
-    padding: 0.25rem 0.75rem;
-    border-radius: 99px; /* Forme de pilule */
+  
+  .featured-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--or-premium);
+    color: var(--bleu-profond);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
     font-size: 0.8rem;
-    font-weight: 600;
+    font-weight: bold;
+  }
+  
+  .card-content {
+    padding: 2rem;
+  }
+  
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 1rem;
   }
-  .card-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin: 0;
-    line-height: 1.4;
+  
+  .category-tag {
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--bleu-profond);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
   }
+  
+  .reading-time {
+    color: var(--texte-secondaire);
+    font-size: 0.8rem;
+  }
+  
+  .card-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    line-height: 1.4;
+    color: var(--bleu-profond);
+  }
+  
+  .card-excerpt {
+    color: var(--texte-secondaire);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid #f0f0f0;
+  }
+  
   .author-info {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    flex-direction: column;
+  }
+  
+  .author-name {
+    font-weight: 600;
+    color: var(--bleu-profond);
+    font-size: 0.9rem;
+  }
+  
+  .author-role {
+    color: var(--texte-secondaire);
+    font-size: 0.8rem;
+  }
+  
+  .publish-date {
+    color: var(--texte-secondaire);
     font-size: 0.85rem;
-    color: #666;
-    margin-top: 1rem;
+  }
+
+  /* Newsletter section */
+  .newsletter-section {
+    padding: 4rem 0;
+    background: var(--bleu-profond);
+    color: white;
+    text-align: center;
+  }
+  
+  .newsletter-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: white;
+  }
+  
+  .newsletter-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+  
+  .newsletter-form {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .newsletter-form input {
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    min-width: 300px;
+  }
+  
+  .newsletter-btn {
+    padding: 1rem 2rem;
+    background: var(--or-premium);
+    color: var(--bleu-profond);
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .newsletter-btn:hover {
+    background: #ffdd77;
+    transform: translateY(-2px);
+  }
+  
+  .newsletter-info {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  /* Expert CTA */
+  .expert-cta {
+    padding: 4rem 0;
+    background: white;
+    text-align: center;
+  }
+  
+  .cta-content h2 {
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+  }
+  
+  .cta-content p {
+    font-size: 1.2rem;
+    color: var(--texte-secondaire);
+    margin-bottom: 2rem;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .cta-btn {
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .cta-btn.primary {
+    background: var(--or-premium);
+    color: var(--bleu-profond);
+  }
+  
+  .cta-btn.primary:hover {
+    background: #ffdd77;
+    transform: translateY(-2px);
+  }
+  
+  .cta-btn.secondary {
+    background: transparent;
+    color: var(--bleu-profond);
+    border: 2px solid var(--bleu-profond);
+  }
+  
+  .cta-btn.secondary:hover {
+    background: var(--bleu-profond);
+    color: white;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .blog-header h1 {
+      font-size: 2.2rem;
+    }
+    
+    .blog-stats {
+      gap: 2rem;
+    }
+    
+    .filters-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .posts-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .newsletter-form {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .newsletter-form input {
+      min-width: 100%;
+    }
+    
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 </style>

@@ -1,86 +1,348 @@
 ---
-// src/components/AboutAndCTA.astro
+// Données structurées pour la section About
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Fiduciaire Expert Luxembourg",
+    "description": "Cabinet d'expertise comptable au Luxembourg, partenaire de confiance pour PME et entrepreneurs depuis 2010",
+    "foundingDate": "2010",
+    "areaServed": "Luxembourg",
+    "expertise": ["Comptabilité", "Fiscalité", "Création société", "Conseil PME"],
+    "values": ["Réactivité", "Transparence", "Accompagnement personnalisé"]
+  }
+};
 ---
-<section class="about-cta-section">
+
+<section class="about-cta-section" aria-labelledby="about-title">
   <div class="container">
     <div class="content-wrapper">
+      
       <div class="about-text">
-        <h2>Plus qu'un expert-comptable, votre  partenaire.</h2>
-        <p>
-          Chez Fiduciaire-Expert, notre équipe adopte une approche personnalisée. Votre réalité est unique, nos conseils le sont aussi. Nous nous engageons à être réactifs, transparents et à vos côtés à chaque étape du développement de votre entreprise au Luxembourg.
+        <h2 id="about-title">
+          Plus qu'un Expert-Comptable Luxembourg, 
+          <span class="highlight">votre partenaire de confiance</span>
+        </h2>
+        <p class="about-description">
+          Chez <strong>Fiduciaire Expert</strong>, notre équipe adopte une approche personnalisée 
+          pour chaque <strong>PME luxembourgeoise</strong>. Votre réalité est unique, nos conseils le sont aussi. 
+          <em>Nous nous engageons à être réactifs, transparents et à vos côtés</em> à chaque étape 
+          du développement de votre entreprise au Luxembourg.
+        </p>
+        
+        <!-- Trust signals -->
+        <div class="trust-indicators">
+          <div class="trust-item">
+            <span class="trust-number">+150</span>
+            <span class="trust-label">Entreprises accompagnées</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-number">15+</span>
+            <span class="trust-label">Années d'expérience</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-number">24h</span>
+            <span class="trust-label">Délai de réponse</span>
+          </div>
+        </div>
+        
+        <!-- Valeurs différenciantes -->
+        <div class="values-list">
+          <div class="value-item">
+            <span class="value-icon">🎯</span>
+            <span>Expertise spécialisée <strong>marché luxembourgeois</strong></span>
+          </div>
+          <div class="value-item">
+            <span class="value-icon">💼</span>
+            <span>Accompagnement <strong>PME et entrepreneurs</strong></span>
+          </div>
+          <div class="value-item">
+            <span class="value-icon">⚡</span>
+            <span>Réactivité et <strong>conseils sur-mesure</strong></span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="cta-box">
+        <div class="cta-header">
+          <h3>Prêt à développer votre entreprise ?</h3>
+          <p class="cta-subtitle">
+            <strong>Audit gratuit</strong> de votre situation comptable et fiscale
+          </p>
+        </div>
+        
+        <div class="cta-offer">
+          <div class="offer-badge">🎁 Offre de lancement</div>
+          <ul class="offer-list">
+            <li>✓ <strong>1ère consultation gratuite</strong></li>
+            <li>✓ <strong>Devis personnalisé</strong> sous 24h</li>
+            <li>✓ <strong>Audit fiscal offert</strong></li>
+          </ul>
+        </div>
+        
+        <div class="cta-buttons">
+          <a href="/contact" class="cta-button primary" 
+             aria-label="Demander votre consultation gratuite - Expert-comptable Luxembourg">
+            Consultation gratuite
+          </a>
+          <a href="tel:+352123456789" class="cta-button secondary"
+             aria-label="Appeler directement Fiduciaire Expert Luxembourg">
+            📞 +352 12 34 56 78
+          </a>
+        </div>
+        
+        <p class="cta-guarantee">
+          <small>✨ <strong>Sans engagement</strong> - Réponse garantie sous 24h</small>
         </p>
       </div>
-      <div class="cta-box">
-        <h3>Vous avez des besoins ?</h3>
-        <p>Discutons en pour vous apporter la meilleure réponse.</p>
-        <a href="/contact" class="cta-button">Contactez-nous</a>
-      </div>
+      
     </div>
   </div>
+  
+  <!-- Données structurées -->
+  <script type="application/ld+json" set:html={JSON.stringify(aboutSchema)} />
 </section>
 
 <style>
   .about-cta-section {
-    padding: 4rem 2rem;
-    background-color: white;
+    padding: 5rem 2rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    position: relative;
+  }
+  
+  .about-cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke-width='1' stroke='%23dee2e6'%3e%3cpath d='M0 32 L32 0 M-8 24 L24 -8 M8 40 L40 8'/%3e%3c/svg%3e");
+    opacity: 0.3;
   }
 
   .container {
     max-width: 1100px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
   }
 
   .content-wrapper {
     display: grid;
-    grid-template-columns: 1fr; /* Une seule colonne sur mobile */
-    gap: 3rem;
-    align-items: center;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    align-items: start;
   }
 
-  /* La mise en page en 2 colonnes s'active sur les écrans plus grands */
-  @media (min-width: 768px) {
+  @media (min-width: 968px) {
     .content-wrapper {
-      grid-template-columns: 2fr 1fr; /* La partie texte est plus large */
+      grid-template-columns: 1.8fr 1.2fr;
+      gap: 5rem;
     }
   }
 
   .about-text h2 {
-    font-size: 2rem;
-    color: #0d2b4f;
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  
+  .highlight {
+    color: var(--or-premium);
+    display: inline-block;
   }
 
-  .about-text p {
+  .about-description {
+    font-size: 1.1rem;
     line-height: 1.7;
-    color: #555;
+    color: var(--texte-secondaire);
+    margin-bottom: 2.5rem;
+  }
+  
+  .trust-indicators {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+  }
+  
+  .trust-item {
+    text-align: center;
+  }
+  
+  .trust-number {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--or-premium);
+    margin-bottom: 0.3rem;
+  }
+  
+  .trust-label {
+    font-size: 0.9rem;
+    color: var(--texte-secondaire);
+    font-weight: 600;
+  }
+  
+  .values-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .value-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 8px;
+    border-left: 4px solid var(--or-premium);
+  }
+  
+  .value-icon {
+    font-size: 1.2rem;
   }
 
   .cta-box {
-    background-color: #f8f9fa;
-    padding: 2rem;
-    border-radius: 8px;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .cta-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--or-premium), #ffdd77);
+  }
+  
+  .cta-header {
     text-align: center;
-    border: 1px solid #e9ecef;
+    margin-bottom: 2rem;
   }
   
   .cta-box h3 {
-    margin-top: 0;
-    color: #0d2b4f;
+    font-size: 1.8rem;
+    margin: 0 0 0.5rem 0;
+    color: var(--bleu-profond);
   }
-
+  
+  .cta-subtitle {
+    color: var(--texte-secondaire);
+    font-size: 1.1rem;
+  }
+  
+  .cta-offer {
+    background: rgba(212, 175, 55, 0.1);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .offer-badge {
+    background: var(--or-premium);
+    color: var(--bleu-profond);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+  
+  .offer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .offer-list li {
+    padding: 0.5rem 0;
+    color: var(--texte-principal);
+  }
+  
+  .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
   .cta-button {
     display: inline-block;
-    background-color: #B8860B; /* Notre doré */
-    color: white;
-    padding: 0.8rem 2.5rem;
+    padding: 1rem 2rem;
     text-decoration: none;
     border-radius: 8px;
     font-weight: bold;
-    margin-top: 1rem;
-    transition: transform 0.2s ease;
+    text-align: center;
+    transition: all 0.3s ease;
   }
-
-  .cta-button:hover {
-    transform: scale(1.05);
+  
+  .cta-button.primary {
+    background: var(--or-premium);
+    color: var(--bleu-profond);
+    font-size: 1.1rem;
+  }
+  
+  .cta-button.primary:hover {
+    background: #ffdd77;
+    transform: translateY(-2px);
+  }
+  
+  .cta-button.secondary {
+    background: transparent;
+    color: var(--bleu-profond);
+    border: 2px solid var(--bleu-profond);
+    font-size: 1rem;
+  }
+  
+  .cta-button.secondary:hover {
+    background: var(--bleu-profond);
+    color: white;
+  }
+  
+  .cta-guarantee {
+    text-align: center;
+    color: var(--texte-secondaire);
+    margin: 0;
+  }
+  
+  /* Responsive */
+  @media (max-width: 767px) {
+    .about-text h2 {
+      font-size: 2rem;
+    }
+    
+    .trust-indicators {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .cta-box {
+      padding: 2rem;
+    }
+  }
+  
+  @media (min-width: 480px) {
+    .cta-buttons {
+      flex-direction: row;
+      justify-content: center;
+    }
   }
 </style>

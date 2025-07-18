@@ -1,0 +1,1443 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Données des conditions d'éligibilité
+const eligibilityConditions = [
+  {
+    critere: "Nature de l'activité",
+    exigence: "Activité non commerciale (holding, financement, IP, investissement)",
+    preuves: ["Statuts constitutifs", "Business plan détaillé", "Objet social précis"]
+  },
+  {
+    critere: "Lien économique suffisant",
+    exigence: "Bénéficiaire effectif résident OU gérant Luxembourg OU investissements locaux",
+    preuves: ["Certificat de résidence", "Mandat de gérance", "Contrats d'investissement"]
+  },
+  {
+    critere: "Substance minimale",
+    exigence: "Réunions conseil Luxembourg, comptabilité locale, compte bancaire",
+    preuves: ["PV d'assemblées", "Relevés bancaires", "Registres comptables"]
+  },
+  {
+    critere: "Conformité AML/KYC",
+    exigence: "Dossier KYC complet et sources de fonds justifiées",
+    preuves: ["Formulaire KYC", "Organigramme groupe", "Preuves origine fonds"]
+  }
+];
+
+// Services inclus dans la domiciliation
+const domiciliationServices = [
+  {
+    service: "Adresse Siège Social Premium",
+    description: "Adresse prestigieuse quartier Gare/Cloche d'Or Luxembourg",
+    icon: "🏢",
+    details: ["Adresse commerciale de prestige", "Plaque professionnelle", "Salle de réunion"]
+  },
+  {
+    service: "Gestion Courrier Sécurisée",
+    description: "Réception, tri et rétention du courrier officiel",
+    icon: "📮",
+    details: ["Tri et classement", "Box individuelle", "Rétention locale conforme"]
+  },
+  {
+    service: "Permanence Téléphonique",
+    description: "Standard multilingue (français, anglais, allemand)",
+    icon: "📞",
+    details: ["Accueil professionnel", "Prise de messages", "Transfert d'appels"]
+  },
+  {
+    service: "Salle de Réunion",
+    description: "Espaces équipés pour conseils d'administration",
+    icon: "🏛️",
+    details: ["Réservation gratuite", "Équipements audiovisuels", "Catering possible"]
+  },
+  {
+    service: "Compliance & Suivi",
+    description: "Contrôles AML/KYC trimestriels et conformité continue",
+    icon: "✅",
+    details: ["Vérifications périodiques", "Rapports compliance", "Mise à jour dossiers"]
+  }
+];
+
+// Activités non acceptées
+const activitesRefusees = [
+  "Commerce de détail ou e-commerce",
+  "Prestations de services commerciales",
+  "Consulting opérationnel",
+  "Activités manufacturières",
+  "Négoce et commerce physique",
+  "Restaurants et hôtellerie",
+  "Activités nécessitant une autorisation d'établissement"
+];
+
+// Données structurées pour SEO
+const domiciliationSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://www.fiduciaire-expert.lu/domiciliation-luxembourg#service",
+      "name": "Domiciliation Entreprise Luxembourg - Non Commerciale",
+      "description": "Service domiciliation Luxembourg pour sociétés non commerciales : holdings, SPV, investissement. Conditions strictes lien économique Luxembourg.",
+      "provider": {
+        "@type": "Organization",
+        "name": "Fiduciaire Expert Luxembourg",
+        "url": "https://www.fiduciaire-expert.lu"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Luxembourg"
+      },
+      "serviceType": [
+        "Domiciliation entreprise Luxembourg",
+        "Adresse siège social Luxembourg",
+        "Domiciliation holding Luxembourg",
+        "Services domiciliation non commerciale"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Services Domiciliation Luxembourg",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Domiciliation Premium Luxembourg",
+              "description": "Adresse prestigieuse + services inclus"
+            },
+            "price": "À partir de 150€/mois",
+            "priceCurrency": "EUR"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Accueil",
+          "item": "https://www.fiduciaire-expert.lu"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Services",
+          "item": "https://www.fiduciaire-expert.lu/services"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Domiciliation Luxembourg",
+          "item": "https://www.fiduciaire-expert.lu/domiciliation-luxembourg"
+        }
+      ]
+    }
+  ]
+};
+
+const metaDescription = "Domiciliation entreprise Luxembourg pour activités non commerciales. Holdings, SPV, investissement. Lien économique Luxembourg requis. Adresse prestigieuse + services inclus.";
+---
+
+<Layout 
+  title="Domiciliation Luxembourg | Siège Social Non Commerciale - Expert"
+  description={metaDescription}
+>
+  <main class="domiciliation-page" itemscope itemtype="https://schema.org/Service">
+
+    <!-- Breadcrumb SEO -->
+    <nav class="breadcrumb" aria-label="Fil d'ariane">
+      <div class="container">
+        <ol class="breadcrumb-list">
+          <li><a href="/">Accueil</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><span aria-current="page">Domiciliation Luxembourg</span></li>
+        </ol>
+      </div>
+    </nav>
+
+    <!-- Header Hero -->
+    <section class="hero-section">
+      <div class="container">
+        <h1 itemprop="name">
+          Domiciliation Entreprise Luxembourg : 
+          <span class="highlight">Activités Non Commerciales Uniquement</span>
+        </h1>
+        <p class="hero-subtitle" itemprop="description">
+          <strong>Service de domiciliation Luxembourg</strong> réservé aux <strong>holdings, SPV et sociétés d'investissement</strong> 
+          sans activité commerciale. <strong>Lien économique suffisant avec le Luxembourg obligatoire</strong> : 
+          résidence BE, gérant local ou investissements luxembourgeois.
+        </p>
+        
+        <!-- Warning légal -->
+        <div class="legal-warning">
+          <span class="warning-icon">⚠️</span>
+          <div class="warning-content">
+            <h3>Conditions Strictes d'Éligibilité</h3>
+            <p><strong>Activités commerciales refusées</strong> selon la loi luxembourgeoise du 31 mai 1999. 
+               Substance économique et lien avec le Luxembourg obligatoires.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Conditions d'éligibilité -->
+    <section class="eligibility-section">
+      <div class="container">
+        <h2>Conditions d'Éligibilité Domiciliation Luxembourg</h2>
+        <p class="section-intro">
+          Notre service de <strong>domiciliation Luxembourg</strong> est strictement encadré par la réglementation. 
+          <strong>Contrôle préalable obligatoire</strong> avant acceptation de votre dossier.
+        </p>
+        
+        <div class="eligibility-grid">
+          {eligibilityConditions.map((condition, index) => (
+            <div class="eligibility-card">
+              <div class="condition-header">
+                <span class="condition-number">{index + 1}</span>
+                <h3>{condition.critere}</h3>
+              </div>
+              
+              <div class="condition-content">
+                <div class="exigence-block">
+                  <h4>📋 Exigence</h4>
+                  <p>{condition.exigence}</p>
+                </div>
+                
+                <div class="preuves-block">
+                  <h4>📁 Preuves Requises</h4>
+                  <ul class="preuves-list">
+                    {condition.preuves.map(preuve => (
+                      <li>{preuve}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <!-- Lien économique détaillé -->
+        <div class="lien-economique">
+          <h3>🔗 Lien Économique Suffisant avec le Luxembourg</h3>
+          <p>Au moins <strong>un des critères suivants</strong> doit être respecté :</p>
+          
+          <div class="liens-grid">
+            <div class="lien-option">
+              <div class="lien-icon">🏠</div>
+              <h4>Bénéficiaire Effectif Résident</h4>
+              <p><strong>Résidence fiscale Luxembourg</strong> du ou des bénéficiaires effectifs (>25% participation)</p>
+              <ul>
+                <li>Certificat de résidence fiscale</li>
+                <li>Justificatif de domicile Luxembourg</li>
+                <li>Déclaration d'impôt luxembourgeoise</li>
+              </ul>
+            </div>
+            
+            <div class="lien-option">
+              <div class="lien-icon">👨‍💼</div>
+              <h4>Gérant/Administrateur Local</h4>
+              <p><strong>Gérant ou administrateur résidant Luxembourg</strong> avec pouvoir de décision effectif</p>
+              <ul>
+                <li>Mandat de gérance détaillé</li>
+                <li>Résidence Luxembourg du gérant</li>
+                <li>CV et expérience professionnelle</li>
+              </ul>
+            </div>
+            
+            <div class="lien-option">
+              <div class="lien-icon">💰</div>
+              <h4>Investissements Luxembourg</h4>
+              <p><strong>Actifs ou investissements significatifs</strong> situés au Grand-Duché du Luxembourg</p>
+              <ul>
+                <li>Participations dans sociétés luxembourgeoises</li>
+                <li>Immobilier ou fonds d'investissement</li>
+                <li>Contrats avec contreparties locales</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Activités acceptées vs refusées -->
+    <section class="activities-section">
+      <div class="container">
+        <h2>Activités Éligibles vs Non Éligibles</h2>
+        
+        <div class="activities-comparison">
+          <div class="activities-accepted">
+            <h3>✅ Activités Acceptées (Non Commerciales)</h3>
+            <div class="activities-grid">
+              <div class="activity-item accepted">
+                <h4>🏢 Holdings Financières</h4>
+                <p>Détention de participations, gestion de portefeuille d'investissements</p>
+              </div>
+              <div class="activity-item accepted">
+                <h4>🏦 SPV (Special Purpose Vehicle)</h4>
+                <p>Véhicules dédiés financement, structuration, acquisitions</p>
+              </div>
+              <div class="activity-item accepted">
+                <h4>💡 Sociétés de Propriété Intellectuelle</h4>
+                <p>Détention licences, brevets, marques commerciales</p>
+              </div>
+              <div class="activity-item accepted">
+                <h4>🌐 Sociétés d'Investissement</h4>
+                <p>Gestion patrimoine familial, family office, investissements</p>
+              </div>
+              <div class="activity-item accepted">
+                <h4>🏗️ Sociétés Immobilières</h4>
+                <p>Détention, gestion patrimoine immobilier (sans exploitation)</p>
+              </div>
+              <div class="activity-item accepted">
+                <h4>💼 Sociétés de Financement</h4>
+                <p>Prêts intra-groupe, financement de projets, cash pooling</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="activities-refused">
+            <h3>❌ Activités Refusées (Commerciales)</h3>
+            <div class="refused-list">
+              {activitesRefusees.map(activite => (
+                <div class="refused-item">
+                  <span class="refused-icon">🚫</span>
+                  <span>{activite}</span>
+                </div>
+              ))}
+            </div>
+            
+            <div class="refusal-explanation">
+              <h4>📜 Pourquoi nous ne domicilions pas les sociétés commerciales ? </h4>
+              <p>Selon la <strong>loi luxembourgeoise du 31 mai 1999</strong> sur la domiciliation, 
+                 les sociétés exerçant une <strong>activité commerciale effective au Luxembourg</strong> 
+                 doivent disposer d'un établissement stable et ne peuvent se contenter d'une simple domiciliation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services inclus -->
+    <section class="services-included">
+      <div class="container">
+        <h2>Services Domiciliation Luxembourg Inclus</h2>
+        <p class="section-intro">
+          Notre offre <strong>domiciliation Premium Luxembourg</strong> comprend tous les services 
+          nécessaires à votre <strong>siège social prestigieux</strong>.
+        </p>
+        
+        <div class="services-grid">
+          {domiciliationServices.map(service => (
+            <div class="service-card">
+              <div class="service-header">
+                <span class="service-icon">{service.icon}</span>
+                <h3>{service.service}</h3>
+              </div>
+              
+              <p class="service-description">{service.description}</p>
+              
+              <div class="service-details">
+                <h4>Détails inclus :</h4>
+                <ul class="details-list">
+                  {service.details.map(detail => (
+                    <li>{detail}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <!-- Pricing -->
+        <div class="pricing-section">
+          <h3>💰 Tarification Domiciliation Luxembourg</h3>
+          <div class="pricing-card">
+            <div class="price-header">
+              <span class="price-amount">À partir de 150€</span>
+              <span class="price-period">/mois</span>
+            </div>
+            <div class="price-details">
+              <h4>Formule Premium Inclut :</h4>
+              <ul class="price-includes">
+                <li>✅ Adresse siège social prestigieuse</li>
+                <li>✅ Gestion courrier complète</li>
+                <li>✅ Permanence téléphonique</li>
+                <li>✅ Salle de réunion (4h/mois)</li>
+                <li>✅ Contrôles compliance trimestriels</li>
+                <li>✅ Support juridique basique</li>
+              </ul>
+            </div>
+            <div class="price-note">
+              <p><em>Tarif personnalisé selon substance requise et fréquence des services</em></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Processus de domiciliation -->
+    <section class="process-section">
+      <div class="container">
+        <h2>Processus de Domiciliation Luxembourg</h2>
+        
+        <div class="process-timeline">
+          <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>Analyse d'Éligibilité Gratuite</h3>
+              <p><strong>Étude préalable de votre dossier</strong> sous 24h pour vérifier 
+                 la conformité avec nos critères de domiciliation Luxembourg.</p>
+              <ul class="step-requirements">
+                <li>Questionnaire KYC préliminaire</li>
+                <li>Description activité détaillée</li>
+                <li>Justification lien économique</li>
+                <li>Documents société existante</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>Due Diligence Approfondie</h3>
+              <p><strong>Vérification complète AML/KYC</strong> et validation du dossier 
+                 selon standards luxembourgeois les plus stricts.</p>
+              <ul class="step-requirements">
+                <li>Contrôle identité bénéficiaires effectifs</li>
+                <li>Vérification sources de fonds</li>
+                <li>Analyse structure juridique</li>
+                <li>Validation substance économique</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>Signature Contrat Domiciliation</h3>
+              <p><strong>Contrat de domiciliation Luxembourg</strong> sur 12 mois renouvelables 
+                 avec conditions de substance et obligations des parties.</p>
+              <ul class="step-requirements">
+                <li>Conditions générales domiciliation</li>
+                <li>Obligations substance minimale</li>
+                <li>Services inclus détaillés</li>
+                <li>Modalités facturation</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3>Activation Services & Suivi</h3>
+              <p><strong>Mise à disposition immédiate</strong> de l'adresse Luxembourg 
+                 et activation de tous les services inclus.</p>
+              <ul class="step-requirements">
+                <li>Adresse siège social disponible</li>
+                <li>Ouverture compte bancaire Luxembourg</li>
+                <li>Formalités RCSL si nécessaire</li>
+                <li>Formation équipe aux procédures</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Avantages Luxembourg -->
+    <section class="advantages-section">
+      <div class="container">
+        <h2>Pourquoi Domicilier au Luxembourg ?</h2>
+        
+        <div class="advantages-grid">
+          <div class="advantage-item">
+            <div class="advantage-icon">🏆</div>
+            <h3>Stabilité AAA</h3>
+            <p><strong>Note AAA</strong> des agences de rating. 
+               Stabilité politique et économique exceptionnelle en Europe.</p>
+          </div>
+          
+          <div class="advantage-item">
+            <div class="advantage-icon">💼</div>
+            <h3>Environnement Fiscal Optimal</h3>
+            <p><strong>Régimes fiscaux attractifs</strong> pour holdings, SPV et véhicules d'investissement. 
+               Conventions fiscales étendues.</p>
+          </div>
+          
+          <div class="advantage-item">
+            <div class="advantage-icon">🇪🇺</div>
+            <h3>Passeport Européen</h3>
+            <p><strong>Accès libre au marché unique européen</strong>. 
+               Reconnaissance mutuelle et libre circulation des capitaux.</p>
+          </div>
+          
+          <div class="advantage-item">
+            <div class="advantage-icon">🔒</div>
+            <h3>Confidentialité & Sécurité</h3>
+            <p><strong>Protection données</strong> et respect secret bancaire. 
+               Cadre juridique sécurisé et prévisible.</p>
+          </div>
+          
+          <div class="advantage-item">
+            <div class="advantage-icon">🌍</div>
+            <h3>Expertise Internationale</h3>
+            <p><strong>Main-d'œuvre multilingue</strong> hautement qualifiée. 
+               Hub financier européen reconnu.</p>
+          </div>
+          
+          <div class="advantage-item">
+            <div class="advantage-icon">⚡</div>
+            <h3>Efficacité Administrative</h3>
+            <p><strong>Formalités simplifiées</strong> et digitalisation avancée. 
+               Administration proactive et réactive.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Domiciliation -->
+    <section class="domiciliation-faq">
+      <div class="container">
+        <h2>Questions Fréquentes - Domiciliation Luxembourg</h2>
+        
+        <div class="faq-grid">
+          <details class="faq-item">
+            <summary>Puis-je domicilier une société avec activité commerciale ?</summary>
+            <div class="faq-answer">
+              <p><strong>Non, strictement interdit.</strong> La loi luxembourgeoise du 31 mai 1999 
+                 réserve la domiciliation aux <strong>activités non commerciales uniquement</strong>. 
+                 Les sociétés commerciales doivent disposer d'un établissement stable.</p>
+            </div>
+          </details>
+          
+          <details class="faq-item">
+            <summary>Qu'est-ce qu'un "lien économique suffisant" avec le Luxembourg ?</summary>
+            <div class="faq-answer">
+              <p>Il s'agit d'avoir <strong>au moins un élément</strong> parmi : 
+                 bénéficiaire effectif résident Luxembourg, gérant/administrateur local, 
+                 ou investissements significatifs dans le Grand-Duché. <strong>Simple boîte aux lettres interdite.</strong></p>
+            </div>
+          </details>
+          
+          <details class="faq-item">
+            <summary>Combien coûte la domiciliation Luxembourg ?</summary>
+            <div class="faq-answer">
+              <p>Notre formule Premium commence à <strong>150€/mois</strong> incluant adresse prestigieuse, 
+                 gestion courrier, permanence téléphonique et salle de réunion. 
+                 Tarif personnalisé selon vos besoins de substance.</p>
+            </div>
+          </details>
+          
+          <details class="faq-item">
+            <summary>Quels contrôles sont effectués sur les sociétés domiciliées ?</summary>
+            <div class="faq-answer">
+              <p><strong>Contrôles AML/KYC trimestriels</strong> obligatoires, vérification 
+                 du maintien du lien économique, et audits de substance. 
+                 <strong>Résiliation automatique</strong> en cas de non-conformité.</p>
+            </div>
+          </details>
+          
+          <details class="faq-item">
+            <summary>Puis-je ouvrir un compte bancaire avec votre domiciliation ?</summary>
+            <div class="faq-answer">
+              <p><strong>Oui, nous facilitons l'ouverture</strong> de comptes bancaires Luxembourg 
+                 grâce à nos relations privilégiées avec les banques locales. 
+                 Notre adresse prestigieuse renforce votre crédibilité.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="final-domiciliation-cta">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Domiciliation Luxembourg Conforme & Sécurisée</h2>
+          <p>
+            <strong>+150 sociétés domiciliées</strong> en conformité totale. 
+            <strong>Analyse d'éligibilité gratuite</strong> sous 24h pour votre projet de domiciliation Luxembourg.
+          </p>
+          
+          <div class="cta-buttons">
+            <a href="/contact?service=domiciliation-luxembourg" class="cta-btn primary large">
+              Analyse Éligibilité Gratuite
+            </a>
+            <a href="tel:+352123456789" class="cta-btn secondary large">
+              📞 Expert Domiciliation
+            </a>
+          </div>
+          
+          <div class="cta-guarantees">
+            <span class="guarantee">✅ Conformité légale 100%</span>
+            <span class="guarantee">✅ Adresse prestigieuse</span>
+            <span class="guarantee">✅ Services inclus complets</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Données structurées -->
+  <script type="application/ld+json" set:html={JSON.stringify(domiciliationSchema, null, 2)} />
+</Layout>
+
+<style>
+  /* Variables CSS */
+  :root {
+    --bleu-profond: #0d2b4f;
+    --or-premium: #D4AF37;
+    --texte-secondaire: #666;
+    --texte-principal: #333;
+    --fond-clair: #f8f9fa;
+    --rouge-attention: #dc3545;
+    --vert-accepte: #28a745;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    background: rgba(248, 249, 250, 0.8);
+    padding: 1rem 0;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .breadcrumb-list {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.9rem;
+  }
+  
+  .breadcrumb-list li:not(:last-child)::after {
+    content: "›";
+    margin-left: 0.5rem;
+    color: var(--texte-secondaire);
+  }
+  
+  .breadcrumb-list a {
+    color: var(--bleu-profond);
+    text-decoration: none;
+  }
+
+  /* Container */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    padding: 4rem 0 3rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, white 100%);
+    text-align: center;
+  }
+  
+  .hero-section h1 {
+    font-size: 3.2rem;
+    color: var(--bleu-profond);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  
+  .highlight {
+    color: var(--or-premium);
+  }
+  
+  .hero-subtitle {
+    font-size: 1.3rem;
+    line-height: 1.7;
+    color: var(--texte-secondaire);
+    margin-bottom: 3rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .legal-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: rgba(220, 53, 69, 0.1);
+    border: 2px solid var(--rouge-attention);
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  
+  .warning-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+  
+  .warning-content h3 {
+    color: var(--rouge-attention);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+  
+  .warning-content p {
+    color: var(--texte-principal);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Eligibility Section */
+  .eligibility-section {
+    padding: 5rem 0;
+    background: white;
+  }
+  
+  .eligibility-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+  }
+  
+  .section-intro {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--texte-secondaire);
+    margin-bottom: 4rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .eligibility-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  
+  .eligibility-card {
+    background: var(--fond-clair);
+    border-radius: 12px;
+    padding: 2rem;
+    border-top: 4px solid var(--or-premium);
+  }
+  
+  .condition-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .condition-number {
+    background: var(--or-premium);
+    color: var(--bleu-profond);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  
+  .condition-header h3 {
+    color: var(--bleu-profond);
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  
+  .exigence-block,
+  .preuves-block {
+    margin-bottom: 1.5rem;
+  }
+  
+  .exigence-block h4,
+  .preuves-block h4 {
+    color: var(--bleu-profond);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .preuves-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .preuves-list li {
+    padding: 0.3rem 0;
+    color: var(--texte-secondaire);
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .preuves-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--vert-accepte);
+    font-weight: bold;
+  }
+  
+  .lien-economique {
+    background: white;
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--or-premium);
+  }
+  
+  .lien-economique h3 {
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
+  .lien-economique > p {
+    text-align: center;
+    color: var(--texte-secondaire);
+    margin-bottom: 2rem;
+  }
+  
+  .liens-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+  
+  .lien-option {
+    background: var(--fond-clair);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+  }
+  
+  .lien-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .lien-option h4 {
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+  }
+  
+  .lien-option p {
+    color: var(--texte-secondaire);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+  
+  .lien-option ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+  }
+  
+  .lien-option li {
+    padding: 0.3rem 0;
+    color: var(--texte-secondaire);
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .lien-option li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--or-premium);
+    font-weight: bold;
+  }
+
+  /* Activities Section */
+  .activities-section {
+    padding: 5rem 0;
+    background: var(--fond-clair);
+  }
+  
+  .activities-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 3rem;
+  }
+  
+  .activities-comparison {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  @media (min-width: 992px) {
+    .activities-comparison {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .activities-accepted h3,
+  .activities-refused h3 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .activities-accepted h3 {
+    color: var(--vert-accepte);
+  }
+  
+  .activities-refused h3 {
+    color: var(--rouge-attention);
+  }
+  
+  .activities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .activity-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--vert-accepte);
+  }
+  
+  .activity-item h4 {
+    color: var(--bleu-profond);
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+  
+  .activity-item p {
+    color: var(--texte-secondaire);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+  
+  .refused-list {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--rouge-attention);
+  }
+  
+  .refused-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    color: var(--texte-secondaire);
+  }
+  
+  .refused-item:last-child {
+    border-bottom: none;
+  }
+  
+  .refused-icon {
+    color: var(--rouge-attention);
+    font-size: 1.2rem;
+  }
+  
+  .refusal-explanation {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-top: 2rem;
+    border: 1px solid var(--rouge-attention);
+  }
+  
+  .refusal-explanation h4 {
+    color: var(--rouge-attention);
+    margin-bottom: 1rem;
+  }
+  
+  .refusal-explanation p {
+    color: var(--texte-secondaire);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Services Included */
+  .services-included {
+    padding: 5rem 0;
+    background: white;
+  }
+  
+  .services-included h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+  }
+  
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  
+  .service-card {
+    background: var(--fond-clair);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+  
+  .service-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .service-icon {
+    font-size: 2.5rem;
+  }
+  
+  .service-header h3 {
+    color: var(--bleu-profond);
+    margin: 0;
+    font-size: 1.3rem;
+  }
+  
+  .service-description {
+    color: var(--texte-secondaire);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+  
+  .service-details h4 {
+    color: var(--bleu-profond);
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+  
+  .details-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .details-list li {
+    padding: 0.3rem 0;
+    color: var(--texte-secondaire);
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .details-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--vert-accepte);
+    font-weight: bold;
+  }
+  
+  .pricing-section {
+    background: white;
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 2px solid var(--or-premium);
+  }
+  
+  .pricing-section h3 {
+    color: var(--bleu-profond);
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+  }
+  
+  .pricing-card {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .price-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .price-amount {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--or-premium);
+  }
+  
+  .price-period {
+    font-size: 1.5rem;
+    color: var(--texte-secondaire);
+  }
+  
+  .price-details h4 {
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+  }
+  
+  .price-includes {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    max-width: 400px;
+    margin: 0 auto 2rem;
+  }
+  
+  .price-includes li {
+    padding: 0.5rem 0;
+    color: var(--texte-secondaire);
+  }
+  
+  .price-note {
+    font-style: italic;
+    color: var(--texte-secondaire);
+    font-size: 0.9rem;
+  }
+
+  /* Process Section */
+  .process-section {
+    padding: 5rem 0;
+    background: var(--fond-clair);
+  }
+  
+  .process-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 4rem;
+  }
+  
+  .process-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+  
+  .process-step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  
+  .step-number {
+    width: 60px;
+    height: 60px;
+    background: var(--or-premium);
+    color: var(--bleu-profond);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  
+  .step-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+  
+  .step-content h3 {
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  .step-content p {
+    color: var(--texte-secondaire);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  
+  .step-requirements {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
+  }
+  
+  .step-requirements li {
+    color: var(--texte-secondaire);
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 0.9rem;
+    padding-top: 0.3rem;
+  }
+  
+  .step-requirements li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--or-premium);
+    font-weight: bold;
+  }
+
+  /* Advantages Section */
+  .advantages-section {
+    padding: 5rem 0;
+    background: white;
+  }
+  
+  .advantages-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 3rem;
+  }
+  
+  .advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+  
+  .advantage-item {
+    background: var(--fond-clair);
+    padding: 2.5rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .advantage-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .advantage-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .advantage-item h3 {
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+  
+  .advantage-item p {
+    color: var(--texte-secondaire);
+    line-height: 1.6;
+  }
+
+  /* FAQ */
+  .domiciliation-faq {
+    padding: 5rem 0;
+    background: var(--fond-clair);
+  }
+  
+  .domiciliation-faq h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 3rem;
+  }
+  
+  .faq-grid {
+    display: grid;
+    gap: 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .faq-item {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+  }
+  
+  .faq-item summary {
+    padding: 1.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--bleu-profond);
+    list-style: none;
+  }
+  
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  .faq-answer {
+    padding: 0 1.5rem 1.5rem;
+    color: var(--texte-secondaire);
+    line-height: 1.7;
+  }
+
+  /* Final CTA */
+  .final-domiciliation-cta {
+    padding: 5rem 2rem;
+    background: var(--fond-clair);
+    background-image: 
+      repeating-linear-gradient(
+        45deg,
+        rgba(212, 175, 55, 0.15) 0px,
+        rgba(212, 175, 55, 0.15) 2px,
+        transparent 2px,
+        transparent 25px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        rgba(212, 175, 55, 0.1) 0px,
+        rgba(212, 175, 55, 0.1) 1px,
+        transparent 1px,
+        transparent 30px
+      );
+    text-align: center;
+    position: relative;
+  }
+
+  .final-domiciliation-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      repeating-linear-gradient(
+        135deg,
+        rgba(212, 175, 55, 0.08) 0px,
+        rgba(212, 175, 55, 0.08) 1px,
+        transparent 1px,
+        transparent 20px
+      );
+  }
+
+  .final-domiciliation-cta > .container {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .cta-content h2 {
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 1.5rem;
+  }
+  
+  .cta-content p {
+    font-size: 1.2rem;
+    color: var(--bleu-profond);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .cta-btn {
+    padding: 1.2rem 2.5rem;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+  }
+  
+  .cta-btn.large {
+    padding: 1.5rem 3rem;
+  }
+  
+  .cta-btn.primary {
+    background: var(--or-premium);
+    color: var(--bleu-profond);
+  }
+  
+  .cta-btn.primary:hover {
+    background: #ffdd77;
+    transform: translateY(-2px);
+  }
+  
+  .cta-btn.secondary {
+    background: white;
+    color: var(--bleu-profond);
+    border: 2px solid var(--bleu-profond);
+  }
+  
+  .cta-btn.secondary:hover {
+    background: var(--bleu-profond);
+    color: white;
+  }
+  
+  .cta-guarantees {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .guarantee {
+    color: var(--or-premium);
+    font-weight: 600;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-section h1 {
+      font-size: 2.5rem;
+    }
+    
+    .legal-warning {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .eligibility-grid,
+    .liens-grid,
+    .activities-grid,
+    .services-grid,
+    .advantages-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .activities-comparison {
+      grid-template-columns: 1fr;
+    }
+    
+    .process-step {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    
+    .price-header {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .cta-guarantees {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>

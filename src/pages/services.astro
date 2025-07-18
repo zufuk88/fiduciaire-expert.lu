@@ -1,219 +1,851 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// On recrée la liste complète des 8 services avec leurs descriptions détaillées
+// Services optimisés SEO avec mots-clés Luxembourg
 const allServices = [
   {
-    title: "Comptabilité et Préparation de Bilan",
-    description: "Nous assurons une tenue de comptabilité générale rigoureuse, la préparation de vos bilans et comptes annuels, ainsi que leur dépôt sur la plateforme eCDF, en parfaite conformité avec la législation luxembourgeoise.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" /><path d="M9 17h6" /></svg>`
+    title: "Comptabilité et Fiscalité Luxembourg",
+    shortTitle: "Comptabilité",
+    description: "Nous assurons une <strong>tenue de comptabilité conforme à la législation luxembourgeoise</strong>, la préparation de vos bilans et comptes annuels, ainsi que leur <strong>dépôt sur la plateforme eCDF</strong>. Expertise fiscale <strong>IRC</strong> et optimisation pour <strong>PME luxembourgeoises</strong>.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" /><path d="M9 17h6" /></svg>`,
+    features: ["Bilans eCDF", "Déclarations TVA", "Optimisation IRC", "Conformité légale"],
+    anchor: "comptabilite-luxembourg",
+    price: "À partir de 300€/mois"
   },
   {
-    title: "Secrétariat Juridique",
-    description: "Nous vous déchargeons de la complexité administrative en gérant la préparation des assemblées générales (AG), la rédaction des procès-verbaux et l'accomplissement des formalités légales auprès du RCSL.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" /></svg>`
+    title: "Création Société Luxembourg",
+    shortTitle: "Création Société",
+    description: "De A à Z, nous vous accompagnons dans la <strong>création rapide de votre société au Luxembourg</strong> : choix de la forme juridique (<strong>SA, SARL, SCI, SCSp, SAS</strong>), rédaction des statuts, et <strong>immatriculation RCSL en 5 jours</strong>.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21h18" /><path d="M5 21v-14l8 -4v18" /><path d="M19 21v-10l-6 -4" /><path d="M9 9l0 .01" /><path d="M9 12l0 .01" /><path d="M9 15l0 .01" /><path d="M9 18l0 .01" /></svg>`,
+    features: ["Tous types sociétés", "Formalités RCSL", "Délai 5 jours", "Statuts inclus"],
+    anchor: "creation-societe-luxembourg",
+    price: "À partir de 1.500€",
+    popular: true
   },
   {
-    title: "Création et Liquidation de Société",
-    description: "De A à Z, nous vous accompagnons dans le lancement ou la cessation de votre activité : choix de la forme juridique (SA, SARL-S), rédaction des statuts en lien avec le notaire, et gestion complète des procédures de liquidation.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21h18" /><path d="M5 21v-14l8 -4v18" /><path d="M19 21v-10l-6 -4" /><path d="M9 9l0 .01" /><path d="M9 12l0 .01" /><path d="M9 15l0 .01" /><path d="M9 18l0 .01" /></svg>`
+    title: "Domiciliation Luxembourg",
+    shortTitle: "Domiciliation",
+    description: "Nous offrons un <strong>service de domiciliation prestigieux au Luxembourg</strong>, vous fournissant une adresse de siège social conforme à la <strong>loi domiciliation luxembourgeoise</strong>. Réception courrier et permanence téléphonique incluses.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" /></svg>`,
+    features: ["Adresse prestigieuse", "Réception courrier", "Permanence téléphonique", "Conformité légale"],
+    anchor: "domiciliation-luxembourg",
+    price: "À partir de 150€/mois"
   },
   {
-    title: "Déclarations Fiscales et TVA",
-    description: "Assurez votre conformité et optimisez votre charge fiscale. Nous préparons et déposons l'ensemble de vos déclarations fiscales pour l'impôt sur le revenu (IRC) et la TVA, périodiques et annuelles.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 14l6 -6" /><path d="M9 14l0 6" /><path d="M9 14h6" /><path d="M14 11.5v-7.5h-10v10h7.5" /><path d="M13 19h7v-7m-2 -1l3 3l-3 3" /></svg>`
+    title: "Gestion Paie Luxembourg",
+    shortTitle: "Paie",
+    description: "La <strong>gestion de la paie au Luxembourg</strong> est une tâche critique. Nous nous chargeons de l'établissement des <strong>fiches de salaires conformes CCSS</strong>, déclarations sociales et échanges avec la <strong>CNS</strong>.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M14 14.5a3.5 3.5 0 1 0 -4 0" /><path d="M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M12 3v2" /><path d="M12 19v2" /><path d="M3 12h2" /><path d="M19 12h2" /></svg>`,
+    features: ["Fiches paie CCSS", "Déclarations CNS", "Droit social", "Conventions collectives"],
+    anchor: "gestion-paie-luxembourg",
+    price: "À partir de 25€/salarié"
   },
   {
-    title: "Conseil Fiscal et Social",
-    description: "Au-delà des chiffres, nous vous apportons un conseil stratégique pour optimiser votre fiscalité personnelle et d'entreprise, ainsi que pour naviguer les complexités du droit du travail et de la sécurité sociale au Luxembourg.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 8a3 3 0 0 1 0 6" /><path d="M10 8v11a1 1 0 0 1 -1 1h-1a1 1 0 0 1 -1 -1v-5" /><path d="M12 8h0l4.524 -3.77a0.9 .9 0 0 1 1.476 .692v12.156a0.9 .9 0 0 1 -1.476 .692l-4.524 -3.77h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h8" /></svg>`
+    title: "Secrétariat Juridique Luxembourg",
+    shortTitle: "Secrétariat",
+    description: "Nous vous déchargeons de la complexité administrative en gérant la <strong>préparation des assemblées générales (AG)</strong>, la rédaction des procès-verbaux et l'accomplissement des <strong>formalités légales auprès du RCSL</strong>.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 7l-6.5 6.5a1.5 1.5 0 0 0 3 3l6.5 -6.5a3 3 0 0 0 -6 -6l-6.5 6.5a4.5 4.5 0 0 0 9 9l6.5 -6.5" /></svg>`,
+    features: ["Assemblées générales", "Procès-verbaux", "Formalités RCSL", "Suivi légal"],
+    anchor: "secretariat-juridique-luxembourg",
+    price: "À partir de 200€/AG"
   },
   {
-    title: "Due Diligence & Business Plan",
-    description: "Que vous cherchiez à acquérir une entreprise ou à convaincre des investisseurs, nous réalisons des audits d'acquisition (due diligence), des évaluations d'entreprise et la structuration de business plans robustes.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 7v5l3 3" /><path d="M15 4.5l-3 -1.5l-3 1.5" /><path d="M12 12l-3 -1.5" /><path d="M12 12l3 -1.5" /></svg>`
+    title: "Déclarations Fiscales Luxembourg",
+    shortTitle: "Fiscalité",
+    description: "Assurez votre <strong>conformité fiscale au Luxembourg</strong> et optimisez votre charge fiscale. Nous préparons et déposons l'ensemble de vos <strong>déclarations IRC et TVA</strong>, périodiques et annuelles.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 14l6 -6" /><path d="M9 14l0 6" /><path d="M9 14h6" /><path d="M14 11.5v-7.5h-10v10h7.5" /><path d="M13 19h7v-7m-2 -1l3 3l-3 3" /></svg>`,
+    features: ["Déclarations IRC", "TVA périodique", "Optimisation fiscale", "Conformité AED"],
+    anchor: "declarations-fiscales-luxembourg",
+    price: "À partir de 150€/déclaration"
   },
   {
-    title: "Fiches de Salaires (Gestion de la Paie)",
-    description: "La gestion de la paie est une tâche critique. Nous nous chargeons de l'établissement des fiches de salaires mensuelles pour vos employés, ainsi que de toutes les déclarations sociales et administratives auprès de la CCSS.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M14 14.5a3.5 3.5 0 1 0 -4 0" /><path d="M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M12 3v2" /><path d="M12 19v2" /><path d="M3 12h2" /><path d="M19 12h2" /></svg>`
+    title: "Conseil Fiscal et Social Luxembourg",
+    shortTitle: "Conseil",
+    description: "Au-delà des chiffres, nous vous apportons un <strong>conseil stratégique pour optimiser votre fiscalité au Luxembourg</strong>, ainsi que pour naviguer les complexités du <strong>droit du travail luxembourgeois</strong>.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 8a3 3 0 0 1 0 6" /><path d="M10 8v11a1 1 0 0 1 -1 1h-1a1 1 0 0 1 -1 -1v-5" /><path d="M12 8h0l4.524 -3.77a0.9 .9 0 0 1 1.476 .692v12.156a0.9 .9 0 0 1 -1.476 .692l-4.524 -3.77h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h8" /></svg>`,
+    features: ["Optimisation fiscale", "Droit social", "Stratégie PME", "Conseil personnalisé"],
+    anchor: "conseil-fiscal-luxembourg",
+    price: "À partir de 120€/heure"
   },
   {
-    title: "Domiciliation",
-    description: "Nous offrons un service de domiciliation pour votre société, vous fournissant une adresse de siège social prestigieuse au Luxembourg, conformément aux exigences de la loi sur la domiciliation.",
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M21 3l-6.5 18a.55 .55 0 0 1 -1 0l-3.5 -7l-7 -3.5a.55 .55 0 0 1 0 -1l18 -6.5" /></svg>`
+    title: "Due Diligence & Business Plan Luxembourg",
+    shortTitle: "Due Diligence",
+    description: "Que vous cherchiez à <strong>acquérir une entreprise luxembourgeoise</strong> ou à convaincre des investisseurs, nous réalisons des <strong>audits d'acquisition (due diligence)</strong> et la structuration de business plans robustes.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 7v5l3 3" /><path d="M15 4.5l-3 -1.5l-3 1.5" /><path d="M12 12l-3 -1.5" /><path d="M12 12l3 -1.5" /></svg>`,
+    features: ["Audit acquisition", "Business plan", "Évaluation entreprise", "Conseil investissement"],
+    anchor: "due-diligence-luxembourg",
+    price: "Sur devis"
   }
 ];
----
 
-<head>
-  <!-- Meta et SEO -->
-  <meta name="description" content="Fiduciaire Expert vous accompagne au Luxembourg : comptabilité, fiscalité, paie, domiciliation et conseil pour PME et entrepreneurs. premier entretien offert." />
-  <link rel="canonical" href="https://votresite.lu/services" />
-
-  <!-- Open Graph / Twitter Cards -->
-  <meta property="og:title" content="Nos Services d'Expertise Comptable au Luxembourg | Fiduciaire Expert" />
-  <meta property="og:description" content="Découvrez nos services : comptabilité, fiscalité, paie, domiciliation et conseil pour entrepreneurs et PME au Luxembourg." />
-  <meta property="og:image" content="https://votresite.lu/og-image-services.jpg" />
-  <meta property="og:url" content="https://votresite.lu/services" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- Données structurées JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Fiduciaire Expert",
-    "url": "https://votresite.lu/services",
-    "logo": "https://votresite.lu/logo.png",
-    "image": "https://votresite.lu/og-image-services.jpg",
-    "description": "Fiduciaire Expert propose comptabilité, fiscalité, paie, domiciliation et conseil au Luxembourg.",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "1 Rue de l’Expert",
-      "addressLocality": "Luxembourg",
-      "postalCode": "L-1234",
-      "addressCountry": "LU"
+// Données structurées ultra-complètes
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://www.fiduciaire-expert.lu/services#main",
+      "name": "Services Expert-Comptable Luxembourg",
+      "description": "Services comptables complets au Luxembourg : comptabilité, création société, domiciliation, paie et conseil fiscal pour PME et entrepreneurs",
+      "provider": {
+        "@type": "Organization",
+        "name": "Fiduciaire Expert Luxembourg",
+        "url": "https://www.fiduciaire-expert.lu"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Luxembourg"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Catalogue Services Comptables Luxembourg",
+        "itemListElement": allServices.map((service, index) => ({
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": service.title,
+            "description": service.description.replace(/<[^>]*>/g, ''),
+            "url": `https://www.fiduciaire-expert.lu/services#${service.anchor}`
+          },
+          "price": service.price,
+          "priceCurrency": "EUR"
+        }))
+      }
     },
-    "telephone": "+352 1234 5678",
-    "areaServed": "LU",
-    "serviceType": [
-      "Comptabilité générale",
-      "Secrétariat juridique",
-      "Création de société",
-      "Déclarations fiscales",
-      "Conseil fiscal et social",
-      "Due diligence",
-      "Paie",
-      "Domiciliation"
-    ],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Nos services",
+    {
+      "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Comptabilité et Préparation de Bilan" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Secrétariat Juridique" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Création et Liquidation de Société" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Déclarations Fiscales et TVA" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Conseil Fiscal et Social" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Due Diligence & Business Plan" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Fiches de Salaires (Gestion de la Paie)" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Domiciliation" } }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Accueil",
+          "item": "https://www.fiduciaire-expert.lu"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Services Expert-Comptable Luxembourg",
+          "item": "https://www.fiduciaire-expert.lu/services"
+        }
       ]
     }
-  }
-  </script>
-</head>
+  ]
+};
+---
 
-<Layout title="Nos Services d'Expertise Comptable au Luxembourg | Fiduciaire Expert" description="Fiduciaire Expert vous accompagne au Luxembourg : comptabilité, fiscalité, paie, domiciliation et conseil pour PME et entrepreneurs.">
-  <main class="services-page">
+<Layout 
+  title="Expert-Comptable Luxembourg | Services Comptabilité, Création Société"
+  description="Expert-comptable Luxembourg : comptabilité, création société, domiciliation, paie et conseil fiscal. Fiduciaire Expert accompagne PME et entrepreneurs. Devis gratuit."
+>
+  <main class="services-page" itemscope itemtype="https://schema.org/Service">
+    
+    <!-- Breadcrumb SEO -->
+    <nav class="breadcrumb" aria-label="Fil d'ariane">
+      <div class="container">
+        <ol class="breadcrumb-list">
+          <li><a href="/">Accueil</a></li>
+          <li><span aria-current="page">Services Expert-Comptable Luxembourg</span></li>
+        </ol>
+      </div>
+    </nav>
 
+    <!-- Header section optimisée -->
     <section class="page-header">
       <div class="container-narrow">
-        <h1>Un Partenaire, Toutes les Compétences</h1>
-        <p>Nous offrons un accompagnement complet et sur-mesure pour les entrepreneurs, PME et grandes sociétés au Luxembourg. Découvrez une approche intégrée de l'expertise comptable.</p>
+        <h1 itemprop="name">
+          Expert-Comptable Luxembourg : 
+          <span class="highlight">Services Comptables Complets</span>
+        </h1>
+        <p class="page-subtitle" itemprop="description">
+          <strong>Fiduciaire Expert</strong> accompagne les <strong>PME et entrepreneurs luxembourgeois</strong> 
+          avec une gamme complète de services : comptabilité, création société, domiciliation et conseil fiscal. 
+          <em>Premier entretien gratuit</em>.
+        </p>
+        
+        <!-- Trust signals -->
+        <div class="trust-indicators">
+          <div class="trust-item">
+            <span class="trust-number">+150</span>
+            <span class="trust-label">Sociétés créées</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-number">15+</span>
+            <span class="trust-label">Années d'expérience</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-number">24h</span>
+            <span class="trust-label">Délai de réponse</span>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- Services grid optimisée -->
     <section class="services-grid-section" aria-labelledby="services-title">
-      <h2 id="services-title" class="visually-hidden">Nos 8 services</h2>
       <div class="container">
+        <h2 id="services-title" class="section-title">
+          Nos 8 Services d'Expert-Comptable au Luxembourg
+        </h2>
+        <p class="section-subtitle">
+          Expertise comptable complète pour entreprises luxembourgeoises
+        </p>
+        
         <div class="services-grid">
-          {allServices.map(service => (
-            <div class="service-card">
-              <div class="icon" role="img" aria-label={service.title} set:html={service.icon} />
-              <h2>{service.title}</h2>
-              <p>{service.description}</p>
-            </div>
+          {allServices.map((service, index) => (
+            <article class="service-card" 
+                     id={service.anchor}
+                     itemscope 
+                     itemtype="https://schema.org/Service">
+              {service.popular && (
+                <div class="popular-badge">⭐ Service populaire</div>
+              )}
+              
+              <div class="service-header">
+                <div class="icon" role="img" aria-label={service.title}>
+                  <div set:html={service.icon} />
+                </div>
+                <div class="service-title-section">
+                  <h3 itemprop="name">{service.title}</h3>
+                  <div class="service-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+                    <span itemprop="price">{service.price}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="service-content">
+                <p itemprop="description" set:html={service.description} />
+                
+                <div class="service-features">
+                  <h4>Inclus :</h4>
+                  <ul class="features-list">
+                    {service.features.map(feature => (
+                      <li>✓ {feature}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="service-actions">
+                <a href={`/contact?service=${service.anchor}`} 
+                   class="service-cta primary"
+                   aria-label={`Demander un devis pour ${service.shortTitle}`}>
+                  Devis gratuit
+                </a>
+                <a href={`/services/${service.anchor}`} 
+                   class="service-cta secondary"
+                   aria-label={`En savoir plus sur ${service.shortTitle}`}>
+                  En savoir plus
+                </a>
+              </div>
+            </article>
           ))}
         </div>
       </div>
     </section>
 
-    <section class="cta-section">
-      <div class="container-narrow">
-        <h2>Un projet en tête ?</h2>
-        <p>Discutons de vos besoins spécifiques. Notre premier entretien est sans engagement et nous permettra de vous proposer une solution parfaitement adaptée.</p>
-        <a href="/contact" class="cta-button">Prendre rendez-vous</a>
+    <!-- Section comparatif -->
+    <section class="comparison-section">
+      <div class="container">
+        <h2>Pourquoi Choisir Fiduciaire Expert Luxembourg ?</h2>
+        
+        <div class="comparison-grid">
+          <div class="comparison-card">
+            <h3>🏆 Expertise Locale</h3>
+            <p>15+ années d'expérience spécialisée dans la <strong>législation luxembourgeoise</strong></p>
+          </div>
+          <div class="comparison-card">
+            <h3>⚡ Réactivité</h3>
+            <p><strong>Délai de réponse garanti sous 24h</strong> vs 72h+ chez nos concurrents</p>
+          </div>
+          <div class="comparison-card">
+            <h3>💰 Transparence</h3>
+            <p><strong>Tarifs clairs et sans surprise</strong> vs facturation opaque du marché</p>
+          </div>
+          <div class="comparison-card">
+            <h3>🎯 Accompagnement</h3>
+            <p><strong>Interlocuteur unique dédié</strong> vs multiples intervenants</p>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- FAQ section -->
+    <section class="faq-section">
+      <div class="container">
+        <h2>Questions Fréquentes - Services Luxembourg</h2>
+        
+        <div class="faq-grid">
+          <details class="faq-item">
+            <summary>Quels sont les tarifs d'un expert-comptable au Luxembourg ?</summary>
+            <div class="faq-answer">
+              <p>Nos tarifs d'<strong>expert-comptable au Luxembourg</strong> varient selon vos besoins :</p>
+              <ul>
+                <li>Comptabilité PME : 300-800€/mois</li>
+                <li>Création société : À partir de 1.500€</li>
+                <li>Domiciliation : À partir de 150€/mois</li>
+                <li>Gestion paie : À partir de 25€/salarié</li>
+              </ul>
+              <p><strong>Première consultation gratuite</strong> pour établir un devis personnalisé.</p>
+            </div>
+          </details>
+          
+          <details class="faq-item">
+            <summary>Combien de temps pour créer une société au Luxembourg ?</summary>
+            <div class="faq-answer">
+              <p>Avec <strong>Fiduciaire Expert</strong>, la création d'une société au Luxembourg prend <strong>5 à 7 jours ouvrables</strong> après passage chez le notaire, incluant :</p>
+              <ul>
+                <li>Rédaction des statuts</li>
+                <li>Immatriculation au RCSL</li>
+                <li>Ouverture compte bancaire</li>
+                <li>Déclarations fiscales initiales</li>
+              </ul>
+            </div>
+          </details>
+          
+          <details class="faq-item">
+            <summary>Quels types de sociétés peut-on créer au Luxembourg ?</summary>
+            <div class="faq-answer">
+              <p>Nous accompagnons la création de tous types de <strong>sociétés luxembourgeoises</strong> :</p>
+              <ul>
+                <li><strong>SA</strong> (Société Anonyme)</li>
+                <li><strong>SARL</strong> (Société à Responsabilité Limitée)</li>
+                <li><strong>SCI</strong> (Société Civile Immobilière)</li>
+                <li><strong>SCSp</strong> (Société en Commandite Spéciale)</li>
+                <li><strong>SAS</strong> (Société par Actions Simplifiée)</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA section avec fond gris clair et traits diagonaux jaunes -->
+    <section class="cta-section">
+      <div class="container-narrow">
+        <h2>Prêt à Confier Votre Comptabilité à un Expert ?</h2>
+        <p class="cta-description">
+          Rejoignez les <strong>+150 entreprises luxembourgeoises</strong> qui nous font confiance. 
+          <strong>Première consultation gratuite</strong> pour évaluer vos besoins.
+        </p>
+        
+        <div class="cta-buttons">
+          <a href="/contact" class="cta-button primary large" 
+             aria-label="Demander votre consultation gratuite expert-comptable Luxembourg">
+            Consultation Gratuite
+          </a>
+          <a href="tel:+352123456789" class="cta-button secondary large"
+             aria-label="Appeler directement Fiduciaire Expert Luxembourg">
+            📞 +352 XX XX XX XX
+          </a>
+        </div>
+        
+        <div class="cta-guarantees">
+          <div class="guarantee-item">
+            <span class="guarantee-icon">✓</span>
+            <span>Sans engagement</span>
+          </div>
+          <div class="guarantee-item">
+            <span class="guarantee-icon">✓</span>
+            <span>Réponse sous 24h</span>
+          </div>
+          <div class="guarantee-item">
+            <span class="guarantee-icon">✓</span>
+            <span>Devis personnalisé</span>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <!-- Données structurées ultra-complètes -->
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData, null, 2)} />
 </Layout>
 
 <style>
-  /* Utility pour le caché visuel */
-  .visually-hidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
+  /* Breadcrumb */
+  .breadcrumb {
+    background: rgba(248, 249, 250, 0.8);
+    padding: 1rem 0;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .breadcrumb-list {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
     padding: 0;
-    position: absolute;
-    width: 1px;
+    font-size: 0.9rem;
+  }
+  
+  .breadcrumb-list li:not(:last-child)::after {
+    content: "›";
+    margin-left: 0.5rem;
+    color: var(--texte-secondaire);
+  }
+  
+  .breadcrumb-list a {
+    color: var(--bleu-profond);
+    text-decoration: none;
+  }
+  
+  .breadcrumb-list a:hover {
+    text-decoration: underline;
   }
 
-  /* Styles Généraux */
-  .container, .container-narrow { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
-  .container-narrow { max-width: 800px; }
+  /* Layout de base */
+  .container, .container-narrow { 
+    max-width: 1100px; 
+    margin: 0 auto; 
+    padding: 0 2rem; 
+  }
+  .container-narrow { 
+    max-width: 900px; 
+  }
   
-  /* En-tête de la page */
-  .page-header { text-align: center; padding: 5rem 2rem; }
-  .page-header h1 { font-size: 2.8rem; color: var(--bleu-profond); margin-bottom: 1rem; }
-  .page-header p { font-size: 1.2rem; line-height: 1.7; color: var(--texte-secondaire); }
+  /* Header section */
+  .page-header { 
+    text-align: center; 
+    padding: 4rem 2rem 3rem; 
+    background: linear-gradient(135deg, #f8f9fa 0%, white 100%);
+  }
   
-  /* Grille des services */
+  .page-header h1 { 
+    font-size: 3rem; 
+    color: var(--bleu-profond); 
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  
+  .highlight {
+    color: var(--or-premium);
+    display: inline-block;
+  }
+  
+  .page-subtitle { 
+    font-size: 1.25rem; 
+    line-height: 1.7; 
+    color: var(--texte-secondaire);
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Trust indicators */
+  .trust-indicators {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .trust-item {
+    text-align: center;
+  }
+  
+  .trust-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--or-premium);
+    margin-bottom: 0.5rem;
+  }
+  
+  .trust-label {
+    color: var(--texte-secondaire);
+    font-weight: 600;
+  }
+  
+  /* Services section */
   .services-grid-section { 
     padding: 5rem 2rem;
-    background-color: var(--fond-clair);
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke-width='2' stroke='%23e9ecef'%3e%3cpath d='M0 32 L32 0 M-8 24 L24 -8 M8 40 L40 8'/%3e%3c/svg%3e");
+    background: linear-gradient(135deg, var(--fond-clair) 0%, #e9ecef 100%);
   }
+  
+  .section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+  }
+  
+  .section-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--texte-secondaire);
+    margin-bottom: 4rem;
+  }
+  
   .services-grid { 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 2.5rem;
   }
+  
   .service-card { 
-    background-color: white; 
-    padding: 2.5rem; 
-    border-radius: 12px; 
-    box-shadow: 0 8px 30px rgba(0,0,0,0.05); 
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: white; 
+    border-radius: 16px; 
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08); 
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
   }
+  
   .service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
   }
-  .service-card .icon { 
-    color: var(--or-premium); 
-    margin-bottom: 1.5rem; 
-    align-self: flex-start;
+  
+  .popular-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--or-premium);
+    color: var(--bleu-profond);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 10;
   }
-  .service-card .icon svg { width: 44px; height: 44px; stroke-width: 1.5; }
-  .service-card h2 { 
-    font-size: 1.3rem; 
+  
+  .service-header {
+    padding: 2rem 2rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .service-title-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-top: 1rem;
+  }
+  
+  .service-card h3 { 
+    font-size: 1.4rem; 
     color: var(--bleu-profond); 
-    margin-top: 0; 
-    margin-bottom: 1rem; 
+    margin: 0;
+    flex: 1;
   }
+  
+  .service-price {
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--bleu-profond);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-left: 1rem;
+  }
+  
+  .icon { 
+    color: var(--or-premium);
+    display: inline-block;
+  }
+  
+  .icon svg { 
+    width: 48px; 
+    height: 48px; 
+    stroke-width: 1.5; 
+  }
+  
+  .service-content {
+    padding: 1rem 2rem;
+  }
+  
   .service-card p { 
     color: var(--texte-secondaire); 
-    line-height: 1.6; 
-    font-size: 0.95rem; 
-    flex-grow: 1;
+    line-height: 1.7; 
+    margin-bottom: 1.5rem;
+  }
+  
+  .service-features h4 {
+    color: var(--bleu-profond);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .features-list li {
+    padding: 0.3rem 0;
+    color: var(--texte-secondaire);
+    font-size: 0.9rem;
+  }
+  
+  .service-actions {
+    padding: 1rem 2rem 2rem;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .service-cta {
+    flex: 1;
+    text-align: center;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .service-cta.primary {
+    background: var(--or-premium);
+    color: var(--bleu-profond);
+  }
+  
+  .service-cta.primary:hover {
+    background: #ffdd77;
+    transform: translateY(-2px);
+  }
+  
+  .service-cta.secondary {
+    background: transparent;
+    color: var(--bleu-profond);
+    border: 2px solid var(--bleu-profond);
+  }
+  
+  .service-cta.secondary:hover {
+    background: var(--bleu-profond);
+    color: white;
   }
 
-  /* Section Appel à l'Action (CTA) */
+  /* Comparison section */
+  .comparison-section {
+    padding: 5rem 2rem;
+    background: white;
+  }
+  
+  .comparison-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 3rem;
+  }
+  
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+  
+  .comparison-card {
+    background: var(--fond-clair);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+  }
+  
+  .comparison-card h3 {
+    color: var(--bleu-profond);
+    margin-bottom: 1rem;
+  }
+
+  /* FAQ section */
+  .faq-section {
+    padding: 5rem 2rem;
+    background: var(--fond-clair);
+  }
+  
+  .faq-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--bleu-profond);
+    margin-bottom: 3rem;
+  }
+  
+  .faq-grid {
+    display: grid;
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .faq-item {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+  }
+  
+  .faq-item summary {
+    padding: 1.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--bleu-profond);
+    list-style: none;
+  }
+  
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  .faq-answer {
+    padding: 0 1.5rem 1.5rem;
+    color: var(--texte-secondaire);
+    line-height: 1.7;
+  }
+  
+  .faq-answer ul {
+    margin: 1rem 0;
+  }
+
+  /* CTA section avec fond gris clair et traits diagonaux jaunes */
   .cta-section { 
     padding: 5rem 2rem; 
     text-align: center;
-    background-color: white;
+    background: var(--fond-clair);
+    background-image: 
+      repeating-linear-gradient(
+        45deg,
+        rgba(212, 175, 55, 0.1) 0px,
+        rgba(212, 175, 55, 0.1) 2px,
+        transparent 2px,
+        transparent 20px
+      );
+    color: var(--bleu-profond);
+    position: relative;
   }
-  .cta-section h2 { font-size: 2.5rem; color: var(--bleu-profond); margin-top: 0; margin-bottom: 1rem; }
-  .cta-button { display: inline-block; background-color: var(--or-premium); color: var(--bleu-profond); padding: 1rem 2.5rem; text-decoration: none; border-radius: 8px; font-weight: bold; transition: transform 0.2s ease; margin-top: 1rem;}
-  .cta-button:hover { transform: scale(1.05); }
+  
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      repeating-linear-gradient(
+        -45deg,
+        rgba(212, 175, 55, 0.08) 0px,
+        rgba(212, 175, 55, 0.08) 1px,
+        transparent 1px,
+        transparent 25px
+      );
+  }
+  
+  .cta-section > .container-narrow {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .cta-section h2 { 
+    font-size: 2.5rem; 
+    margin-bottom: 1rem; 
+    color: var(--bleu-profond);
+  }
+  
+  .cta-description {
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+    color: var(--bleu-profond);
+  }
+  
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+  
+  .cta-button { 
+    display: inline-block; 
+    padding: 1.2rem 2.5rem; 
+    text-decoration: none; 
+    border-radius: 8px; 
+    font-weight: bold; 
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+  }
+  
+  .cta-button.large {
+    padding: 1.5rem 3rem;
+  }
+  
+  .cta-button.primary { 
+    background-color: var(--or-premium); 
+    color: var(--bleu-profond); 
+  }
+  
+  .cta-button.primary:hover { 
+    background-color: #ffdd77;
+    transform: translateY(-2px);
+  }
+  
+  .cta-button.secondary {
+    background: white;
+    color: var(--bleu-profond);
+    border: 2px solid var(--bleu-profond);
+  }
+  
+  .cta-button.secondary:hover {
+    background: var(--bleu-profond);
+    color: white;
+  }
+  
+  .cta-guarantees {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+  
+  .guarantee-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.9;
+    color: var(--bleu-profond);
+  }
+  
+  .guarantee-icon {
+    color: var(--or-premium);
+    font-weight: bold;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2.2rem;
+    }
+    
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .service-actions {
+      flex-direction: column;
+    }
+    
+    .trust-indicators {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .comparison-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .cta-guarantees {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
 </style>
