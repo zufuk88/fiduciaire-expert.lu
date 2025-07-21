@@ -1,105 +1,166 @@
 ---
 // src/components/Header.astro
-// Données structurées pour la navigation
+
+// Navigation items avec SEO et hiérarchie optimisés
+const navItems = [
+  { 
+    href: "/", 
+    text: "Accueil", 
+    title: "Expert-Comptable Luxembourg - Fiduciaire Expert",
+    priority: 1
+  },
+  { 
+    href: "/services", 
+    text: "Services", 
+    title: "Services Comptabilité, Fiscalité, Création Société Luxembourg",
+    priority: 0.9,
+    subItems: [
+      { href: "/services/comptabilite", text: "Comptabilité" },
+      { href: "/services/fiscalite", text: "Fiscalité IRC & TVA" },
+      { href: "/services/creation-societe", text: "Création SARL" },
+      { href: "/services/gestion-paie", text: "Gestion Paie CCSS" }
+    ]
+  },
+  { 
+    href: "/articles", 
+    text: "Articles", 
+    title: "Blog Expert-Comptable Luxembourg - Conseils Fiscaux",
+    priority: 0.8 
+  },
+  { 
+    href: "/a-propos", 
+    text: "À Propos", 
+    title: "Cabinet Expert-Comptable Luxembourg depuis 2010",
+    priority: 0.7
+  },
+  { 
+    href: "/contact", 
+    text: "Contact", 
+    title: "Contact Expert-Comptable Luxembourg - Devis Gratuit",
+    priority: 0.8
+  }
+];
+
+// Données structurées enrichies
 const navigationSchema = {
   "@context": "https://schema.org",
   "@type": "SiteNavigationElement",
   "name": "Navigation principale",
   "url": "https://www.fiduciaire-expert.lu",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://www.fiduciaire-expert.lu/search?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
+  "hasPart": navItems.map((item, index) => ({
+    "@type": "SiteNavigationElement",
+    "name": item.text,
+    "url": `https://www.fiduciaire-expert.lu${item.href}`,
+    "position": index + 1
+  }))
 };
 
-// Navigation items avec SEO optimisé
-const navItems = [
-  { 
-    href: "/", 
-    text: "Accueil", 
-    title: "Accueil - Expert-comptable Luxembourg" 
-  },
-  { 
-    href: "/services", 
-    text: "Services", 
-    title: "Services Comptabilité Luxembourg - Création Société" 
-  },
-  { 
-    href: "/articles", 
-    text: "Articles", 
-    title: "Blog Expertise Comptable Luxembourg" 
-  },
-  { 
-    href: "/a-propos", 
-    text: "À Propos", 
-    title: "À Propos - Fiduciaire Expert Luxembourg" 
-  },
-  { 
-    href: "/contact", 
-    text: "Contact", 
-    title: "Contact Expert-comptable Luxembourg - Devis Gratuit" 
-  }
-];
+const currentPath = Astro.url.pathname;
 ---
 
 <header itemscope itemtype="https://schema.org/WPHeader" role="banner">
   <div class="header-container">
-    <!-- Logo optimisé SEO -->
-    <div class="logo-section">
-      <a href="/" class="logo-link" 
-         aria-label="Retour à l'accueil - Fiduciaire Expert Luxembourg"
-         title="Fiduciaire Expert - Expert-comptable Luxembourg">
+    <!-- Logo avec microdonnées améliorées -->
+    <div class="logo-section" itemscope itemtype="https://schema.org/Organization">
+      <a href="/" 
+         class="logo-link" 
+         aria-label="Fiduciaire Expert Luxembourg - Accueil"
+         title="Expert-Comptable agréé Luxembourg"
+         itemprop="url">
         <img src="/images/Logo.png" 
-             alt="Logo Fiduciaire Expert Luxembourg - Expert-comptable et création société" 
+             alt="Fiduciaire Expert - Expert-Comptable Luxembourg" 
              width="200" 
              height="55"
+             loading="eager"
+             fetchpriority="high"
              itemprop="logo" />
       </a>
       
-      <!-- Tagline SEO -->
+      <!-- Tagline avec mots-clés LSI -->
       <div class="tagline">
-        <span class="tagline-text">Expert-Comptable Luxembourg</span>
+        <span class="tagline-text" itemprop="slogan">
+          Fiduciaire Expert Luxembourg
+        </span>
       </div>
     </div>
 
-    <!-- Navigation principale -->
+    <!-- Navigation principale avec mega menu SEO -->
     <nav id="main-nav" 
          role="navigation" 
          aria-label="Navigation principale"
          itemscope 
          itemtype="https://schema.org/SiteNavigationElement">
-      {navItems.map((item, index) => (
-        <a href={item.href} 
-           title={item.title}
-           itemprop="url"
-           data-nav-item={index + 1}>
-          <span itemprop="name">{item.text}</span>
-        </a>
-      ))}
+      
+      <ul class="nav-list">
+        {navItems.map((item, index) => (
+          <li class="nav-item" data-priority={item.priority}>
+            <a href={item.href} 
+               class={currentPath === item.href ? 'is-active' : ''}
+               title={item.title}
+               aria-current={currentPath === item.href ? 'page' : undefined}
+               itemprop="url">
+              <span itemprop="name">{item.text}</span>
+            </a>
+            
+            {/* Mega menu pour Services */}
+            {item.subItems && (
+              <ul class="submenu" aria-label={`Sous-menu ${item.text}`}>
+                {item.subItems.map(subItem => (
+                  <li>
+                    <a href={subItem.href} 
+                       title={`${subItem.text} Luxembourg`}>
+                      {subItem.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
     </nav>
 
-    <!-- CTA Contact rapide -->
+    <!-- CTA optimisé avec tracking -->
     <div class="header-cta">
-      <a href="tel:+352123456789" 
+      <a href="tel:+352XXXXXXXX" 
          class="phone-cta"
-         aria-label="Appeler Fiduciaire Expert Luxembourg"
-         title="Appel direct +352 XX XX XX XX">
-        <span class="phone-icon">📞</span>
+         aria-label="Appeler Expert-Comptable Luxembourg"
+         title="Consultation gratuite - +352 XX XX XX XX"
+         data-event="header-cta-click"
+         itemprop="telephone">
+        <svg class="phone-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
         <span class="phone-text">Appelez-nous</span>
+      </a>
+      
+      <!-- CTA secondaire pour conversion -->
+      <a href="/contact#devis" 
+         class="devis-cta"
+         title="Devis gratuit Expert-Comptable Luxembourg">
+        Devis gratuit
       </a>
     </div>
 
-    <!-- Burger menu -->
+    <!-- Burger menu accessible -->
     <button id="burger-menu" 
             type="button" 
-            aria-label="Ouvrir le menu de navigation"
+            aria-label="Menu de navigation"
             aria-expanded="false"
             aria-controls="main-nav">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span class="sr-only">Menu</span>
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
     </button>
+  </div>
+  
+  <!-- Bannière d'annonce (optionnel pour promos/actualités) -->
+  <div class="announcement-bar" role="complementary">
+    <p>
+      <strong>Nouveau :</strong> Accompagnement création de votre SARL-S en 48h 
+      <a href="/creation-societe-luxembourg">En savoir plus →</a>
+    </p>
   </div>
   
   <!-- Données structurées -->
@@ -107,14 +168,28 @@ const navItems = [
 </header>
 
 <style>
+  /* Variables */
+  :root {
+    --header-height: 72px;
+    --header-bg: #ffffff;
+    --text-primary: var(--bleu-profond);
+    --accent-primary: var(--bleu-accent);
+    --accent-primary-hover: var(--bleu-accent-hover);
+    --accent-secondary: var(--or-premium);
+    --accent-secondary-hover: var(--or-premium-hover);
+    --shadow: 0 1px 3px rgba(0,0,0,0.06);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Base Header */
   header {
     position: sticky;
     top: 0;
     width: 100%;
     z-index: 1000;
-    background: linear-gradient(135deg, white 0%, #f8f9fa 100%);
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    background: var(--header-bg);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
   }
 
   .header-container {
@@ -123,26 +198,20 @@ const navItems = [
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 2rem;
+    padding: 0 2rem;
+    height: 72px;
   }
 
-  /* Logo section */
+  /* Logo Section */
   .logo-section {
     display: flex;
     align-items: center;
     gap: 1rem;
   }
 
-  .logo-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-  }
-
   .logo-link img {
-    height: 55px;
+    height: 45px;
     width: auto;
-    display: block;
     transition: transform 0.2s ease;
   }
 
@@ -160,321 +229,369 @@ const navItems = [
     }
     
     .tagline-text {
-      font-size: 0.9rem;
-      color: var(--bleu-profond);
-      font-weight: 600;
-      padding: 0.3rem 0.8rem;
-      background: rgba(212, 175, 55, 0.1);
-      border-radius: 15px;
-      border: 1px solid rgba(212, 175, 55, 0.3);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      font-weight: 500;
+      opacity: 0.8;
     }
   }
 
-  /* Navigation mobile - CORRECTED */
-  nav {
+  /* Navigation */
+  .nav-list {
     display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    height: 100dvh; /* Dynamic viewport height for mobile */
-    background: linear-gradient(135deg, var(--bleu-profond) 0%, #1a3a5f 100%);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2.5rem;
-    backdrop-filter: blur(10px);
-    overflow: hidden; /* Prevent scrolling */
-    overscroll-behavior: contain; /* Prevent overscroll */
-  }
-
-  nav.is-open {
-    display: flex;
-  }
-  
-  nav a {
-    color: white;
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-decoration: none;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    text-align: center;
-    position: relative;
-    touch-action: manipulation; /* Improve touch responsiveness */
-  }
-
-  nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background: var(--or-premium);
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
-  }
-
-  nav a:hover::after {
-    width: 100%;
-  }
-
-  nav a:hover {
-    background: rgba(212, 175, 55, 0.1);
-    color: var(--or-premium);
-  }
-
-  /* Header CTA */
-  .header-cta {
-    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 1rem;
   }
 
   @media (min-width: 768px) {
-    .header-cta {
-      display: block;
-    }
-    
-    .phone-cta {
+    .nav-list {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.8rem 1.5rem;
-      background: var(--or-premium);
-      color: var(--bleu-profond);
-      text-decoration: none;
-      border-radius: 25px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      white-space: nowrap;
-    }
-    
-    .phone-cta:hover {
-      background: #ffdd77;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-    }
-    
-    .phone-text {
-      font-size: 0.9rem;
     }
   }
 
-  /* Burger menu - IMPROVED */
+  .nav-item {
+    position: relative;
+  }
+
+  .nav-item a {
+    display: block;
+    padding: 0.4rem 0.8rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    transition: var(--transition);
+    position: relative;
+  }
+
+  .nav-item a:hover,
+  .nav-item a.is-active {
+    color: var(--accent-primary);
+    background: rgba(52, 152, 219, 0.08);
+  }
+
+  /* Indicateur page active */
+  .nav-item a.is-active::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 3px;
+    background: var(--accent-primary);
+    border-radius: 2px;
+  }
+
+  /* Mega Menu */
+  .submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: var(--transition);
+    list-style: none;
+  }
+
+  .nav-item:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .submenu a {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: var(--transition);
+  }
+
+  .submenu a:hover {
+    background: var(--accent-primary);
+    color: white;
+  }
+
+  /* CTA Buttons */
+  .header-cta {
+    display: none;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  @media (min-width: 992px) {
+    .header-cta {
+      display: flex;
+    }
+  }
+
+  .phone-cta,
+  .devis-cta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 0.875rem;
+  }
+
+  .phone-cta {
+    background: var(--accent-primary);
+    color: white;
+  }
+
+  .phone-cta:hover {
+    background: var(--accent-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(52, 152, 219, 0.25);
+  }
+
+  .devis-cta {
+    border: 1.5px solid var(--accent-secondary);
+    color: var(--accent-secondary);
+    background: transparent;
+  }
+
+  .devis-cta:hover {
+    background: var(--accent-secondary);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(212, 175, 55, 0.25);
+  }
+
+  .phone-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Burger Menu Mobile */
   #burger-menu {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    width: 2rem;
-    height: 2rem;
+    width: 30px;
+    height: 24px;
     background: transparent;
     border: none;
     cursor: pointer;
     padding: 0;
-    z-index: 1010;
-    position: relative;
-    touch-action: manipulation; /* Improve touch responsiveness */
   }
 
-  #burger-menu span {
-    width: 2rem;
-    height: 0.25rem;
-    background: var(--bleu-profond);
-    border-radius: 10px;
-    transition: all 0.3s linear;
-    position: relative;
-    transform-origin: 1px;
-  }
-
-  #burger-menu.is-open {
-    position: fixed;
-    top: 1rem;
-    right: 2rem;
-    z-index: 1020; /* Higher z-index when open */
-  }
-
-  #burger-menu.is-open span {
-    background: white;
-  }
-
-  #burger-menu.is-open span:nth-child(1) {
-    transform: rotate(45deg);
-  }
-
-  #burger-menu.is-open span:nth-child(2) {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-
-  #burger-menu.is-open span:nth-child(3) {
-    transform: rotate(-45deg);
-  }
-
-  /* Prevent body scroll when menu is open */
-  body.menu-open {
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-  }
-
-  /* Navigation desktop */
   @media (min-width: 768px) {
     #burger-menu {
       display: none;
     }
-    
-    nav {
-      display: flex;
-      position: static;
-      width: auto;
-      height: auto;
-      background: transparent;
-      flex-direction: row;
-      gap: 2rem;
-      overflow: visible;
-    }
-
-    nav a {
-      color: var(--texte-principal);
-      font-size: 1rem;
-      padding: 0.5rem 1rem;
-      font-weight: 500;
-      border-radius: 6px;
-      position: relative;
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: var(--or-premium);
-      transition: all 0.3s ease;
-      transform: translateX(-50%);
-    }
-
-    nav a:hover {
-      color: var(--bleu-profond);
-      background: rgba(212, 175, 55, 0.1);
-    }
-
-    nav a:hover::after {
-      width: 80%;
-    }
-
-    /* Page active */
-    nav a[aria-current="page"] {
-      color: var(--or-premium);
-      background: rgba(212, 175, 55, 0.1);
-    }
-
-    nav a[aria-current="page"]::after {
-      width: 80%;
-    }
   }
 
-  /* Responsive optimisations */
+  .burger-line {
+    width: 100%;
+    height: 3px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: var(--transition);
+  }
+
+  #burger-menu.is-open .burger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  #burger-menu.is-open .burger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  #burger-menu.is-open .burger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  /* Mobile Navigation */
   @media (max-width: 767px) {
-    .header-container {
-      padding: 1rem 1.5rem;
+    #main-nav {
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+      width: 100%;
+      height: calc(100vh - var(--header-height));
+      background: white;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      overflow-y: auto;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
     }
-    
-    .logo-link img {
-      height: 45px;
+
+    #main-nav.is-open {
+      transform: translateX(0);
     }
-    
-    #burger-menu.is-open {
-      right: 1.5rem;
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      padding: 2rem;
+      gap: 0;
+    }
+
+    .nav-item {
+      width: 100%;
+    }
+
+    .nav-item a {
+      padding: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .submenu {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      box-shadow: none;
+      margin: 0;
+      padding-left: 1rem;
     }
   }
 
-  @media (min-width: 1200px) {
-    .header-container {
-      gap: 3rem;
+  /* Announcement Bar */
+  .announcement-bar {
+    background: linear-gradient(90deg, var(--accent-secondary), var(--accent-secondary-hover));
+    color: white;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .announcement-bar {
+      display: block;
     }
-    
-    nav {
-      gap: 2.5rem;
-    }
+  }
+
+  .announcement-bar p {
+    margin: 0;
+  }
+
+  .announcement-bar a {
+    color: white;
+    text-decoration: underline;
+    font-weight: 600;
+    margin-left: 0.5rem;
+  }
+
+  /* Utility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Scroll behavior */
+  header.scrolled {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  header.scrolled .header-container {
+    height: 64px;
+  }
+
+  header.scrolled .logo-link img {
+    height: 40px;
   }
 </style>
 
 <script>
-  // Navigation functionality - IMPROVED
+  // Navigation et scroll optimisés
+  const header = document.querySelector('header');
   const burgerButton = document.getElementById('burger-menu');
   const mainNav = document.getElementById('main-nav');
+  const navLinks = mainNav.querySelectorAll('a');
   const body = document.body;
 
-  burgerButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
+  // Gestion du burger menu
+  let scrollPosition = 0;
+
+  burgerButton?.addEventListener('click', () => {
     const isOpen = burgerButton.classList.toggle('is-open');
     mainNav.classList.toggle('is-open');
     
-    // Prevent body scroll and fix positioning
     if (isOpen) {
-      body.classList.add('menu-open');
-      body.style.top = `-${window.scrollY}px`;
+      scrollPosition = window.scrollY;
+      body.style.overflow = 'hidden';
+      body.style.position = 'fixed';
+      body.style.top = `-${scrollPosition}px`;
+      body.style.width = '100%';
     } else {
-      body.classList.remove('menu-open');
-      const scrollY = body.style.top;
+      body.style.overflow = '';
+      body.style.position = '';
       body.style.top = '';
-      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      body.style.width = '';
+      window.scrollTo(0, scrollPosition);
     }
     
-    // Accessibility
-    burgerButton.setAttribute('aria-expanded', isOpen);
-    burgerButton.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
+    burgerButton.setAttribute('aria-expanded', String(isOpen));
   });
 
-  // Close menu on link click (mobile)
-  const navLinks = mainNav.querySelectorAll('a');
+  // Fermer le menu au clic sur un lien
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
-      burgerButton.classList.remove('is-open');
+      burgerButton?.classList.remove('is-open');
       mainNav.classList.remove('is-open');
-      
-      // Restore body scroll
-      body.classList.remove('menu-open');
-      const scrollY = body.style.top;
+      body.style.overflow = '';
+      body.style.position = '';
       body.style.top = '';
-      window.scrollTo(0, parseInt(scrollY || '0') * -1);
-      
-      burgerButton.setAttribute('aria-expanded', 'false');
-      burgerButton.setAttribute('aria-label', 'Ouvrir le menu');
+      body.style.width = '';
+      burgerButton?.setAttribute('aria-expanded', 'false');
     });
   });
 
-  // Close menu on escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && mainNav.classList.contains('is-open')) {
-      burgerButton.classList.remove('is-open');
-      mainNav.classList.remove('is-open');
-      
-      // Restore body scroll
-      body.classList.remove('menu-open');
-      const scrollY = body.style.top;
-      body.style.top = '';
-      window.scrollTo(0, parseInt(scrollY || '0') * -1);
-      
-      burgerButton.setAttribute('aria-expanded', 'false');
-      burgerButton.focus();
+  // Header scroll effect
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+    
+    if (currentScroll > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+    
+    lastScroll = currentScroll;
+  });
+
+  // Active page detection
+  const currentPath = window.location.pathname;
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href === currentPath || (currentPath.startsWith(href) && href !== '/')) {
+      link.classList.add('is-active');
+      link.setAttribute('aria-current', 'page');
     }
   });
 
-  // Active page highlighting
-  document.addEventListener('DOMContentLoaded', () => {
-    const currentPath = window.location.pathname;
-    navLinks.forEach(link => {
-      if (link.getAttribute('href') === currentPath) {
-        link.setAttribute('aria-current', 'page');
-      }
-    });
+  // Escape key pour fermer le menu
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mainNav.classList.contains('is-open')) {
+      burgerButton?.click();
+    }
   });
 </script>

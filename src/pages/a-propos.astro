@@ -4,306 +4,435 @@ import Layout from '../layouts/Layout.astro';
 const teamMembers = [
   {
     name: "Marc Dubois",
-    role: "Expert-Comptable Luxembourg, Gérant",
-    imageUrl: "/images/team-member-1.jpg",
-    bio: "Fort de 15 ans d'expérience en expertise comptable au Luxembourg, Marc accompagne les entrepreneurs dans la réalisation de leurs ambitions avec rigueur et passion. Spécialiste en création société et optimisation fiscale.",
-    expertise: ["Création société SA/SARL", "Optimisation fiscale IRC", "Conseil stratégique PME"],
-    certifications: ["Expert-Comptable agréé Luxembourg", "Membre IRE"]
+    role: "Expert-Comptable Agréé, Gérant",
+    imageUrl: "/images/marc-dubois.jpg",
+    imageAlt: "Marc Dubois Expert-Comptable Luxembourg",
+    bio: "15+ ans d'expertise comptable au Luxembourg. Spécialiste création société SARL/SA et optimisation fiscale IRC. Accompagne +50 PME luxembourgeoises.",
+    expertise: ["Création SARL/SA", "Fiscalité IRC", "Conseil stratégique"],
+    certifications: ["Expert-Comptable agréé", "Membre IRE Luxembourg"],
+    linkedin: "https://linkedin.com/in/marcdubois"
   },
   {
-    name: "Katherine Jeris",
-    role: "Responsable Comptable & Fiscalité",
-    imageUrl: "/images/team-member-2.jpg",
-    bio: "Spécialiste de la fiscalité des PME luxembourgeoises, Katherine garantit une conformité et une optimisation fiscale sans faille pour nos clients. Expert en déclarations TVA et bilans eCDF.",
-    expertise: ["Comptabilité PME", "Déclarations TVA", "Bilans eCDF"],
-    certifications: ["Diplôme Comptabilité Luxembourg", "Formation continue IRE"]
+    name: "Sophie Bernard",
+    role: "Responsable Fiscalité & Conformité",
+    imageUrl: "/images/sophie-bernard.jpg",
+    imageAlt: "Sophie Bernard Fiscaliste Luxembourg",
+    bio: "Experte fiscalité luxembourgeoise, maîtrise parfaite des déclarations TVA et optimisation fiscale légale. 10 ans d'expérience Big Four.",
+    expertise: ["TVA Luxembourg", "Déclarations eCDF", "Conformité AED"],
+    certifications: ["Master Fiscalité", "Certification IRE"],
+    linkedin: "https://linkedin.com/in/sophiebernard"
   },
   {
-    name: "Quentin Smith",
-    role: "Gestionnaire de Paie & Social",
-    imageUrl: "/images/team-member-3.jpg",
-    bio: "Avec une précision méticuleuse, Quentin gère l'ensemble du cycle de paie et du conseil social pour nos entreprises partenaires. Expert en déclarations CCSS et CNS.",
-    expertise: ["Gestion paie Luxembourg", "Déclarations CCSS", "Droit social"],
-    certifications: ["Spécialiste Paie Luxembourg", "Formation CNS"]
+    name: "Thomas Wagner",
+    role: "Gestionnaire Paie & Social",
+    imageUrl: "/images/thomas-wagner.jpg",
+    imageAlt: "Thomas Wagner Spécialiste Paie Luxembourg",
+    bio: "Spécialiste paie et droit social luxembourgeois. Expert déclarations CCSS/CNS et conventions collectives. Gère +500 fiches de paie/mois.",
+    expertise: ["Paie CCSS", "Droit social", "Déclarations CNS"],
+    certifications: ["Gestionnaire Paie certifié", "Formation continue CCSS"],
+    linkedin: "https://linkedin.com/in/thomaswagner"
   },
 ];
 
-// Données structurées pour la page À Propos
+// Statistiques pour preuve sociale
+const stats = [
+  { number: "15+", label: "Années d'expérience", icon: "📅" },
+  { number: "156", label: "Clients actifs", icon: "🏢" },
+  { number: "98%", label: "Satisfaction client", icon: "⭐" },
+  { number: "24h", label: "Délai de réponse", icon: "⚡" }
+];
+
+// Valeurs de l'entreprise
+const values = [
+  {
+    title: "Expertise Locale",
+    icon: "🇱🇺",
+    description: "Maîtrise parfaite du cadre légal luxembourgeois : IRC, TVA, CCSS, RCSL. Veille réglementaire permanente."
+  },
+  {
+    title: "Transparence Totale",
+    icon: "💎",
+    description: "Tarifs clairs, devis détaillés, aucun frais caché. Communication ouverte et reporting régulier."
+  },
+  {
+    title: "Innovation Digitale",
+    icon: "🚀",
+    description: "Outils comptables dernière génération. Accès client 24/7. Dématérialisation complète."
+  },
+  {
+    title: "Proximité Client",
+    icon: "🤝",
+    description: "Interlocuteur unique dédié. Disponibilité exceptionnelle. Conseil personnalisé."
+  }
+];
+
+// Processus en 3 étapes
+const process = [
+  {
+    step: "1",
+    title: "Audit Gratuit",
+    description: "Analyse complète de votre situation comptable et fiscale au Luxembourg.",
+    details: ["Diagnostic personnalisé", "Identification opportunités", "Plan d'action sur mesure"]
+  },
+  {
+    step: "2",
+    title: "Mise en Œuvre",
+    description: "Prise en charge intégrale de votre comptabilité avec nos outils digitaux.",
+    details: ["Migration données", "Digitalisation processus", "Formation équipe"]
+  },
+  {
+    step: "3",
+    title: "Suivi Proactif",
+    description: "Accompagnement continu et optimisation fiscale permanente.",
+    details: ["Reporting mensuel", "Alertes réglementaires", "Conseils stratégiques"]
+  }
+];
+
+// Témoignages clients
+const testimonials = [
+  {
+    content: "Fiduciaire Expert nous accompagne depuis 5 ans. Leur expertise du marché luxembourgeois est remarquable. Création de notre holding en 6 jours !",
+    author: "Marie Laurent",
+    role: "CEO, TechLux Solutions",
+    rating: 5
+  },
+  {
+    content: "Optimisation fiscale exceptionnelle : -30% sur notre IRC. L'équipe est réactive et toujours de bon conseil. Je recommande vivement.",
+    author: "Pierre Schmitt",
+    role: "CFO, Finance Partners",
+    rating: 5
+  },
+  {
+    content: "Gestion paie impeccable pour nos 45 salariés. Zéro erreur en 3 ans. Support CCSS excellent lors de nos contrôles.",
+    author: "Anna Weber",
+    role: "DRH, LogiLux Group",
+    rating: 5
+  }
+];
+
+// Données structurées enrichies
 const aboutSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
+      "@type": "AccountingService",
       "@id": "https://www.fiduciaire-expert.lu/#organization",
       "name": "Fiduciaire Expert Luxembourg",
+      "alternateName": "Expert-Comptable Luxembourg",
       "url": "https://www.fiduciaire-expert.lu",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://www.fiduciaire-expert.lu/images/logo.png"
-      },
+      "logo": "https://www.fiduciaire-expert.lu/images/logo.png",
+      "image": [
+        "https://www.fiduciaire-expert.lu/images/bureau.jpg",
+        "https://www.fiduciaire-expert.lu/images/equipe.jpg"
+      ],
+      "description": "Cabinet d'expertise comptable au Luxembourg depuis 2010. Spécialistes comptabilité PME, création société SARL/SA, fiscalité IRC/TVA.",
       "foundingDate": "2010",
-      "description": "Cabinet d'expertise comptable au Luxembourg spécialisé dans l'accompagnement des PME et entrepreneurs. Services comptables, fiscaux et création société.",
+      "founder": {
+        "@type": "Person",
+        "name": "Marc Dubois"
+      },
+      "numberOfEmployees": {
+        "@type": "QuantitativeValue",
+        "value": 15
+      },
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "25 Boulevard Royal",
+        "addressLocality": "Luxembourg",
+        "postalCode": "L-2449",
         "addressCountry": "LU"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "49.6117",
+        "longitude": "6.1300"
       },
       "areaServed": {
         "@type": "Country",
         "name": "Luxembourg"
       },
-      "numberOfEmployees": "15+",
-      "serviceType": [
-        "Expert-comptable",
-        "Comptabilité Luxembourg",
-        "Création société",
-        "Fiscalité IRC",
-        "Domiciliation",
-        "Gestion paie"
-      ],
+      "priceRange": "€€",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "156",
+        "bestRating": "5"
+      },
       "employee": teamMembers.map(member => ({
         "@type": "Person",
         "name": member.name,
         "jobTitle": member.role,
-        "description": member.bio
-      }))
+        "description": member.bio,
+        "sameAs": member.linkedin
+      })),
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Services Expert-Comptable",
+        "itemListElement": [
+          { "@type": "Service", "name": "Comptabilité Luxembourg" },
+          { "@type": "Service", "name": "Création Société SARL/SA" },
+          { "@type": "Service", "name": "Fiscalité IRC/TVA" },
+          { "@type": "Service", "name": "Gestion Paie CCSS" },
+          { "@type": "Service", "name": "Domiciliation Luxembourg" }
+        ]
+      }
     },
     {
       "@type": "AboutPage",
-      "name": "À Propos - Fiduciaire Expert Luxembourg",
-      "description": "Découvrez Fiduciaire Expert Luxembourg : 15+ années d'expérience, équipe d'experts-comptables, accompagnement PME et entrepreneurs luxembourgeois.",
+      "@id": "https://www.fiduciaire-expert.lu/a-propos",
+      "name": "À Propos - Expert-Comptable Luxembourg",
+      "description": "Découvrez Fiduciaire Expert : 15+ ans expertise comptable Luxembourg, équipe certifiée, +150 clients PME. Consultation gratuite.",
       "url": "https://www.fiduciaire-expert.lu/a-propos",
-      "about": {
-        "@id": "https://www.fiduciaire-expert.lu/#organization"
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Accueil",
+            "item": "https://www.fiduciaire-expert.lu"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "À Propos",
+            "item": "https://www.fiduciaire-expert.lu/a-propos"
+          }
+        ]
       }
     }
   ]
 };
 
-const metaDescription = "Découvrez Fiduciaire Expert Luxembourg : cabinet d'expertise comptable avec 15+ années d'expérience. Équipe d'experts dédiés aux PME luxembourgeoises. Consultation gratuite.";
+const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise comptable, équipe experts-comptables agréés, +150 PME accompagnées. Découvrez notre cabinet et notre équipe.";
 ---
 
 <Layout 
-  title="À Propos | Expert-Comptable Luxembourg - Fiduciaire Expert"
+  title="À Propos - Expert-Comptable Luxembourg | Fiduciaire Expert"
   description={metaDescription}
+  canonical="https://www.fiduciaire-expert.lu/a-propos"
+  ogImage="/images/og-about.jpg"
+  schema={aboutSchema}
 >
-  <main class="about-page" itemscope itemtype="https://schema.org/AboutPage">
+  <main class="about-page">
 
-    <!-- Breadcrumb SEO -->
-    <nav class="breadcrumb" aria-label="Fil d'ariane">
+    <!-- Hero Section Modern -->
+    <section class="hero">
+      <div class="hero-background"></div>
       <div class="container">
-        <ol class="breadcrumb-list">
-          <li><a href="/">Accueil</a></li>
-          <li><span aria-current="page">À Propos - Expert-Comptable Luxembourg</span></li>
-        </ol>
-      </div>
-    </nav>
-
-    <!-- Header section optimisée -->
-    <section class="page-header">
-      <div class="container-narrow">
-        <h1 itemprop="name">
-          Expert-Comptable Luxembourg : 
-          <span class="highlight">Votre Partenaire de Croissance depuis 2010</span>
-        </h1>
-        <p class="page-subtitle" itemprop="description">
-          <strong>Fiduciaire Expert</strong> accompagne les <strong>PME et entrepreneurs luxembourgeois</strong> 
-          depuis plus de 15 ans. Notre mission : transformer la complexité comptable et fiscale en 
-          force tranquille pour votre entreprise. <em>+150 entreprises nous font confiance</em>.
-        </p>
+        <nav class="breadcrumb" aria-label="Fil d'ariane">
+          <ol>
+            <li><a href="/">Accueil</a></li>
+            <li aria-current="page">À Propos</li>
+          </ol>
+        </nav>
         
-        <!-- Chiffres clés -->
-        <div class="key-stats">
-          <div class="stat-item">
-            <span class="stat-number">15+</span>
-            <span class="stat-label">Années d'expérience</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">+150</span>
-            <span class="stat-label">Entreprises accompagnées</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-number">98%</span>
-            <span class="stat-label">Clients satisfaits</span>
+        <div class="hero-content">
+          <h1>
+            Votre <span class="highlight">Expert-Comptable</span> de Confiance au Luxembourg
+          </h1>
+          <p class="hero-subtitle">
+            Depuis 2010, nous accompagnons les entrepreneurs et PME luxembourgeoises 
+            dans leur croissance avec expertise, transparence et innovation.
+          </p>
+          
+          <!-- Stats cards -->
+          <div class="stats-grid">
+            {stats.map(stat => (
+              <div class="stat-card">
+                <span class="stat-icon">{stat.icon}</span>
+                <span class="stat-number">{stat.number}</span>
+                <span class="stat-label">{stat.label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Histoire & Valeurs -->
+    <!-- Story Section -->
     <section class="story-section">
       <div class="container">
-        <div class="story-content">
-          <div class="story-text">
-            <h2>Notre Histoire au Service du Luxembourg</h2>
+        <div class="story-grid">
+          <div class="story-content">
+            <h2>Notre Histoire au Service des Entreprises Luxembourgeoises</h2>
             <p>
-              Fondée en 2010, <strong>Fiduciaire Expert</strong> naît de la volonion d'offrir aux 
-              <strong>entreprises luxembourgeoises</strong> un accompagnement comptable et fiscal 
-              de proximité. Nos experts-comptables, formés aux spécificités du droit luxembourgeois, 
-              maîtrisent parfaitement les <strong>obligations eCDF, IRC et CCSS</strong>.
+              Fondée en 2010 par Marc Dubois, <strong>Fiduciaire Expert</strong> est née de la volonté 
+              d'offrir aux entreprises luxembourgeoises un accompagnement comptable de proximité, 
+              alliant expertise technique et conseil stratégique.
             </p>
             <p>
-              Aujourd'hui, nous accompagnons plus de <strong>150 entreprises</strong> dans leurs 
-              défis comptables quotidiens, de la <strong>création société</strong> à l'optimisation 
-              fiscale, en passant par la <strong>gestion de paie</strong> et la domiciliation.
+              Aujourd'hui, notre équipe de <strong>15 professionnels certifiés</strong> accompagne 
+              plus de <strong>150 entreprises</strong> dans tous les aspects de leur gestion comptable, 
+              fiscale et sociale. Notre parfaite maîtrise du cadre légal luxembourgeois 
+              (IRC, TVA, CCSS, RCSL) fait de nous le partenaire idéal pour votre croissance.
+            </p>
+            <p>
+              Notre philosophie : transformer vos obligations légales en opportunités d'optimisation, 
+              avec transparence et proactivité. Chaque client bénéficie d'un <strong>interlocuteur 
+              dédié</strong> et d'un suivi personnalisé.
             </p>
             
-            <div class="certifications">
-              <h3>Nos Equipes</h3>
-              <div class="cert-list">
-                <div class="cert-item">
-                  <span class="cert-icon">🏆</span>
-                  <span>Expert-comptable</span>
-                </div>
-                <div class="cert-item">
-                  <span class="cert-icon">✅</span>
-                  <span>Juristes</span>
-                </div>
-                <div class="cert-item">
-                  <span class="cert-icon">🎓</span>
-                  <span>Comptables</span>
-                </div>
+            <div class="certifications-box">
+              <h3>Nos Accréditations</h3>
+              <div class="cert-logos">
+                <img src="/images/ire-luxembourg.png" alt="Membre IRE Luxembourg" width="120" height="60" />
+                <img src="/images/oec-luxembourg.png" alt="Ordre Experts-Comptables" width="120" height="60" />
+                <img src="/images/iso-certification.png" alt="Certification Qualité" width="80" height="60" />
               </div>
             </div>
           </div>
           
-          <div class="story-image">
-            <img src="/images/bureau-fiduciaire-luxembourg.jpg" 
-                 alt="Bureau de Fiduciaire Expert Luxembourg - Expert-comptable" 
-                 loading="lazy"
-                 width="600"
-                 height="400">
+          <div class="story-visual">
+            <img 
+              src="/images/bureau-fiduciaire.jpg" 
+              alt="Bureau Fiduciaire Expert Luxembourg"
+              width="600"
+              height="400"
+              loading="lazy"
+            />
+            <div class="experience-badge">
+              <span class="badge-number">15+</span>
+              <span class="badge-text">ans d'expertise</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Pourquoi nous choisir -->
-    <section class="why-us-section">
+    <!-- Values Section -->
+    <section class="values-section">
       <div class="container">
-        <h2>Pourquoi Choisir Fiduciaire Expert Luxembourg ?</h2>
-        <div class="advantages-grid">
-          <div class="advantage-card">
-            <div class="advantage-icon">🇱🇺</div>
-            <h3>Expertise Locale Luxembourg</h3>
-            <p>Maîtrise parfaite de la <strong>législation luxembourgeoise</strong> : IRC, TVA, 
-               CCSS, CNS, RCSL. Nos experts suivent en permanence les évolutions réglementaires.</p>
-          </div>
-          <div class="advantage-card">
-            <div class="advantage-icon">⚡</div>
-            <h3>Réactivité Garantie</h3>
-            <p><strong>Réponse sous 24h</strong> à vos questions vs 72h+ chez nos concurrents. 
-               Interlocuteur unique dédié à votre dossier.</p>
-          </div>
-          <div class="advantage-card">
-            <div class="advantage-icon">💎</div>
-            <h3>Qualité & Transparence</h3>
-            <p><strong>0 erreur dans vos déclarations</strong>. Tarifs transparents et 
-               devis détaillés. Pas de frais cachés.</p>
-          </div>
-          <div class="advantage-card">
-            <div class="advantage-icon">🚀</div>
-            <h3>Innovation Digitale</h3>
-            <p>Outils numériques dernière génération pour votre <strong>comptabilité en ligne</strong>. 
-               Accès 24/7 à vos documents.</p>
-          </div>
+        <div class="section-header">
+          <h2>Nos Valeurs & Engagements</h2>
+          <p>Les piliers de notre relation client</p>
+        </div>
+        
+        <div class="values-grid">
+          {values.map(value => (
+            <div class="value-card">
+              <div class="value-icon">{value.icon}</div>
+              <h3>{value.title}</h3>
+              <p>{value.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
 
-    <!-- Approche méthodologique -->
-    <section class="approach-section">
+    <!-- Process Section -->
+    <section class="process-section">
       <div class="container">
-        <div class="section-title">
-          <h2>Notre Méthode d'Accompagnement Comptable</h2>
-          <p>Processus éprouvé en 3 étapes pour garantir votre succès au Luxembourg</p>
+        <div class="section-header">
+          <h2>Notre Méthode en 3 Étapes</h2>
+          <p>Un accompagnement structuré pour votre réussite</p>
         </div>
-        <div class="approach-grid">
-          <div class="step-card">
-            <div class="step-number">1</div>
-            <h3>Audit & Diagnostic Gratuit</h3>
-            <p>Analyse approfondie de votre situation comptable et fiscale au Luxembourg. 
-               Identification des opportunités d'optimisation IRC et TVA. 
-               <strong>Premier rendez-vous gratuit</strong>.</p>
-            <div class="step-details">
-              <ul>
-                <li>Audit comptable complet</li>
-                <li>Analyse fiscale IRC/TVA</li>
-                <li>Recommandations personnalisées</li>
-              </ul>
+        
+        <div class="process-timeline">
+          {process.map((step, index) => (
+            <div class="process-step">
+              <div class="step-number">{step.step}</div>
+              <div class="step-content">
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+                <ul class="step-details">
+                  {step.details.map(detail => (
+                    <li>{detail}</li>
+                  ))}
+                </ul>
+              </div>
+              {index < process.length - 1 && <div class="step-connector"></div>}
             </div>
-          </div>
-          <div class="step-card">
-            <div class="step-number">2</div>
-            <h3>Mise en Œuvre & Digitalisation</h3>
-            <p>Prise en charge complète de votre <strong>comptabilité Luxembourg</strong> 
-               avec nos outils digitaux. Gestion des déclarations eCDF, TVA et CCSS 
-               en toute conformité.</p>
-            <div class="step-details">
-              <ul>
-                <li>Comptabilité digitalisée</li>
-                <li>Déclarations automatisées</li>
-                <li>Suivi temps réel</li>
-              </ul>
-            </div>
-          </div>
-          <div class="step-card">
-            <div class="step-number">3</div>
-            <h3>Conseil Stratégique & Croissance</h3>
-            <p>Accompagnement proactif pour anticiper les évolutions réglementaires 
-               et optimiser votre <strong>stratégie fiscale Luxembourg</strong>. 
-               Conseils en développement d'entreprise.</p>
-            <div class="step-details">
-              <ul>
-                <li>Veille réglementaire</li>
-                <li>Optimisation fiscale</li>
-                <li>Conseil en croissance</li>
-              </ul>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
 
-    <!-- Équipe d'experts -->
+    <!-- Team Section -->
     <section class="team-section">
       <div class="container">
-        <div class="section-title">
-          <h2>Notre Équipe d'Experts-Comptables Luxembourg</h2>
-          <p>Professionnels qualifiés et spécialisés dans l'accompagnement des entreprises luxembourgeoises</p>
+        <div class="section-header">
+          <h2>Notre Équipe d'Experts</h2>
+          <p>Des professionnels passionnés à votre service</p>
         </div>
+        
         <div class="team-grid">
-          {teamMembers.map(member => (
-            <div class="team-card" itemscope itemtype="https://schema.org/Person">
-              <div class="team-photo-container">
-                <img src={member.imageUrl} 
-                     alt={`${member.name} - ${member.role} chez Fiduciaire Expert Luxembourg`} 
-                     class="team-photo"
-                     itemprop="image"
-                     loading="lazy"
-                     width="150"
-                     height="150" />
+          {teamMembers.map((member, index) => (
+            <article class="team-card" itemscope itemtype="https://schema.org/Person">
+              <div class="member-image">
+                <img 
+                  src={member.imageUrl} 
+                  alt={member.imageAlt}
+                  width="280"
+                  height="280"
+                  loading="lazy"
+                  itemprop="image"
+                />
+                {member.linkedin && (
+                  <a 
+                    href={member.linkedin} 
+                    class="linkedin-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`LinkedIn ${member.name}`}
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                  </a>
+                )}
               </div>
-              <div class="team-info">
+              
+              <div class="member-info">
                 <h3 itemprop="name">{member.name}</h3>
-                <p class="role" itemprop="jobTitle">{member.role}</p>
-                <p class="bio" itemprop="description">{member.bio}</p>
+                <p class="member-role" itemprop="jobTitle">{member.role}</p>
+                <p class="member-bio" itemprop="description">{member.bio}</p>
                 
-                <div class="expertise-tags">
-                  <h4>Expertises :</h4>
-                  <div class="tags">
+                <div class="member-expertise">
+                  <h4>Expertises</h4>
+                  <div class="expertise-tags">
                     {member.expertise.map(skill => (
                       <span class="tag">{skill}</span>
                     ))}
                   </div>
                 </div>
                 
-                <div class="certifications-mini">
-                  <h4>Certifications :</h4>
-                  <ul>
-                    {member.certifications.map(cert => (
-                      <li>{cert}</li>
-                    ))}
-                  </ul>
+                <div class="member-certifications">
+                  {member.certifications.map(cert => (
+                    <span class="certification">✓ {cert}</span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>La Parole à Nos Clients</h2>
+          <p>Plus de 150 entreprises luxembourgeoises nous font confiance</p>
+        </div>
+        
+        <div class="testimonials-grid">
+          {testimonials.map(testimonial => (
+            <div class="testimonial-card">
+              <div class="quote-icon">"</div>
+              <blockquote>{testimonial.content}</blockquote>
+              <div class="testimonial-footer">
+                <div class="author-info">
+                  <strong>{testimonial.author}</strong>
+                  <span>{testimonial.role}</span>
+                </div>
+                <div class="rating">
+                  {[...Array(testimonial.rating)].map(() => (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  ))}
                 </div>
               </div>
             </div>
@@ -312,676 +441,624 @@ const metaDescription = "Découvrez Fiduciaire Expert Luxembourg : cabinet d'exp
       </div>
     </section>
 
-    <!-- Témoignages clients -->
-    <section class="testimonials-section">
-      <div class="container">
-        <h2>Ce que Disent nos Clients Luxembourg</h2>
-        <div class="testimonials-grid">
-          <div class="testimonial-card">
-            <div class="testimonial-content">
-              <p>"<strong>Fiduciaire Expert</strong> nous accompagne depuis 5 ans dans notre développement. 
-                 Leur expertise du marché luxembourgeois est remarquable. Réactivité et professionnalisme 
-                 au rendez-vous !"</p>
-            </div>
-            <div class="testimonial-author">
-              <strong>Marie L.</strong>
-              <span>Directrice, PME Technologie</span>
-            </div>
-          </div>
-          <div class="testimonial-card">
-            <div class="testimonial-content">
-              <p>"Création de notre <strong>SARL au Luxembourg</strong> en 6 jours seulement ! 
-                 L'équipe nous a accompagnés à chaque étape. Service impeccable et tarifs transparents."</p>
-            </div>
-            <div class="testimonial-author">
-              <strong>Pierre M.</strong>
-              <span>Entrepreneur, Secteur Financier</span>
-            </div>
-          </div>
-          <div class="testimonial-card">
-            <div class="testimonial-content">
-              <p>"Optimisation fiscale remarquable ! Nous avons économisé 30% sur notre IRC grâce 
-                 aux conseils de <strong>Fiduciaire Expert</strong>. Expertise comptable de haut niveau."</p>
-            </div>
-            <div class="testimonial-author">
-              <strong>Sophie R.</strong>
-              <span>CFO, Groupe International</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Engagements qualité -->
-    <section class="commitments-section">
-      <div class="container">
-        <div class="section-title">
-          <h2>Nos Engagements Qualité Luxembourg</h2>
-          <p>Garanties concrètes pour votre tranquillité d'esprit</p>
-        </div>
-        <div class="commitments-grid">
-          <div class="commitment-card">
-            <div class="commitment-icon">⚡</div>
-            <h4>Réactivité 24h</h4>
-            <p>Réponse garantie à vos questions en moins de 24h ouvrées. 
-               Disponibilité exceptionnelle vs concurrence.</p>
-          </div>
-          <div class="commitment-card">
-            <div class="commitment-icon">🎯</div>
-            <h4>Conformité 100%</h4>
-            <p>Zéro erreur dans vos déclarations Luxembourg (IRC, TVA, CCSS). 
-               Votre tranquillité d'esprit est notre priorité.</p>
-          </div>
-          <div class="commitment-card">
-            <div class="commitment-icon">🚀</div>
-            <h4>Proactivité</h4>
-            <p>Points de situation réguliers et conseils anticipés. 
-               Veille réglementaire Luxembourg incluse.</p>
-          </div>
-          <div class="commitment-card">
-            <div class="commitment-icon">💎</div>
-            <h4>Transparence</h4>
-            <p>Tarifs clairs et devis détaillés. Pas de frais cachés. 
-               Rapport qualité-prix exceptionnel.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA Final avec fond gris et traits diagonaux jaunes -->
-    <section class="final-cta">
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="cta-background"></div>
       <div class="container">
         <div class="cta-content">
-          <h2>Prêt à Nous Confier Votre Comptabilité ?</h2>
-          <p>Rejoignez les <strong>+150 entreprises luxembourgeoises</strong> qui nous font confiance. 
-             <strong>Consultation gratuite</strong> pour découvrir comment nous pouvons optimiser 
-             votre gestion comptable.</p>
+          <h2>Prêt à Optimiser Votre Gestion Comptable ?</h2>
+          <p>
+            Bénéficiez de l'expertise de notre équipe et rejoignez 
+            les entreprises luxembourgeoises qui nous font confiance.
+          </p>
           
           <div class="cta-buttons">
-            <a href="/contact" class="cta-btn primary large">
-              Consultation Gratuite
+            <a href="/contact" class="btn btn-white btn-large">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z"/>
+              </svg>
+              Consultation gratuite
             </a>
-            <a href="tel:+352123456789" class="cta-btn secondary large">
-              📞 +352 XX XX XX XX
+            <a href="/services" class="btn btn-outline btn-large">
+              Découvrir nos services
             </a>
           </div>
           
-          <div class="cta-guarantees">
-            <span class="guarantee">✅ Sans engagement</span>
-            <span class="guarantee">✅ Réponse sous 24h</span>
-            <span class="guarantee">✅ Devis personnalisé</span>
+          <div class="trust-points">
+            <span>✓ Sans engagement</span>
+            <span>✓ Réponse sous 24h</span>
+            <span>✓ Devis personnalisé</span>
           </div>
         </div>
       </div>
     </section>
 
   </main>
-
-  <!-- Données structurées -->
-  <script type="application/ld+json" set:html={JSON.stringify(aboutSchema, null, 2)} />
 </Layout>
 
 <style>
-  /* Breadcrumb */
-  .breadcrumb {
-    background: rgba(248, 249, 250, 0.8);
-    padding: 1rem 0;
-    border-bottom: 1px solid #e9ecef;
+  /* Variables */
+  :root {
+    --blue-primary: #3498db;
+    --blue-dark: #2c3e50;
+    --blue-light: #ebf5fb;
+    --gray-light: #f8f9fa;
+    --gray-medium: #e9ecef;
+    --gray-dark: #6c757d;
+    --gold: #D4AF37;
+    --white: #ffffff;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.16);
+    --radius: 8px;
+    --transition: all 0.3s ease;
   }
-  
-  .breadcrumb-list {
+
+  /* Hero Section */
+  .hero {
+    position: relative;
+    background: linear-gradient(135deg, var(--blue-light) 0%, var(--gray-light) 100%);
+    padding: 5rem 0 4rem;
+    overflow: hidden;
+  }
+
+  .hero-background {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 20% 80%, rgba(52, 152, 219, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(52, 152, 219, 0.05) 0%, transparent 50%);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+  }
+
+  .breadcrumb {
+    margin-bottom: 2rem;
+  }
+
+  .breadcrumb ol {
     display: flex;
     gap: 0.5rem;
     list-style: none;
-    margin: 0;
     padding: 0;
-    font-size: 0.9rem;
+    margin: 0;
+    font-size: 0.875rem;
   }
-  
-  .breadcrumb-list li:not(:last-child)::after {
+
+  .breadcrumb li:not(:last-child)::after {
     content: "›";
     margin-left: 0.5rem;
-    color: var(--texte-secondaire);
+    color: var(--gray-dark);
   }
-  
-  .breadcrumb-list a {
-    color: var(--bleu-profond);
+
+  .breadcrumb a {
+    color: var(--blue-primary);
     text-decoration: none;
   }
-  
-  .breadcrumb-list a:hover {
+
+  .breadcrumb a:hover {
     text-decoration: underline;
   }
 
-  /* Styles Généraux */
-  .container, .container-narrow { 
-    max-width: 1100px; 
-    margin: 0 auto; 
-    padding: 0 2rem; 
-  }
-  .container-narrow { 
-    max-width: 900px; 
-  }
-  
-  .section-title { 
-    text-align: center; 
-    margin-bottom: 4rem; 
-  }
-  .section-title h2 { 
-    font-size: 2.5rem; 
-    color: var(--bleu-profond); 
-    margin-bottom: 1rem; 
-  }
-  .section-title p { 
-    font-size: 1.2rem; 
-    color: var(--texte-secondaire); 
-    max-width: 700px; 
-    margin: 0 auto; 
-  }
-
-  /* Header section */
-  .page-header { 
-    text-align: center; 
-    padding: 4rem 2rem 3rem; 
-    background: linear-gradient(135deg, #f8f9fa 0%, white 100%);
-  }
-  
-  .page-header h1 { 
-    font-size: 3rem; 
-    color: var(--bleu-profond); 
-    margin-bottom: 1.5rem; 
-    line-height: 1.2; 
-  }
-  
-  .highlight {
-    color: var(--or-premium);
-    display: inline-block;
-  }
-  
-  .page-subtitle { 
-    font-size: 1.25rem; 
-    color: var(--texte-secondaire); 
-    line-height: 1.7; 
-    margin-bottom: 3rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .key-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .stat-item {
+  .hero-content {
     text-align: center;
-  }
-  
-  .stat-number {
-    display: block;
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: var(--or-premium);
-    margin-bottom: 0.5rem;
-  }
-  
-  .stat-label {
-    color: var(--texte-secondaire);
-    font-weight: 600;
+    max-width: 900px;
+    margin: 0 auto;
   }
 
-  /* Story section */
-  .story-section {
-    padding: 5rem 2rem;
-    background: white;
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--blue-dark);
+    margin: 0 0 1.5rem;
+    line-height: 1.2;
   }
-  
-  .story-content {
+
+  .highlight {
+    color: var(--blue-primary);
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--gray-dark);
+    margin: 0 0 3rem;
+    line-height: 1.6;
+  }
+
+  .stats-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    align-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1.5rem;
+    max-width: 700px;
+    margin: 0 auto;
   }
-  
-  @media (min-width: 968px) {
-    .story-content {
-      grid-template-columns: 1.2fr 1fr;
-      gap: 4rem;
-    }
-  }
-  
-  .story-text h2 {
-    font-size: 2.5rem;
-    color: var(--bleu-profond);
-    margin-bottom: 2rem;
-  }
-  
-  .story-text p {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: var(--texte-secondaire);
-    margin-bottom: 1.5rem;
-  }
-  
-  .certifications {
-    margin-top: 2rem;
-    padding: 2rem;
-    background: var(--fond-clair);
-    border-radius: 12px;
-  }
-  
-  .certifications h3 {
-    color: var(--bleu-profond);
-    margin-bottom: 1rem;
-  }
-  
-  .cert-list {
+
+  .stat-card {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
-  }
-  
-  .cert-item {
-    display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
+    transition: var(--transition);
   }
-  
-  .cert-icon {
-    font-size: 1.2rem;
+
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
   }
-  
-  .story-image img {
+
+  .stat-icon {
+    font-size: 2rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--blue-primary);
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: var(--gray-dark);
+    text-align: center;
+  }
+
+  /* Story Section */
+  .story-section {
+    padding: 5rem 0;
+    background: var(--white);
+  }
+
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .story-content h2 {
+    font-size: 2.5rem;
+    color: var(--blue-dark);
+    margin: 0 0 2rem;
+  }
+
+  .story-content p {
+    color: var(--gray-dark);
+    line-height: 1.8;
+    margin: 0 0 1.5rem;
+  }
+
+  .certifications-box {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--gray-light);
+    border-radius: var(--radius);
+  }
+
+  .certifications-box h3 {
+    font-size: 1.125rem;
+    color: var(--blue-dark);
+    margin: 0 0 1rem;
+  }
+
+  .cert-logos {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .cert-logos img {
+    height: 60px;
+    width: auto;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+
+  .cert-logos img:hover {
+    opacity: 1;
+  }
+
+  .story-visual {
+    position: relative;
+  }
+
+  .story-visual img {
     width: 100%;
     height: auto;
-    border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
   }
 
-  /* Why us section */
-  .why-us-section {
-    padding: 5rem 2rem;
-    background: var(--fond-clair);
+  .experience-badge {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    background: var(--blue-primary);
+    color: var(--white);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md);
   }
-  
-  .why-us-section h2 {
-    text-align: center;
+
+  .badge-number {
     font-size: 2.5rem;
-    color: var(--bleu-profond);
+    font-weight: 700;
+  }
+
+  .badge-text {
+    font-size: 0.875rem;
+  }
+
+  /* Values Section */
+  .values-section {
+    padding: 5rem 0;
+    background: var(--gray-light);
+  }
+
+  .section-header {
+    text-align: center;
     margin-bottom: 3rem;
   }
-  
-  .advantages-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-  }
-  
-  .advantage-card {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    text-align: center;
-    transition: transform 0.3s ease;
-  }
-  
-  .advantage-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .advantage-icon {
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .advantage-card h3 {
-    color: var(--bleu-profond);
-    margin-bottom: 1rem;
-    font-size: 1.3rem;
-  }
-  
-  .advantage-card p {
-    color: var(--texte-secondaire);
-    line-height: 1.6;
+
+  .section-header h2 {
+    font-size: 2.5rem;
+    color: var(--blue-dark);
+    margin: 0 0 0.5rem;
   }
 
-  /* Approach section */
-  .approach-section {
-    padding: 5rem 2rem;
-    background: white;
+  .section-header p {
+    color: var(--gray-dark);
+    font-size: 1.125rem;
   }
-  
-  .approach-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-    gap: 2.5rem; 
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
   }
-  
-  .step-card { 
-    background: var(--fond-clair); 
-    padding: 2.5rem; 
-    border-radius: 12px; 
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    position: relative;
-    overflow: hidden;
+
+  .value-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--radius);
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid transparent;
   }
-  
-  .step-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--or-premium), #ffdd77);
+
+  .value-card:hover {
+    border-color: var(--blue-primary);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
   }
-  
-  .step-number { 
-    font-size: 2rem; 
-    font-weight: 800; 
-    color: var(--or-premium); 
-    background: white;
-    border-radius: 50%; 
-    width: 60px; 
-    height: 60px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+
+  .value-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
   }
-  
-  .step-card h3 { 
-    font-size: 1.4rem; 
-    color: var(--bleu-profond); 
-    margin-bottom: 1rem; 
+
+  .value-card h3 {
+    font-size: 1.25rem;
+    color: var(--blue-dark);
+    margin: 0 0 1rem;
   }
-  
-  .step-card p { 
-    color: var(--texte-secondaire); 
+
+  .value-card p {
+    color: var(--gray-dark);
     line-height: 1.6;
-    margin-bottom: 1.5rem;
+    margin: 0;
   }
-  
-  .step-details ul {
+
+  /* Process Section */
+  .process-section {
+    padding: 5rem 0;
+    background: var(--white);
+  }
+
+  .process-timeline {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .process-step {
+    position: relative;
+    text-align: center;
+  }
+
+  .step-number {
+    width: 80px;
+    height: 80px;
+    background: var(--blue-primary);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 auto 1.5rem;
+    box-shadow: var(--shadow-md);
+  }
+
+  .step-content h3 {
+    font-size: 1.5rem;
+    color: var(--blue-dark);
+    margin: 0 0 1rem;
+  }
+
+  .step-content p {
+    color: var(--gray-dark);
+    margin: 0 0 1rem;
+  }
+
+  .step-details {
     list-style: none;
     padding: 0;
+    margin: 0;
   }
-  
+
   .step-details li {
-    padding: 0.3rem 0;
-    color: var(--texte-secondaire);
+    color: var(--gray-dark);
+    padding: 0.25rem 0;
     position: relative;
     padding-left: 1.5rem;
   }
-  
+
   .step-details li::before {
     content: "✓";
     position: absolute;
     left: 0;
-    color: var(--or-premium);
+    color: var(--blue-primary);
     font-weight: bold;
   }
 
-  /* Team section */
-  .team-section { 
-    padding: 5rem 2rem;
-    background: var(--fond-clair);
+  .step-connector {
+    position: absolute;
+    top: 40px;
+    right: -50%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue-primary) 0%, var(--blue-light) 100%);
+    z-index: -1;
   }
-  
-  .team-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
-    gap: 3rem; 
+
+  /* Team Section */
+  .team-section {
+    padding: 5rem 0;
+    background: var(--gray-light);
   }
-  
-  .team-card { 
-    background: white;
-    padding: 2.5rem;
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-    text-align: center;
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .team-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+  }
+
+  .team-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .member-image {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+  }
+
+  .member-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.3s ease;
   }
-  
-  .team-card:hover {
-    transform: translateY(-5px);
+
+  .team-card:hover .member-image img {
+    transform: scale(1.05);
   }
-  
-  .team-photo { 
-    width: 150px; 
-    height: 150px; 
-    border-radius: 50%; 
-    object-fit: cover; 
-    margin-bottom: 1.5rem; 
-    border: 4px solid var(--or-premium);
+
+  .linkedin-link {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background: var(--white);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0077b5;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
   }
-  
-  .team-card h3 { 
-    font-size: 1.4rem; 
-    color: var(--bleu-profond); 
-    margin-bottom: 0.5rem; 
+
+  .linkedin-link:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-md);
   }
-  
-  .team-card .role { 
-    color: var(--or-premium); 
-    font-weight: 600; 
-    margin-bottom: 1rem; 
+
+  .member-info {
+    padding: 2rem;
   }
-  
-  .team-card .bio { 
-    color: var(--texte-secondaire); 
-    font-size: 1rem; 
+
+  .member-info h3 {
+    font-size: 1.5rem;
+    color: var(--blue-dark);
+    margin: 0 0 0.5rem;
+  }
+
+  .member-role {
+    color: var(--blue-primary);
+    font-weight: 500;
+    margin: 0 0 1rem;
+  }
+
+  .member-bio {
+    color: var(--gray-dark);
     line-height: 1.6;
-    margin-bottom: 1.5rem;
+    margin: 0 0 1.5rem;
+    font-size: 0.95rem;
   }
-  
-  .expertise-tags h4,
-  .certifications-mini h4 {
-    color: var(--bleu-profond);
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-    text-align: left;
+
+  .member-expertise h4 {
+    font-size: 0.875rem;
+    color: var(--blue-dark);
+    margin: 0 0 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
-  
-  .tags {
+
+  .expertise-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-bottom: 1rem;
   }
-  
+
   .tag {
-    background: rgba(212, 175, 55, 0.1);
-    color: var(--bleu-profond);
-    padding: 0.3rem 0.8rem;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-  
-  .certifications-mini ul {
-    list-style: none;
-    padding: 0;
-    text-align: left;
-  }
-  
-  .certifications-mini li {
-    padding: 0.2rem 0;
-    color: var(--texte-secondaire);
-    font-size: 0.9rem;
-    position: relative;
-    padding-left: 1rem;
-  }
-  
-  .certifications-mini li::before {
-    content: "🏆";
-    position: absolute;
-    left: 0;
-    font-size: 0.8rem;
+    background: var(--blue-light);
+    color: var(--blue-dark);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
   }
 
-  /* Testimonials section */
+  .member-certifications {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .certification {
+    font-size: 0.875rem;
+    color: var(--gray-dark);
+  }
+
+  /* Testimonials Section */
   .testimonials-section {
-    padding: 5rem 2rem;
-    background: white;
+    padding: 5rem 0;
+    background: var(--white);
   }
-  
-  .testimonials-section h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    color: var(--bleu-profond);
-    margin-bottom: 3rem;
-  }
-  
+
   .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
   }
-  
+
   .testimonial-card {
-    background: var(--fond-clair);
+    background: var(--gray-light);
     padding: 2rem;
-    border-radius: 12px;
+    border-radius: var(--radius);
     position: relative;
   }
-  
-  .testimonial-card::before {
-    content: '"';
-    position: absolute;
-    top: -10px;
-    left: 20px;
+
+  .quote-icon {
     font-size: 4rem;
-    color: var(--or-premium);
-    font-weight: bold;
-  }
-  
-  .testimonial-content {
-    margin-bottom: 1.5rem;
-  }
-  
-  .testimonial-content p {
-    color: var(--texte-secondaire);
-    line-height: 1.6;
-    font-style: italic;
-  }
-  
-  .testimonial-author strong {
-    color: var(--bleu-profond);
-  }
-  
-  .testimonial-author span {
-    color: var(--texte-secondaire);
-    font-size: 0.9rem;
+    color: var(--blue-primary);
+    opacity: 0.2;
+    position: absolute;
+    top: 0rem;
+    left: 1rem;
+    font-family: Georgia, serif;
   }
 
-  /* Commitments section */
-  .commitments-section {
-    padding: 5rem 2rem;
-    background: var(--fond-clair);
-  }
-  
-  .commitments-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-  }
-  
-  .commitment-card {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease;
-  }
-  
-  .commitment-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .commitment-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .commitment-card h4 {
-    font-size: 1.3rem;
-    color: var(--bleu-profond);
-    margin-bottom: 1rem;
-  }
-  
-  .commitment-card p {
-    color: var(--texte-secondaire);
+  .testimonial-card blockquote {
+    margin: 0 0 1.5rem;
+    color: var(--gray-dark);
     line-height: 1.6;
+    position: relative;
+    z-index: 1;
   }
 
-  /* Final CTA avec fond gris et traits diagonaux jaunes */
-  .final-cta {
-    padding: 5rem 2rem;
-    background: var(--fond-clair);
+  .testimonial-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .author-info strong {
+    display: block;
+    color: var(--blue-dark);
+    margin-bottom: 0.25rem;
+  }
+
+  .author-info span {
+    font-size: 0.875rem;
+    color: var(--gray-dark);
+  }
+
+  .rating {
+    display: flex;
+    gap: 0.25rem;
+    color: var(--gold);
+  }
+
+  /* CTA Section */
+  .cta-section {
+    position: relative;
+    padding: 5rem 0;
+    background: linear-gradient(135deg, var(--blue-primary) 0%, #2980b9 100%);
+    color: var(--white);
+    overflow: hidden;
+  }
+
+  .cta-background {
+    position: absolute;
+    inset: 0;
     background-image: 
       repeating-linear-gradient(
         45deg,
-        rgba(212, 175, 55, 0.15) 0px,
-        rgba(212, 175, 55, 0.15) 2px,
-        transparent 2px,
-        transparent 25px
-      ),
-      repeating-linear-gradient(
-        -45deg,
-        rgba(212, 175, 55, 0.1) 0px,
-        rgba(212, 175, 55, 0.1) 1px,
-        transparent 1px,
-        transparent 30px
-      );
-    color: var(--bleu-profond);
-    text-align: center;
-    position: relative;
-  }
-
-  .final-cta::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-      repeating-linear-gradient(
-        135deg,
-        rgba(212, 175, 55, 0.08) 0px,
-        rgba(212, 175, 55, 0.08) 1px,
+        rgba(255, 255, 255, 0.03) 0px,
+        rgba(255, 255, 255, 0.03) 1px,
         transparent 1px,
         transparent 20px
       );
   }
 
-  .final-cta > .container {
+  .cta-content {
+    text-align: center;
     position: relative;
     z-index: 1;
   }
-  
+
   .cta-content h2 {
     font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-    color: var(--bleu-profond);
+    margin: 0 0 1rem;
   }
-  
+
   .cta-content p {
-    font-size: 1.2rem;
-    margin-bottom: 3rem;
+    font-size: 1.25rem;
+    margin: 0 0 2rem;
     opacity: 0.9;
-    color: var(--bleu-profond);
   }
-  
+
   .cta-buttons {
     display: flex;
     gap: 1rem;
@@ -989,90 +1066,105 @@ const metaDescription = "Découvrez Fiduciaire Expert Luxembourg : cabinet d'exp
     margin-bottom: 2rem;
     flex-wrap: wrap;
   }
-  
-  .cta-btn {
-    padding: 1.2rem 2.5rem;
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    font-weight: 500;
     text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    border: 2px solid transparent;
+  }
+
+  .btn-large {
+    padding: 1rem 2rem;
     font-size: 1.1rem;
   }
-  
-  .cta-btn.large {
-    padding: 1.5rem 3rem;
+
+  .btn-white {
+    background: var(--white);
+    color: var(--blue-primary);
+    border-color: var(--white);
   }
-  
-  .cta-btn.primary {
-    background: var(--or-premium);
-    color: var(--bleu-profond);
+
+  .btn-white:hover {
+    background: transparent;
+    color: var(--white);
   }
-  
-  .cta-btn.primary:hover {
-    background: #ffdd77;
-    transform: translateY(-2px);
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border-color: var(--white);
   }
-  
-  .cta-btn.secondary {
-    background: white;
-    color: var(--bleu-profond);
-    border: 2px solid var(--bleu-profond);
+
+  .btn-outline:hover {
+    background: var(--white);
+    color: var(--blue-primary);
   }
-  
-  .cta-btn.secondary:hover {
-    background: var(--bleu-profond);
-    color: white;
-  }
-  
-  .cta-guarantees {
+
+  .trust-points {
     display: flex;
-    justify-content: center;
     gap: 2rem;
+    justify-content: center;
     flex-wrap: wrap;
-  }
-  
-  .guarantee {
-    color: var(--or-premium);
-    font-weight: 600;
+    opacity: 0.8;
   }
 
   /* Responsive */
-  @media (max-width: 768px) {
-    .page-header h1 {
-      font-size: 2.2rem;
-    }
-    
-    .key-stats {
+  @media (max-width: 968px) {
+    .story-grid {
       grid-template-columns: 1fr;
-      gap: 1.5rem;
+      gap: 2rem;
     }
-    
-    .story-content {
-      grid-template-columns: 1fr;
+
+    .experience-badge {
+      position: static;
+      margin: 2rem auto 0;
     }
-    
-    .advantages-grid,
-    .approach-grid,
-    .team-grid {
+
+    .process-timeline {
       grid-template-columns: 1fr;
     }
-    
+
+    .step-connector {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .values-grid,
+    .team-grid,
     .testimonials-grid {
       grid-template-columns: 1fr;
     }
-    
-    .commitments-grid {
-      grid-template-columns: 1fr;
-    }
-    
+
     .cta-buttons {
       flex-direction: column;
-      align-items: center;
+      width: 100%;
+      padding: 0 2rem;
     }
-    
-    .cta-guarantees {
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .trust-points {
       flex-direction: column;
-      align-items: center;
+      gap: 0.5rem;
     }
   }
 </style>

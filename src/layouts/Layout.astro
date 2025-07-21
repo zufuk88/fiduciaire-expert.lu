@@ -4,82 +4,241 @@ import Footer from '../components/Footer.astro';
 
 export interface Props {
   title: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  schema?: any;
 }
 
-const { title } = Astro.props;
+const { 
+  title, 
+  description = "Fiduciaire Expert Luxembourg - Expert-comptable agréé, fiscalité, création société SARL, comptabilité PME. Services fiduciaires professionnels au Grand-Duché.",
+  canonical,
+  ogImage = "/images/og-default.jpg",
+  noindex = false,
+  schema
+} = Astro.props;
+
+const siteUrl = "https://www.fiduciaire-expert.lu";
+const fullTitle = `${title} | Fiduciaire Expert Luxembourg`;
+const canonicalURL = canonical || new URL(Astro.url.pathname, siteUrl).href;
+
+// Schema.org par défaut pour l'organisation
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "AccountingService",
+  "@id": `${siteUrl}/#organization`,
+  "name": "Fiduciaire Expert Luxembourg",
+  "alternateName": "Expert-Comptable Luxembourg",
+  "url": siteUrl,
+  "logo": {
+    "@type": "ImageObject",
+    "url": `${siteUrl}/images/logo.png`,
+    "width": 200,
+    "height": 60
+  },
+  "image": `${siteUrl}/images/bureau-fiduciaire.jpg`,
+  "description": "Cabinet d'expertise comptable au Luxembourg spécialisé dans la comptabilité, fiscalité et création de sociétés",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "LU",
+    "addressRegion": "Luxembourg"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "49.6117",
+    "longitude": "6.1300"
+  },
+  "telephone": "+352-XX-XX-XX",
+  "email": "contact@fiduciaire-expert.lu",
+  "priceRange": "€€",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "08:30",
+    "closes": "18:00"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/company/fiduciaire-expert-luxembourg/",
+    "https://www.facebook.com/fiduciaireexpertlu"
+  ],
+  "areaServed": {
+    "@type": "Country",
+    "name": "Luxembourg"
+  },
+  "knowsAbout": [
+    "Comptabilité Luxembourg",
+    "Fiscalité IRC",
+    "Création SARL",
+    "TVA Luxembourg",
+    "Déclarations fiscales",
+    "Audit et révision"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services Fiduciaires",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Comptabilité et tenue de livres"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Déclarations fiscales IRC et TVA"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Création de société SARL"
+        }
+      }
+    ]
+  }
+};
+
+// Breadcrumb par défaut pour la page d'accueil
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "Accueil",
+    "item": siteUrl
+  }]
+};
+
+// Combine tous les schemas
+const allSchemas = {
+  "@context": "https://schema.org",
+  "@graph": [
+    organizationSchema,
+    breadcrumbSchema,
+    ...(schema ? [schema] : [])
+  ]
+};
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang="fr-LU">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="Site de la fiduciaire expert pour le luxembourg" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-
+    
+    <!-- SEO Meta Tags -->
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    
+    <!-- Geo Meta Tags pour Luxembourg -->
+    <meta name="geo.region" content="LU" />
+    <meta name="geo.placename" content="Luxembourg" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${siteUrl}${ogImage}`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Fiduciaire Expert Luxembourg" />
+    <meta property="og:locale" content="fr_LU" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
+    
     <!-- Favicons -->
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Fiduciaire" />
+    <meta name="apple-mobile-web-app-title" content="Fiduciaire Expert" />
     <link rel="manifest" href="/site.webmanifest" />
-
-    <!-- Open Graph pour LinkedIn -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content="Fiduciaire Expert Luxembourg - Services comptables et fiscaux professionnels" />
-    <meta property="og:url" content="https://fiduciaire-expert.lu" />
-    <meta property="og:site_name" content="Fiduciaire Expert Luxembourg" />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content="Fiduciaire Expert Luxembourg - Services comptables et fiscaux professionnels" />
-
+    <meta name="theme-color" content="#0d2b4f" />
+    
+    <!-- Preconnect pour performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    
+    <!-- Generator -->
+    <meta name="generator" content={Astro.generator} />
+    
     <!-- Données structurées Schema.org -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Fiduciaire Expert Luxembourg",
-      "url": "https://fiduciaire-expert.lu",
-      "sameAs": ["https://www.linkedin.com/company/fiduciaire-expert-luxembourg/"],
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "LU"
-      }
-    }
-    </script>
-
-    <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(allSchemas)} />
   </head>
+  
   <body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+    
     <Header />
-    <slot />
+    
+    <main id="main-content">
+      <slot />
+    </main>
+    
     <Footer />
   </body>
 </html>
 
 <style is:global>
   :root {
-    --bleu-profond: #0d2b4f;
-    --or-premium: #D4AF37;
+    /* Couleurs principales */
+    --bleu-profond: #2c3e50;        /* Bleu foncé plus moderne */
+    --bleu-accent: #3498db;         /* Bleu clair moderne pour CTAs */
+    --bleu-accent-hover: #2980b9;   /* Version hover du bleu */
+    
+    /* Couleurs secondaires */
+    --or-premium: #D4AF37;          /* Doré pour accents premium */
+    --or-premium-hover: #B8941F;    /* Version hover du doré */
+    
+    /* Couleurs neutres */
     --argent-element: #adb5bd;
     --fond-clair: #f8f9fa;
-    --texte-principal: #212529;
-    --texte-secondaire: #6c757d;
-    --linkedin-blue: #0077b5;
+    --fond-tres-clair: #ffffff;
+    --texte-principal: #2c3e50;
+    --texte-secondaire: #7f8c8d;
+    
+    /* Couleurs fonctionnelles */
+    --success: #27ae60;
+    --warning: #f39c12;
+    --error: #e74c3c;
+    --info: #3498db;
+    
+    /* Effets */
+    --shadow: 0 2px 4px rgba(0,0,0,0.1);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,0.15);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Reset et base */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
   }
 
   html {
     overflow-x: hidden;
-    box-sizing: border-box;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
       Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
@@ -89,19 +248,73 @@ const { title } = Astro.props;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    line-height: 1.6;
+    color: var(--texte-principal);
+    background-color: var(--blanc);
   }
 
   main {
     flex-grow: 1;
   }
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: inherit;
+  
+  /* Supprime les marges par défaut des derniers éléments */
+  main > *:last-child {
+    margin-bottom: 0;
+  }
+  
+  main section:last-child {
+    padding-bottom: 0;
   }
 
-  /* Styles pour les liens sociaux */
+  /* Skip link pour accessibilité */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    z-index: 999;
+    padding: 1rem;
+    background-color: var(--bleu-profond);
+    color: var(--blanc);
+    text-decoration: none;
+  }
+
+  .skip-link:focus {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 1rem;
+    border-radius: 4px;
+  }
+
+  /* Focus visible pour accessibilité */
+  :focus-visible {
+    outline: 2px solid var(--or-premium);
+    outline-offset: 2px;
+  }
+
+  /* Typography base */
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    line-height: 1.2;
+    color: var(--bleu-profond);
+  }
+
+  a {
+    color: var(--bleu-profond);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  a:hover {
+    color: var(--or-premium);
+  }
+
+  /* Images responsive */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Social links styles */
   .social-links {
     display: flex;
     gap: 1rem;
@@ -135,6 +348,24 @@ const { title } = Astro.props;
     fill: currentColor;
   }
 
+  /* Utility classes */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  /* Responsive */
   @media (max-width: 768px) {
     .social-links {
       gap: 0.5rem;
@@ -143,6 +374,15 @@ const { title } = Astro.props;
     .social-links a {
       width: 35px;
       height: 35px;
+    }
+  }
+
+  /* Print styles */
+  @media print {
+    .skip-link,
+    header,
+    footer {
+      display: none;
     }
   }
 </style>

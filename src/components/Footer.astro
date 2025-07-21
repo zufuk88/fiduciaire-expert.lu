@@ -2,380 +2,665 @@
 // src/components/Footer.astro
 const currentYear = new Date().getFullYear();
 
-// Données structurées pour le footer
+// Liens de navigation organisés enrichis
+const footerLinks = {
+  services: [
+    { href: "/comptabilite", text: "Comptabilité & Fiscalité" },
+    { href: "/creation-societe-luxembourg", text: "Création SARL" },
+    { href: "/paie", text: "Gestion Paie CCSS" },
+    { href: "/domiciliation", text: "Domiciliation" }
+  ],
+  company: [
+    { href: "/a-propos", text: "À Propos" },
+    { href: "/a-propos", text: "Notre Équipe" },
+    { href: "/a-propos", text: "Témoignages Clients" },
+    { href: "/articles", text: "Blog & Actualités" },
+    { href: "/contact", text: "FAQ Comptabilité" }
+  ],
+  resources: [
+    { href: "/guide-creation-sarl", text: "Guide Création SARL" },
+    { href: "/calculateurs", text: "Calculateurs Fiscaux" },
+    { href: "/actualites-fiscales", text: "Actualités Fiscales" }
+  ],
+  legal: [
+    { href: "/mentions-legales", text: "Mentions Légales" },
+    { href: "/confidentialite", text: "Confidentialité" },
+    { href: "/cgv", text: "CGV" }
+  ]
+};
+
+// Contact info enrichi
+const contactInfo = {
+  phone: "+352 XX XX XX XX",
+  email: "contact@fiduciaire-expert.lu",
+  address: "25 Boulevard Royal, L-2449 Luxembourg",
+  hours: "Lun-Ven: 8h30 - 18h00"
+};
+
+// Schema.org pour SEO enrichi
 const footerSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "AccountingService",
+  "@id": "https://www.fiduciaire-expert.lu/#organization",
   "name": "Fiduciaire Expert Luxembourg",
+  "alternateName": "Expert-Comptable Luxembourg",
   "url": "https://www.fiduciaire-expert.lu",
+  "logo": "https://www.fiduciaire-expert.lu/images/logo.png",
+  "image": "https://www.fiduciaire-expert.lu/images/bureau.jpg",
+  "description": "Expert-comptable agréé Luxembourg depuis 2010. Spécialistes en comptabilité PME, création SARL, fiscalité IRC et TVA.",
   "address": {
     "@type": "PostalAddress",
+    "streetAddress": "25 Boulevard Royal",
+    "addressLocality": "Luxembourg",
+    "postalCode": "L-2449",
     "addressCountry": "LU"
   },
-  "telephone": "+352-XX-XX-XX-XX",
-  "email": "contact@fiduciaire-expert.lu",
-  "sameAs": [
-    "https://www.linkedin.com/company/fiduciaire-expert-luxembourg/"
-  ],
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "49.6117",
+    "longitude": "6.1300"
+  },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "08:30",
+    "closes": "18:00"
+  }],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+352-XX-XX-XX-XX",
+    "contactType": "customer service",
+    "email": "contact@fiduciaire-expert.lu",
+    "areaServed": {
+      "@type": "Country",
+      "name": "Luxembourg"
+    },
+    "availableLanguage": ["fr", "en", "de", "lu"]
+  },
   "areaServed": {
     "@type": "Country",
     "name": "Luxembourg"
   },
-  "serviceType": [
-    "Expert-comptable",
-    "Création société",
-    "Comptabilité Luxembourg",
-    "Domiciliation"
+  "priceRange": "€€",
+  "sameAs": [
+    "https://www.linkedin.com/company/fiduciaire-expert-luxembourg/"
   ]
 };
 ---
 
-<footer itemscope itemtype="https://schema.org/Organization">
-  <div class="container">
-    <div class="footer-content">
-      
-      <!-- Section principale avec infos contact -->
-      <div class="footer-main">
-        <div class="footer-brand">
-          <h3 itemprop="name">Fiduciaire Expert Luxembourg</h3>
-          <p itemprop="description">
-            Votre <strong>expert-comptable au Luxembourg</strong> pour la comptabilité, 
-            création de société et conseil fiscal.
-          </p>
+<footer class="footer" itemscope itemtype="https://schema.org/Organization">
+  <!-- Newsletter Section -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-content">
+        <div class="newsletter-text">
+          <h3>Guide Gratuit : Création SARL Luxembourg 2024</h3>
+          <p>Recevez notre guide PDF complet + actualités fiscales mensuelles pour entrepreneurs</p>
         </div>
-        
-        <div class="footer-contact">
-          <h4>Contact</h4>
-          <div class="contact-info">
-            <p>
-              <span class="contact-icon">📍</span>
-              <span itemprop="address">Luxembourg</span>
-            </p>
-            <p>
-              <span class="contact-icon">📞</span>
-              <a href="tel:+352123456789" itemprop="telephone">Appelez-nous</a>
-            </p>
-            <p>
-              <span class="contact-icon">✉️</span>
-              <a href="mailto:contact@fiduciaire-expert.lu" itemprop="email">Nous écrire</a>
-            </p>
+        <form class="newsletter-form" action="/newsletter" method="post">
+          <input 
+            type="email" 
+            name="email" 
+            placeholder="Votre email professionnel" 
+            required
+            aria-label="Email pour recevoir le guide gratuit"
+          />
+          <button type="submit" class="btn-newsletter">
+            Recevoir le guide
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Footer -->
+  <div class="footer-main">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand Column -->
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <img 
+              src="/images/logo-white.png" 
+              alt="Fiduciaire Expert Luxembourg" 
+              width="180" 
+              height="50"
+              itemprop="logo"
+            />
+          </div>
+          <p class="brand-description" itemprop="description">
+            <strong>Expert-comptable agréé Luxembourg</strong> depuis 2010. 
+            Spécialistes en comptabilité PME, création SARL, fiscalité IRC et TVA. 
+            Cabinet situé à Luxembourg-Ville, nous accompagnons +150 entreprises luxembourgeoises 
+            dans leur développement et conformité légale.
+          </p>
+          
+          <!-- Certifications -->
+          <div class="certifications">
+            <img 
+              src="/images/oec-luxembourg.png" 
+              alt="Membre Ordre des Experts-Comptables Luxembourg"
+              width="120"
+              height="40"
+              loading="lazy"
+            />
+            <img 
+              src="/images/certification-qualite.png" 
+              alt="Certification Qualité ISO 9001"
+              width="80"
+              height="40"
+              loading="lazy"
+            />
+          </div>
+          
+          <!-- Trust Badges -->
+          <div class="trust-badges">
+            <div class="badge">
+              <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              <div>
+                <strong>4.9/5</strong>
+                <span>156 avis</span>
+              </div>
+            </div>
+            <div class="badge">
+              <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              <div>
+                <strong>15 ans</strong>
+                <span>d'expertise</span>
+              </div>
+            </div>
           </div>
         </div>
-        
-        <div class="footer-services">
+
+        <!-- Services Column -->
+        <div class="footer-column">
           <h4>Nos Services</h4>
-          <ul class="services-list">
-            <li><a href="/comptabilite">Comptabilité Luxembourg</a></li>
-            <li><a href="/creation-societe-luxembourg">Création Société</a></li>
-            <li><a href="/domiciliation">Domiciliation</a></li>
-            <li><a href="/paie">Gestion Paie</a></li>
+          <ul class="footer-links">
+            {footerLinks.services.map(link => (
+              <li>
+                <a href={link.href}>
+                  <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"/>
+                  </svg>
+                  {link.text}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
-        
-        <div class="footer-links">
-          <h4>Liens Utiles</h4>
-          <ul class="links-list">
-            <li><a href="/a-propos">À Propos</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/articles">Blog Expertise</a></li>
-            <li><a href="/tarifs">Nos Tarifs</a></li>
+
+        <!-- Company Column -->
+        <div class="footer-column">
+          <h4>Société</h4>
+          <ul class="footer-links">
+            {footerLinks.company.map(link => (
+              <li>
+                <a href={link.href}>
+                  <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6"/>
+                  </svg>
+                  {link.text}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
-      </div>
-      
-      <!-- Section réseaux sociaux et trust signals -->
-      <div class="footer-social">
-        <div class="social-section">
-          <h4>Suivez-nous</h4>
+
+        <!-- Contact Column -->
+        <div class="footer-column footer-contact">
+          <h4>Contact</h4>
+          <div class="contact-items">
+            <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} class="contact-item">
+              <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
+              </svg>
+              <span itemprop="telephone">{contactInfo.phone}</span>
+            </a>
+            
+            <a href={`mailto:${contactInfo.email}`} class="contact-item">
+              <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              <span itemprop="email">{contactInfo.email}</span>
+            </a>
+            
+            <div class="contact-item">
+              <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span itemprop="address">{contactInfo.address}</span>
+            </div>
+            
+            <div class="contact-item">
+              <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span>{contactInfo.hours}</span>
+            </div>
+          </div>
+          
+          <!-- Social Links -->
           <div class="social-links">
             <a 
               href="https://www.linkedin.com/company/fiduciaire-expert-luxembourg/" 
               target="_blank" 
               rel="noopener noreferrer"
-              aria-label="Suivez Fiduciaire Expert Luxembourg sur LinkedIn"
-              title="LinkedIn - Fiduciaire Expert Luxembourg"
-              itemprop="sameAs"
+              aria-label="LinkedIn Fiduciaire Expert"
+              class="social-link"
             >
-              <svg class="linkedin-icon" viewBox="0 0 24 24">
+              <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
               </svg>
             </a>
           </div>
         </div>
-        
-        <div class="trust-signals">
-          <div class="trust-item">
-            <span class="trust-icon">⭐</span>
-            <span>+150 entreprises</span>
-          </div>
-          <div class="trust-item">
-            <span class="trust-icon">🏆</span>
-            <span>15+ ans d'expérience</span>
-          </div>
-          <div class="trust-item">
-            <span class="trust-icon">⚡</span>
-            <span>Réponse 24h</span>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Section légale -->
-      <div class="footer-bottom">
-        <div class="legal-section">
-          <p>&copy; {currentYear} Fiduciaire-Expert.lu. Tous droits réservés.</p>
-          <div class="legal-links">
-            <a href="/mentions-legales" class="footer-link">Mentions Légales</a>
-            <a href="/politique-confidentialite" class="footer-link">Politique de Confidentialité</a>
-            <a href="/cookies" class="footer-link">Cookies</a>
-          </div>
-        </div>
-        
-        <div class="footer-certification">
-          <p>
-            <small>
-              Expert-comptable | 
-              Luxembourg
-            </small>
-          </p>
-        </div>
       </div>
     </div>
   </div>
-  
-  <!-- Données structurées -->
+
+  <!-- Bottom Bar -->
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="bottom-content">
+        <p class="copyright">
+          &copy; {currentYear} Fiduciaire Expert Luxembourg. Tous droits réservés.
+        </p>
+        <nav class="legal-links" aria-label="Liens légaux">
+          {footerLinks.legal.map(link => (
+            <a href={link.href}>{link.text}</a>
+          ))}
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- Schema.org -->
   <script type="application/ld+json" set:html={JSON.stringify(footerSchema)} />
 </footer>
 
 <style>
-  footer {
-    background: linear-gradient(135deg, var(--bleu-profond) 0%, #1a3a5f 100%);
-    color: white;
-    padding: 4rem 2rem 2rem;
-    margin-top: auto;
+  /* Variables matching index design */
+  :root {
+    --footer-bg: #2c3e50;
+    --footer-bg-dark: #1a2332;
+    --blue-primary: #3498db;
+    --blue-light: #5dade2;
+    --gray-light: #f8f9fa;
+    --gray-medium: #e9ecef;
+    --white: #ffffff;
+    --text-light: rgba(255, 255, 255, 0.8);
+    --text-lighter: rgba(255, 255, 255, 0.6);
   }
 
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
+  /* Newsletter Section */
+  .newsletter-section {
+    background: linear-gradient(135deg, var(--blue-primary) 0%, #2980b9 100%);
+    padding: 3rem 0;
+    margin-top: 0; /* Supprime la marge supérieure */
   }
 
-  .footer-content {
+  .newsletter-content {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     gap: 3rem;
+    flex-wrap: wrap;
   }
 
-  /* Section principale */
-  .footer-main {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  .newsletter-text h3 {
+    color: white;
+    font-size: 1.75rem;
+    margin: 0 0 0.5rem;
   }
 
-  @media (min-width: 768px) {
-    .footer-main {
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 3rem;
-    }
+  .newsletter-text p {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
   }
 
-  .footer-brand h3 {
-    color: var(--or-premium);
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+  .newsletter-form {
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+    max-width: 500px;
   }
 
-  .footer-brand p {
-    line-height: 1.6;
-    opacity: 0.9;
+  .newsletter-form input {
+    flex: 1;
+    padding: 0.875rem 1.25rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
   }
 
-  .footer-contact h4,
-  .footer-services h4,
-  .footer-links h4 {
-    color: var(--or-premium);
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
+  .newsletter-form input::placeholder {
+    color: #95a5a6;
   }
 
-  .contact-info p {
+  .btn-newsletter {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-bottom: 0.5rem;
+    padding: 0.875rem 2rem;
+    background: var(--footer-bg);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .btn-newsletter:hover {
+    background: var(--footer-bg-dark);
+    transform: translateX(4px);
+  }
+
+  .btn-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Main Footer */
+  .footer-main {
+    background: var(--footer-bg);
+    padding: 4rem 0 3rem;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 4rem;
+  }
+
+  /* Brand Column */
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .brand-logo img {
+    height: 45px;
+    width: auto;
+  }
+
+  .brand-description {
+    color: var(--text-light);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .trust-badges {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .badge {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .badge-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--blue-light);
+  }
+
+  .badge strong {
+    display: block;
+    color: white;
+    font-size: 1.1rem;
+  }
+
+  .badge span {
+    color: var(--text-light);
+    font-size: 0.875rem;
+  }
+
+  /* Footer Columns */
+  .footer-column h4 {
+    color: white;
+    font-size: 1.1rem;
+    margin: 0 0 1.5rem;
+    font-weight: 600;
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .footer-links a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--blue-light);
+    transform: translateX(4px);
+  }
+
+  .link-icon {
+    width: 14px;
+    height: 14px;
+    opacity: 0.6;
+  }
+
+  /* Contact Column */
+  .contact-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  a.contact-item:hover {
+    color: var(--blue-light);
   }
 
   .contact-icon {
     width: 20px;
-    text-align: center;
+    height: 20px;
+    color: var(--blue-light);
+    flex-shrink: 0;
   }
 
-  .contact-info a {
-    color: white;
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .contact-info a:hover {
-    color: var(--or-premium);
-  }
-
-  .services-list,
-  .links-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .services-list li,
-  .links-list li {
-    margin-bottom: 0.5rem;
-  }
-
-  .services-list a,
-  .links-list a {
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    transition: color 0.2s ease;
-    font-size: 0.9rem;
-  }
-
-  .services-list a:hover,
-  .links-list a:hover {
-    color: var(--or-premium);
-  }
-
-  /* Section sociale */
-  .footer-social {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-    padding: 2rem 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .social-section h4 {
-    color: var(--or-premium);
-    margin-bottom: 1rem;
-  }
-
+  /* Social Links */
   .social-links {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
   }
 
-  .social-links a {
-    display: inline-flex;
+  .social-link {
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    color: white;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    width: 40px;
+    height: 40px;
     background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    transition: all 0.3s ease;
   }
 
-  .social-links a:hover {
-    color: var(--or-premium);
-    border-color: var(--or-premium);
-    background: rgba(212, 175, 55, 0.1);
+  .social-link:hover {
+    background: var(--blue-primary);
     transform: translateY(-2px);
   }
 
-  .linkedin-icon {
-    width: 22px;
-    height: 22px;
-    fill: currentColor;
+  .social-link svg {
+    width: 20px;
+    height: 20px;
   }
 
-  .trust-signals {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-  }
-
-  .trust-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-  }
-
-  .trust-icon {
-    font-size: 1.1rem;
-  }
-
-  /* Section légale */
+  /* Bottom Bar */
   .footer-bottom {
+    background: var(--footer-bg-dark);
+    padding: 1.5rem 0;
+  }
+
+  .bottom-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
-    padding-top: 2rem;
   }
 
-  .legal-section {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  @media (min-width: 768px) {
-    .legal-section {
-      flex-direction: row;
-      gap: 2rem;
-      align-items: center;
-    }
+  .copyright {
+    color: var(--text-lighter);
+    margin: 0;
+    font-size: 0.875rem;
   }
 
   .legal-links {
     display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
+    gap: 2rem;
   }
 
-  .footer-link {
-    color: rgba(255, 255, 255, 0.8);
+  .legal-links a {
+    color: var(--text-lighter);
     text-decoration: none;
-    font-weight: 500;
+    font-size: 0.875rem;
     transition: color 0.2s ease;
-    font-size: 0.9rem;
   }
 
-  .footer-link:hover {
-    color: var(--or-premium);
+  .legal-links a:hover {
+    color: var(--blue-light);
   }
 
-  .footer-certification {
+  /* Certifications */
+  .certifications {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+
+  .certifications img {
+    height: 40px;
+    width: auto;
     opacity: 0.7;
-    font-size: 0.8rem;
+    transition: opacity 0.3s ease;
   }
 
-  /* Responsive */
-  @media (max-width: 767px) {
-    footer {
-      padding: 3rem 1rem 1.5rem;
-    }
-    
-    .footer-social {
+  .certifications img:hover {
+    opacity: 1;
+  }
+
+  /* Spacing utility */
+  .mt-4 {
+    margin-top: 1.5rem;
+  }
+
+  /* Address semantic */
+  address {
+    font-style: normal;
+  }
+  @media (max-width: 968px) {
+    .newsletter-content {
       flex-direction: column;
       text-align: center;
     }
-    
-    .trust-signals {
+
+    .newsletter-form {
+      width: 100%;
+      max-width: none;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+
+    .trust-badges {
       justify-content: center;
     }
-    
-    .footer-bottom {
+  }
+
+  @media (max-width: 640px) {
+    .newsletter-form {
+      flex-direction: column;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .footer-links a {
+      justify-content: center;
+    }
+
+    .contact-items {
+      align-items: center;
+    }
+
+    .social-links {
+      justify-content: center;
+    }
+
+    .bottom-content {
       flex-direction: column;
       text-align: center;
+    }
+
+    .legal-links {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      flex: 1;
+      justify-content: center;
     }
   }
 </style>
