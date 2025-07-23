@@ -198,21 +198,22 @@ const allSchemas = {
 
 <style is:global>
   :root {
-    /* Couleurs principales */
-    --bleu-profond: #2c3e50;        /* Bleu foncé plus moderne */
-    --bleu-accent: #3498db;         /* Bleu clair moderne pour CTAs */
-    --bleu-accent-hover: #2980b9;   /* Version hover du bleu */
+    /* Couleurs principales - Look Premium */
+    --bleu-profond: #1a2332;        /* Bleu très foncé premium (était #2c3e50) */
+    --bleu-accent: #2c3e50;         /* Bleu foncé pour accents principaux */
+    --bleu-clair: #3498db;          /* Bleu clair pour effets secondaires/hover */
+    --bleu-clair-hover: #2980b9;    /* Version hover du bleu clair */
     
-    /* Couleurs secondaires */
-    --or-premium: #D4AF37;          /* Doré pour accents premium */
-    --or-premium-hover: #B8941F;    /* Version hover du doré */
+    /* Couleur premium remplaçant le doré */
+    --gris-palladium: #7c8a99;      /* Gris palladium statutaire (remplace le doré) */
+    --gris-palladium-hover: #5a6978; /* Version hover du gris palladium */
     
     /* Couleurs neutres */
     --argent-element: #adb5bd;
     --fond-clair: #f8f9fa;
     --fond-tres-clair: #ffffff;
-    --texte-principal: #2c3e50;
-    --texte-secondaire: #7f8c8d;
+    --texte-principal: #1a2332;     /* Utilise le nouveau bleu très foncé */
+    --texte-secondaire: #6c757d;
     
     /* Couleurs fonctionnelles */
     --success: #27ae60;
@@ -224,6 +225,11 @@ const allSchemas = {
     --shadow: 0 2px 4px rgba(0,0,0,0.1);
     --shadow-hover: 0 4px 12px rgba(0,0,0,0.15);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Variables legacy pour compatibilité */
+    --or-premium: var(--gris-palladium);
+    --or-premium-hover: var(--gris-palladium-hover);
+    --bleu-accent-hover: #1a2332;
   }
 
   /* Reset et base */
@@ -286,7 +292,7 @@ const allSchemas = {
 
   /* Focus visible pour accessibilité */
   :focus-visible {
-    outline: 2px solid var(--or-premium);
+    outline: 2px solid var(--gris-palladium);
     outline-offset: 2px;
   }
 
@@ -298,13 +304,13 @@ const allSchemas = {
   }
 
   a {
-    color: var(--bleu-profond);
+    color: var(--bleu-accent);
     text-decoration: underline;
     text-underline-offset: 0.2em;
   }
 
   a:hover {
-    color: var(--or-premium);
+    color: var(--bleu-clair);
   }
 
   /* Images responsive */

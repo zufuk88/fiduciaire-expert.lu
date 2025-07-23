@@ -2,12 +2,37 @@
 import Layout from '../layouts/Layout.astro';
 ---
 <Layout title="Mentions Légales - Fiduciaire Expert">
-  <main style="padding: 4rem 2rem; max-width: 800px; margin: auto;">
-    <h1>Mentions Légales</h1>
-    <p>
-      Vous devrez remplir cette page avec les informations légales obligatoires
-      concernant votre entreprise (dénomination sociale, adresse, numéro de
-      RCS, etc.).
-    </p>
+  <main class="legal-page">
+    <div class="container-narrow">
+      <h1>Mentions Légales</h1>
+      <p>
+        Vous devrez remplir cette page avec les informations légales obligatoires
+        concernant votre entreprise (dénomination sociale, adresse, numéro de
+        RCS, etc.).
+      </p>
+    </div>
   </main>
 </Layout>
+
+<style>
+  .legal-page {
+    padding: 4rem 2rem;
+    background-color: var(--fond-clair);
+  }
+  .container-narrow {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--fond-tres-clair);
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+  }
+  h1 {
+    color: var(--bleu-profond);
+    margin-bottom: 2rem;
+  }
+  p {
+    color: var(--texte-secondaire);
+    line-height: 1.7;
+  }
+</style>

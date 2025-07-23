@@ -16,7 +16,7 @@ const servicesSchema = {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Comptabilité et Fiscalité Luxembourg",
+          "name": "Tenue comptable et déclarations fiscales",
           "description": "Tenue comptabilité, déclarations TVA et bilans Luxembourg"
         }
       },
@@ -34,6 +34,14 @@ const servicesSchema = {
           "@type": "Service", 
           "name": "Gestion Paie Luxembourg",
           "description": "Fiches paie, déclarations CCSS et conseils droit social Luxembourg"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service", 
+          "name": "Business Plan & Conseil Fiscal",
+          "description": "Élaboration de business plans et conseil fiscal stratégique"
         }
       }
     ]
@@ -56,11 +64,10 @@ const servicesSchema = {
         <div class="icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calculator"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 3m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" /><path d="M8 7m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v1a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z" /><path d="M8 14l0 .01" /><path d="M12 14l0 .01" /><path d="M16 14l0 .01" /><path d="M8 17l0 .01" /><path d="M12 17l0 .01" /><path d="M16 17l0 .01" /></svg>
         </div>
-        <h3 itemprop="name">Comptabilité & Fiscalité Luxembourg</h3>
+        <h3 itemprop="name">Tenue comptable et déclarations fiscales</h3>
         <p itemprop="description">
           <strong>Tenue comptabilité conforme</strong> à la législation luxembourgeoise : 
-          déclarations TVA, bilans annuels, dépôt eCDF. 
-          <em>Expertise fiscale IRC et optimisation</em>.
+          déclarations TVA, bilans annuels, dépôt eCDF. <em>Expertise fiscale IRC et optimisation</em>.
         </p>
         <div class="service-features">
           <span class="feature">✓ Déclarations TVA</span>
@@ -80,8 +87,7 @@ const servicesSchema = {
         </div>
         <h3 itemprop="name">Création Société Luxembourg</h3>
         <p itemprop="description">
-          <strong>Constitution rapide SA, SARL, SCI, SCSp, SAS</strong> au Luxembourg. 
-          Secrétariat juridique complet, rédaction statuts, 
+          <strong>Constitution rapide SA, SARL, SCI, SCSp, SAS</strong> au Luxembourg. Secrétariat juridique complet, rédaction statuts, 
           <em>formalités RCSL en 5 jours</em>.
         </p>
         <div class="service-features">
@@ -102,8 +108,7 @@ const servicesSchema = {
         <h3 itemprop="name">Gestion Paie Luxembourg</h3>
         <p itemprop="description">
           <strong>Fiches de paie conformes</strong> droit social luxembourgeois : 
-          déclarations CCSS, échanges CNS, conseils RH. 
-          <em>Expertise conventions collectives</em>.
+          déclarations CCSS, échanges CNS, conseils RH. <em>Expertise conventions collectives</em>.
         </p>
         <div class="service-features">
           <span class="feature">✓ Fiches paie CCSS</span>
@@ -116,9 +121,27 @@ const servicesSchema = {
         </a>
       </article>
 
+      <article class="service-card" itemscope itemtype="https://schema.org/Service">
+        <div class="icon">
+           <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 8a3 3 0 0 1 0 6" /><path d="M10 8v11a1 1 0 0 1 -1 1h-1a1 1 0 0 1 -1 -1v-5" /><path d="M12 8h0l4.524 -3.77a0.9 .9 0 0 1 1.476 .692v12.156a0.9 .9 0 0 1 -1.476 .692l-4.524 -3.77h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h8" /></svg>
+        </div>
+        <h3 itemprop="name">Business Plan & Conseil Fiscal</h3>
+        <p itemprop="description">
+          Élaboration de <strong>business plans robustes</strong> pour convaincre les investisseurs et <strong>conseil stratégique</strong> pour optimiser votre fiscalité au Luxembourg.
+        </p>
+        <div class="service-features">
+          <span class="feature">✓ Business plan</span>
+          <span class="feature">✓ Optimisation fiscale</span>
+          <span class="feature">✓ Conseil stratégique</span>
+        </div>
+        <a href="/services#conseil-fiscal-luxembourg" class="service-link" 
+           aria-label="En savoir plus sur le business plan et conseil fiscal">
+          En savoir plus →
+        </a>
+      </article>
+
     </div>
     
-    <!-- CTA global -->
     <div class="services-cta">
       <h3>Besoin d'un accompagnement personnalisé ?</h3>
       <p>Discutons de vos besoins spécifiques en comptabilité ou création société</p>
@@ -129,7 +152,6 @@ const servicesSchema = {
     </div>
   </div>
   
-  <!-- Données structurées -->
   <script type="application/ld+json" set:html={JSON.stringify(servicesSchema)} />
 </section>
 

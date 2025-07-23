@@ -79,7 +79,7 @@ const currentPath = Astro.url.pathname;
       <!-- Tagline avec mots-clés LSI -->
       <div class="tagline">
         <span class="tagline-text" itemprop="slogan">
-          Fiduciaire Expert Luxembourg
+          Expert-Comptable & Fiscaliste agréé
         </span>
       </div>
     </div>
@@ -158,8 +158,8 @@ const currentPath = Astro.url.pathname;
   <!-- Bannière d'annonce (optionnel pour promos/actualités) -->
   <div class="announcement-bar" role="complementary">
     <p>
-      <strong>Nouveau :</strong> Accompagnement création de votre SARL-S en 48h 
-      <a href="/creation-societe-luxembourg">En savoir plus →</a>
+      <strong>Nouveau :</strong> Accompagnement création SARL en 48h 
+      <a href="/services/creation-societe-express">En savoir plus →</a>
     </p>
   </div>
   
@@ -506,6 +506,10 @@ const currentPath = Astro.url.pathname;
   }
 
   /* Scroll behavior */
+  header {
+    transition: all 0.3s ease;
+  }
+  
   header.scrolled {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
@@ -516,6 +520,15 @@ const currentPath = Astro.url.pathname;
 
   header.scrolled .logo-link img {
     height: 40px;
+  }
+
+  /* Smooth transition for all elements during scroll */
+  .header-container,
+  .logo-link img,
+  .tagline-text,
+  .phone-cta,
+  .devis-cta {
+    transition: all 0.3s ease;
   }
 </style>
 
@@ -564,19 +577,27 @@ const currentPath = Astro.url.pathname;
     });
   });
 
-  // Header scroll effect
+  // Header scroll effect with debounce
   let lastScroll = 0;
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    
-    if (currentScroll > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-    
-    lastScroll = currentScroll;
-  });
+  let scrollTimeout;
+  
+  const handleScroll = () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      const currentScroll = window.scrollY;
+      
+      // Add scrolled class after 100px instead of 50px for less aggressive change
+      if (currentScroll > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      
+      lastScroll = currentScroll;
+    }, 10); // Small debounce to smooth out scroll events
+  };
+  
+  window.addEventListener('scroll', handleScroll, { passive: true });
 
   // Active page detection
   const currentPath = window.location.pathname;
