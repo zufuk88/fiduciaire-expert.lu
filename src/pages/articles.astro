@@ -8,122 +8,275 @@ const sortedPosts = allPosts.sort((a, b) =>
 );
 
 // Extraction des catégories uniques
-const categories = [...new Set(allPosts.map(post => post.frontmatter.category))];
+const categories = [...new Set(allPosts.map(post => post.frontmatter.category))].filter(Boolean);
+
+// Articles mis en avant (3 plus récents)
+const featuredPosts = sortedPosts.slice(0, 3);
+const regularPosts = sortedPosts.slice(3);
 
 // Fonction helper pour formater les dates
 const formatDate = (date) => new Date(date).toLocaleDateString('fr-FR', {
   year: 'numeric',
-  month: 'short',
+  month: 'long',
   day: 'numeric'
 });
 
-// Données structurées simplifiées mais complètes
+// Fonction pour calculer le temps de lecture
+const getReadingTime = (content) => {
+  const wordsPerMinute = 200;
+  const words = content.split(/\s+/).length;
+  return Math.ceil(words / wordsPerMinute);
+};
+
+// SEO optimisé avec données structurées complètes
 const blogSchema = {
   "@context": "https://schema.org",
   "@type": "Blog",
-  "name": "Blog Expert-Comptable Luxembourg",
-  "description": "Blog spécialisé comptabilité, fiscalité et création société Luxembourg",
+  "name": "Blog Expert-Comptable Luxembourg | Fiduciaire Expert",
+  "description": "Conseils experts en comptabilité, fiscalité et création d'entreprise au Luxembourg. Plus de 50 articles pratiques pour entrepreneurs et dirigeants.",
   "url": "https://www.fiduciaire-expert.lu/articles",
+  "inLanguage": "fr-LU",
+  "author": {
+    "@type": "Organization",
+    "name": "Fiduciaire Expert Luxembourg",
+    "url": "https://www.fiduciaire-expert.lu"
+  },
   "publisher": {
     "@type": "Organization",
     "name": "Fiduciaire Expert Luxembourg",
+    "url": "https://www.fiduciaire-expert.lu",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://www.fiduciaire-expert.lu/images/logo.png"
+      "url": "https://www.fiduciaire-expert.lu/images/logo.png",
+      "width": 600,
+      "height": 60
     }
   },
-  "blogPost": sortedPosts.slice(0, 10).map(post => ({
+  "blogPost": sortedPosts.map(post => ({
     "@type": "BlogPosting",
     "headline": post.frontmatter.title,
+    "description": post.frontmatter.description || post.frontmatter.title,
     "url": `https://www.fiduciaire-expert.lu${post.url}`,
     "datePublished": post.frontmatter.date,
-    "author": {"@type": "Person", "name": post.frontmatter.author}
+    "dateModified": post.frontmatter.date,
+    "author": {
+      "@type": "Person", 
+      "name": post.frontmatter.author || "Fiduciaire Expert Luxembourg"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Fiduciaire Expert Luxembourg"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://www.fiduciaire-expert.lu${post.url}`
+    }
   }))
+};
+
+// Breadcrumb structuré
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://www.fiduciaire-expert.lu"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog Expert-Comptable",
+      "item": "https://www.fiduciaire-expert.lu/articles"
+    }
+  ]
 };
 ---
 
 <Layout 
   title="Blog Expert-Comptable Luxembourg | Conseils Fiscalité & Comptabilité"
-  description={`${sortedPosts.length}+ articles sur comptabilité, fiscalité, création SARL au Luxembourg. Conseils experts PME.`}
+  description="Plus de 50 articles experts en comptabilité, fiscalité et création d'entreprise au Luxembourg. Conseils pratiques pour dirigeants et entrepreneurs."
   canonical="https://www.fiduciaire-expert.lu/articles"
 >
   <main class="blog-page">
     
-    <!-- Breadcrumb simplifié -->
+    <!-- Breadcrumb avec structure -->
     <nav class="breadcrumb" aria-label="Fil d'ariane">
       <div class="container">
-        <ol>
-          <li><a href="/">Accueil</a></li>
-          <li aria-current="page">Blog Expert-Comptable</li>
+        <ol itemScope itemType="https://schema.org/BreadcrumbList">
+          <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+            <a href="/" itemProp="item"><span itemProp="name">Accueil</span></a>
+            <meta itemProp="position" content="1" />
+          </li>
+          <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem" aria-current="page">
+            <span itemProp="name">Blog Expert-Comptable</span>
+            <meta itemProp="position" content="2" />
+          </li>
         </ol>
       </div>
     </nav>
 
-    <!-- Header -->
-    <header class="blog-header">
+    <!-- Hero Section Élégant -->
+    <section class="hero">
       <div class="container">
-        <h1>Blog Expert-Comptable Luxembourg</h1>
-        <p class="lead">
-          Conseils pratiques en comptabilité, fiscalité et gestion d'entreprise au Luxembourg
-        </p>
-        <div class="stats">
-          <span><strong>{sortedPosts.length}</strong> articles</span>
-          <span><strong>{categories.length}</strong> catégories</span>
+        <div class="hero-content">
+          <div class="hero-badge">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            <span>Conseils d'experts</span>
+          </div>
+          <h1>Blog Expert-Comptable Luxembourg</h1>
+          <p class="hero-description">
+            Découvrez nos conseils pratiques en comptabilité, fiscalité et création d'entreprise. 
+            Plus de <strong>{sortedPosts.length} articles</strong> rédigés par nos experts pour vous accompagner dans la gestion de votre entreprise au Luxembourg.
+          </p>
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-number">{sortedPosts.length}</span>
+              <span class="stat-label">Articles</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">{categories.length}</span>
+              <span class="stat-label">Catégories</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number">2025</span>
+              <span class="stat-label">Mis à jour</span>
+            </div>
+          </div>
         </div>
       </div>
-    </header>
+    </section>
 
-    <!-- Filtres -->
-    <section class="filters" aria-label="Filtres">
+    <!-- Articles mis en avant -->
+    {featuredPosts.length > 0 && (
+      <section class="featured-articles">
+        <div class="container">
+          <h2 class="section-title">
+            <span class="title-icon">⭐</span>
+            Articles récents
+          </h2>
+          <div class="featured-grid">
+            {featuredPosts.map((post, i) => (
+              <article class="featured-card" itemScope itemType="https://schema.org/BlogPosting">
+                <a href={post.url} class="featured-link">
+                  {post.frontmatter.image && (
+                    <div class="featured-image">
+                      <img 
+                        src={post.frontmatter.image} 
+                        alt={post.frontmatter.title}
+                        loading={i === 0 ? 'eager' : 'lazy'}
+                        width="600"
+                        height="300"
+                        itemProp="image"
+                      />
+                      <div class="image-overlay"></div>
+                    </div>
+                  )}
+                  <div class="featured-content">
+                    <div class="featured-meta">
+                      <span class="featured-category" itemProp="about">{post.frontmatter.category}</span>
+                      <time datetime={post.frontmatter.date} itemProp="datePublished">
+                        {formatDate(post.frontmatter.date)}
+                      </time>
+                    </div>
+                    <h3 itemProp="headline">{post.frontmatter.title}</h3>
+                    {post.frontmatter.description && (
+                      <p class="featured-excerpt" itemProp="description">{post.frontmatter.description}</p>
+                    )}
+                    <div class="featured-author">
+                      <span itemProp="author" itemScope itemType="https://schema.org/Person">
+                        Par <span itemProp="name">{post.frontmatter.author || "Fiduciaire Expert"}</span>
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Filtres élégants -->
+    <section class="filters-section">
       <div class="container">
-        <nav class="category-nav">
-          <a href="/articles" class="active" aria-current="page">Tous</a>
-          {categories.map(cat => (
-            <a href={`/articles/category/${(cat || '').toLowerCase().replace(/\s+/g, '-')}`}>
-              {cat}
-            </a>
-          ))}
+        <h2 class="section-title">
+          <span class="title-icon">📚</span>
+          Parcourir par catégorie
+        </h2>
+        <nav class="category-filters" aria-label="Filtrer par catégorie">
+          <a href="/articles" class="filter-btn active" aria-current="page">
+            <span class="filter-icon">📄</span>
+            Tous les articles
+            <span class="filter-count">{sortedPosts.length}</span>
+          </a>
+          {categories.map(cat => {
+            const categoryCount = sortedPosts.filter(post => post.frontmatter.category === cat).length;
+            return (
+              <a href={`/articles/category/${cat.toLowerCase().replace(/\s+/g, '-')}`} class="filter-btn">
+                <span class="filter-icon">
+                  {cat === 'Comptabilité' ? '📊' : 
+                   cat === 'Fiscalité' ? '💰' : 
+                   cat === 'Création société' ? '🏢' : '📋'}
+                </span>
+                {cat}
+                <span class="filter-count">{categoryCount}</span>
+              </a>
+            );
+          })}
         </nav>
       </div>
     </section>
 
-    <!-- Grille d'articles -->
-    <section class="articles">
+    <!-- Grille d'articles améliorée -->
+    <section class="articles-grid">
       <div class="container">
-        <h2 class="visually-hidden">Liste des articles</h2>
+        <h2 class="section-title">
+          <span class="title-icon">📖</span>
+          Tous nos articles
+        </h2>
         
         <div class="grid">
-          {sortedPosts.map((post, i) => (
-            <article class="card">
-              <a href={post.url} class="card-link">
+          {(featuredPosts.length > 0 ? regularPosts : sortedPosts).map((post, i) => (
+            <article class="article-card" itemScope itemType="https://schema.org/BlogPosting">
+              <a href={post.url} class="article-link">
                 {post.frontmatter.image && (
-                  <img 
-                    src={post.frontmatter.image} 
-                    alt=""
-                    loading={i < 3 ? 'eager' : 'lazy'}
-                    width="400"
-                    height="225"
-                    class="card-image"
-                  />
+                  <div class="article-image">
+                    <img 
+                      src={post.frontmatter.image} 
+                      alt={post.frontmatter.title}
+                      loading="lazy"
+                      width="400"
+                      height="200"
+                      itemProp="image"
+                    />
+                  </div>
                 )}
                 
-                <div class="card-body">
-                  <div class="meta">
-                    <span class="category">{post.frontmatter.category}</span>
-                    <time datetime={post.frontmatter.date}>
+                <div class="article-content">
+                  <div class="article-meta">
+                    <span class="article-category" itemProp="about">{post.frontmatter.category}</span>
+                    <time datetime={post.frontmatter.date} itemProp="datePublished">
                       {formatDate(post.frontmatter.date)}
                     </time>
                   </div>
                   
-                  <h3>{post.frontmatter.title}</h3>
+                  <h3 class="article-title" itemProp="headline">{post.frontmatter.title}</h3>
                   
                   {post.frontmatter.description && (
-                    <p>{post.frontmatter.description}</p>
+                    <p class="article-excerpt" itemProp="description">{post.frontmatter.description}</p>
                   )}
                   
-                  <footer>
-                    Par {post.frontmatter.author}
-                  </footer>
+                  <div class="article-footer">
+                    <span class="article-author" itemProp="author" itemScope itemType="https://schema.org/Person">
+                      Par <span itemProp="name">{post.frontmatter.author || "Fiduciaire Expert"}</span>
+                    </span>
+                    <span class="read-more">Lire la suite →</span>
+                  </div>
                 </div>
               </a>
             </article>
@@ -132,260 +285,623 @@ const blogSchema = {
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="cta">
+    <!-- CTA Section Premium -->
+    <section class="cta-section">
       <div class="container">
-        <h2>Besoin d'un Expert-Comptable ?</h2>
-        <p>Contactez-nous pour un accompagnement personnalisé</p>
-        <a href="/contact" class="btn btn-primary">Consultation gratuite</a>
+        <div class="cta-content">
+          <div class="cta-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 6L9 17l-5-5"/>
+            </svg>
+          </div>
+          <div class="cta-text">
+            <h2>Besoin d'un accompagnement personnalisé ?</h2>
+            <p>Nos experts-comptables vous accompagnent dans toutes vos démarches comptables et fiscales au Luxembourg.</p>
+            <ul class="cta-benefits">
+              <li>✓ Consultation gratuite de 30 minutes</li>
+              <li>✓ Devis personnalisé sous 48h</li>
+              <li>✓ Expertise Luxembourg depuis 15 ans</li>
+            </ul>
+          </div>
+          <div class="cta-actions">
+            <a href="/contact" class="btn btn-primary">
+              Consultation gratuite
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14m-7-7 7 7-7 7"/>
+              </svg>
+            </a>
+            <a href="/services" class="btn btn-secondary">Nos services</a>
+          </div>
+        </div>
       </div>
     </section>
 
   </main>
 
+  <!-- Scripts structurés -->
   <script type="application/ld+json" set:html={JSON.stringify(blogSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 </Layout>
 
 <style>
-  /* Variables CSS */
+  /* Variables CSS Modernisées */
   :root {
-    --primary: #2c3e50;
-    --accent: #3498db;
-    --text: #2c3e50;
-    --text-light: #7f8c8d;
+    --primary: #1a365d;
+    --primary-light: #2d4a6b;
+    --accent: #3182ce;
+    --accent-light: #4299e1;
+    --accent-dark: #2c5aa0;
+    --success: #38a169;
+    --text: #1a202c;
+    --text-light: #4a5568;
+    --text-muted: #718096;
     --bg: #ffffff;
-    --bg-light: #f8f9fa;
-    --border: #e9ecef;
-    --shadow: 0 2px 4px rgba(0,0,0,0.1);
-    --shadow-hover: 0 4px 12px rgba(0,0,0,0.15);
-    --cta-bg: #2c3e50; /* Bleu foncé comme sur votre site */
+    --bg-light: #f7fafc;
+    --bg-gray: #edf2f7;
+    --border: #e2e8f0;
+    --border-light: #f0f4f8;
+    
+    /* Ombres élégantes */
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    
+    /* Animations */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s ease-out;
+    
+    /* Espacements */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
+    
+    /* Rayons de bordure */
+    --radius-sm: 0.375rem;
+    --radius: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
   }
 
-  /* Reset & Base */
+  /* Reset amélioré */
   * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
 
-  /* Utility */
+  /* Utilities */
   .container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 var(--spacing-lg);
   }
 
   .visually-hidden {
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    height: 1px;
-    overflow: hidden;
     position: absolute;
-    white-space: nowrap;
     width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
-  /* Breadcrumb */
-  .breadcrumb {
+  /* Page principale */
+  .blog-page {
     background: var(--bg-light);
-    padding: 1rem 0;
+    min-height: 100vh;
+  }
+
+  /* Breadcrumb moderne */
+  .breadcrumb {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-light);
+    padding: var(--spacing-md) 0;
+    position: sticky;
+    top: 0;
+    z-index: 50;
   }
 
   .breadcrumb ol {
     display: flex;
-    gap: 0.5rem;
+    align-items: center;
+    gap: var(--spacing-sm);
     list-style: none;
-    margin: 0;
-    padding: 0;
     font-size: 0.875rem;
+    font-weight: 500;
   }
 
   .breadcrumb li:not(:last-child)::after {
-    content: "›";
-    margin-left: 0.5rem;
-    color: var(--text-light);
+    content: "→";
+    margin-left: var(--spacing-sm);
+    color: var(--text-muted);
+    font-weight: 400;
   }
 
   .breadcrumb a {
     color: var(--accent);
     text-decoration: none;
+    transition: var(--transition-fast);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
   }
 
   .breadcrumb a:hover {
-    text-decoration: underline;
+    background: var(--bg-gray);
+    color: var(--accent-dark);
   }
 
-  /* Header */
-  .blog-header {
-    padding: 3rem 0;
+  /* Hero Section */
+  .hero {
+    background: linear-gradient(135deg, var(--bg) 0%, var(--bg-light) 100%);
+    padding: var(--spacing-3xl) 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(49, 130, 206, 0.05) 0%, transparent 50%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background: var(--bg);
+    color: var(--accent);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-xl);
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xl);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 800;
+    color: var(--primary);
+    margin: 0 0 var(--spacing-lg);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+
+  .hero-description {
+    font-size: 1.25rem;
+    color: var(--text-light);
+    margin: 0 auto var(--spacing-2xl);
+    max-width: 700px;
+    line-height: 1.6;
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-3xl);
+    margin-top: var(--spacing-2xl);
+  }
+
+  .stat {
     text-align: center;
   }
 
-  .blog-header h1 {
-    font-size: clamp(2rem, 5vw, 2.5rem);
-    color: var(--primary);
-    margin: 0 0 1rem;
-  }
-
-  .lead {
-    font-size: 1.125rem;
-    color: var(--text-light);
-    margin: 0 auto 2rem;
-    max-width: 600px;
-  }
-
-  .stats {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    color: var(--text-light);
-  }
-
-  .stats strong {
+  .stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 800;
     color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: var(--spacing-xs);
+  }
+
+  /* Section Titles */
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .title-icon {
     font-size: 1.5rem;
   }
 
-  /* Filtres */
-  .filters {
-    background: var(--bg-light);
-    padding: 1.5rem 0;
-    position: sticky;
+  /* Articles mis en avant */
+  .featured-articles {
+    padding: var(--spacing-3xl) 0;
+    background: var(--bg);
+  }
+
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--spacing-xl);
+  }
+
+  .featured-card {
+    background: var(--bg);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid var(--border);
+  }
+
+  .featured-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .featured-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+  }
+
+  .featured-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .featured-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+  }
+
+  .featured-card:hover .featured-image img {
+    transform: scale(1.05);
+  }
+
+  .image-overlay {
+    position: absolute;
     top: 0;
-    z-index: 10;
-    border-bottom: 1px solid var(--border);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.1) 100%);
   }
 
-  .category-nav {
+  .featured-content {
+    padding: var(--spacing-lg);
+  }
+
+  .featured-meta {
     display: flex;
-    gap: 0.5rem;
-    overflow-x: auto;
-    padding-bottom: 0.25rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    font-size: 0.875rem;
   }
 
-  .category-nav a {
-    padding: 0.5rem 1rem;
+  .featured-category {
+    background: var(--accent);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .featured-content time {
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .featured-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0 0 var(--spacing-md);
+    line-height: 1.3;
+  }
+
+  .featured-excerpt {
+    color: var(--text-light);
+    line-height: 1.6;
+    margin: 0 0 var(--spacing-lg);
+  }
+
+  .featured-author {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* Filtres Section */
+  .filters-section {
+    padding: var(--spacing-2xl) 0;
+    background: var(--bg-gray);
+  }
+
+  .category-filters {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--bg);
     color: var(--text);
     text-decoration: none;
-    border: 1px solid var(--border);
-    border-radius: 2rem;
-    white-space: nowrap;
-    font-size: 0.875rem;
-    transition: all 0.2s;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    transition: var(--transition);
+    position: relative;
   }
 
-  .category-nav a:hover,
-  .category-nav a.active {
+  .filter-btn:hover,
+  .filter-btn.active {
     background: var(--accent);
     color: white;
     border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .filter-icon {
+    font-size: 1.125rem;
+  }
+
+  .filter-count {
+    background: var(--bg-gray);
+    color: var(--text-muted);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .filter-btn:hover .filter-count,
+  .filter-btn.active .filter-count {
+    background: rgba(255,255,255,0.2);
+    color: white;
   }
 
   /* Articles Grid */
-  .articles {
-    padding: 3rem 0;
+  .articles-grid {
+    padding: var(--spacing-3xl) 0;
     background: var(--bg-light);
   }
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: var(--spacing-xl);
   }
 
-  /* Card */
-  .card {
+  .article-card {
     background: var(--bg);
-    border-radius: 0.5rem;
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: box-shadow 0.2s;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    border: 1px solid var(--border);
+    height: fit-content;
   }
 
-  .card:hover {
-    box-shadow: var(--shadow-hover);
+  .article-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
   }
 
-  .card-link {
+  .article-link {
     display: block;
     text-decoration: none;
     color: inherit;
+    height: 100%;
   }
 
-  .card-image {
-    width: 100%;
+  .article-image {
     height: 200px;
+    overflow: hidden;
+  }
+
+  .article-image img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    transition: var(--transition);
   }
 
-  .card-body {
-    padding: 1.5rem;
+  .article-card:hover .article-image img {
+    transform: scale(1.03);
   }
 
-  .meta {
+  .article-content {
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .article-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.75rem;
+    margin-bottom: var(--spacing-md);
     font-size: 0.875rem;
   }
 
-  .category {
-    color: var(--accent);
+  .article-category {
+    background: var(--accent-light);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .article-content time {
+    color: var(--text-muted);
     font-weight: 500;
   }
 
-  .meta time {
-    color: var(--text-light);
-  }
-
-  .card h3 {
-    margin: 0 0 0.75rem;
+  .article-title {
     font-size: 1.25rem;
-    line-height: 1.3;
+    font-weight: 700;
     color: var(--primary);
+    margin: 0 0 var(--spacing-md);
+    line-height: 1.4;
   }
 
-  .card p {
-    margin: 0 0 1rem;
+  .article-excerpt {
     color: var(--text-light);
-    line-height: 1.5;
+    line-height: 1.6;
+    margin: 0 0 auto;
+    flex-grow: 1;
   }
 
-  .card footer {
+  .article-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--border-light);
     font-size: 0.875rem;
-    color: var(--text-light);
   }
 
-  /* CTA */
-  .cta {
-    padding: 4rem 0;
-    text-align: center;
-    background: var(--cta-bg);
+  .article-author {
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .read-more {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* CTA Section Premium */
+  .cta-section {
+    padding: var(--spacing-3xl) 0;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
     color: white;
+    position: relative;
+    overflow: hidden;
   }
 
-  .cta h2 {
-    margin: 0 0 0.5rem;
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M20 20c0 11.046-8.954 20-20 20v20h40V20c0-11.046-8.954-20-20-20z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .cta-content {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: var(--spacing-xl);
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-icon {
+    background: rgba(255,255,255,0.1);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cta-text h2 {
     font-size: 2rem;
-    color: white;
+    font-weight: 800;
+    margin: 0 0 var(--spacing-md);
+    line-height: 1.2;
   }
 
-  .cta p {
-    margin: 0 0 2rem;
+  .cta-text p {
+    font-size: 1.125rem;
+    margin: 0 0 var(--spacing-lg);
     opacity: 0.9;
-    color: white;
+    line-height: 1.6;
+  }
+
+  .cta-benefits {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cta-benefits li {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 500;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
   }
 
   .btn {
-    display: inline-block;
-    padding: 0.75rem 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-xl);
     text-decoration: none;
-    border-radius: 0.25rem;
-    font-weight: 500;
-    transition: transform 0.2s;
-  }
-
-  .btn:hover {
-    transform: translateY(-2px);
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 1rem;
+    transition: var(--transition);
+    white-space: nowrap;
+    border: 2px solid transparent;
   }
 
   .btn-primary {
@@ -394,21 +910,121 @@ const blogSchema = {
   }
 
   .btn-primary:hover {
-    background: #2980b9; /* Version plus foncée de l'accent */
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
   }
 
-  /* Responsive */
-  @media (max-width: 768px) {
-    .stats {
-      gap: 1rem;
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border-color: rgba(255,255,255,0.3);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: white;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .container {
+      padding: 0 var(--spacing-md);
     }
     
-    .filters {
-      position: static;
+    .hero-stats {
+      gap: var(--spacing-xl);
+    }
+    
+    .featured-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    
+    .cta-content {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: var(--spacing-xl);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding: var(--spacing-2xl) 0;
+    }
+    
+    .hero-stats {
+      flex-direction: row;
+      gap: var(--spacing-lg);
+    }
+    
+    .category-filters {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      padding-bottom: var(--spacing-sm);
     }
     
     .grid {
       grid-template-columns: 1fr;
     }
+    
+    .featured-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .cta-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+    }
   }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 0 var(--spacing-sm);
+    }
+    
+    .hero h1 {
+      font-size: 2rem;
+    }
+    
+    .hero-description {
+      font-size: 1.125rem;
+    }
+    
+    .filter-btn {
+      font-size: 0.875rem;
+      padding: var(--spacing-sm) var(--spacing-md);
+    }
+  }
+
+  /* Animations d'entrée */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-content {
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  .featured-card,
+  .article-card {
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+  }
+
+  .featured-card:nth-child(2) { animation-delay: 0.1s; }
+  .featured-card:nth-child(3) { animation-delay: 0.2s; }
+  .article-card:nth-child(2) { animation-delay: 0.1s; }
+  .article-card:nth-child(3) { animation-delay: 0.2s; }
+  .article-card:nth-child(4) { animation-delay: 0.3s; }
 </style>

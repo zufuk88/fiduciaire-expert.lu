@@ -4,32 +4,32 @@ import Layout from '../layouts/Layout.astro';
 const teamMembers = [
   {
     name: "Marc Dubois",
-    role: "Expert-Comptable Agréé, Gérant",
+    role: "Expert-Comptable Agréé, Fondateur",
     imageUrl: "/images/marc-dubois.jpg",
     imageAlt: "Marc Dubois Expert-Comptable Luxembourg",
-    bio: "15+ ans d'expertise comptable au Luxembourg. Spécialiste création société SARL/SA et optimisation fiscale IRC. Accompagne +50 PME luxembourgeoises.",
-    expertise: ["Création SARL/SA", "Fiscalité IRC", "Conseil stratégique"],
-    certifications: ["Expert-Comptable agréé", "Membre IRE Luxembourg"],
+    bio: "Fondateur de Fiduciaire Expert. 15+ ans d'expérience en Big Four et cabinets d'avocats luxembourgeois. Expertise approfondie du monde des affaires locales et spécialistes de l'optimisation fiscale pour PME.",
+    expertise: ["Création SARL/SA", "Fiscalité IRC", "Conseil stratégique", "Optimisation fiscale"],
+    certifications: ["Expert-Comptable agréé", "Membre IRE Luxembourg", "Ancien Big Four"],
     linkedin: "https://linkedin.com/in/marcdubois"
   },
   {
     name: "Sophie Bernard",
-    role: "Responsable Fiscalité & Conformité",
+    role: "Co-Fondatrice, Responsable Fiscalité",
     imageUrl: "/images/sophie-bernard.jpg",
     imageAlt: "Sophie Bernard Fiscaliste Luxembourg",
-    bio: "Experte fiscalité luxembourgeoise, maîtrise parfaite des déclarations TVA et optimisation fiscale légale. 10 ans d'expérience Big Four.",
-    expertise: ["TVA Luxembourg", "Déclarations eCDF", "Conformité AED"],
-    certifications: ["Master Fiscalité", "Certification IRE"],
+    bio: "Co-fondatrice avec une expérience solide en fiduciaire et Big Four au Luxembourg. Maîtrise parfaite des déclarations TVA et des réglementations luxembourgeoises. Connaissance intime du tissu économique local.",
+    expertise: ["TVA Luxembourg", "Déclarations eCDF", "Conformité AED", "Droit fiscal"],
+    certifications: ["Master Fiscalité", "Certification IRE", "Ancienne Big Four"],
     linkedin: "https://linkedin.com/in/sophiebernard"
   },
   {
     name: "Thomas Wagner",
-    role: "Gestionnaire Paie & Social",
+    role: "Directeur Paie & Social",
     imageUrl: "/images/thomas-wagner.jpg",
     imageAlt: "Thomas Wagner Spécialiste Paie Luxembourg",
-    bio: "Spécialiste paie et droit social luxembourgeois. Expert déclarations CCSS/CNS et conventions collectives. Gère +500 fiches de paie/mois.",
-    expertise: ["Paie CCSS", "Droit social", "Déclarations CNS"],
-    certifications: ["Gestionnaire Paie certifié", "Formation continue CCSS"],
+    bio: "Expert en droit social luxembourgeois, formé dans les meilleures fiduciaires du pays. Spécialiste des déclarations CCSS/CNS et maîtrise parfaite des conventions collectives luxembourgeoises.",
+    expertise: ["Paie CCSS", "Droit social", "Déclarations CNS", "Conventions collectives"],
+    certifications: ["Gestionnaire Paie certifié", "Formation continue CCSS", "Expert fiduciaire"],
     linkedin: "https://linkedin.com/in/thomaswagner"
   },
 ];
@@ -37,30 +37,30 @@ const teamMembers = [
 // Statistiques pour preuve sociale
 const stats = [
   { number: "15+", label: "Années d'expérience", icon: "📅" },
-  { number: "156", label: "Clients actifs", icon: "🏢" },
+  { number: "150+", label: "Clients actifs", icon: "🏢" },
   { number: "98%", label: "Satisfaction client", icon: "⭐" },
-  { number: "24h", label: "Délai de réponse", icon: "⚡" }
+  { number: "48h", label: "Délai de réponse", icon: "⚡" }
 ];
 
 // Valeurs de l'entreprise
 const values = [
   {
-    title: "Expertise Locale",
+    title: "Expertise locale",
     icon: "🇱🇺",
     description: "Maîtrise parfaite du cadre légal luxembourgeois : IRC, TVA, CCSS, RCSL. Veille réglementaire permanente."
   },
   {
-    title: "Transparence Totale",
+    title: "Transparence totale",
     icon: "💎",
     description: "Tarifs clairs, devis détaillés, aucun frais caché. Communication ouverte et reporting régulier."
   },
   {
-    title: "Innovation Digitale",
+    title: "Innovation digitale",
     icon: "🚀",
     description: "Outils comptables dernière génération. Accès client 24/7. Dématérialisation complète."
   },
   {
-    title: "Proximité Client",
+    title: "Proximité client",
     icon: "🤝",
     description: "Interlocuteur unique dédié. Disponibilité exceptionnelle. Conseil personnalisé."
   }
@@ -70,19 +70,19 @@ const values = [
 const process = [
   {
     step: "1",
-    title: "Audit Gratuit",
+    title: "Audit gratuit",
     description: "Analyse complète de votre situation comptable et fiscale au Luxembourg.",
     details: ["Diagnostic personnalisé", "Identification opportunités", "Plan d'action sur mesure"]
   },
   {
     step: "2",
-    title: "Mise en Œuvre",
+    title: "Mise en œuvre",
     description: "Prise en charge intégrale de votre comptabilité avec nos outils digitaux.",
     details: ["Migration données", "Digitalisation processus", "Formation équipe"]
   },
   {
     step: "3",
-    title: "Suivi Proactif",
+    title: "Suivi proactif",
     description: "Accompagnement continu et optimisation fiscale permanente.",
     details: ["Reporting mensuel", "Alertes réglementaires", "Conseils stratégiques"]
   }
@@ -125,7 +125,7 @@ const aboutSchema = {
         "https://www.fiduciaire-expert.lu/images/bureau.jpg",
         "https://www.fiduciaire-expert.lu/images/equipe.jpg"
       ],
-      "description": "Cabinet d'expertise comptable au Luxembourg depuis 2010. Spécialistes comptabilité PME, création société SARL/SA, fiscalité IRC/TVA.",
+      "description": "Cabinet d'expertise comptable de référence au Luxembourg. Fondé par d'anciens experts Big Four et fiduciaires, nous accompagnons les entrepreneurs avec une valeur ajoutée jusqu'alors réservée aux multinationales.",
       "foundingDate": "2010",
       "founder": {
         "@type": "Person",
@@ -155,7 +155,7 @@ const aboutSchema = {
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.9",
-        "reviewCount": "156",
+        "reviewCount": "150",
         "bestRating": "5"
       },
       "employee": teamMembers.map(member => ({
@@ -169,19 +169,21 @@ const aboutSchema = {
         "@type": "OfferCatalog",
         "name": "Services Expert-Comptable",
         "itemListElement": [
-          { "@type": "Service", "name": "Comptabilité Luxembourg" },
-          { "@type": "Service", "name": "Création Société SARL/SA" },
-          { "@type": "Service", "name": "Fiscalité IRC/TVA" },
-          { "@type": "Service", "name": "Gestion Paie CCSS" },
-          { "@type": "Service", "name": "Domiciliation Luxembourg" }
+          { "@type": "Service", "name": "Expert-Comptable Luxembourg Big Four" },
+          { "@type": "Service", "name": "Cabinet Comptable Luxembourg Référence" },
+          { "@type": "Service", "name": "Fiduciaire Luxembourg Anciens Big Four" },
+          { "@type": "Service", "name": "Création Société SARL SA Luxembourg" },
+          { "@type": "Service", "name": "Fiscalité IRC TVA Luxembourg PME" },
+          { "@type": "Service", "name": "Gestion Paie CCSS Luxembourg" },
+          { "@type": "Service", "name": "Conseil Fiscal Luxembourg Entreprises" }
         ]
       }
     },
     {
       "@type": "AboutPage",
       "@id": "https://www.fiduciaire-expert.lu/a-propos",
-      "name": "À Propos - Expert-Comptable Luxembourg",
-      "description": "Découvrez Fiduciaire Expert : 15+ ans expertise comptable Luxembourg, équipe certifiée, +150 clients PME. Consultation gratuite.",
+      "name": "Cabinet Expert-Comptable Référence Luxembourg - Anciens Big Four",
+      "description": "Cabinet d'expertise comptable de référence au Luxembourg. Fondateurs anciens Big Four, fiduciaires et cabinets d'avocats. Excellence pour PME luxembourgeoises.",
       "url": "https://www.fiduciaire-expert.lu/a-propos",
       "breadcrumb": {
         "@type": "BreadcrumbList",
@@ -204,11 +206,11 @@ const aboutSchema = {
   ]
 };
 
-const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise comptable, équipe experts-comptables agréés, +150 PME accompagnées. Découvrez notre cabinet et notre équipe.";
+const metaDescription = "Cabinet d'expertise comptable de référence au Luxembourg. Fondateurs issus des Big Four, fiduciaires et cabinets d'avocats. Excellence réservée aux multinationales, désormais accessible aux PME luxembourgeoises.";
 ---
 
 <Layout 
-  title="À Propos - Expert-Comptable Luxembourg | Fiduciaire Expert"
+  title="Cabinet Expert-Comptable Luxembourg de Référence | Fiduciaire Expert - Anciens Big Four"
   description={metaDescription}
   canonical="https://www.fiduciaire-expert.lu/a-propos"
   ogImage="/images/og-about.jpg"
@@ -229,11 +231,11 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
         
         <div class="hero-content">
           <h1>
-            Votre <span class="highlight">Expert-Comptable</span> de Confiance au Luxembourg
+            Le cabinet d'<span class="highlight">excellence comptable</span> du Luxembourg
           </h1>
           <p class="hero-subtitle">
-            Depuis 2010, nous accompagnons les entrepreneurs et PME luxembourgeoises 
-            dans leur croissance avec expertise, transparence et innovation.
+            Fondé par d'anciens experts des Big Four et fiduciaires renommées, nous démocratisons 
+            l'excellence comptable pour faire de votre entreprise une référence au Luxembourg.
           </p>
           
           <!-- Stats cards -->
@@ -255,22 +257,23 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
       <div class="container">
         <div class="story-grid">
           <div class="story-content">
-            <h2>Notre Histoire au Service des Entreprises Luxembourgeoises</h2>
+            <h2>Une vision : démocratiser l'excellence comptable au Luxembourg</h2>
             <p>
-              Fondée en 2010 par Marc Dubois, <strong>Fiduciaire Expert</strong> est née de la volonté 
-              d'offrir aux entreprises luxembourgeoises un accompagnement comptable de proximité, 
-              alliant expertise technique et conseil stratégique.
+              <strong>Fiduciaire Expert</strong> est né de la volonté d'accompagner au mieux les entrepreneurs du Luxembourg 
+              et de mettre à leur disposition une valeur ajoutée jusqu'alors réservée aux seules multinationales. 
+              Nos fondateurs, issus des Big Four, de fiduciaires reconnues et de cabinets d'avocats luxembourgeois, 
+              connaissent parfaitement le monde des affaires locales.
             </p>
             <p>
-              Aujourd'hui, notre équipe de <strong>15 professionnels certifiés</strong> accompagne 
-              plus de <strong>150 entreprises</strong> dans tous les aspects de leur gestion comptable, 
-              fiscale et sociale. Notre parfaite maîtrise du cadre légal luxembourgeois 
-              (IRC, TVA, CCSS, RCSL) fait de nous le partenaire idéal pour votre croissance.
+              Grâce à une équipe solide de <strong>15 experts certifiés</strong> et une expérience terrain éprouvée, 
+              nous offrons des services dans tous les domaines comptables, fiscaux et sociaux. Nous aidons les entreprises 
+              à bâtir une activité durable sur le sol du Luxembourg, en optimisant leur gestion tout en respectant 
+              scrupuleusement le cadre réglementaire local.
             </p>
             <p>
-              Notre philosophie : transformer vos obligations légales en opportunités d'optimisation, 
-              avec transparence et proactivité. Chaque client bénéficie d'un <strong>interlocuteur 
-              dédié</strong> et d'un suivi personnalisé.
+              Notre expertise combinée des <strong>Big Four, fiduciaires et cabinets d'avocats</strong> nous permet 
+              d'offrir à nos <strong>plus de 150 clients</strong> une approche unique : l'excellence du conseil 
+              stratégique des grandes structures, avec la proximité et la réactivité d'un cabinet indépendant.
             </p>
             
             <div class="certifications-box">
@@ -304,8 +307,8 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
     <section class="values-section">
       <div class="container">
         <div class="section-header">
-          <h2>Nos Valeurs & Engagements</h2>
-          <p>Les piliers de notre relation client</p>
+          <h2>L'excellence au service des entreprises luxembourgeoises</h2>
+          <p>Les valeurs qui font notre réputation de cabinet de référence</p>
         </div>
         
         <div class="values-grid">
@@ -324,7 +327,7 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
     <section class="process-section">
       <div class="container">
         <div class="section-header">
-          <h2>Notre Méthode en 3 Étapes</h2>
+          <h2>Notre méthode en 3 étapes</h2>
           <p>Un accompagnement structuré pour votre réussite</p>
         </div>
         
@@ -352,12 +355,12 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
     <section class="team-section">
       <div class="container">
         <div class="section-header">
-          <h2>Notre Équipe d'Experts</h2>
-          <p>Des professionnels passionnés à votre service</p>
+          <h2>Nos fondateurs : une expertise Big Four au service des PME</h2>
+          <p>Des professionnels formés dans les meilleures structures luxembourgeoises</p>
         </div>
         
         <div class="team-grid">
-          {teamMembers.map((member, index) => (
+          {teamMembers.map((member) => (
             <article class="team-card" itemscope itemtype="https://schema.org/Person">
               <div class="member-image">
                 <img 
@@ -413,8 +416,8 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
     <section class="testimonials-section">
       <div class="container">
         <div class="section-header">
-          <h2>La Parole à Nos Clients</h2>
-          <p>Plus de 150 entreprises luxembourgeoises nous font confiance</p>
+          <h2>Témoignages : l'excellence reconnue par les entreprises</h2>
+          <p>L'avis de nos clients confirme notre statut de cabinet de référence au Luxembourg</p>
         </div>
         
         <div class="testimonials-grid">
@@ -446,10 +449,10 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
       <div class="cta-background"></div>
       <div class="container">
         <div class="cta-content">
-          <h2>Prêt à Optimiser Votre Gestion Comptable ?</h2>
+          <h2>Rejoignez les entreprises qui font confiance à l'excellence</h2>
           <p>
-            Bénéficiez de l'expertise de notre équipe et rejoignez 
-            les entreprises luxembourgeoises qui nous font confiance.
+            Découvrez pourquoi nous sommes devenus la référence en expertise comptable 
+            au Luxembourg. Une expertise Big Four désormais accessible à votre PME.
           </p>
           
           <div class="cta-buttons">
@@ -466,7 +469,7 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
           
           <div class="trust-points">
             <span>✓ Sans engagement</span>
-            <span>✓ Réponse sous 24h</span>
+            <span>✓ Réponse sous 48h</span>
             <span>✓ Devis personnalisé</span>
           </div>
         </div>
@@ -477,28 +480,28 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
 </Layout>
 
 <style>
-  /* Variables */
+  /* Variables - Palette sobre et élégante */
   :root {
-    --blue-primary: #3498db;
-    --blue-dark: #2c3e50;
-    --blue-light: #ebf5fb;
-    --gray-light: #f8f9fa;
-    --gray-medium: #e9ecef;
-    --gray-dark: #6c757d;
-    --gold: #D4AF37;
+    --blue-primary: #2c5aa0;
+    --blue-dark: #1a365d;
+    --blue-light: #f7fafc;
+    --gray-light: #fafafa;
+    --gray-medium: #e2e8f0;
+    --gray-dark: #4a5568;
+    --gold: #b8860b;
     --white: #ffffff;
-    --shadow-sm: 0 2px 4px rgba(0,0,0,0.08);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
-    --shadow-lg: 0 8px 24px rgba(0,0,0,0.16);
-    --radius: 8px;
-    --transition: all 0.3s ease;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 8px rgba(0,0,0,0.10);
+    --shadow-lg: 0 8px 16px rgba(0,0,0,0.12);
+    --radius: 6px;
+    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Hero Section */
+  /* Hero Section - Design sobre et professionnel */
   .hero {
     position: relative;
-    background: linear-gradient(135deg, var(--blue-light) 0%, var(--gray-light) 100%);
-    padding: 5rem 0 4rem;
+    background: linear-gradient(135deg, var(--white) 0%, var(--blue-light) 100%);
+    padding: 4rem 0 3rem;
     overflow: hidden;
   }
 
@@ -506,8 +509,8 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
     position: absolute;
     inset: 0;
     background-image: 
-      radial-gradient(circle at 20% 80%, rgba(52, 152, 219, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(52, 152, 219, 0.05) 0%, transparent 50%);
+      radial-gradient(circle at 25% 75%, rgba(44, 90, 160, 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 75% 25%, rgba(44, 90, 160, 0.02) 0%, transparent 50%);
   }
 
   .container {
@@ -579,9 +582,9 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
 
   .stat-card {
     background: var(--white);
-    padding: 1.5rem;
+    padding: 1.25rem;
     border-radius: var(--radius);
-    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-medium);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -590,8 +593,9 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
   }
 
   .stat-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+    border-color: var(--blue-primary);
+    box-shadow: var(--shadow-sm);
   }
 
   .stat-icon {
@@ -610,10 +614,10 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
     text-align: center;
   }
 
-  /* Story Section */
+  /* Story Section - Fond discret */
   .story-section {
-    padding: 5rem 0;
-    background: var(--white);
+    padding: 4rem 0;
+    background: var(--gray-light);
   }
 
   .story-grid {
@@ -624,9 +628,11 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
   }
 
   .story-content h2 {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     color: var(--blue-dark);
-    margin: 0 0 2rem;
+    margin: 0 0 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
   }
 
   .story-content p {
@@ -638,7 +644,8 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
   .certifications-box {
     margin-top: 2rem;
     padding: 1.5rem;
-    background: var(--gray-light);
+    background: var(--white);
+    border: 1px solid var(--gray-medium);
     border-radius: var(--radius);
   }
 
@@ -704,8 +711,8 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
 
   /* Values Section */
   .values-section {
-    padding: 5rem 0;
-    background: var(--gray-light);
+    padding: 4rem 0;
+    background: var(--white);
   }
 
   .section-header {
@@ -731,18 +738,19 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
   }
 
   .value-card {
-    background: var(--white);
-    padding: 2rem;
+    background: var(--gray-light);
+    padding: 1.75rem;
     border-radius: var(--radius);
     text-align: center;
     transition: var(--transition);
-    border: 1px solid transparent;
+    border: 1px solid var(--gray-medium);
   }
 
   .value-card:hover {
+    background: var(--white);
     border-color: var(--blue-primary);
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
   }
 
   .value-icon {
@@ -764,8 +772,8 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
 
   /* Process Section */
   .process-section {
-    padding: 5rem 0;
-    background: var(--white);
+    padding: 4rem 0;
+    background: var(--gray-light);
   }
 
   .process-timeline {
@@ -841,8 +849,8 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
 
   /* Team Section */
   .team-section {
-    padding: 5rem 0;
-    background: var(--gray-light);
+    padding: 4rem 0;
+    background: var(--white);
   }
 
   .team-grid {
@@ -855,13 +863,14 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
     background: var(--white);
     border-radius: var(--radius);
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-medium);
     transition: var(--transition);
   }
 
   .team-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+    border-color: var(--blue-primary);
+    box-shadow: var(--shadow-sm);
   }
 
   .member-image {
@@ -962,8 +971,8 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
 
   /* Testimonials Section */
   .testimonials-section {
-    padding: 5rem 0;
-    background: var(--white);
+    padding: 4rem 0;
+    background: var(--gray-light);
   }
 
   .testimonials-grid {
@@ -973,10 +982,17 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
   }
 
   .testimonial-card {
-    background: var(--gray-light);
-    padding: 2rem;
+    background: var(--white);
+    padding: 1.75rem;
     border-radius: var(--radius);
+    border: 1px solid var(--gray-medium);
     position: relative;
+    transition: var(--transition);
+  }
+
+  .testimonial-card:hover {
+    border-color: var(--blue-primary);
+    box-shadow: var(--shadow-sm);
   }
 
   .quote-icon {
@@ -1020,11 +1036,11 @@ const metaDescription = "Fiduciaire Expert Luxembourg : 15+ ans expertise compta
     color: var(--gold);
   }
 
-  /* CTA Section */
+  /* CTA Section - Design épuré */
   .cta-section {
     position: relative;
-    padding: 5rem 0;
-    background: linear-gradient(135deg, var(--blue-primary) 0%, #2980b9 100%);
+    padding: 4rem 0;
+    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-primary) 100%);
     color: var(--white);
     overflow: hidden;
   }
