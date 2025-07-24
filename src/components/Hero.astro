@@ -5,10 +5,11 @@ import Layout from '../layouts/Layout.astro';
 
 // Métadonnées pour le SEO et le partage sur les réseaux sociaux
 const pageMeta = {
-  title: "Expert-Comptable Luxembourg | Fiduciaire Spécialisée PME & Création Société",
-  description: "Fiduciaire de référence au Luxembourg. Services d'expertise comptable, fiscalité, domiciliation et création de société rapide. Audit gratuit et réponse sous 24h.",
+  title: "Expert-Comptable Luxembourg | Fiduciaire Spécialisée PME & Création Société | Audit Gratuit",
+  description: "🇱🇺 Fiduciaire de référence au Luxembourg depuis 2010. ✅ Création société 5 jours ✅ Audit fiscal gratuit ✅ Tarifs transparents ✅ Réponse 24h. +150 clients satisfaits.",
   canonical: "https://www.fiduciaire-expert.lu/",
-  ogImage: "/images/Fiduciare-expert-Hero.webp", // Utilisation de l'image du héros pour l'OG
+  ogImage: "/images/Fiduciare-expert-Hero.webp",
+  keywords: "expert-comptable luxembourg, création société luxembourg, fiduciaire luxembourg, comptabilité luxembourg, fiscalité luxembourg, domiciliation luxembourg, audit fiscal gratuit"
 };
 
 // Données structurées JSON-LD complètes pour un SEO avancé
@@ -56,41 +57,46 @@ const schemaData = {
   <main>
 
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero__background"></div>
+      <div class="hero__background">
+        <div class="hero__particles"></div>
+      </div>
       <div class="container">
         <div class="hero__grid">
           
           <div class="hero__content">
             <h1 id="hero-title" class="hero__title">
               <span class="hero__highlight">Expert-Comptable Luxembourg</span>
-              Fiduciaire spécialisée PME & Création Société
+              <span class="hero__main-text">Fiduciaire spécialisée PME & Création Société</span>
             </h1>
             <p class="hero__subtitle">
               <strong>Comptabilité, fiscalité, domiciliation :</strong> 
               Nous transformons vos obligations légales en avantage concurrentiel. Cabinet de référence depuis 2010.
             </p>
             <div class="hero__badges">
-              <span class="hero__badge">✓ Premier RDV gratuit</span>
-              <span class="hero__badge">✓ Réponse sous 24h</span>
-              <span class="hero__badge">✓ Tarifs transparents</span>
+              <span class="hero__badge hero__badge--animated">✓ Premier RDV gratuit</span>
+              <span class="hero__badge hero__badge--animated">✓ Réponse sous 24h</span>
+              <span class="hero__badge hero__badge--animated">✓ Tarifs transparents</span>
             </div>
           </div>
           
           <div class="hero__cta-card">
+            <div class="hero__cta-badge">🚀 Offre Spéciale</div>
             <h2 class="hero__cta-title">Création de société au Luxembourg en 5 jours</h2>
             <p class="hero__cta-subtitle">Bénéficiez d'un <strong>audit gratuit</strong> de votre situation fiscale.</p>
             <div class="hero__cta-buttons">
-              <a href="/contact" class="btn btn--primary" aria-label="Demander un audit gratuit">
+              <a href="/contact" class="btn btn--primary btn--pulse" aria-label="Demander un audit gratuit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"></path><path d="M21 12c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z"></path><path d="M3 12c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z"></path><path d="M12 21c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z"></path><path d="M12 3c.552 0 1-.448 1-1s-.448-1-1-1-1 .448-1 1 .448 1 1 1z"></path></svg>
                 Audit gratuit
               </a>
-              <a href="tel:+35212345678" class="btn btn--secondary" aria-label="Appeler directement le cabinet">
+              <a href="tel:+35212345678" class="btn btn--secondary" aria-label="Appeler directement le cabinet au +352 12345678">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                 Appel direct
               </a>
             </div>
-            <p class="hero__trust-signal">
-              ⭐⭐⭐⭐⭐ +150 entreprises nous font confiance
-            </p>
+            <div class="hero__trust-signal">
+              <div class="hero__stars">⭐⭐⭐⭐⭐</div>
+              <span class="hero__reviews">+150 entreprises nous font confiance</span>
+            </div>
           </div>
 
         </div>
@@ -209,8 +215,27 @@ const schemaData = {
   
   .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 1.5rem; border-radius: var(--radius-md); font-weight: 600; text-decoration: none; transition: var(--transition); border: 2px solid transparent; cursor: pointer; }
   .btn--large { padding: 1rem 2rem; }
-  .btn--primary { background-color: var(--color-gold); color: var(--color-dark); }
-  .btn--primary:hover { background-color: #e7c86a; transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .btn--primary { 
+    background: linear-gradient(135deg, var(--color-gold) 0%, #f4d03f 100%); 
+    color: var(--color-dark); 
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  }
+  
+  .btn--primary:hover { 
+    background: linear-gradient(135deg, #f4d03f 0%, var(--color-gold) 100%); 
+    transform: translateY(-3px); 
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+  }
+  
+  .btn--pulse {
+    animation: pulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes pulse {
+    0% { box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
+    50% { box-shadow: 0 4px 25px rgba(212, 175, 55, 0.5); }
+    100% { box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
+  }
   .btn--secondary { background-color: transparent; color: var(--color-white); border: 2px solid var(--color-white); }
   .btn--secondary:hover { background-color: var(--color-white); color: var(--color-dark); }
   .btn--white { background-color: var(--color-white); color: var(--color-primary); }
@@ -228,10 +253,26 @@ const schemaData = {
   .hero__background {
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(rgba(13, 43, 79, 0.85), rgba(13, 43, 79, 0.8)), url('/images/Fiduciare-expert-Hero.webp');
+    background-image: linear-gradient(135deg, rgba(13, 43, 79, 0.9) 0%, rgba(0, 85, 164, 0.8) 50%, rgba(13, 43, 79, 0.85) 100%), url('/images/Fiduciare-expert-Hero.webp');
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     z-index: -1;
+  }
+  
+  .hero__particles {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    animation: float 20s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { opacity: 0.3; transform: translateY(0px); }
+    50% { opacity: 0.6; transform: translateY(-20px); }
   }
   .hero__grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
   .hero__content { text-align: center; }
@@ -240,28 +281,188 @@ const schemaData = {
     font-size: clamp(2.2rem, 5vw, 3.2rem);
     font-weight: 800;
     line-height: 1.2;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    text-shadow: 0 3px 10px rgba(0,0,0,0.6);
     margin: 0 0 1.5rem;
+    opacity: 0;
+    animation: slideInUp 1s ease-out 0.3s forwards;
   }
-  .hero__highlight { display: block; color: var(--color-gold); margin-bottom: 0.5rem; }
-  .hero__subtitle { font-size: clamp(1.1rem, 2.5vw, 1.25rem); max-width: 600px; margin-inline: auto; margin-bottom: 2rem; line-height: 1.6; opacity: 0.95; }
-  .hero__badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
-  .hero__badge { background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.5); padding: 0.5rem 1rem; border-radius: 99px; font-size: 0.9rem; font-weight: 500; }
+  
+  .hero__highlight { 
+    display: block; 
+    color: var(--color-gold); 
+    margin-bottom: 0.5rem;
+    position: relative;
+  }
+  
+  .hero__highlight::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-gold) 0%, transparent 100%);
+    border-radius: 2px;
+    animation: underlineGrow 1.5s ease-out 1s forwards;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  
+  .hero__main-text {
+    display: block;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  @keyframes slideInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes underlineGrow {
+    to {
+      transform: scaleX(1);
+    }
+  }
+  .hero__subtitle { 
+    font-size: clamp(1.1rem, 2.5vw, 1.25rem); 
+    max-width: 600px; 
+    margin-inline: auto; 
+    margin-bottom: 2rem; 
+    line-height: 1.6; 
+    opacity: 0;
+    animation: slideInUp 1s ease-out 0.6s forwards;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+  .hero__badges { 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 0.75rem;
+    opacity: 0;
+    animation: slideInUp 1s ease-out 0.9s forwards;
+  }
+  
+  .hero__badge { 
+    background: rgba(212, 175, 55, 0.2); 
+    border: 1px solid rgba(212, 175, 55, 0.6); 
+    padding: 0.5rem 1rem; 
+    border-radius: 99px; 
+    font-size: 0.9rem; 
+    font-weight: 500;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: var(--transition);
+  }
+  
+  .hero__badge--animated {
+    animation: badgePulse 2s ease-in-out infinite;
+  }
+  
+  .hero__badge:hover {
+    background: rgba(212, 175, 55, 0.3);
+    border-color: var(--color-gold);
+    transform: translateY(-2px);
+  }
+  
+  @keyframes badgePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
   .hero__cta-card {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: var(--radius-lg);
     padding: 2rem;
     text-align: center;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: slideInUp 1s ease-out 1.2s forwards;
   }
-  .hero__cta-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-  .hero__cta-title { font-size: clamp(1.5rem, 4vw, 1.8rem); color: var(--color-gold); margin: 0 0 0.75rem; }
+  
+  .hero__cta-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+    animation: shimmer 3s ease-in-out infinite;
+  }
+  
+  .hero__cta-card:hover { 
+    transform: translateY(-8px); 
+    box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    border-color: rgba(212, 175, 55, 0.4);
+  }
+  
+  @keyframes shimmer {
+    0% { left: -100%; }
+    50% { left: 100%; }
+    100% { left: 100%; }
+  }
+  
+  .hero__cta-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--color-gold) 0%, #f4d03f 100%);
+    color: var(--color-dark);
+    padding: 0.4rem 1rem;
+    border-radius: 99px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-5px); }
+    60% { transform: translateY(-3px); }
+  }
+  .hero__cta-title { 
+    font-size: clamp(1.5rem, 4vw, 1.8rem); 
+    color: var(--color-gold); 
+    margin: 0 0 0.75rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
   .hero__cta-subtitle { margin: 0 0 1.5rem; opacity: 0.9; }
   .hero__cta-buttons { display: flex; flex-direction: column; gap: 1rem; }
-  .hero__trust-signal { margin-top: 1.5rem; opacity: 0.8; font-size: 0.9rem; }
+  .hero__trust-signal { 
+    margin-top: 1.5rem; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .hero__stars {
+    font-size: 1.1rem;
+    animation: starGlow 2s ease-in-out infinite alternate;
+  }
+  
+  .hero__reviews {
+    opacity: 0.9;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  
+  @keyframes starGlow {
+    from { filter: brightness(1); }
+    to { filter: brightness(1.2) drop-shadow(0 0 5px rgba(255, 215, 0, 0.5)); }
+  }
 
   /* ===== Section "Pourquoi nous choisir" (Styles corrigés) ===== */
   .why-us { background-color: var(--color-light); }
@@ -294,6 +495,6 @@ const schemaData = {
     .hero__badges { justify-content: flex-start; }
     .why-us__container { grid-template-columns: 1fr 1fr; }
     .why-us__visual { display: block; }
-    .why-u≤s__content { order: -1; }
+    .why-us__content { order: -1; }
   }
 </style> 

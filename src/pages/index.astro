@@ -301,7 +301,7 @@ const schemaData = {
               <li>✓ Bilan & compte de résultat</li>
               <li>⚡ Optimisation fiscale légale</li>
             </ul>
-            <a href="/comptabilite-luxembourg" class="service-card__cta">
+            <a href="/comptabilite" class="service-card__cta">
               Découvrir l'offre comptabilité →
             </a>
           </article>
@@ -341,7 +341,7 @@ const schemaData = {
               <li>✓ Domiciliation possible</li>
               <li>⚡ Accompagnement post-création</li>
             </ul>
-            <a href="/creation-sarl-luxembourg" class="service-card__cta service-card__cta--featured">
+            <a href="/creation-societe-luxembourg" class="service-card__cta service-card__cta--featured">
               Créer ma SARL maintenant →
             </a>
           </article>
@@ -368,7 +368,7 @@ const schemaData = {
               <li>✓ Gestion congés & RTT</li>
               <li>⚡ Conseil en droit social</li>
             </ul>
-            <a href="/paie-gestion-sociale-luxembourg" class="service-card__cta">
+            <a href="/paie" class="service-card__cta">
               Découvrir l'offre sociale →
             </a>
           </article>
@@ -713,11 +713,11 @@ const schemaData = {
 <style>
   /* ===== DESIGN SYSTEM PREMIUM EXPERT-COMPTABLE ===== */
   :root {
-    /* Couleurs Premium - Inspirées des cabinets de prestige */
+    /* Couleurs Premium - Cohérentes avec le design system */
     --color-primary: #0f172a; /* Bleu marine ultra-professionnel */
     --color-primary-light: #1e40af;
     --color-primary-dark: #020617;
-    --color-secondary: #c9912a; /* Or discret et sophistiqué */
+    --color-secondary: #3498db; /* Bleu accent cohérent */
     --color-accent: #059669; /* Vert succès */
     --color-warning: #dc6f2e;
     
@@ -857,7 +857,7 @@ const schemaData = {
   }
 
   .btn--urgent, .btn--cta-primary {
-    background: linear-gradient(135deg, var(--color-secondary), #d97706);
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-primary-light));
     color: white;
     font-size: 1.1rem;
     padding: 1.25rem 2.5rem;
@@ -887,7 +887,7 @@ const schemaData = {
 
   @keyframes pulse-glow {
     0%, 100% { box-shadow: var(--shadow-large); }
-    50% { box-shadow: 0 0 0 4px rgba(201, 145, 42, 0.3), var(--shadow-large); }
+    50% { box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.3), var(--shadow-large); }
   }
 
   /* ===== HERO SECTION PREMIUM ===== */
@@ -919,7 +919,7 @@ const schemaData = {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: linear-gradient(135deg, var(--color-secondary), #d97706);
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-primary-light));
     color: white;
     padding: 0.5rem 1rem;
     border-radius: 99px;
@@ -1139,7 +1139,7 @@ const schemaData = {
     top: -12px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(135deg, var(--color-secondary), #d97706);
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-primary-light));
     color: white;
     padding: 0.5rem 1.5rem;
     border-radius: 99px;
