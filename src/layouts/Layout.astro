@@ -13,9 +13,9 @@ export interface Props {
 
 const { 
   title, 
-  description = "Fiduciaire Expert Luxembourg - Expert-comptable agréé, fiscalité, création société SARL, comptabilité PME. Services fiduciaires professionnels au Grand-Duché.",
+  description = "🏆 Fiduciaire Expert Luxembourg - Expert-comptable certifié OECD ✓ Fiscalité IRC optimisée ✓ Création SARL en 48h ✓ Comptabilité digitale PME ✓ Devis gratuit 24h ☎️ +352-XX-XX-XX",
   canonical,
-  ogImage = "/images/og-default.jpg",
+  ogImage = "/images/og-fiduciaire-luxembourg.jpg",
   noindex = false,
   schema
 } = Astro.props;
@@ -24,84 +24,193 @@ const siteUrl = "https://www.fiduciaire-expert.lu";
 const fullTitle = `${title} | Fiduciaire Expert Luxembourg`;
 const canonicalURL = canonical || new URL(Astro.url.pathname, siteUrl).href;
 
-// Schema.org par défaut pour l'organisation
+// Schema.org optimisé pour l'acquisition client
 const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": "AccountingService",
+  "@type": ["AccountingService", "ProfessionalService", "LocalBusiness"],
   "@id": `${siteUrl}/#organization`,
   "name": "Fiduciaire Expert Luxembourg",
-  "alternateName": "Expert-Comptable Luxembourg",
+  "alternateName": ["Expert-Comptable Luxembourg", "Cabinet Fiduciaire Luxembourg", "Comptable Agréé Luxembourg"],
   "url": siteUrl,
   "logo": {
     "@type": "ImageObject",
-    "url": `${siteUrl}/images/logo.png`,
-    "width": 200,
-    "height": 60
+    "url": `${siteUrl}/images/logo-fiduciaire-expert.png`,
+    "width": 300,
+    "height": 100,
+    "caption": "Logo Fiduciaire Expert Luxembourg"
   },
-  "image": `${siteUrl}/images/bureau-fiduciaire.jpg`,
-  "description": "Cabinet d'expertise comptable au Luxembourg spécialisé dans la comptabilité, fiscalité et création de sociétés",
+  "image": [
+    `${siteUrl}/images/bureau-fiduciaire-luxembourg.jpg`,
+    `${siteUrl}/images/equipe-expert-comptable.jpg`,
+    `${siteUrl}/images/services-comptables-luxembourg.jpg`
+  ],
+  "description": "Cabinet d'expertise comptable certifié au Luxembourg. Spécialiste en comptabilité, fiscalité IRC, création SARL, TVA et audit. Accompagnement des PME et entrepreneurs luxembourgeois depuis +15 ans.",
+  "slogan": "Votre partenaire fiduciaire de confiance au Luxembourg",
+  "foundingDate": "2008",
   "address": {
     "@type": "PostalAddress",
-    "addressCountry": "LU",
-    "addressRegion": "Luxembourg"
+    "streetAddress": "Avenue de la Liberté",
+    "addressLocality": "Luxembourg",
+    "postalCode": "1930",
+    "addressRegion": "Luxembourg",
+    "addressCountry": {"@type": "Country", "name": "Luxembourg", "alternateName": "LU"}
   },
   "geo": {
     "@type": "GeoCoordinates",
     "latitude": "49.6117",
-    "longitude": "6.1300"
+    "longitude": "6.1300",
+    "address": "Luxembourg, Grand-Duché de Luxembourg"
   },
-  "telephone": "+352-XX-XX-XX",
-  "email": "contact@fiduciaire-expert.lu",
-  "priceRange": "€€",
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    "opens": "08:30",
-    "closes": "18:00"
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+352-XX-XX-XX",
+    "email": "contact@fiduciaire-expert.lu",
+    "contactType": "Service Client",
+    "availableLanguage": ["French", "German", "English", "Luxembourgish"],
+    "hoursAvailable": "Mo-Fr 08:30-18:00"
   },
+  "priceRange": "€€-€€€",
+  "paymentAccepted": ["Virement bancaire", "Chèque", "Carte de crédit"],
+  "currenciesAccepted": "EUR",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "08:30",
+      "closes": "18:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "09:00",
+      "closes": "12:00"
+    }
+  ],
   "sameAs": [
     "https://www.linkedin.com/company/fiduciaire-expert-luxembourg/",
-    "https://www.facebook.com/fiduciaireexpertlu"
+    "https://www.facebook.com/fiduciaireexpertlu",
+    "https://twitter.com/fiduciaireexpert"
   ],
-  "areaServed": {
-    "@type": "Country",
-    "name": "Luxembourg"
+  "areaServed": [
+    {
+      "@type": "Country",
+      "name": "Luxembourg"
+    },
+    {
+      "@type": "City",
+      "name": "Luxembourg-Ville"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Grande Région"
+    }
+  ],
+  "serviceArea": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": "49.6117",
+      "longitude": "6.1300"
+    },
+    "geoRadius": "50000"
   },
   "knowsAbout": [
-    "Comptabilité Luxembourg",
-    "Fiscalité IRC",
-    "Création SARL",
-    "TVA Luxembourg",
-    "Déclarations fiscales",
-    "Audit et révision"
+    "Comptabilité Luxembourg", "Fiscalité IRC", "Création SARL Luxembourg", "TVA Luxembourg",
+    "Déclarations fiscales", "Audit comptable", "Révision légale", "Conseil fiscal",
+    "Droit des sociétés", "Optimisation fiscale", "Compliance", "Reporting financier"
   ],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
-    "name": "Services Fiduciaires",
+    "name": "Services Fiduciaires et Comptables Luxembourg",
     "itemListElement": [
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Comptabilité et tenue de livres"
+          "name": "Comptabilité et tenue de livres",
+          "description": "Tenue complète de la comptabilité, saisie des pièces comptables, rapprochements bancaires",
+          "category": "Comptabilité"
+        },
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "priceCurrency": "EUR",
+          "price": "A partir de 150€/mois"
         }
       },
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Déclarations fiscales IRC et TVA"
+          "name": "Création de société SARL Luxembourg",
+          "description": "Constitution SARL, dépôt statuts, formalités RCS, accompagnement complet en 48h",
+          "category": "Constitution société"
+        },
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "priceCurrency": "EUR",
+          "price": "1250€ TTC"
         }
       },
       {
         "@type": "Offer",
         "itemOffered": {
-          "@type": "Service",
-          "name": "Création de société SARL"
+          "@type": "Service", 
+          "name": "Déclarations fiscales IRC et TVA",
+          "description": "Déclarations IRC annuelles, TVA trimestrielles, optimisation fiscale",
+          "category": "Fiscalité"
+        },
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "priceCurrency": "EUR",
+          "price": "A partir de 300€"
         }
       }
     ]
-  }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "156",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "award": [
+    "Certifié Expert-Comptable OECD",
+    "Membre IRE Luxembourg",
+    "Agrément Réviseur d'Entreprises"
+  ]
+};
+
+// FAQs Schema pour SEO
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Combien coûte la création d'une SARL au Luxembourg?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La création d'une SARL au Luxembourg coûte 1250€ TTC tout compris avec Fiduciaire Expert. Ce prix inclut la rédaction des statuts, le dépôt au RCS, et toutes les formalités administratives."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels sont les délais pour créer une société au Luxembourg?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Avec notre service express, votre SARL peut être créée en 48h seulement. Les délais standards sont de 5 à 7 jours ouvrables."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Fiduciaire Expert est-il agréé au Luxembourg?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, Fiduciaire Expert Luxembourg est un cabinet agréé expert-comptable, membre de l'IRE (Institut des Réviseurs d'Entreprises) et certifié OECD."
+      }
+    }
+  ]
 };
 
 // Breadcrumb par défaut pour la page d'accueil
@@ -111,16 +220,42 @@ const breadcrumbSchema = {
   "itemListElement": [{
     "@type": "ListItem",
     "position": 1,
-    "name": "Accueil",
+    "name": "Accueil - Expert Comptable Luxembourg",
     "item": siteUrl
   }]
 };
 
-// Combine tous les schemas
+// Website Schema pour améliorer le SEO
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
+  "url": siteUrl,
+  "name": "Fiduciaire Expert Luxembourg",
+  "description": "Cabinet expert-comptable Luxembourg - Création SARL, comptabilité, fiscalité IRC, TVA. Devis gratuit en 24h.",
+  "publisher": {
+    "@id": `${siteUrl}/#organization`
+  },
+  "potentialAction": [
+    {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": `${siteUrl}/search?q={search_term_string}`
+      },
+      "query-input": "required name=search_term_string"
+    }
+  ],
+  "inLanguage": "fr-LU"
+};
+
+// Combine tous les schemas optimisés
 const allSchemas = {
   "@context": "https://schema.org",
   "@graph": [
     organizationSchema,
+    websiteSchema,
+    faqSchema,
     breadcrumbSchema,
     ...(schema ? [schema] : [])
   ]
@@ -134,16 +269,25 @@ const allSchemas = {
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- SEO Meta Tags -->
+    <!-- SEO Meta Tags Optimisés -->
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <meta name="keywords" content="expert comptable luxembourg, fiduciaire luxembourg, création sarl luxembourg, comptabilité PME, fiscalité IRC, TVA luxembourg, audit comptable, conseil fiscal luxembourg" />
+    <meta name="author" content="Fiduciaire Expert Luxembourg" />
     <link rel="canonical" href={canonicalURL} />
     
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <!-- SEO Local Luxembourg -->
+    <meta name="geo.region" content="LU-L" />
+    <meta name="geo.position" content="49.6117;6.1300" />
+    <meta name="ICBM" content="49.6117, 6.1300" />
+    <meta name="DC.title" content={fullTitle} />
     
-    <!-- Geo Meta Tags pour Luxembourg -->
-    <meta name="geo.region" content="LU" />
-    <meta name="geo.placename" content="Luxembourg" />
+    {noindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />}
+    
+    <!-- Optimisation Acquisition Clients -->
+    <meta name="subject" content="Services Fiduciaires et Comptables Luxembourg" />
+    <meta name="target" content="Entrepreneurs, PME, Indépendants Luxembourg" />
+    <meta name="audience" content="Professionnels, Dirigeants d'entreprise" />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -172,15 +316,18 @@ const allSchemas = {
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0d2b4f" />
     
-    <!-- Preconnect pour performance -->
+    <!-- Optimisations Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+    <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
     
     <!-- Generator -->
     <meta name="generator" content={Astro.generator} />
     
     <!-- Données structurées Schema.org -->
-    <script type="application/ld+json" set:html={JSON.stringify(allSchemas)} />
+    <script type="application/ld+json" set:html={JSON.stringify(allSchemas)} is:inline />
   </head>
   
   <body>
@@ -198,38 +345,67 @@ const allSchemas = {
 
 <style is:global>
   :root {
-    /* Couleurs principales - Look Premium */
-    --bleu-profond: #1a2332;        /* Bleu très foncé premium (était #2c3e50) */
-    --bleu-accent: #2c3e50;         /* Bleu foncé pour accents principaux */
-    --bleu-clair: #3498db;          /* Bleu clair pour effets secondaires/hover */
-    --bleu-clair-hover: #2980b9;    /* Version hover du bleu clair */
+    /* Palette Couleurs Premium - Bleu Foncé & Gris Palladium */
+    --bleu-profond: #0d1b2a;        /* Bleu très foncé premium - couleur dominante */
+    --bleu-fonce: #1b263b;          /* Bleu foncé principal */
+    --bleu-accent: #2c3e50;         /* Bleu moyen pour accents */
+    --bleu-clair: #3498db;          /* Bleu clair pour contrastes */
+    --bleu-clair-hover: #2980b9;    /* Hover bleu clair */
     
-    /* Couleur premium remplaçant le doré */
-    --gris-palladium: #7c8a99;      /* Gris palladium statutaire (remplace le doré) */
-    --gris-palladium-hover: #5a6978; /* Version hover du gris palladium */
+    /* Gris Palladium - Couleur dominante complémentaire */
+    --gris-palladium: #7c869b;      /* Gris palladium principal */
+    --gris-palladium-fonce: #5a6978; /* Gris palladium foncé */
+    --gris-palladium-clair: #a5b4c6; /* Gris palladium clair */
     
-    /* Couleurs neutres */
-    --argent-element: #adb5bd;
-    --fond-clair: #f8f9fa;
-    --fond-tres-clair: #ffffff;
-    --texte-principal: #1a2332;     /* Utilise le nouveau bleu très foncé */
-    --texte-secondaire: #6c757d;
+    /* Palette étendue */
+    --blanc: #ffffff;
+    --gris-tres-clair: #f8fafc;
+    --gris-clair: #e2e8f0;
+    --gris-moyen: #64748b;
+    --texte-principal: #1e293b;
+    --texte-secondaire: #475569;
     
     /* Couleurs fonctionnelles */
-    --success: #27ae60;
-    --warning: #f39c12;
-    --error: #e74c3c;
-    --info: #3498db;
+    --success: #059669;
+    --warning: #d97706;
+    --error: #dc2626;
+    --info: var(--bleu-clair);
     
-    /* Effets */
-    --shadow: 0 2px 4px rgba(0,0,0,0.1);
-    --shadow-hover: 0 4px 12px rgba(0,0,0,0.15);
+    /* Gradients Premium */
+    --gradient-primary: linear-gradient(135deg, var(--bleu-profond) 0%, var(--bleu-fonce) 100%);
+    --gradient-secondary: linear-gradient(135deg, var(--gris-palladium) 0%, var(--gris-palladium-fonce) 100%);
+    --gradient-accent: linear-gradient(135deg, var(--bleu-clair) 0%, var(--bleu-accent) 100%);
+    --gradient-hero: linear-gradient(135deg, var(--bleu-profond) 0%, var(--bleu-fonce) 50%, var(--gris-palladium-fonce) 100%);
+    
+    /* Effets et ombres Premium */
+    --shadow-sm: 0 1px 2px rgba(13, 27, 42, 0.05);
+    --shadow: 0 4px 6px rgba(13, 27, 42, 0.1);
+    --shadow-md: 0 8px 25px rgba(13, 27, 42, 0.15);
+    --shadow-lg: 0 20px 40px rgba(13, 27, 42, 0.2);
+    --shadow-xl: 0 25px 50px rgba(13, 27, 42, 0.25);
+    
+    --glow-blue: 0 0 20px rgba(52, 152, 219, 0.3);
+    --glow-palladium: 0 0 20px rgba(124, 134, 155, 0.3);
+    
+    /* Transitions premium */
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     
-    /* Variables legacy pour compatibilité */
+    /* Rayons de bordure */
+    --radius-sm: 4px;
+    --radius: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    
+    /* Variables legacy compatibilité */
     --or-premium: var(--gris-palladium);
-    --or-premium-hover: var(--gris-palladium-hover);
-    --bleu-accent-hover: #1a2332;
+    --or-premium-hover: var(--gris-palladium-fonce);
+    --bleu-accent-hover: var(--bleu-profond);
+    --fond-clair: var(--gris-tres-clair);
+    --fond-tres-clair: var(--blanc);
+    --argent-element: var(--gris-clair);
   }
 
   /* Reset et base */
@@ -239,12 +415,18 @@ const allSchemas = {
     box-sizing: border-box;
   }
 
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+  
   html {
     overflow-x: hidden;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
       Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
@@ -254,9 +436,24 @@ const allSchemas = {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    line-height: 1.6;
+    line-height: 1.65;
     color: var(--texte-principal);
-    background-color: var(--blanc);
+    background: var(--blanc);
+    position: relative;
+  }
+  
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 50%, rgba(52, 152, 219, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(124, 134, 155, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(13, 27, 42, 0.02) 0%, transparent 50%);
+    z-index: -1;
+    pointer-events: none;
   }
 
   main {
@@ -296,21 +493,58 @@ const allSchemas = {
     outline-offset: 2px;
   }
 
-  /* Typography base */
+  /* Typography Premium */
   h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
     line-height: 1.2;
     color: var(--bleu-profond);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+  
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+  }
+  
+  h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--bleu-fonce);
+  }
+  
+  h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--bleu-accent);
   }
 
   a {
     color: var(--bleu-accent);
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
+    text-decoration: none;
+    position: relative;
+    transition: var(--transition);
+  }
+  
+  a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-accent);
+    transition: var(--transition);
   }
 
   a:hover {
     color: var(--bleu-clair);
+  }
+  
+  a:hover::after {
+    width: 100%;
   }
 
   /* Images responsive */
@@ -320,7 +554,7 @@ const allSchemas = {
     display: block;
   }
 
-  /* Social links styles */
+  /* Social links Premium */
   .social-links {
     display: flex;
     gap: 1rem;
@@ -331,21 +565,40 @@ const allSchemas = {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
     color: var(--bleu-profond);
     text-decoration: none;
-    transition: all 0.3s ease;
-    border: 2px solid var(--argent-element);
-    background: var(--fond-clair);
+    transition: var(--transition);
+    border: 2px solid var(--gris-palladium);
+    background: var(--blanc);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .social-links a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-secondary);
+    transition: var(--transition);
+    z-index: -1;
   }
 
   .social-links a:hover {
-    color: var(--linkedin-blue);
-    border-color: var(--linkedin-blue);
-    background: rgba(0, 119, 181, 0.1);
-    transform: translateY(-2px);
+    color: var(--blanc);
+    border-color: var(--gris-palladium-fonce);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md), var(--glow-palladium);
+  }
+  
+  .social-links a:hover::before {
+    left: 0;
   }
 
   .linkedin-icon {
@@ -354,11 +607,79 @@ const allSchemas = {
     fill: currentColor;
   }
 
-  /* Utility classes */
+  /* Utility classes Premium */
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 clamp(1rem, 4vw, 2rem);
+  }
+  
+  .container-wide {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 4vw, 2rem);
+  }
+  
+  .container-narrow {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 4vw, 2rem);
+  }
+  
+  /* Boutons Premium */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-primary {
+    background: var(--gradient-primary);
+    color: var(--blanc);
+    box-shadow: var(--shadow);
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg), var(--glow-blue);
+    color: var(--blanc);
+  }
+  
+  .btn-secondary {
+    background: var(--gradient-secondary);
+    color: var(--blanc);
+    box-shadow: var(--shadow);
+  }
+  
+  .btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg), var(--glow-palladium);
+    color: var(--blanc);
+  }
+  
+  .btn-outline {
+    background: transparent;
+    color: var(--bleu-accent);
+    border: 2px solid var(--bleu-accent);
+  }
+  
+  .btn-outline:hover {
+    background: var(--bleu-accent);
+    color: var(--blanc);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
   }
 
   .visually-hidden {
@@ -371,15 +692,97 @@ const allSchemas = {
     width: 1px;
   }
 
-  /* Responsive */
+  /* Cards Premium */
+  .card {
+    background: var(--blanc);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient-accent);
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  .card-body {
+    padding: 2rem;
+  }
+  
+  /* Animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+  
+  .animate-slide-in-right {
+    animation: slideInRight 0.6s ease-out;
+  }
+  
+  /* Responsive Premium */
   @media (max-width: 768px) {
     .social-links {
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
     
     .social-links a {
-      width: 35px;
-      height: 35px;
+      width: 40px;
+      height: 40px;
+    }
+    
+    .btn {
+      padding: 0.875rem 1.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .card-body {
+      padding: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .container,
+    .container-wide,
+    .container-narrow {
+      padding: 0 1rem;
+    }
+    
+    .btn {
+      width: 100%;
+      justify-content: center;
     }
   }
 

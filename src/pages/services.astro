@@ -583,7 +583,8 @@ const structuredData = {
     --gray-light: #f8f9fa;
     --gray-medium: #e9ecef;
     --gray-dark: #6c757d;
-    --gray-palladium: #7c8a99;
+    --gris-palladium: #7c8a99;
+    --gris-palladium-hover: #5a6978;
     --white: #ffffff;
     --text-primary: #1a2332;
     --text-secondary: #6c757d;
@@ -659,11 +660,11 @@ const structuredData = {
   .breadcrumb li:not(:last-child)::after {
     content: "›";
     margin-left: 0.5rem;
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.7);
   }
 
   .breadcrumb a {
-    color: rgba(255,255,255,0.8);
+    color: rgba(255,255,255,0.9);
     text-decoration: none;
     transition: var(--transition);
   }
@@ -688,12 +689,14 @@ const structuredData = {
   .hero-badge {
     display: inline-block;
     padding: 0.5rem 1.5rem;
-    background: rgba(124, 138, 153, 0.2);
-    border: 1px solid rgba(124, 138, 153, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 30px;
     font-size: 0.875rem;
     margin-bottom: 2rem;
-    color: rgba(255,255,255,0.9);
+    color: var(--white);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
   .hero-title {
@@ -709,10 +712,11 @@ const structuredData = {
 
   .title-highlight {
     display: block;
-    background: linear-gradient(135deg, var(--gray-palladium) 0%, #5a6978 100%);
+    background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    text-shadow: 0 2px 4px rgba(79, 195, 247, 0.3);
   }
 
   .hero-description {
@@ -867,7 +871,7 @@ const structuredData = {
     position: absolute;
     top: 20px;
     right: -30px;
-    background: var(--gray-palladium);
+    background: var(--gris-palladium);
     color: var(--white);
     padding: 0.5rem 3rem;
     transform: rotate(45deg);
@@ -1119,7 +1123,7 @@ const structuredData = {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--gray-palladium);
+    color: var(--gris-palladium);
   }
 
   .benefit-card h3 {
@@ -1249,8 +1253,8 @@ const structuredData = {
         -45deg,
         transparent,
         transparent 40px,
-        rgba(124, 138, 153, 0.1) 40px,
-        rgba(124, 138, 153, 0.1) 80px
+        color-mix(in srgb, var(--gris-palladium) 10%, transparent) 40px,
+        color-mix(in srgb, var(--gris-palladium) 10%, transparent) 80px
       );
   }
 
@@ -1267,8 +1271,8 @@ const structuredData = {
   .cta-badge {
     display: inline-block;
     padding: 0.5rem 1.5rem;
-    background: rgba(124, 138, 153, 0.2);
-    border: 1px solid rgba(124, 138, 153, 0.3);
+    background: color-mix(in srgb, var(--gris-palladium) 20%, transparent);
+    border: 1px solid color-mix(in srgb, var(--gris-palladium) 30%, transparent);
     border-radius: 30px;
     font-size: 0.875rem;
     margin-bottom: 1.5rem;

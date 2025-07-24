@@ -1,241 +1,299 @@
 ---
-// Données structurées pour le Hero
-const heroSchema = {
+import Layout from '../layouts/Layout.astro';
+
+// ===== CONFIGURATION DE LA PAGE =====
+
+// Métadonnées pour le SEO et le partage sur les réseaux sociaux
+const pageMeta = {
+  title: "Expert-Comptable Luxembourg | Fiduciaire Spécialisée PME & Création Société",
+  description: "Fiduciaire de référence au Luxembourg. Services d'expertise comptable, fiscalité, domiciliation et création de société rapide. Audit gratuit et réponse sous 24h.",
+  canonical: "https://www.fiduciaire-expert.lu/",
+  ogImage: "/images/Fiduciare-expert-Hero.webp", // Utilisation de l'image du héros pour l'OG
+};
+
+// Données structurées JSON-LD complètes pour un SEO avancé
+// Fusionne les informations de l'organisation et des services offerts
+const schemaData = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "AccountingService",
   "name": "Fiduciaire Expert Luxembourg",
-  "description": "Cabinet d'expertise comptable au Luxembourg spécialisé dans la création de sociétés, comptabilité et fiscalité pour PME et indépendants",
+  "description": "Cabinet d'expertise comptable au Luxembourg spécialisé dans la création de sociétés, comptabilité et fiscalité pour PME et indépendants.",
   "url": "https://www.fiduciaire-expert.lu",
-  "areaServed": "Luxembourg",
-  "serviceType": ["Expert-comptable", "Création société", "Domiciliation", "Fiscalité"]
+  "image": "https://www.fiduciaire-expert.lu/images/Fiduciare-expert-Hero.webp",
+  "telephone": "+35212345678",
+  "priceRange": "€€",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Luxembourg",
+    "addressCountry": "LU"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Luxembourg"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "Fiduciaire Expert Luxembourg"
+  },
+  "serviceType": ["Expert-comptable", "Création société", "Domiciliation", "Fiscalité", "Gestion de la paie"],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services pour entreprises",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Création de société en 5 jours" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Audit fiscal gratuit" } }
+    ]
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "reviewCount": "150"
+  }
 };
 ---
 
-<section aria-labelledby="hero-title">
-  <div class="container">
-    <div class="hero-grid">
-      
-      <!-- Texte principal optimisé SEO -->
-      <div class="hero-text">
-        <h1 id="hero-title">
-          <span class="highlight">Expert-Comptable Luxembourg</span><br>
-          Fiduciaire spécialisée PME & Création Société
-        </h1>
-        <p class="hero-subtitle">
-          <strong>Comptabilité, fiscalité, domiciliation :</strong> 
-          Nous transformons vos obligations légales en avantage concurrentiel. 
-          Cabinet d'expertise comptable de référence au Luxembourg depuis 2010.
-        </p>
-        
-        <!-- USP différenciants vs concurrents -->
-        <div class="hero-badges">
-          <span class="badge">✓ Premier RDV gratuit</span>
-          <span class="badge">✓ Réponse sous 24h</span>
-          <span class="badge">✓ Tarifs transparents</span>
-        </div>
-      </div>
-      
-      <!-- Call-to-action renforcé -->
-      <div class="hero-cta">
-        <h2>Création société Luxembourg en 5 jours</h2>
-        <p><strong>Audit gratuit</strong> de votre situation fiscale</p>
-        <div class="cta-buttons">
-          <a
-            href="/contact"
-            class="cta-button primary"
-            aria-label="Demander un audit gratuit - Expert-comptable Luxembourg"
-          >
-            Audit gratuit
-          </a>
-          <a
-            href="tel:+352123456789"
-            class="cta-button secondary"
-            aria-label="Appeler directement le cabinet fiduciaire"
-          >
-            📞 Appel direct
-          </a>
-        </div>
-        <p class="trust-signal">
-          <small>⭐⭐⭐⭐⭐ +150 entreprises nous font confiance</small>
-        </p>
-      </div>
+<Layout {...pageMeta} schema={schemaData}>
+  <main>
 
-    </div>
-  </div>
-  
-  <!-- Données structurées intégrées -->
-  <script type="application/ld+json" set:html={JSON.stringify(heroSchema)} />
-</section>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__background"></div>
+      <div class="container">
+        <div class="hero__grid">
+          
+          <div class="hero__content">
+            <h1 id="hero-title" class="hero__title">
+              <span class="hero__highlight">Expert-Comptable Luxembourg</span>
+              Fiduciaire spécialisée PME & Création Société
+            </h1>
+            <p class="hero__subtitle">
+              <strong>Comptabilité, fiscalité, domiciliation :</strong> 
+              Nous transformons vos obligations légales en avantage concurrentiel. Cabinet de référence depuis 2010.
+            </p>
+            <div class="hero__badges">
+              <span class="hero__badge">✓ Premier RDV gratuit</span>
+              <span class="hero__badge">✓ Réponse sous 24h</span>
+              <span class="hero__badge">✓ Tarifs transparents</span>
+            </div>
+          </div>
+          
+          <div class="hero__cta-card">
+            <h2 class="hero__cta-title">Création de société au Luxembourg en 5 jours</h2>
+            <p class="hero__cta-subtitle">Bénéficiez d'un <strong>audit gratuit</strong> de votre situation fiscale.</p>
+            <div class="hero__cta-buttons">
+              <a href="/contact" class="btn btn--primary" aria-label="Demander un audit gratuit">
+                Audit gratuit
+              </a>
+              <a href="tel:+35212345678" class="btn btn--secondary" aria-label="Appeler directement le cabinet">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                Appel direct
+              </a>
+            </div>
+            <p class="hero__trust-signal">
+              ⭐⭐⭐⭐⭐ +150 entreprises nous font confiance
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="why-us">
+        <div class="container why-us__container">
+            <div class="why-us__visual">
+                <img 
+                    src="/images/equipe.jpg" 
+                    alt="L'équipe de Fiduciaire Expert en réunion"
+                    width="500"
+                    height="600"
+                    loading="lazy"
+                    class="why-us__image"
+                />
+            </div>
+            <div class="why-us__content">
+                <span class="section-tag">Notre Engagement</span>
+                <h2 class="section-title">La tranquillité d'esprit pour votre entreprise</h2>
+                <p class="section-subtitle">
+                    Plus qu'un comptable, un véritable partenaire stratégique à vos côtés.
+                </p>
+                <div class="why-us__list">
+                    <div class="why-us__item">
+                        <svg class="why-us__item-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        <div class="why-us__item-text">
+                            <h3>Expertise Agréée</h3>
+                            <p>Bénéficiez des conseils d'un cabinet membre de l'OEC Luxembourg.</p>
+                        </div>
+                    </div>
+                    <div class="why-us__item">
+                         <svg class="why-us__item-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <div class="why-us__item-text">
+                            <h3>Réactivité Garantie</h3>
+                            <p>Nous nous engageons à répondre à toutes vos demandes en moins de 24h.</p>
+                        </div>
+                    </div>
+                    <div class="why-us__item">
+                        <svg class="why-us__item-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        <div class="why-us__item-text">
+                            <h3>Tarifs Transparents</h3>
+                            <p>Des forfaits clairs et adaptés à votre activité, sans frais cachés.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+      <div class="container cta__container">
+        <h2 class="cta__title">Prêt à passer à la vitesse supérieure ?</h2>
+        <p class="cta__subtitle">
+          Discutons de votre projet. Notre première consultation est offerte.
+        </p>
+        <div class="cta__buttons">
+          <a href="tel:+35212345678" class="btn btn--primary btn--large">
+            Appeler maintenant
+          </a>
+          <a href="/contact" class="btn btn--white">Demander un devis en ligne</a>
+        </div>
+      </div>
+    </section>
+    
+  </main>
+</Layout>
 
 <style>
-  section {
-    background-image:
-      linear-gradient(rgba(13, 43, 79, 0.8), rgba(13, 43, 79, 0.75)),
-      url('/images/Fiduciare-expert-Hero.webp');
-    background-size: cover;
-    background-position: center;
-    min-height: 90vh;
-    padding: 4rem 2rem;
-    display: flex;
-    align-items: center;
-    position: relative;
+  /* ===== Variables et Styles de Base ===== */
+  :root {
+    --color-primary: #0055A4; /* Bleu France */
+    --color-secondary: #EF4135; /* Rouge France */
+    --color-gold: #D4AF37; /* Or Premium, var(--or-premium) */
+    --color-dark: #1B2A38;
+    --color-body: #4A5568;
+    --color-light: #F7FAFC;
+    --color-white: #FFFFFF;
+    --color-border: #E2E8F0;
+
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-heading: 'Poppins', var(--font-sans);
+    
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Amélioration de l'accessibilité pour le focus */
+  *:focus-visible {
+    outline: 3px solid var(--color-gold);
+    outline-offset: 2px;
+    border-radius: var(--radius-md);
   }
 
   .container {
-    max-width: 1100px;
-    margin: 0 auto;
     width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
   }
 
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    align-items: center;
+  section {
+    padding-block: clamp(3rem, 8vw, 6rem);
+    overflow: hidden;
   }
+  
+  .section-tag { display: inline-block; background-color: var(--color-light); color: var(--color-primary); padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.75rem; }
+  .section-title { font-family: var(--font-heading); font-size: clamp(2rem, 5vw, 2.75rem); color: var(--color-dark); margin: 0; }
+  .section-subtitle { font-size: 1.125rem; color: var(--color-body); margin-top: 1rem; line-height: 1.6; }
+  
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 1.5rem; border-radius: var(--radius-md); font-weight: 600; text-decoration: none; transition: var(--transition); border: 2px solid transparent; cursor: pointer; }
+  .btn--large { padding: 1rem 2rem; }
+  .btn--primary { background-color: var(--color-gold); color: var(--color-dark); }
+  .btn--primary:hover { background-color: #e7c86a; transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .btn--secondary { background-color: transparent; color: var(--color-white); border: 2px solid var(--color-white); }
+  .btn--secondary:hover { background-color: var(--color-white); color: var(--color-dark); }
+  .btn--white { background-color: var(--color-white); color: var(--color-primary); }
+  .btn--white:hover { background-color: transparent; color: var(--color-white); border-color: var(--color-white); }
 
-  @media (min-width: 768px) {
-    .hero-grid {
-      grid-template-columns: 1.5fr 1fr;
-      gap: 4rem;
-    }
-  }
-
-  .hero-text {
-    color: white;
-    text-align: left;
-  }
-
-  .hero-text h1 {
-    font-size: 3.2rem;
-    font-weight: 800;
-    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.6);
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-  }
-
-  .highlight {
-    color: var(--or-premium);
-    display: inline-block;
-  }
-
-  .hero-subtitle {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-    opacity: 0.95;
-    max-width: 550px;
-    line-height: 1.6;
-  }
-
-  .hero-badges {
+  /* ===== Section Héros (Nouveaux styles) ===== */
+  .hero {
+    position: relative;
+    min-height: 90vh;
+    padding-block: clamp(4rem, 10vw, 8rem);
     display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    align-items: center;
+    color: var(--color-white);
   }
-
-  .badge {
-    background: rgba(212, 175, 55, 0.2);
-    border: 1px solid var(--or-premium);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--or-premium);
+  .hero__background {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(13, 43, 79, 0.85), rgba(13, 43, 79, 0.8)), url('/images/Fiduciare-expert-Hero.webp');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
   }
-
-  .hero-cta {
+  .hero__grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
+  .hero__content { text-align: center; }
+  .hero__title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.2;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    margin: 0 0 1.5rem;
+  }
+  .hero__highlight { display: block; color: var(--color-gold); margin-bottom: 0.5rem; }
+  .hero__subtitle { font-size: clamp(1.1rem, 2.5vw, 1.25rem); max-width: 600px; margin-inline: auto; margin-bottom: 2rem; line-height: 1.6; opacity: 0.95; }
+  .hero__badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+  .hero__badge { background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.5); padding: 0.5rem 1rem; border-radius: 99px; font-size: 0.9rem; font-weight: 500; }
+  .hero__cta-card {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
-    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    padding: 2rem;
     text-align: center;
-    color: white;
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: var(--transition);
   }
+  .hero__cta-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+  .hero__cta-title { font-size: clamp(1.5rem, 4vw, 1.8rem); color: var(--color-gold); margin: 0 0 0.75rem; }
+  .hero__cta-subtitle { margin: 0 0 1.5rem; opacity: 0.9; }
+  .hero__cta-buttons { display: flex; flex-direction: column; gap: 1rem; }
+  .hero__trust-signal { margin-top: 1.5rem; opacity: 0.8; font-size: 0.9rem; }
 
-  .hero-cta:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-  }
+  /* ===== Section "Pourquoi nous choisir" (Styles corrigés) ===== */
+  .why-us { background-color: var(--color-light); }
+  .why-us__container { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
+  .why-us__visual { display: none; }
+  .why-us__list { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+  /* Correctif ici: utilisation de flexbox pour chaque item pour un alignement robuste */
+  .why-us__item { display: flex; align-items: flex-start; gap: 1rem; }
+  .why-us__item-icon { color: var(--color-primary); flex-shrink: 0; width: 24px; height: 24px; margin-top: 0.25rem; }
+  .why-us__item-text h3 { font-size: 1.125rem; font-weight: 700; color: var(--color-dark); margin: 0 0 0.25rem; }
+  .why-us__item-text p { margin: 0; color: var(--color-body); }
+  .why-us__image { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+  
+  /* ===== Section CTA (Styles corrigés) ===== */
+  .cta { background-color: var(--color-light); text-align: center; }
+  .cta__container { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+  .cta__title { font-family: var(--font-heading); font-size: clamp(1.8rem, 5vw, 2.5rem); margin: 0; color: var(--color-dark); /* Correction: couleur changée en foncé */ }
+  .cta__subtitle { font-size: 1.125rem; opacity: 0.9; margin: 0; max-width: 500px; color: var(--color-body); }
+  .cta__buttons { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; justify-content: center; }
 
-  .hero-cta h2 {
-    font-size: 1.9rem;
-    margin-top: 0;
-    margin-bottom: 1rem;
-    color: var(--or-premium);
+  /* ===== Responsive Design ===== */
+  @media(min-width: 480px) {
+    .hero__cta-buttons { flex-direction: row; justify-content: center; }
   }
-
-  .cta-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin: 2rem 0;
+  @media(min-width: 992px) {
+    .hero__grid { grid-template-columns: 1.5fr 1fr; gap: 4rem; }
+    .hero__content { text-align: left; }
+    .hero__title { font-size: clamp(2.8rem, 6vw, 3.2rem); }
+    .hero__subtitle { margin-inline: 0; }
+    .hero__badges { justify-content: flex-start; }
+    .why-us__container { grid-template-columns: 1fr 1fr; }
+    .why-us__visual { display: block; }
+    .why-u≤s__content { order: -1; }
   }
-
-  @media (min-width: 480px) {
-    .cta-buttons {
-      flex-direction: row;
-      justify-content: center;
-    }
-  }
-
-  .cta-button {
-    display: inline-block;
-    padding: 1.2rem 2.5rem;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    text-align: center;
-  }
-
-  .cta-button.primary {
-    background-color: var(--or-premium);
-    color: var(--bleu-profond);
-    font-size: 1.1rem;
-  }
-
-  .cta-button.primary:hover {
-    background-color: #ffdd77;
-    transform: scale(1.05);
-  }
-
-  .cta-button.secondary {
-    background-color: transparent;
-    color: white;
-    border: 2px solid white;
-    font-size: 1rem;
-  }
-
-  .cta-button.secondary:hover {
-    background-color: white;
-    color: var(--bleu-profond);
-  }
-
-  .trust-signal {
-    margin-top: 1.5rem;
-    opacity: 0.9;
-    font-style: italic;
-  }
-
-  /* Responsive optimisations */
-  @media (max-width: 767px) {
-    .hero-text h1 {
-      font-size: 2.5rem;
-    }
-    
-    .hero-subtitle {
-      font-size: 1.1rem;
-    }
-    
-    .hero-badges {
-      justify-content: center;
-    }
-    
-    .cta-buttons {
-      flex-direction: column;
-    }
-  }
-</style>
+</style> 

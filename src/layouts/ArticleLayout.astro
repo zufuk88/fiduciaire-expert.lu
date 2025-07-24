@@ -1,96 +1,833 @@
-  ---
-  import Layout from './Layout.astro';
-  const { frontmatter } = Astro.props;
+---
+import Layout from './Layout.astro';
+const { frontmatter } = Astro.props;
 
-  const pageTitle = frontmatter.seoTitle || frontmatter.title;
-  ---
+const pageTitle = frontmatter.seoTitle || frontmatter.title;
+const siteUrl = "https://www.fiduciaire-expert.lu";
+const canonicalURL = new URL(Astro.url.pathname, siteUrl).href;
+const articleUrl = canonicalURL;
+const estimatedReadingTime = Math.ceil((frontmatter.content?.length || 1000) / 200); // 200 mots par minute
 
-  <Layout title={pageTitle} description={frontmatter.description}>
-    <article class="article-wrapper">
-      {frontmatter.image && (
-        <figure class="featured-image-container">
-          <img src={frontmatter.image} alt={frontmatter.imageAlt || `Image d'illustration pour l'article ${frontmatter.title}`} class="featured-image"/>
-        </figure>
-      )}
-      <header class="article-header">
-        <div class="container-narrow">
-          {frontmatter.category && <p class="category">{frontmatter.category}</p>}
-          <h1>{frontmatter.title}</h1>
-          {frontmatter.date && frontmatter.author && (
-            <p class="meta">
-              Publié le {new Date(frontmatter.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })} par <span class="author">{frontmatter.author}</span>
-            </p>
+// Schema Article pour SEO
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": `${articleUrl}#article`,
+  "headline": frontmatter.title,
+  "description": frontmatter.description,
+  "image": frontmatter.image ? `${siteUrl}${frontmatter.image}` : `${siteUrl}/images/og-fiduciaire-luxembourg.jpg`,
+  "datePublished": frontmatter.date,
+  "dateModified": frontmatter.modified || frontmatter.date,
+  "author": {
+    "@type": "Organization",
+    "name": "Fiduciaire Expert Luxembourg",
+    "url": siteUrl,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${siteUrl}/images/logo-fiduciaire-expert.png`
+    }
+  },
+  "publisher": {
+    "@type": "Organization", 
+    "name": "Fiduciaire Expert Luxembourg",
+    "url": siteUrl,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${siteUrl}/images/logo-fiduciaire-expert.png`,
+      "width": 300,
+      "height": 100
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": articleUrl
+  },
+  "articleSection": frontmatter.category || "Expertise Comptable",
+  "keywords": frontmatter.keywords || "comptabilité luxembourg, fiscalité, conseil fiscal, expert comptable",
+  "inLanguage": "fr-LU",
+  "isAccessibleForFree": true,
+  "genre": "conseil professionnel",
+  "about": {
+    "@type": "Thing",
+    "name": frontmatter.category || "Services Fiduciaires Luxembourg"
+  }
+};
+
+// Breadcrumb Schema pour navigation
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": siteUrl
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": `${siteUrl}/articles`
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": frontmatter.title,
+      "item": articleUrl
+    }
+  ]
+};
+---
+
+<Layout title={pageTitle} description={frontmatter.description} canonical={canonicalURL} schema={[articleSchema, breadcrumbSchema]}>
+  <article class="article-wrapper" itemscope itemtype="https://schema.org/Article">
+    {frontmatter.image && (
+      <figure class="featured-image-container">
+        <img 
+          src={frontmatter.image} 
+          alt={frontmatter.imageAlt || `Image d'illustration pour l'article ${frontmatter.title}`} 
+          class="featured-image"
+          itemprop="image"
+          width="1200"
+          height="630"
+          loading="eager"
+        />
+      </figure>
+    )}
+    
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav" aria-label="Fil d'Ariane">
+      <div class="container-narrow">
+        <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+          <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="/" itemprop="item">
+              <span itemprop="name">Accueil</span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </li>
+          <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="/articles" itemprop="item">
+              <span itemprop="name">Articles</span>
+            </a>
+            <meta itemprop="position" content="2" />
+          </li>
+          <li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <span itemprop="name">{frontmatter.title}</span>
+            <meta itemprop="position" content="3" />
+          </li>
+        </ol>
+      </div>
+    </nav>
+
+    <header class="article-header">
+      <div class="container-narrow">
+        {frontmatter.category && (
+          <div class="article-badge">
+            <span class="category" itemprop="articleSection">{frontmatter.category}</span>
+            <span class="expertise-badge">Expertise Certifiée</span>
+          </div>
+        )}
+        <h1 itemprop="headline">{frontmatter.title}</h1>
+        {frontmatter.description && (
+          <p class="article-excerpt" itemprop="description">{frontmatter.description}</p>
+        )}
+        <div class="article-meta">
+          {frontmatter.date && (
+            <div class="meta-item">
+              <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              <time datetime={frontmatter.date} itemprop="datePublished">
+                {new Date(frontmatter.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </time>
+            </div>
           )}
+          <div class="meta-item">
+            <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+              <path d="M2 17L12 22L22 17"/>
+              <path d="M2 12L12 17L22 12"/>
+            </svg>
+            <span>Par <span class="author" itemprop="author" itemscope itemtype="https://schema.org/Organization">
+              <span itemprop="name">Fiduciaire Expert Luxembourg</span>
+            </span></span>
+          </div>
+          <div class="meta-item">
+            <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12,6 12,12 16,14"/>
+            </svg>
+            <span>{estimatedReadingTime} min de lecture</span>
+          </div>
         </div>
-      </header>
-      <div class="post-body-container">
-        <div class="container-narrow post-body">
-          <slot />
+        
+        <!-- Trust indicators -->
+        <div class="trust-indicators">
+          <div class="trust-item">
+            <span class="trust-icon">🏆</span>
+            <span>Expert-Comptable Agréé</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">✓</span>
+            <span>Certifié OECD</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">📋</span>
+            <span>Membre IRE Luxembourg</span>
+          </div>
         </div>
       </div>
-    </article>
-  </Layout>
+    </header>
+    
+    <div class="post-body-container">
+      <div class="container-narrow post-body">
+        <div class="article-content" itemprop="articleBody">
+          <slot />
+        </div>
+        
+        <!-- Call to Action Expert -->
+        <aside class="expert-cta">
+          <div class="cta-content">
+            <div class="cta-header">
+              <div class="cta-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M22 12H18L15 21L9 3L6 12H2"/>
+                </svg>
+              </div>
+              <h3>Besoin d'un accompagnement personnalisé ?</h3>
+            </div>
+            <p>Nos experts-comptables agréés vous conseillent sur votre situation spécifique. Consultation gratuite et sans engagement.</p>
+            <div class="cta-actions">
+              <a href="/contact" class="btn-cta-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+                Consultation gratuite
+              </a>
+              <a href="tel:+352-XX-XX-XX" class="btn-cta-secondary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M22 16.92V19A2 2 0 0120 21H4A2 2 0 012 19V16.92C2 15.86 2.86 15 3.92 15H6.08C7.14 15 8 15.86 8 16.92V19C8 20.1 8.9 21 10 21H14C15.1 21 16 20.1 16 19V16.92C16 15.86 16.86 15 17.92 15H20.08C21.14 15 22 15.86 22 16.92Z"/>
+                  <path d="M9 11C10.66 11 12 9.66 12 8S10.66 5 9 5 6 6.34 6 8 7.34 11 9 11Z"/>
+                </svg>
+                +352-XX-XX-XX
+              </a>
+            </div>
+            <div class="cta-guarantees">
+              <span class="guarantee-item">✓ Réponse sous 24h</span>
+              <span class="guarantee-item">✓ Devis gratuit</span>
+              <span class="guarantee-item">✓ Expert dédié</span>
+            </div>
+          </div>
+        </aside>
+        
+        <!-- Articles similaires -->
+        <section class="related-articles">
+          <h3>Articles similaires</h3>
+          <div class="related-grid">
+            <a href="/articles/creation-sarl-luxembourg-guide-2024" class="related-item">
+              <div class="related-content">
+                <span class="related-category">Création société</span>
+                <h4>Guide complet création SARL Luxembourg 2024</h4>
+                <p>Tout savoir sur les démarches, coûts et délais</p>
+              </div>
+            </a>
+            <a href="/articles/optimisation-fiscale-irc-luxembourg" class="related-item">
+              <div class="related-content">
+                <span class="related-category">Fiscalité</span>
+                <h4>Optimisation fiscale IRC au Luxembourg</h4>
+                <p>Stratégies légales pour réduire votre IRC</p>
+              </div>
+            </a>
+            <a href="/articles/comptabilite-digitale-pme-luxembourg" class="related-item">
+              <div class="related-content">
+                <span class="related-category">Comptabilité</span>
+                <h4>Comptabilité digitale pour PME</h4>
+                <p>Modernisez votre gestion comptable</p>
+              </div>
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </article>
+</Layout>
 
-  <style>
-    /* ... (tous les styles précédents restent identiques) ... */
-    .container-narrow { max-width: 780px; margin: 0 auto; padding: 0 2rem; }
-    .article-wrapper { padding-bottom: 4rem; }
-    .article-header { padding: 3rem 2rem 4rem 2rem; text-align: center; }
-    .category { color: var(--or-premium); font-weight: 600; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px; }
-    .article-header h1 { font-size: clamp(2rem, 5vw, 3.2rem); color: var(--bleu-profond); line-height: 1.2; margin-top: 0; margin-bottom: 1.5rem; }
-    .meta { color: var(--texte-secondaire); }
-    .meta .author { font-weight: 600; }
-    .featured-image-container { margin: 0; padding: 0; }
-    .featured-image { width: 100%; max-height: 550px; object-fit: cover; display: block; }
-    .post-body-container { background-color: var(--fond-clair); padding: 4rem 0; }
-    .post-body { font-size: 1.1rem; line-height: 1.8; color: var(--texte-principal); background-color: white; padding: 3rem; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-radius: 12px; margin-top: -8rem; position: relative; }
-    .post-body :global(> :first-child) { margin-top: 0; }
-    .post-body :global(h2), .post-body :global(h3), .post-body :global(h4) { color: var(--bleu-profond); line-height: 1.4; margin: 3rem 0 1.5rem 0; }
-    .post-body :global(ul), .post-body :global(ol) { padding-left: 25px; }
-    .post-body :global(li) { margin-bottom: 0.75rem; }
-    .post-body :global(a) { color: var(--bleu-profond); font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--or-premium); transition: background-color 0.2s ease; }
-    .post-body :global(a:hover) { background-color: #fffbe8; }
-    .post-body :global(strong) { color: var(--texte-principal); font-weight: 700; }
-    .post-body :global(blockquote) { margin: 2rem 0; padding: 1.5rem; background-color: var(--fond-clair); border-left: 4px solid var(--or-premium); border-radius: 4px; font-size: 1.05rem; font-style: italic; }
-    .post-body :global(table) { width: 100%; margin: 2.5rem 0; border-collapse: collapse; font-size: 0.95rem; border: none; box-shadow: none; }
-    .post-body :global(th), .post-body :global(td) { padding: 1rem; text-align: left; border: none; border-bottom: 1px solid #e9ecef; vertical-align: top; }
-    .post-body :global(th) { font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--texte-secondaire); background-color: transparent; }
-    .post-body :global(tbody tr:hover) { background-color: var(--fond-clair); }
-    .post-body :global(tr:last-child td) { border-bottom: none; }
-    .post-body :global(details) { margin: 0.5rem 0; border-bottom: 1px solid #e0e0e0; padding: 0.5rem 0; border-radius: 0; background-color: transparent; }
-    .post-body :global(details:first-of-type) { border-top: 1px solid #e0e0e0; }
-    .post-body :global(summary) { position: relative; padding: 1rem 0; padding-right: 2rem; font-weight: 600; color: var(--bleu-profond); cursor: pointer; list-style: none; }
-    .post-body :global(summary::-webkit-details-marker) { display: none; }
-    .post-body :global(summary::after) { content: '+'; position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%); font-size: 1.5rem; font-weight: 300; color: var(--or-premium); transition: transform 0.2s ease; }
-    .post-body :global(details[open] > summary::after) { transform: translateY(-50%) rotate(45deg); }
-    .post-body :global(details > p) { padding: 0 0 1rem 0; margin: 0; }
-    .post-body :global(img) { max-width: 100%; height: auto; border-radius: 8px; margin: 2rem 0; }
+<style>
+  /* Breadcrumb Navigation */
+  .breadcrumb-nav {
+    background: var(--fond-clair);
+    border-bottom: 1px solid var(--gris-clair);
+    padding: 1rem 0;
+  }
+  
+  .breadcrumb {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.9rem;
+  }
+  
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .breadcrumb-item:not(:last-child)::after {
+    content: '›';
+    margin-left: 0.5rem;
+    color: var(--texte-secondaire);
+    font-weight: 300;
+  }
+  
+  .breadcrumb-item a {
+    color: var(--texte-secondaire);
+    text-decoration: none;
+    transition: var(--transition-fast);
+  }
+  
+  .breadcrumb-item a:hover {
+    color: var(--bleu-profond);
+  }
+  
+  .breadcrumb-item.active span {
+    color: var(--bleu-profond);
+    font-weight: 500;
+  }
 
-    /* --- STYLE AJOUTÉ POUR LE NOUVEAU BOUTON D'ACTION --- */
-    .post-body :global(.article-cta) {
-      background-color: var(--fond-clair);
-      border-radius: 12px;
-      padding: 2.5rem;
+  /* Container et base */
+  .container-narrow { 
+    max-width: 780px; 
+    margin: 0 auto; 
+    padding: 0 2rem; 
+  }
+  
+  .article-wrapper { 
+    padding-bottom: 4rem; 
+  }
+  
+  /* Header amélioré */
+  .article-header { 
+    padding: 3rem 2rem 4rem 2rem; 
+    text-align: center; 
+    background: linear-gradient(135deg, var(--fond-clair), var(--blanc));
+    position: relative;
+  }
+  
+  .article-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gris-palladium), transparent);
+  }
+  
+  .article-badge {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .category { 
+    color: var(--or-premium); 
+    font-weight: 600; 
+    text-transform: uppercase; 
+    letter-spacing: 0.5px;
+    background: var(--blanc);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--or-premium);
+    font-size: 0.85rem;
+  }
+  
+  .expertise-badge {
+    background: linear-gradient(135deg, var(--bleu-profond), var(--bleu-fonce));
+    color: var(--blanc);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    position: relative;
+  }
+  
+  .expertise-badge::before {
+    content: '🏆';
+    margin-right: 0.25rem;
+  }
+  
+  .article-header h1 { 
+    font-size: clamp(2rem, 5vw, 3.2rem); 
+    color: var(--bleu-profond); 
+    line-height: 1.2; 
+    margin: 0 0 1.5rem 0; 
+    max-width: 100%;
+  }
+  
+  .article-excerpt {
+    font-size: 1.2rem;
+    color: var(--texte-secondaire);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-weight: 400;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Meta informations */
+  .article-meta {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+  }
+  
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--texte-secondaire);
+  }
+  
+  .meta-icon {
+    width: 16px;
+    height: 16px;
+    stroke-width: 1.5;
+    color: var(--gris-palladium);
+  }
+  
+  .author {
+    font-weight: 600;
+    color: var(--bleu-profond);
+  }
+  
+  /* Trust indicators */
+  .trust-indicators {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gris-clair);
+  }
+  
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--texte-principal);
+    background: var(--blanc);
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gris-clair);
+  }
+  
+  .trust-icon {
+    font-size: 1.1rem;
+  }
+  
+  /* Image mise en avant */
+  .featured-image-container { 
+    margin: 0; 
+    padding: 0; 
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .featured-image { 
+    width: 100%; 
+    max-height: 550px; 
+    object-fit: cover; 
+    display: block;
+    border-radius: 0;
+  }
+  
+  /* Corps de l'article */
+  .post-body-container { 
+    background-color: var(--fond-clair); 
+    padding: 4rem 0; 
+  }
+  
+  .post-body { 
+    font-size: 1.1rem; 
+    line-height: 1.8; 
+    color: var(--texte-principal); 
+    background-color: white; 
+    padding: 3rem; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+    border-radius: 12px; 
+    margin-top: -8rem; 
+    position: relative; 
+  }
+  
+  .article-content {
+    margin-bottom: 4rem;
+  }
+  
+  .post-body :global(> :first-child) { 
+    margin-top: 0; 
+  }
+  
+  .post-body :global(h2), 
+  .post-body :global(h3), 
+  .post-body :global(h4) { 
+    color: var(--bleu-profond); 
+    line-height: 1.4; 
+    margin: 3rem 0 1.5rem 0; 
+    position: relative;
+    padding-left: 1rem;
+  }
+  
+  .post-body :global(h2::before),
+  .post-body :global(h3::before) {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 60%;
+    background: linear-gradient(135deg, var(--gris-palladium), var(--gris-palladium-fonce));
+    border-radius: 2px;
+  }
+  
+  .post-body :global(ul), 
+  .post-body :global(ol) { 
+    padding-left: 25px; 
+  }
+  
+  .post-body :global(li) { 
+    margin-bottom: 0.75rem; 
+  }
+  
+  .post-body :global(a) { 
+    color: var(--bleu-profond); 
+    font-weight: 600; 
+    text-decoration: none; 
+    border-bottom: 2px solid var(--or-premium); 
+    transition: background-color 0.2s ease; 
+  }
+  
+  .post-body :global(a:hover) { 
+    background-color: #fffbe8; 
+  }
+  
+  .post-body :global(strong) { 
+    color: var(--texte-principal); 
+    font-weight: 700; 
+  }
+  
+  .post-body :global(blockquote) { 
+    margin: 2rem 0; 
+    padding: 1.5rem; 
+    background-color: var(--fond-clair); 
+    border-left: 4px solid var(--or-premium); 
+    border-radius: 4px; 
+    font-size: 1.05rem; 
+    font-style: italic; 
+  }
+  
+  .post-body :global(img) { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 8px; 
+    margin: 2rem 0; 
+    box-shadow: var(--shadow);
+  }
+
+  /* Expert CTA */
+  .expert-cta {
+    background: linear-gradient(135deg, var(--bleu-profond), var(--bleu-fonce));
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+    margin: 4rem 0;
+    color: var(--blanc);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .expert-cta::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(124, 134, 155, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .cta-content {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .cta-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .cta-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--gris-palladium);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  .cta-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--blanc);
+    stroke-width: 2;
+  }
+  
+  .cta-header h3 {
+    margin: 0;
+    color: var(--blanc);
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  
+  .expert-cta p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+  
+  .cta-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .btn-cta-primary,
+  .btn-cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    border: 2px solid transparent;
+  }
+  
+  .btn-cta-primary {
+    background: var(--gris-palladium);
+    color: var(--bleu-profond);
+    border-color: var(--gris-palladium);
+  }
+  
+  .btn-cta-primary:hover {
+    background: var(--blanc);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .btn-cta-secondary {
+    background: transparent;
+    color: var(--blanc);
+    border-color: var(--blanc);
+  }
+  
+  .btn-cta-secondary:hover {
+    background: var(--blanc);
+    color: var(--bleu-profond);
+    transform: translateY(-2px);
+  }
+  
+  .btn-cta-primary svg,
+  .btn-cta-secondary svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+  }
+  
+  .cta-guarantees {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+  
+  .guarantee-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  /* Articles similaires */
+  .related-articles {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--gris-clair);
+  }
+  
+  .related-articles h3 {
+    color: var(--bleu-profond);
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .related-item {
+    display: block;
+    text-decoration: none;
+    background: var(--blanc);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    border: 1px solid var(--gris-clair);
+    overflow: hidden;
+  }
+  
+  .related-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--gris-palladium);
+  }
+  
+  .related-content {
+    padding: 1.5rem;
+  }
+  
+  .related-category {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--gris-palladium);
+    background: var(--fond-clair);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .related-item h4 {
+    color: var(--bleu-profond);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.3;
+  }
+  
+  .related-item p {
+    color: var(--texte-secondaire);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container-narrow {
+      padding: 0 1rem;
+    }
+    
+    .article-header {
+      padding: 2rem 1rem 3rem 1rem;
+    }
+    
+    .article-badge {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .article-meta {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .trust-indicators {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .post-body {
+      padding: 2rem 1.5rem;
+      margin-top: -4rem;
+    }
+    
+    .expert-cta {
+      padding: 2rem 1.5rem;
+    }
+    
+    .cta-header {
+      flex-direction: column;
       text-align: center;
-      margin: 4rem 0 2rem 0;
+      gap: 1rem;
     }
-    .post-body :global(.article-cta h3) {
-      margin-top: 0;
+    
+    .cta-actions {
+      flex-direction: column;
     }
-    .post-body :global(.cta-button) {
-      display: inline-block;
-      background-color: var(--or-premium);
-      color: var(--bleu-profond);
-      padding: 1rem 2.5rem;
-      text-decoration: none;
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: transform 0.2s ease;
-      margin-top: 1rem;
+    
+    .btn-cta-primary,
+    .btn-cta-secondary {
+      justify-content: center;
     }
-    .post-body :global(.cta-button:hover) {
-      transform: scale(1.05);
-      background-color: var(--or-premium); /* On s'assure qu'il ne change pas de couleur */
+    
+    .cta-guarantees {
+      flex-direction: column;
+      gap: 0.75rem;
+      text-align: center;
     }
-  </style>
+    
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .breadcrumb {
+      font-size: 0.8rem;
+    }
+    
+    .post-body {
+      padding: 1.5rem 1rem;
+    }
+    
+    .expert-cta {
+      padding: 1.5rem 1rem;
+    }
+  }
+</style>
