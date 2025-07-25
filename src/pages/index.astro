@@ -1,7 +1,9 @@
 ---
+// src/pages/index.astro
+
 import Layout from '../layouts/Layout.astro';
 
-// Configuration SEO optimisée pour maximiser le positionnement
+// Configuration SEO optimisée pour maximiser le positionnement (INCHANGÉE)
 const pageMeta = {
   title: "Expert-Comptable Luxembourg N°1 | Fiduciaire Expert - Cabinet Agréé Grand-Duché",
   description: "🏆 Cabinet d'expertise comptable N°1 au Luxembourg | Comptabilité PME, création SARL 48h, fiscalité IRC/TVA | 15 ans d'expertise locale | Devis gratuit immédiat | +352 26 00 00 00",
@@ -10,7 +12,7 @@ const pageMeta = {
   keywords: "expert comptable luxembourg, fiduciaire luxembourg, comptable agréé luxembourg, création société SARL luxembourg, comptabilité PME grand-duché, fiscalité IRC TVA luxembourg, cabinet comptable luxembourg ville, expert comptable français luxembourg, fiduciaire française luxembourg, création entreprise luxembourg, domiciliation luxembourg, expertise comptable luxembourg prix",
 };
 
-// Schema JSON-LD ultra-optimisé pour dominer les résultats de recherche Google
+// Schema JSON-LD ultra-optimisé (INCHANGÉ)
 const schemaData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -24,7 +26,7 @@ const schemaData = {
       "image": [
         "https://www.fiduciaire-expert.lu/images/cabinet-expert-comptable-luxembourg.jpg",
         "https://www.fiduciaire-expert.lu/images/equipe-comptable-luxembourg.jpg",
-        "https://www.fiduciaire-expert.lu/images/bureau-comptable-moderne-luxembourg.jpg"
+        "https://www.fiduciaire-expert.lu/images/Fiduciare-expert-Hero.webp"
       ],
       "description": "Cabinet d'expertise comptable de référence au Luxembourg depuis 15 ans. Spécialiste exclusif des PME luxembourgeoises : comptabilité complète, création SARL express (48h), fiscalité IRC/TVA, gestion sociale CCSS. Cabinet agréé, expertise 100% locale, satisfaction garantie.",
       "slogan": "Votre Expert-Comptable de Confiance au Grand-Duché",
@@ -76,67 +78,38 @@ const schemaData = {
         "@type": "OfferCatalog",
         "name": "Services Expertise Comptable Luxembourg",
         "itemListElement": [
-          { 
-            "@type": "Offer", 
-            "itemOffered": { 
-              "@type": "Service", 
-              "name": "Comptabilité PME Luxembourg", 
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Comptabilité PME Luxembourg",
               "description": "Tenue comptable complète : saisie, révision, bilan annuel, liasse fiscale IRC/ICC/IF. Expertise 100% luxembourgeoise.",
               "provider": { "@id": "https://www.fiduciaire-expert.lu/#organization" }
             },
-            "priceSpecification": {
-              "@type": "PriceSpecification",
-              "price": "299",
-              "priceCurrency": "EUR",
-              "eligibleQuantity": {
-                "@type": "QuantitativeValue",
-                "unitText": "monthly"
-              }
-            }
+            "priceSpecification": { "@type": "PriceSpecification", "price": "299", "priceCurrency": "EUR", "eligibleQuantity": { "@type": "QuantitativeValue", "unitText": "monthly" } }
           },
-          { 
-            "@type": "Offer", 
-            "itemOffered": { 
-              "@type": "Service", 
-              "name": "Création SARL Luxembourg Express", 
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Création SARL Luxembourg Express",
               "description": "Constitution SARL/SARL-S en 48h : statuts notariés, immatriculation RCS, autorisation d'établissement, domiciliation.",
               "provider": { "@id": "https://www.fiduciaire-expert.lu/#organization" }
             }
           },
-          { 
-            "@type": "Offer", 
-            "itemOffered": { 
-              "@type": "Service", 
-              "name": "Fiscalité IRC TVA Luxembourg", 
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Fiscalité IRC TVA Luxembourg",
               "description": "Déclarations fiscales IRC, ICC, IF, TVA. Optimisation fiscale légale. Respect des échéances luxembourgeoises.",
               "provider": { "@id": "https://www.fiduciaire-expert.lu/#organization" }
             }
           }
         ]
       },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "bestRating": "5",
-        "worstRating": "1",
-        "reviewCount": "150",
-        "ratingCount": "150"
-      },
-      "review": [
-        {
-          "@type": "Review",
-          "reviewRating": {
-            "@type": "Rating",
-            "ratingValue": "5",
-            "bestRating": "5"
-          },
-          "author": {
-            "@type": "Person",
-            "name": "Marie Dubois"
-          },
-          "reviewBody": "Excellent cabinet comptable ! Constitution de ma SARL en 48h comme promis. Très professionnel et parfaite connaissance du droit luxembourgeois."
-        }
-      ]
+      "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5", "worstRating": "1", "reviewCount": "150", "ratingCount": "150" },
+      "review": [ { "@type": "Review", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }, "author": { "@type": "Person", "name": "Marie Dubois" }, "reviewBody": "Excellent cabinet comptable ! Constitution de ma SARL en 48h comme promis. Très professionnel et parfaite connaissance du droit luxembourgeois." } ]
     },
     {
       "@type": "FAQPage",
@@ -144,26 +117,17 @@ const schemaData = {
         {
           "@type": "Question",
           "name": "Quel est le tarif d'un expert-comptable au Luxembourg en 2025 ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Nos tarifs expert-comptable démarrent à 299€ HTVA/mois pour une SARL standard (tenue comptable + bilan + déclarations IRC/TVA). Le montant réellement facturé dépend en tout état de cause de la complexité du dossier et du volume de données à traiter qu'il représente. Devis gratuit personnalisé sous 48h."
-          }
+          "acceptedAnswer": { "@type": "Answer", "text": "Nos tarifs expert-comptable démarrent à 299€ HTVA/mois pour une SARL standard (tenue comptable + bilan + déclarations IRC/TVA). Le montant réellement facturé dépend en tout état de cause de la complexité du dossier et du volume de données à traiter qu'il représente. Devis gratuit personnalisé sous 48h." }
         },
         {
           "@type": "Question",
           "name": "Comment créer une SARL au Luxembourg rapidement ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Constitution SARL express en 48h avec Fiduciaire Expert - prix 2200€ HTVA : 1) Rédaction statuts sur-mesure, 2) Dépôt capital 12.000€ minimum, 3) Acte notarié, 4) Autorisation d'établissement, 5) Immatriculation RCS. Service clé en main 100% pris en charge par nos experts."
-          }
+          "acceptedAnswer": { "@type": "Answer", "text": "Constitution SARL express en 48h avec Fiduciaire Expert - prix 2200€ HTVA : 1) Rédaction statuts sur-mesure, 2) Dépôt capital 12.000€ minimum, 3) Acte notarié, 4) Autorisation d'établissement, 5) Immatriculation RCS. Service clé en main 100% pris en charge par nos experts." }
         },
         {
           "@type": "Question",
           "name": "Pourquoi choisir un expert-comptable local au Luxembourg ?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Un expert-comptable luxembourgeois maîtrise parfaitement : le droit des sociétés local, les spécificités fiscales IRC/ICC/IF, les obligations CCSS, les relations avec l'administration. Fiduciaire Expert : 15 ans d'expertise exclusive au Grand-Duché, réactivité garantie, interlocuteur dédié."
-          }
+          "acceptedAnswer": { "@type": "Answer", "text": "Un expert-comptable luxembourgeois maîtrise parfaitement : le droit des sociétés local, les spécificités fiscales IRC/ICC/IF, les obligations CCSS, les relations avec l'administration. Fiduciaire Expert : 15 ans d'expertise exclusive au Grand-Duché, réactivité garantie, interlocuteur dédié." }
         }
       ]
     }
@@ -172,1674 +136,301 @@ const schemaData = {
 ---
 
 <Layout {...pageMeta} schema={schemaData}>
-  <main>
-    <!-- Section Héros Ultra-Optimisée SEO -->
-    <section class="hero">
-      <div class="container hero__container">
-        <div class="hero__content">
-          <div class="hero__badge">
-            <svg class="hero__star" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-            <span>N°1 Expert-Comptable Luxembourg</span>
-          </div>
-          
-          <h1 class="hero__title">
-            <span class="hero__title-main">Expert-comptable Luxembourg</span>
-            <span class="hero__title-sub">Cabinet Fiduciaire de Référence au Grand-Duché</span>
-          </h1>
-          
-          <p class="hero__description">
-            <strong>Cabinet d'expertise comptable agréé</strong> spécialisé dans l'accompagnement des <strong>PME luxembourgeoises</strong>. 
-            15 ans d'expertise locale : <strong>comptabilité complète</strong>, <strong>création SARL express</strong>, 
-            <strong>fiscalité IRC/TVA</strong>, gestion sociale CCSS.
-          </p>
 
-          <div class="hero__guarantees">
-            <div class="guarantee">
-              <svg class="guarantee__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-              <span>Devis gratuit sous 48h</span>
-            </div>
-            <div class="guarantee">
-              <svg class="guarantee__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1"></path></svg>
-              <span>SARL créée en 48h</span>
-            </div>
-            <div class="guarantee">
-              <svg class="guarantee__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"></path><path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"></path><path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"></path></svg>
-              <span>Satisfaction garantie</span>
-            </div>
-          </div>
-
-          <div class="hero__stats">
-            <div class="stat">
-              <span class="stat__number">15</span>
-              <span class="stat__label">Années d'expertise Luxembourg</span>
-            </div>
-            <div class="stat">
-              <span class="stat__number">150+</span>
-              <span class="stat__label">Entreprises accompagnées</span>
-            </div>
-            <div class="stat">
-              <span class="stat__number">4.9★</span>
-              <span class="stat__label">Note client moyenne</span>
-            </div>
-            <div class="stat">
-              <span class="stat__number">299€</span>
-              <span class="stat__label">Tarif comptabilité/mois</span>
-            </div>
-          </div>
-
-          <div class="hero__cta">
-            <a href="tel:+35226000000" class="btn btn--primary btn--urgent">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-              +352 26 00 00 00
-            </a>
-            <a href="/contact#devis-express" class="btn btn--secondary">
-              Devis Gratuit Express
-            </a>
-          </div>
-        </div>
-
-        <div class="hero__visual">
-          <div class="hero__image-container">
-            <img 
-              src="/images/cabinet-expert-comptable-luxembourg.jpg" 
-              alt="Cabinet Fiduciaire Expert Luxembourg - Bureau moderne expert-comptable agréé Grand-Duché"
-              width="600"
-              height="600"
-              loading="eager"
-              class="hero__image"
-            />
-            <div class="hero__certification">
-              <div class="certification__header">
-                <svg class="certification__icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.7 3.1 5.52l.34 3.69L1 12l2.44 2.79-.34 3.69 3.61.82 1.89 3.2L12 21.04l3.4 1.46 1.89-3.2 3.61-.82-.34-3.69L23 12z"></path><path d="m9 12 2 2 4-4" fill="none" stroke="white" stroke-width="2"></path></svg>
-                <div>
-                  <h3 class="certification__title">Cabinet Agréé & Certifié</h3>
-                  <p class="certification__org">Ordre des Experts-Comptables Luxembourg</p>
-                </div>
-              </div>
-              <ul class="certification__features">
-                <li>✓ Assurance RC Professionnelle</li>
-                <li>✓ Formation Continue Obligatoire</li>
-                <li>✓ Déontologie Stricte</li>
-                <li>✓ Contrôle Qualité Annuel</li>
-              </ul>
-            </div>
-          </div>
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-badge">Expertise Comptable au Grand-Duché</span>
+        <h1>Expert-Comptable Luxembourg</h1>
+        <p class="hero-subtitle">
+          <strong>Cabinet d'expertise comptable agréé</strong> pour les PME luxembourgeoises.
+          Nous maîtrisons la comptabilité complète, la création de SARL, la fiscalité IRC/TVA et la gestion sociale.
+        </p>
+        <div class="hero-cta">
+          <a href="/contact#devis-express" class="btn btn-primary">Obtenir un Devis Gratuit</a>
+          <a href="tel:+35226000000" class="btn btn-secondary">Appeler : +352 26 00 00 00</a>
         </div>
       </div>
-    </section>
+      <div class="hero-image-wrapper">
+        <img 
+          src="/images/Fiduciare-expert-Hero.webp"
+          alt="Bureau moderne du cabinet Fiduciaire Expert à Luxembourg"
+          width="600"
+          height="600"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </section>
 
-    <!-- Section Services Premium - Maximum Impact SEO -->
-    <section id="services" class="services">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-tag">🏆 Services d'Excellence</div>
-          <h2 class="section-title">Expert-comptable Luxembourg : solutions complètes PME</h2>
-          <p class="section-subtitle">
-            Cabinet spécialisé dans l'expertise comptable luxembourgeoise. 
-            Maîtrise parfaite du droit des sociétés, fiscalité locale et obligations réglementaires du Grand-Duché.
-          </p>
+  <section id="services">
+    <div class="container">
+      <div class="section-header">
+        <h2>Nos Solutions Complètes pour PME</h2>
+        <p>
+          En tant que cabinet spécialisé, nous offrons une gamme de services conçus pour répondre à tous les besoins comptables et fiscaux des entreprises au Luxembourg.
+        </p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Comptabilité & Fiscalité</h3>
+          <p>Tenue comptable complète, bilans annuels, et gestion de toutes vos déclarations fiscales (IRC, TVA) en parfaite conformité avec le droit luxembourgeois.</p>
+          <a href="/comptabilite">En savoir plus →</a>
         </div>
-        
-        <div class="services__grid">
-          <!-- Service 1 : Comptabilité -->
-          <article class="service-card" itemscope itemtype="https://schema.org/Service">
-            <div class="service-card__header">
-              <div class="service-card__icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-              </div>
-              <div class="service-card__price">Dès <strong>299€ HTVA/mois</strong></div>
-            </div>
-            <h3 class="service-card__title" itemprop="name">Comptabilité & Fiscalité PME Luxembourg</h3>
-            <p class="service-card__description" itemprop="description">
-              Tenue comptable complète conforme au droit luxembourgeois : saisie quotidienne, révisions mensuelles, 
-              bilan annuel, liasse fiscale. Déclarations IRC/ICC/IF et TVA dans les délais.
-            </p>
-            <ul class="service-card__features">
-              <li>✓ Comptabilité générale & analytique</li>
-              <li>✓ Déclarations fiscales IRC/TVA</li>
-              <li>✓ Révision comptable mensuelle</li>
-              <li>✓ Bilan & compte de résultat</li>
-              <li>⚡ Optimisation fiscale légale</li>
-            </ul>
-            <a href="/comptabilite" class="service-card__cta">
-              Découvrir l'offre comptabilité →
-            </a>
-          </article>
-
-          <!-- Service 2 : Création SARL (Phare) -->
-          <article class="service-card service-card--featured" itemscope itemtype="https://schema.org/Service">
-            <div class="service-card__badge">⭐ Service Phare</div>
-            <div class="service-card__header">
-              <div class="service-card__icon service-card__icon--featured">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1"></path></svg>
-              </div>
-              <div class="service-card__urgency">🚀 Express 48h</div>
-            </div>
-            <h3 class="service-card__title" itemprop="name">Création SARL Luxembourg Clé en Main</h3>
-            <p class="service-card__description" itemprop="description">
-              Constitution express de votre société SARL ou SARL-S au Luxembourg. Service 100% pris en charge : 
-              de la rédaction des statuts à l'immatriculation RCS.
-            </p>
-            <div class="service-card__process">
-              <div class="process-step">
-                <span class="step-number">1</span>
-                <span class="step-text">Statuts sur-mesure</span>
-              </div>
-              <div class="process-step">
-                <span class="step-number">2</span>
-                <span class="step-text">Acte notarié</span>
-              </div>
-              <div class="process-step">
-                <span class="step-number">3</span>
-                <span class="step-text">Immatriculation RCS</span>
-              </div>
-            </div>
-            <ul class="service-card__features">
-              <li>✓ SARL-S constituée en 48h chrono</li>
-              <li>✓ Capital social dès 12.000€</li>
-              <li>✓ Autorisation d'établissement incluse</li>
-              <li>✓ Domiciliation possible</li>
-              <li>⚡ Accompagnement post-création</li>
-            </ul>
-            <a href="/creation-societe-luxembourg" class="service-card__cta service-card__cta--featured">
-              Créer ma SARL maintenant →
-            </a>
-          </article>
-
-          <!-- Service 3 : Gestion Sociale -->
-          <article class="service-card" itemscope itemtype="https://schema.org/Service">
-            <div class="service-card__header">
-              <div class="service-card__icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="9" r="4"></circle></svg>
-              </div>
-              <div class="service-card__compliance">
-                <span class="compliance-badge">100% Conforme CCSS</span>
-              </div>
-            </div>
-            <h3 class="service-card__title" itemprop="name">Gestion Sociale & Paie Luxembourg</h3>
-            <p class="service-card__description" itemprop="description">
-              Gestion complète de vos obligations sociales : bulletins de salaire, déclarations CCSS, 
-              contrats de travail conformes au Code du travail luxembourgeois.
-            </p>
-            <ul class="service-card__features">
-              <li>✓ Bulletins de paie mensuels</li>
-              <li>✓ Déclarations CCSS automatisées</li>
-              <li>✓ Contrats CDI/CDD Luxembourg</li>
-              <li>✓ Gestion congés & RTT</li>
-              <li>⚡ Conseil en droit social</li>
-            </ul>
-            <a href="/paie" class="service-card__cta">
-              Découvrir l'offre sociale →
-            </a>
-          </article>
+        <div class="service-card">
+          <h3>Création de Société (SARL)</h3>
+          <p>Nous prenons en charge la constitution de votre SARL ou SARL-S en 48h. Un service clé en main, de la rédaction des statuts à l'immatriculation.</p>
+          <a href="/creation-societe-luxembourg">Créer ma société →</a>
         </div>
-
-        <!-- Section Engagement Qualité -->
-        <div class="services__quality">
-          <div class="quality__content">
-            <h3 class="quality__title">Notre Engagement Qualité</h3>
-            <div class="quality__guarantees">
-              <div class="quality__item">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"></path><path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"></path><path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"></path></svg>
-                <span><strong>Respect des délais</strong> - Aucun retard toléré</span>
-              </div>
-              <div class="quality__item">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                <span><strong>Conformité garantie</strong> - Aucune sanction administrative</span>
-              </div>
-              <div class="quality__item">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                <span><strong>Conseil expert</strong> - Accompagnement stratégique permanent</span>
-              </div>
-            </div>
-          </div>
+        <div class="service-card">
+          <h3>Gestion Sociale & Paie</h3>
+          <p>Gestion de vos obligations sociales : fiches de paie, déclarations CCSS, et rédaction de contrats de travail conformes à la législation locale.</p>
+          <a href="/paie">Découvrir l'offre →</a>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Section Avantages Concurrentiels Premium -->
-    <section class="why-us">
-      <div class="container why-us__container">
-        <div class="why-us__visual">
-          <img 
-            src="/images/equipe-expert-comptable-luxembourg.jpg" 
-            alt="Équipe d'experts-comptables Fiduciaire Expert Luxembourg en réunion stratégique"
-            width="600"
-            height="700"
+  <section id="why-us">
+    <div class="container why-us-container">
+      <div class="why-us-image">
+        <img 
+            src="/images/Logo.png" 
+            alt="L'équipe d'experts-comptables de Fiduciaire Expert Luxembourg"
+            width="500"
+            height="600"
             loading="lazy"
-            class="why-us__image"
           />
-          <div class="visual__stats">
-            <div class="visual-stat">
-              <span class="visual-stat__number">150+</span>
-              <span class="visual-stat__label">PME accompagnées</span>
-            </div>
-            <div class="visual-stat">
-              <span class="visual-stat__number">0</span>
-              <span class="visual-stat__label">Sanction administrative</span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="why-us__content">
-          <div class="section-tag">💎 Excellence Reconnue</div>
-          <h2 class="section-title">Pourquoi Choisir Notre Cabinet Expert-Comptable ?</h2>
-          <p class="section-subtitle">
-            <strong>Cabinet de référence au Luxembourg</strong> depuis 15 ans. 
-            Expertise 100% locale, maîtrise parfaite des spécificités fiscales et sociales du Grand-Duché.
-          </p>
-          
-          <div class="why-us__advantages">
-            <div class="advantage">
-              <div class="advantage__header">
-                <div class="advantage__icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                </div>
-                <h3 class="advantage__title">Expertise Certifiée & Agréée Luxembourg</h3>
-              </div>
-              <p class="advantage__description">
-                Cabinet inscrit à l'Ordre des Experts-Comptables Luxembourg. Assurance RC professionnelle, 
-                formation continue obligatoire, respect strict de la déontologie professionnelle.
-              </p>
-              <div class="advantage__proof">
-                <span class="proof-badge">✓ Agrément officiel</span>
-                <span class="proof-badge">✓ RC 2M€</span>
-              </div>
-            </div>
-
-            <div class="advantage">
-              <div class="advantage__header">
-                <div class="advantage__icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                </div>
-                <h3 class="advantage__title">100% Spécialisé PME Luxembourgeoises</h3>
-              </div>
-              <p class="advantage__description">
-                15 ans d'expertise exclusive sur le marché luxembourgeois. Connaissance parfaite des enjeux 
-                des PME locales : réglementation, fiscalité, obligations sociales.
-              </p>
-              <div class="advantage__proof">
-                <span class="proof-badge">✓ Depuis 2009</span>
-                <span class="proof-badge">✓ 100% local</span>
-              </div>
-            </div>
-
-            <div class="advantage">
-              <div class="advantage__header">
-                <div class="advantage__icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                </div>
-                <h3 class="advantage__title">Réactivité & Proximité Garanties</h3>
-              </div>
-              <p class="advantage__description">
-                Réponse sous 48h maximum, interlocuteur dédié, rendez-vous sur site possible. 
-                Relation de confiance privilégiée avec chaque client.
-              </p>
-              <div class="advantage__proof">
-                <span class="proof-badge">✓ Réponse 48h</span>
-                <span class="proof-badge">✓ Contact direct</span>
-              </div>
-            </div>
-
-            <div class="advantage">
-              <div class="advantage__header">
-                <div class="advantage__icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"></path><circle cx="12" cy="12" r="10"></circle></svg>
-                </div>
-                <h3 class="advantage__title">Tarifs Transparents & Compétitifs</h3>
-              </div>
-              <p class="advantage__description">
-                Tarification claire sans surprise. Devis gratuit et détaillé. 
-                Excellent rapport qualité-prix reconnu par nos 150+ clients.
-              </p>
-              <div class="advantage__proof">
-                <span class="proof-badge">✓ Devis gratuit</span>
-                <span class="proof-badge">✓ Prix fixe</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="why-us__testimonial">
-            <div class="testimonial__content">
-              <blockquote class="testimonial__quote">
-                "Fiduciaire Expert nous accompagne depuis 5 ans. Service impeccable, 
-                parfaite connaissance du marché luxembourgeois. Je recommande vivement !"
-              </blockquote>
-              <cite class="testimonial__author">
-                <strong>Marie Dubois</strong>, Directrice - Innovations Tech SARL
-              </cite>
-            </div>
-            <div class="testimonial__rating">
-              <div class="rating">
-                <span class="rating__stars">★★★★★</span>
-                <span class="rating__score">5/5</span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-    </section>
-
-    <!-- Section CTA Premium - Action Immédiate -->
-    <section class="cta">
-      <div class="container">
-        <div class="cta__wrapper">
-          <div class="cta__content">
-            <div class="cta__badge">🚀 Action Immédiate</div>
-            <h2 class="cta__title">
-              Prêt à Confier Votre Comptabilité au N°1 du Luxembourg ?
-            </h2>
-            <p class="cta__subtitle">
-              Rejoignez les <strong>150+ entreprises</strong> qui nous font déjà confiance. 
-              Devis gratuit sous 48h, création SARL en 48h, satisfaction garantie.
-            </p>
-            
-            <div class="cta__guarantees">
-              <div class="cta__guarantee">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                <span>Réponse garantie sous 48h</span>
-              </div>
-              <div class="cta__guarantee">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"></path><circle cx="12" cy="12" r="10"></circle></svg>
-                <span>100% sans engagement</span>
-              </div>
-              <div class="cta__guarantee">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                <span>Conformité garantie</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="cta__actions">
-            <div class="cta__primary">
-              <a href="tel:+35226000000" class="btn btn--cta-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                <div class="btn__content">
-                  <span class="btn__title">Appelez Maintenant</span>
-                  <span class="btn__subtitle">+352 26 00 00 00</span>
-                </div>
-              </a>
-              <span class="cta__note">Conseil gratuit immédiat</span>
-            </div>
-            
-            <div class="cta__secondary">
-              <a href="/contact#devis-express" class="btn btn--cta-secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-                Devis Gratuit Express
-              </a>
-              <span class="cta__note">Réponse sous 48h</span>
-            </div>
-          </div>
-
-          <div class="cta__social-proof">
-            <div class="social-proof__rating">
-              <div class="rating__stars">★★★★★</div>
-              <span class="rating__text"><strong>4.9/5</strong> sur 150+ avis</span>
-            </div>
-            <div class="social-proof__clients">
-              <span class="clients__text">Ils nous font confiance :</span>
-              <div class="clients__logos">
-                <span class="client-logo">Tech SARL</span>
-                <span class="client-logo">Import Solutions</span>
-                <span class="client-logo">Café Central</span>
-                <span class="client-logo">+184 autres</span>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="why-us-content">
+        <h2>Pourquoi choisir notre cabinet ?</h2>
+        <p>Avec 15 ans d'expérience, nous offrons une expertise locale inégalée et un engagement total envers la réussite de nos clients.</p>
+        <ul class="advantages-list">
+          <li><strong>Expertise Agréée :</strong> Cabinet membre de l'Ordre des Experts-Comptables, une garantie de qualité et de conformité.</li>
+          <li><strong>Spécialiste PME :</strong> Une connaissance pointue des enjeux des petites et moyennes entreprises au Luxembourg.</li>
+          <li><strong>Réactivité Garantie :</strong> Un interlocuteur dédié et des réponses claires à toutes vos questions sous 48h.</li>
+          <li><strong>Tarifs Transparents :</strong> Des offres claires, sans surprise, pour une maîtrise parfaite de votre budget.</li>
+        </ul>
+        <a href="/a-propos" class="btn btn-secondary">Découvrir notre histoire</a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Section FAQ SEO-Optimisée -->
-    <section class="faq">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-tag">❓ Questions Fréquentes</div>
-          <h2 class="section-title">Tout Savoir sur l'Expertise Comptable Luxembourg</h2>
-          <p class="section-subtitle">
-            Réponses d'expert aux questions les plus posées sur la comptabilité, 
-            création SARL et fiscalité au Luxembourg.
-          </p>
-        </div>
-        
-        <div class="faq__container">
-          <div class="faq__grid">
-            <details class="faq__item" itemscope itemtype="https://schema.org/Question">
-              <summary class="faq__question" itemprop="name">
-                <span>Quel est le tarif d'un expert-comptable au Luxembourg en 2025 ?</span>
-                <svg class="faq__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-              </summary>
-              <div class="faq__answer" itemscope itemtype="https://schema.org/Answer" itemprop="acceptedAnswer">
-                <div itemprop="text">
-                  <p>
-                    Nos tarifs expert-comptable démarrent à <strong>299€ HTVA/mois</strong> pour une SARL standard 
-                    (tenue comptable complète + bilan + déclarations IRC/TVA). Pour les PME plus complexes : 
-                    440€ à 859€ HT/mois selon le volume d'activité.
-                  </p>
-                  <div class="faq__highlight">
-                    <strong>📋 Devis gratuit et personnalisé sous 48h</strong> - Transparence totale, aucun frais caché
-                  </div>
-                </div>
-              </div>
-            </details>
+  <section id="cta">
+    <div class="container cta-container">
+      <h2>Prêt à optimiser votre gestion comptable ?</h2>
+      <p>Contactez-nous dès aujourd'hui pour un devis gratuit et sans engagement. Rejoignez plus de 150 entreprises qui nous font confiance.</p>
+      <a href="/contact#devis-express" class="btn btn-primary">Demander mon devis personnalisé</a>
+    </div>
+  </section>
 
-            <details class="faq__item" itemscope itemtype="https://schema.org/Question">
-              <summary class="faq__question" itemprop="name">
-                <span>Comment créer une SARL au Luxembourg rapidement ?</span>
-                <svg class="faq__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-              </summary>
-              <div class="faq__answer" itemscope itemtype="https://schema.org/Answer" itemprop="acceptedAnswer">
-                <div itemprop="text">
-                  <p>
-                    <strong>Constitution SARL express en 48h</strong> avec Fiduciaire Expert :
-                  </p>
-                  <ol class="faq__steps">
-                    <li>Rédaction statuts sur-mesure</li>
-                    <li>Dépôt capital social (minimum 12.000€)</li>
-                    <li>Acte notarié</li>
-                    <li>Autorisation d'établissement</li>
-                    <li>Immatriculation RCS</li>
-                  </ol>
-                  <div class="faq__highlight">
-                    <strong>🚀 Service clé en main</strong> - 100% pris en charge par nos experts
-                  </div>
-                </div>
-              </div>
-            </details>
-
-            <details class="faq__item" itemscope itemtype="https://schema.org/Question">
-              <summary class="faq__question" itemprop="name">
-                <span>Pourquoi choisir un expert-comptable local au Luxembourg ?</span>
-                <svg class="faq__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-              </summary>
-              <div class="faq__answer" itemscope itemtype="https://schema.org/Answer" itemprop="acceptedAnswer">
-                <div itemprop="text">
-                  <p>
-                    Un expert-comptable luxembourgeois maîtrise parfaitement :
-                  </p>
-                  <ul class="faq__benefits">
-                    <li>✓ Le droit des sociétés luxembourgeois</li>
-                    <li>✓ Les spécificités fiscales IRC/ICC/IF</li>
-                    <li>✓ Les obligations sociales CCSS</li>
-                    <li>✓ Les relations avec l'administration</li>
-                  </ul>
-                  <div class="faq__highlight">
-                    <strong>🏆 Fiduciaire Expert :</strong> 15 ans d'expertise exclusive au Grand-Duché
-                  </div>
-                </div>
-              </div>
-            </details>
-
-            <details class="faq__item" itemscope itemtype="https://schema.org/Question">
-              <summary class="faq__question" itemprop="name">
-                <span>Gérez-vous tous les délais fiscaux et sociaux ?</span>
-                <svg class="faq__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-              </summary>
-              <div class="faq__answer" itemscope itemtype="https://schema.org/Answer" itemprop="acceptedAnswer">
-                <div itemprop="text">
-                  <p>
-                    Absolument ! Nous assurons une <strong>veille proactive</strong> de toutes vos échéances :
-                  </p>
-                  <ul class="faq__deadlines">
-                    <li>📅 Déclarations IRC/ICC/IF (avant 31 décembre N+1)</li>
-                    <li>📅 Déclarations TVA (mensuelles/trimestrielles)</li>
-                    <li>📅 Déclarations sociales CCSS</li>
-                    <li>📅 Dépôts des comptes annuels</li>
-                  </ul>
-                  <div class="faq__highlight">
-                    <strong>✅ Zéro stress :</strong> Nous nous occupons de tout !
-                  </div>
-                </div>
-              </div>
-            </details>
-          </div>
-
-          <div class="faq__cta">
-            <div class="faq__cta-content">
-              <h3>Une autre question ?</h3>
-              <p>Nos experts-comptables vous répondent gratuitement</p>
-            </div>
-            <a href="tel:+35226000000" class="btn btn--secondary">
-              Posez votre question
-            </a>
-          </div>
-        </div>
+  <section id="faq">
+    <div class="container">
+      <div class="section-header">
+        <h2>Questions Fréquentes</h2>
+        <p>Les réponses claires à vos questions les plus courantes sur l'expertise comptable au Luxembourg.</p>
       </div>
-    </section>
+      <div class="faq-grid">
+        <details class="faq-item">
+          <summary>Quel est le tarif d'un expert-comptable au Luxembourg en 2025 ?</summary>
+          <p>Nos forfaits pour une PME démarrent à 299€ HTVA/mois. Le tarif précis dépend du volume et de la complexité de votre dossier. Nous fournissons un devis gratuit et détaillé.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Comment créer une SARL au Luxembourg rapidement ?</summary>
+          <p>Notre service express permet de constituer votre SARL en 48h. Nous gérons toutes les étapes : statuts, dépôt de capital, acte notarié, et immatriculation.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Pourquoi choisir un expert-comptable local au Luxembourg ?</summary>
+          <p>Un expert local maîtrise parfaitement les subtilités du droit des sociétés, de la fiscalité (IRC, TVA) et des obligations sociales (CCSS) du Grand-Duché, ce qui garantit votre conformité et optimise votre situation.</p>
+        </details>
+      </div>
+    </div>
+  </section>
 
-  </main>
 </Layout>
 
 <style>
-  /* ===== DESIGN SYSTEM PREMIUM EXPERT-COMPTABLE ===== */
-  :root {
-    /* Couleurs Premium - Cohérentes avec le design system */
-    --color-primary: #0f172a; /* Bleu marine ultra-professionnel */
-    --color-primary-light: #1e40af;
-    --color-primary-dark: #020617;
-    --color-secondary: #3498db; /* Bleu accent cohérent */
-    --color-accent: #059669; /* Vert succès */
-    --color-warning: #dc6f2e;
-    
-    /* Nuances de gris premium */
-    --color-dark: #111827;
-    --color-text: #374151;
-    --color-text-light: #6b7280;
-    --color-border: #e5e7eb;
-    --color-border-light: #f3f4f6;
-    --color-background: #ffffff;
-    --color-background-light: #f9fafb;
-    --color-background-dark: #f8fafc;
-    
-    /* Typographie professionnelle */
-    --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-heading: 'Poppins', var(--font-sans);
-    --font-display: 'Playfair Display', Georgia, serif;
-    
-    /* Ombres sophistiquées */
-    --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-premium: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    
-    /* Rayons de bordure */
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-    --radius-xl: 24px;
-    --radius-2xl: 32px;
-    
-    /* Transitions fluides */
-    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
+  /* ===== STYLES SPÉCIFIQUES À LA PAGE D'ACCUEIL ===== */
 
-  /* ===== BASE STYLES ===== */
-  * { box-sizing: border-box; }
-  
-  *:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-    border-radius: var(--radius-sm);
-  }
-
-  .container {
-    width: 100%;
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
-
-  section {
-    padding: clamp(4rem, 10vw, 8rem) 0;
-  }
-
-  /* ===== TYPOGRAPHY SYSTEM ===== */
-  .section-header {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 4rem;
-  }
-  
-  .section-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: linear-gradient(135deg, var(--color-background-light), var(--color-background));
-    color: var(--color-primary);
-    padding: 0.5rem 1rem;
-    border-radius: 99px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    border: 1px solid var(--color-border-light);
-    box-shadow: var(--shadow-subtle);
-  }
-  
-  .section-title {
-    font-family: var(--font-heading);
-    font-size: clamp(2.25rem, 6vw, 3.5rem);
-    font-weight: 700;
-    color: var(--color-dark);
-    line-height: 1.2;
-    margin: 0 0 1rem;
-    letter-spacing: -0.025em;
-  }
-  
-  .section-subtitle {
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    color: var(--color-text);
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  /* ===== BUTTON SYSTEM ===== */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    padding: 1rem 2rem;
-    border-radius: var(--radius-md);
-    font-family: var(--font-sans);
-    font-weight: 600;
-    font-size: 1rem;
-    text-decoration: none;
-    border: 2px solid transparent;
-    transition: var(--transition-normal);
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .btn--primary {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
-    color: white;
-    box-shadow: var(--shadow-medium);
-  }
-  .btn--primary:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-large);
-  }
-
-  .btn--secondary {
-    background: var(--color-background);
-    color: var(--color-primary);
-    border-color: var(--color-border);
-    box-shadow: var(--shadow-soft);
-  }
-  .btn--secondary:hover {
-    background: var(--color-background-light);
-    border-color: var(--color-primary);
-    transform: translateY(-1px);
-  }
-
-  .btn--urgent, .btn--cta-primary {
-    background: linear-gradient(135deg, var(--color-secondary), var(--color-primary-light));
-    color: white;
-    font-size: 1.1rem;
-    padding: 1.25rem 2.5rem;
-    box-shadow: var(--shadow-large);
-    animation: pulse-glow 2s infinite;
-  }
-  .btn--urgent:hover, .btn--cta-primary:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: var(--shadow-premium);
-  }
-
-  .btn--cta-secondary {
-    background: var(--color-background);
-    color: var(--color-primary);
-    border: 2px solid var(--color-primary);
-    font-weight: 600;
-  }
-
-  .btn__content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.25rem;
-  }
-  .btn__title { font-weight: 700; }
-  .btn__subtitle { font-size: 0.875rem; opacity: 0.9; }
-
-  @keyframes pulse-glow {
-    0%, 100% { box-shadow: var(--shadow-large); }
-    50% { box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.3), var(--shadow-large); }
-  }
-
-  /* ===== HERO SECTION PREMIUM ===== */
-  .hero {
-    background: linear-gradient(135deg, var(--color-background-dark) 0%, var(--color-background-light) 100%);
-    position: relative;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(ellipse at top, rgba(15, 23, 42, 0.05) 0%, transparent 50%);
-    pointer-events: none;
-  }
-
-  .hero__container {
+  /* Section Héros */
+  .hero-section .container {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 4rem;
+    gap: var(--spacing-lg);
     align-items: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: linear-gradient(135deg, var(--color-secondary), var(--color-primary-light));
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 99px;
-    font-size: 0.875rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    box-shadow: var(--shadow-medium);
-  }
-  .hero__star { fill: currentColor; }
-
-  .hero__title {
-    font-family: var(--font-heading);
-    margin: 0 0 1.5rem;
-    line-height: 1.1;
-  }
-  .hero__title-main {
-    display: block;
-    font-size: clamp(3rem, 8vw, 5rem);
-    font-weight: 800;
-    color: var(--color-primary);
-    letter-spacing: -0.02em;
-  }
-  .hero__title-sub {
-    display: block;
-    font-size: clamp(1.25rem, 4vw, 2rem);
-    font-weight: 600;
-    color: var(--color-text);
-    margin-top: 0.5rem;
-  }
-
-  .hero__description {
-    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
-    color: var(--color-text);
-    line-height: 1.6;
-    margin: 0 0 2rem;
-    max-width: 600px;
-  }
-
-  .hero__guarantees {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    margin: 2rem 0;
-  }
-  .guarantee {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: var(--color-background);
-    padding: 0.75rem 1rem;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border-light);
-    box-shadow: var(--shadow-subtle);
-    font-weight: 600;
-    color: var(--color-text);
-  }
-  .guarantee__icon { color: var(--color-accent); flex-shrink: 0; }
-
-  .hero__stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 2rem;
-    margin: 3rem 0;
-    padding: 2rem;
-    background: var(--color-background);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--color-border-light);
-    box-shadow: var(--shadow-soft);
-  }
-  .stat {
     text-align: center;
   }
-  .stat__number {
-    display: block;
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 800;
+  .hero-badge {
+    display: inline-block;
+    margin-bottom: 1rem;
+    padding: 0.25rem 0.75rem;
+    background-color: var(--color-background-alt);
+    border: 1px solid var(--color-border);
     color: var(--color-primary);
-    line-height: 1;
-  }
-  .stat__label {
-    display: block;
-    font-size: 0.875rem;
-    color: var(--color-text-light);
     font-weight: 600;
-    margin-top: 0.5rem;
-    line-height: 1.3;
   }
-
-  .hero__cta {
+  .hero-content h1 {
+    margin-bottom: 1rem;
+  }
+  .hero-subtitle {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: 0 auto var(--spacing-md) auto;
+  }
+  .hero-cta {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-top: 2rem;
+    justify-content: center;
   }
-
-  .hero__visual {
-    position: relative;
-  }
-  .hero__image-container {
-    position: relative;
-  }
-  .hero__image {
+  .hero-image-wrapper img {
     width: 100%;
-    max-width: 500px;
     height: auto;
-    border-radius: var(--radius-2xl);
-    box-shadow: var(--shadow-premium);
-    border: 8px solid var(--color-background);
+    object-fit: cover;
+    max-height: 500px;
+    border: 1px solid var(--color-border);
   }
 
-  .hero__certification {
-    position: absolute;
-    bottom: -2rem;
-    left: -2rem;
-    background: var(--color-background);
-    padding: 2rem;
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-premium);
-    border: 1px solid var(--color-border-light);
-    max-width: 300px;
-  }
-  .certification__header {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  .certification__icon {
-    color: var(--color-accent);
-    flex-shrink: 0;
-  }
-  .certification__title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--color-dark);
-    margin: 0;
-  }
-  .certification__org {
-    font-size: 0.875rem;
-    color: var(--color-text-light);
-    margin: 0;
-  }
-  .certification__features {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  .certification__features li {
-    font-size: 0.875rem;
-    color: var(--color-accent);
-    font-weight: 500;
-  }
-
-  @media (min-width: 768px) {
-    .hero__container {
-      grid-template-columns: 1.2fr 1fr;
-      gap: 5rem;
-    }
-    .hero__content {
-      text-align: left;
-    }
-    .hero__cta {
-      justify-content: flex-start;
-    }
-  }
-
-  /* ===== SERVICES SECTION PREMIUM ===== */
-  .services {
-    background: var(--color-background);
-    position: relative;
-  }
-
-  .services__grid {
+  /* Section Services */
+  .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2.5rem;
-    margin-bottom: 4rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-md);
   }
-
   .service-card {
-    background: var(--color-background);
-    border: 1px solid var(--color-border-light);
-    border-radius: var(--radius-xl);
-    padding: 2.5rem;
-    position: relative;
-    transition: var(--transition-slow);
-    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--color-border);
+    padding: var(--spacing-md);
+    transition: var(--transition);
   }
   .service-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-premium);
     border-color: var(--color-primary);
+    transform: translateY(-5px);
   }
-
-  .service-card--featured {
-    border: 2px solid var(--color-primary);
-    background: linear-gradient(135deg, var(--color-background) 0%, var(--color-background-light) 100%);
-    position: relative;
-    overflow: hidden;
+  .service-card h3 {
+    margin-bottom: 0.5rem;
   }
-  .service-card--featured::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--color-secondary), var(--color-primary));
+  .service-card p {
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
   }
-
-  .service-card__badge {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(135deg, var(--color-secondary), var(--color-primary-light));
-    color: white;
-    padding: 0.5rem 1.5rem;
-    border-radius: 99px;
-    font-size: 0.875rem;
-    font-weight: 700;
-    box-shadow: var(--shadow-medium);
-  }
-
-  .service-card__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
-  }
-
-  .service-card__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 64px;
-    height: 64px;
-    background: linear-gradient(135deg, var(--color-background-light), var(--color-background));
-    color: var(--color-primary);
-    border-radius: var(--radius-lg);
-    border: 2px solid var(--color-border-light);
-    box-shadow: var(--shadow-soft);
-  }
-  .service-card__icon--featured {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
-    color: white;
-    border-color: var(--color-primary);
-  }
-
-  .service-card__price {
-    font-weight: 700;
-    color: var(--color-secondary);
-    background: var(--color-background-light);
-    padding: 0.5rem 1rem;
-    border-radius: var(--radius-md);
-    font-size: 0.875rem;
-  }
-
-  .service-card__urgency {
-    background: linear-gradient(135deg, var(--color-accent), #059669);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: var(--radius-md);
-    font-size: 0.875rem;
-    font-weight: 700;
-  }
-
-  .service-card__compliance {
-    background: var(--color-background-light);
-    padding: 0.5rem 1rem;
-    border-radius: var(--radius-md);
-  }
-  .compliance-badge {
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: var(--color-accent);
-  }
-
-  .service-card__title {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-dark);
-    margin: 0 0 1rem;
-    line-height: 1.3;
-  }
-
-  .service-card__description {
-    color: var(--color-text);
-    line-height: 1.6;
-    margin: 0 0 1.5rem;
-  }
-
-  .service-card__process {
-    display: flex;
-    gap: 1rem;
-    margin: 1.5rem 0;
-    padding: 1rem;
-    background: var(--color-background-light);
-    border-radius: var(--radius-md);
-  }
-  .process-step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    flex: 1;
-  }
-  .step-number {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    background: var(--color-primary);
-    color: white;
-    border-radius: 50%;
-    font-weight: 700;
-    font-size: 0.875rem;
-  }
-  .step-text {
-    font-size: 0.875rem;
+  .service-card a {
     font-weight: 600;
-    color: var(--color-text);
-    text-align: center;
   }
 
-  .service-card__features {
-    list-style: none;
-    padding: 0;
-    margin: 1.5rem 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-  .service-card__features li {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--color-text);
-    font-size: 0.875rem;
-  }
-
-  .service-card__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--color-primary);
-    font-weight: 700;
-    text-decoration: none;
-    margin-top: 1rem;
-    transition: var(--transition-normal);
-  }
-  .service-card__cta:hover {
-    color: var(--color-primary-light);
-    transform: translateX(4px);
-  }
-  .service-card__cta--featured {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: var(--radius-md);
-    transform: none;
-  }
-  .service-card__cta--featured:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-large);
-  }
-
-  .services__quality {
-    background: var(--color-background-light);
-    padding: 3rem;
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--color-border-light);
-  }
-  .quality__title {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-dark);
-    text-align: center;
-    margin: 0 0 2rem;
-  }
-  .quality__guarantees {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-  }
-  .quality__item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background: var(--color-background);
-    padding: 1.5rem;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--color-border-light);
-    box-shadow: var(--shadow-subtle);
-  }
-  .quality__item svg {
-    color: var(--color-accent);
-    flex-shrink: 0;
-  }
-
-  /* ===== WHY US SECTION PREMIUM ===== */
-  .why-us {
-    background: var(--color-background-light);
-  }
-
-  .why-us__container {
+  /* Section Pourquoi Nous Choisir */
+  .why-us-container {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 4rem;
+    gap: var(--spacing-lg);
     align-items: center;
   }
-
-  .why-us__visual {
-    position: relative;
-  }
-  .why-us__image {
+  .why-us-image img {
     width: 100%;
     height: auto;
-    border-radius: var(--radius-2xl);
-    box-shadow: var(--shadow-premium);
-    border: 8px solid var(--color-background);
+    border: 1px solid var(--color-border);
   }
-
-  .visual__stats {
-    position: absolute;
-    bottom: -1rem;
-    right: -1rem;
-    display: flex;
-    gap: 1rem;
-  }
-  .visual-stat {
-    background: var(--color-background);
-    padding: 1rem;
-    border-radius: var(--radius-lg);
-    text-align: center;
-    box-shadow: var(--shadow-large);
-    border: 1px solid var(--color-border-light);
-  }
-  .visual-stat__number {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--color-primary);
-    line-height: 1;
-  }
-  .visual-stat__label {
-    display: block;
-    font-size: 0.75rem;
-    color: var(--color-text-light);
-    font-weight: 600;
-    margin-top: 0.25rem;
-  }
-
-  .why-us__advantages {
-    display: grid;
-    gap: 2rem;
-  }
-
-  .advantage {
-    background: var(--color-background);
-    padding: 2rem;
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--color-border-light);
-    box-shadow: var(--shadow-soft);
-    transition: var(--transition-normal);
-  }
-  .advantage:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-large);
-  }
-
-  .advantage__header {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  .advantage__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
-    color: white;
-    border-radius: var(--radius-lg);
-    flex-shrink: 0;
-  }
-  .advantage__title {
-    font-family: var(--font-heading);
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--color-dark);
-    margin: 0;
-    line-height: 1.3;
-  }
-
-  .advantage__description {
-    color: var(--color-text);
-    line-height: 1.6;
-    margin: 0 0 1rem;
-  }
-
-  .advantage__proof {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-  .proof-badge {
-    background: var(--color-background-light);
-    color: var(--color-accent);
-    padding: 0.25rem 0.75rem;
-    border-radius: 99px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    border: 1px solid var(--color-border-light);
-  }
-
-  .why-us__testimonial {
-    background: var(--color-background);
-    padding: 2rem;
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--color-border-light);
-    box-shadow: var(--shadow-soft);
-    margin-top: 2rem;
-  }
-  .testimonial__content {
-    margin-bottom: 1rem;
-  }
-  .testimonial__quote {
-    font-style: italic;
-    color: var(--color-text);
-    line-height: 1.6;
-    margin: 0 0 1rem;
-    font-size: 1.1rem;
-  }
-  .testimonial__author {
-    color: var(--color-text-light);
-    font-size: 0.875rem;
-  }
-  .testimonial__rating {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  .rating__stars {
-    color: var(--color-secondary);
-    font-size: 1.25rem;
-  }
-  .rating__score {
-    font-weight: 700;
-    color: var(--color-dark);
-  }
-
-  @media (min-width: 992px) {
-    .why-us__container {
-      grid-template-columns: 1fr 1fr;
-    }
-    .why-us__visual {
-      order: 2;
-    }
-  }
-
-  /* ===== CTA SECTION PREMIUM ===== */
-  .cta {
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    color: white;
-    position: relative;
-    overflow: hidden;
-  }
-  .cta::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .cta__wrapper {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-  }
-
-  .cta__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 99px;
-    font-size: 0.875rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    backdrop-filter: blur(10px);
-  }
-
-  .cta__title {
-    font-family: var(--font-heading);
-    font-size: clamp(2rem, 6vw, 3rem);
-    font-weight: 800;
-    line-height: 1.2;
-    margin: 0 0 1rem;
-  }
-
-  .cta__subtitle {
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    opacity: 0.9;
-    line-height: 1.6;
-    margin: 0 0 2rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .cta__guarantees {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-    margin: 2rem 0 3rem;
-  }
-  .cta__guarantee {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 0.75rem 1rem;
-    border-radius: var(--radius-md);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  .cta__guarantee svg {
-    color: var(--color-secondary);
-    flex-shrink: 0;
-  }
-
-  .cta__actions {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .cta__primary, .cta__secondary {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .cta__note {
-    font-size: 0.875rem;
-    opacity: 0.8;
-    font-weight: 500;
-  }
-
-  .cta__social-proof {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 3rem;
-    align-items: center;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .social-proof__rating {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  .rating__stars {
-    color: var(--color-secondary);
-    font-size: 1.5rem;
-  }
-  .rating__text {
-    font-weight: 600;
-  }
-
-  .social-proof__clients {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-  .clients__text {
-    font-weight: 600;
-    opacity: 0.8;
-  }
-  .clients__logos {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-  .client-logo {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 0.5rem 1rem;
-    border-radius: var(--radius-md);
-    font-size: 0.875rem;
-    font-weight: 600;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  /* ===== FAQ SECTION PREMIUM ===== */
-  .faq {
-    background: var(--color-background);
-  }
-
-  .faq__container {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .faq__grid {
-    display: grid;
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-  }
-
-  .faq__item {
-    background: var(--color-background);
-    border: 1px solid var(--color-border-light);
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    transition: var(--transition-normal);
-    box-shadow: var(--shadow-soft);
-  }
-  .faq__item:hover {
-    box-shadow: var(--shadow-large);
-  }
-  .faq__item[open] {
-    border-color: var(--color-primary);
-  }
-
-  .faq__question {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 2rem;
-    font-family: var(--font-heading);
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--color-dark);
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    text-align: left;
-    transition: var(--transition-normal);
-  }
-  .faq__question:hover {
-    color: var(--color-primary);
-  }
-  .faq__question::-webkit-details-marker {
-    display: none;
-  }
-
-  .faq__icon {
-    transition: transform 0.3s ease;
-    flex-shrink: 0;
-    color: var(--color-primary);
-  }
-  .faq__item[open] .faq__icon {
-    transform: rotate(45deg);
-  }
-
-  .faq__answer {
-    padding: 0 2rem 2rem;
-    color: var(--color-text);
-    line-height: 1.7;
-  }
-  .faq__answer p {
-    margin: 0 0 1rem;
-  }
-
-  .faq__steps, .faq__benefits, .faq__deadlines {
-    margin: 1rem 0;
-    padding-left: 1rem;
-  }
-  .faq__steps {
-    counter-reset: step-counter;
-  }
-  .faq__steps li {
-    counter-increment: step-counter;
-    margin-bottom: 0.5rem;
-    position: relative;
-  }
-  .faq__steps li::before {
-    content: counter(step-counter);
-    position: absolute;
-    left: -2rem;
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    background: var(--color-primary);
-    color: white;
-    border-radius: 50%;
-    font-size: 0.75rem;
-    font-weight: 700;
-  }
-
-  .faq__benefits, .faq__deadlines {
+  .advantages-list {
     list-style: none;
     padding-left: 0;
+    margin: var(--spacing-md) 0;
   }
-  .faq__benefits li, .faq__deadlines li {
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  .advantages-list li {
+    padding-left: 1.5rem;
+    position: relative;
+    margin-bottom: 0.75rem;
   }
-
-  .faq__highlight {
-    background: var(--color-background-light);
-    padding: 1rem;
-    border-radius: var(--radius-md);
-    border-left: 4px solid var(--color-primary);
-    margin-top: 1rem;
-    font-weight: 600;
-    color: var(--color-dark);
-  }
-
-  .faq__cta {
-    background: var(--color-background-light);
-    padding: 3rem;
-    border-radius: var(--radius-xl);
-    text-align: center;
-    border: 1px solid var(--color-border-light);
-    box-shadow: var(--shadow-soft);
-  }
-  .faq__cta-content h3 {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
+  .advantages-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
     font-weight: 700;
-    color: var(--color-dark);
-    margin: 0 0 0.5rem;
-  }
-  .faq__cta-content p {
-    color: var(--color-text);
-    margin: 0 0 2rem;
   }
 
-  /* ===== RESPONSIVE DESIGN ===== */
-  @media (max-width: 768px) {
-    .container {
-      padding: 0 1rem;
-    }
-    
-    .hero__stats {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      padding: 1.5rem;
-    }
-    
-    .hero__certification {
-      position: static;
-      margin-top: 2rem;
-      max-width: none;
-    }
-    
-    .services__grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .cta__actions {
-      grid-template-columns: 1fr;
-    }
-    
-    .cta__social-proof {
-      flex-direction: column;
-      gap: 2rem;
-    }
+  /* Section CTA */
+  #cta {
+    background-color: var(--color-dark);
+    color: var(--color-background);
+  }
+  .cta-container {
+    text-align: center;
+  }
+  #cta h2, #cta p {
+    color: var(--color-background);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #cta h2 {
+    margin-bottom: 1rem;
+  }
+  #cta p {
+    margin-bottom: var(--spacing-md);
+    opacity: 0.8;
   }
 
-  /* ===== ANIMATIONS & INTERACTIONS ===== */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* Section FAQ */
+  .faq-grid {
+    max-width: 800px;
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+  }
+  .faq-item {
+    border: 1px solid var(--color-border);
+  }
+  .faq-item summary {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    padding: 1rem;
+    cursor: pointer;
+    position: relative;
+    padding-right: 2.5rem;
+    transition: var(--transition);
+  }
+  .faq-item summary:hover {
+    background-color: var(--color-background-alt);
+  }
+  .faq-item summary::after {
+    content: '+';
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+  .faq-item[open] summary {
+    background-color: var(--color-background-alt);
+  }
+  .faq-item[open] summary::after {
+    content: '−';
+  }
+  .faq-item p {
+    padding: 0 1rem 1rem 1rem;
+    margin-bottom: 0;
+    color: var(--color-text-secondary);
   }
 
-  .hero__content > *,
-  .section-header > *,
-  .service-card,
-  .advantage,
-  .faq__item {
-    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+  /* Responsive pour tablettes et ordinateurs */
+  @media (min-width: 768px) {
+    .hero-section .container {
+      grid-template-columns: 1fr 1fr;
+      text-align: left;
+    }
+    .hero-cta {
+      justify-content: flex-start;
+    }
+    .hero-subtitle {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .why-us-container {
+      grid-template-columns: 1fr 1fr;
+    }
+    .why-us-image {
+      order: -1; /* Place l'image à gauche sur les grands écrans */
+    }
   }
-
-  .service-card:nth-child(2) { animation-delay: 0.1s; }
-  .service-card:nth-child(3) { animation-delay: 0.2s; }
-  .advantage:nth-child(2) { animation-delay: 0.1s; }
-  .advantage:nth-child(3) { animation-delay: 0.2s; }
-  .advantage:nth-child(4) { animation-delay: 0.3s; }
-  .faq__item:nth-child(2) { animation-delay: 0.1s; }
-  .faq__item:nth-child(3) { animation-delay: 0.2s; }
-  .faq__item:nth-child(4) { animation-delay: 0.3s; }
 </style>

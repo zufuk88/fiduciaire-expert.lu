@@ -1,14 +1,37 @@
 ---
-import Layout from '../layouts/Layout.astro';
+// src/pages/contact/merci.astro (exemple de chemin)
+
+import Layout from '../../layouts/Layout.astro'; // Adaptez le chemin
+
+// --- SEO & MÉTADONNÉES ---
+// On définit un titre clair et surtout, on empêche l'indexation de cette page.
+const pageMeta = {
+  title: "Message Envoyé | Fiduciaire Expert Luxembourg",
+  description: "Merci de nous avoir contactés. Nous reviendrons vers vous sous 48h.",
+  noindex: true // Important pour le SEO : ne pas indexer cette page
+};
 ---
 
-<Layout title="Message Reçu - Fiduciaire Expert">
+<Layout {...pageMeta}>
   <main class="thank-you-page">
-    <div class="container-narrow">
-      <div class="icon">✅</div>
-      <h1>Merci pour votre message !</h1>
-      <p>Nous l'avons bien reçu et nous reviendrons vers vous dans les plus brefs délais, généralement sous 24 heures ouvrées.</p>
-      <a href="/" class="cta-button">Retour à l'accueil</a>
+    <div class="confirmation-box">
+      <div class="confirmation-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <h1>Merci pour votre message</h1>
+      <p>
+        Votre demande a bien été envoyée. Notre équipe l'étudiera avec attention et reviendra vers vous dans les plus brefs délais, généralement sous 24 à 48 heures ouvrées.
+      </p>
+      <div class="next-steps">
+        <p>En attendant, vous pouvez :</p>
+        <div class="button-group">
+            <a href="/" class="btn btn-primary">Retourner à l'accueil</a>
+            <a href="/articles" class="btn btn-secondary">Consulter nos articles</a>
+        </div>
+      </div>
     </div>
   </main>
 </Layout>
@@ -18,45 +41,58 @@ import Layout from '../layouts/Layout.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    padding: 4rem 2rem;
-    min-height: 50vh;
-    background-color: var(--fond-clair);
+    min-height: 60vh; /* Assure que le contenu est centré même sur de grands écrans */
+    padding: var(--spacing-xl) 1rem;
+    background-color: var(--color-background-alt);
   }
-  .container-narrow {
+
+  .confirmation-box {
     max-width: 600px;
-    margin: 0 auto;
-    background-color: var(--fond-tres-clair);
+    width: 100%;
+    background-color: var(--color-background);
     padding: 3rem;
-    border-radius: 12px;
-    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
+    text-align: center;
   }
-  .icon {
-    font-size: 3rem;
+
+  .confirmation-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--color-background-alt);
     margin-bottom: 1.5rem;
+    color: var(--success, #10b981); /* Utilise la variable 'success' si elle existe */
   }
+
   h1 {
-    font-size: 2.5rem;
-    color: var(--bleu-profond);
+    font-size: 2rem;
     margin-bottom: 1rem;
   }
+
   p {
-    font-size: 1.1rem;
-    color: var(--texte-secondaire);
+    color: var(--color-text-secondary);
     line-height: 1.7;
     margin-bottom: 2rem;
   }
-  .cta-button {
-    display: inline-block;
-    background-color: var(--or-premium);
-    color: var(--bleu-profond);
-    padding: 1rem 2.5rem;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: transform 0.2s ease;
+  
+  .next-steps {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
   }
-  .cta-button:hover {
-    transform: scale(1.05);
+
+  .next-steps p {
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
   }
 </style>

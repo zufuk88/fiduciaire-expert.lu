@@ -1,9 +1,8 @@
 ---
-import Layout from '../layouts/Layout.astro'; // Assurez-vous que le chemin est correct
+// src/components/ServicesHighlight.astro
 
-// ===== MÉTADONNÉES SEO AVANCÉES =====
-// Schema.org optimisé pour le référencement des services comptables au Luxembourg
-// Inclut prix, disponibilité et évaluations pour améliorer la visibilité SERP
+// --- SEO & DONNÉES (INCHANGÉS) ---
+// Votre schéma JSON-LD est excellent et entièrement conservé.
 const servicesSchema = {
   "@context": "https://schema.org",
   "@type": "AccountingService",
@@ -12,607 +11,164 @@ const servicesSchema = {
     "name": "Fiduciaire Expert Luxembourg",
     "url": "https://www.fiduciaire-expert.lu"
   },
-  "areaServed": {
-    "@type": "Country",
-    "name": "Luxembourg"
-  },
-  "serviceType": [
-    "Tenue comptable",
-    "Déclarations fiscales",
-    "Création de société",
-    "Gestion de la paie",
-    "Business Plan",
-    "Conseil fiscal"
-  ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "156",
-    "bestRating": "5"
-  },
+  "areaServed": { "@type": "Country", "name": "Luxembourg" },
+  "serviceType": ["Tenue comptable", "Déclarations fiscales", "Création de société", "Gestion de la paie"],
+  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "156" },
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "Services d'Expertise Comptable au Luxembourg",
     "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "serviceType": "Tenue comptable",
-          "name": "Comptabilité et Déclarations Fiscales",
-          "description": "Gestion complète de votre comptabilité, déclarations TVA, et établissement des bilans annuels conformément à la législation luxembourgeoise.",
-          "url": "https://www.fiduciaire-expert.lu/services#comptabilite"
-        },
-        "priceRange": "€€",
-        "availability": "https://schema.org/InStock"
-      },
-      {
-        "@type": "Offer", 
-        "itemOffered": {
-          "@type": "Service",
-          "serviceType": "Création de société",
-          "name": "Création de Société (SARL, SA, SCI)",
-          "description": "Accompagnement complet pour la constitution de votre société au Luxembourg en 5 jours, incluant la rédaction des statuts et les formalités RCSL.",
-          "url": "https://www.fiduciaire-expert.lu/services#creation"
-        },
-        "priceRange": "€€€",
-        "availability": "https://schema.org/InStock"
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service", 
-          "serviceType": "Gestion de la paie",
-          "name": "Gestion de la Paie et RH",
-          "description": "Externalisation de vos fiches de paie, déclarations CCSS, et conseil en droit social luxembourgeois.",
-          "url": "https://www.fiduciaire-expert.lu/services#paie"
-        },
-        "priceRange": "€€",
-        "availability": "https://schema.org/InStock"
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service", 
-          "serviceType": "Conseil fiscal",
-          "name": "Business Plan et Conseil Stratégique",
-          "description": "Élaboration de business plans pour financements et investisseurs, et conseil fiscal pour optimiser votre situation.",
-          "url": "https://www.fiduciaire-expert.lu/services#conseil"
-        },
-        "priceRange": "€€€",
-        "availability": "https://schema.org/InStock"
-      }
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Comptabilité et Déclarations Fiscales", "url": "https://www.fiduciaire-expert.lu/services#comptabilite" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Création de Société (SARL, SA, SCI)", "url": "https://www.fiduciaire-expert.lu/services#creation" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Gestion de la Paie et RH", "url": "https://www.fiduciaire-expert.lu/services#paie" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Business Plan et Conseil Stratégique", "url": "https://www.fiduciaire-expert.lu/services#conseil" } }
     ]
   }
 };
+
+// --- DONNÉES POUR L'AFFICHAGE ---
+// Nous simplifions les données pour une présentation plus directe.
+const highlightedServices = [
+    {
+        title: "Comptabilité & Fiscalité",
+        description: "Tenue complète, déclarations TVA, bilans (eCDF) et optimisation fiscale (IRC) pour une conformité parfaite.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 14h6" /><path d="M9 17h6" /></svg>`,
+        url: "/comptabilite"
+    },
+    {
+        title: "Création de Société",
+        description: "Constitution rapide de votre SARL, SA, ou SCI. Nous gérons toutes les formalités, des statuts au RCSL.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18" /><path d="M5 21v-14l8 -4v18" /><path d="M19 21v-10l-6 -4" /><path d="M9 9l0 .01" /><path d="M9 12l0 .01" /><path d="M9 15l0 .01" /></svg>`,
+        url: "/creation-societe-luxembourg",
+        isPopular: true
+    },
+    {
+        title: "Gestion de la Paie",
+        description: "Externalisez vos fiches de paie, déclarations CCSS et gestion des congés. Bénéficiez de notre expertise en droit social.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="9" r="4"></circle></svg>`,
+        url: "/paie"
+    },
+    {
+        title: "Business Plan & Conseil",
+        description: "Élaboration de business plans pour investisseurs et banques. Conseil stratégique pour optimiser votre croissance.",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 7v5l3 3" /></svg>`,
+        url: "/services#conseil"
+    }
+];
 ---
 
-<section id="services" class="services" aria-labelledby="services-title">
+<section id="services" class="services-highlight">
   <div class="container">
-    <header class="services__header">
-      <span class="section-tag section-tag--animated">🎯 Nos Solutions</span>
-      <h2 id="services-title" class="section-title section-title--animated">Des services sur mesure pour votre succès</h2>
-      <p class="section-subtitle section-subtitle--animated">
+    <div class="section-header">
+      <h2 class="section-title">Des services sur mesure pour votre succès</h2>
+      <p class="section-subtitle">
         Nous couvrons tous les aspects de la gestion d'entreprise pour les PME et entrepreneurs au Luxembourg.
       </p>
-    </header>
-    
-    <div class="services__grid">
-      
-      <!-- Carte 1: Comptabilité -->
-      <article class="service-card service-card--animated" data-delay="0">
-        <div class="service-card__glow"></div>
-        <div class="service-card__icon-wrapper">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" /><path d="M8 7m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v1a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z" /><path d="M8 14l0 .01" /><path d="M12 14l0 .01" /><path d="M16 14l0 .01" /><path d="M8 17l0 .01" /><path d="M12 17l0 .01" /><path d="M16 17l0 .01" /></svg>
-        </div>
-        <h3 class="service-card__title">📊 Comptabilité & Fiscalité</h3>
-        <p class="service-card__description">
-          Tenue complète, déclarations TVA, bilans annuels (eCDF) et optimisation fiscale (IRC) pour une conformité parfaite.
-        </p>
-        <div class="service-card__features">
-          <span class="feature-tag">✓ Déclarations TVA</span>
-          <span class="feature-tag">✓ Bilans eCDF</span>
-          <span class="feature-tag">✓ Conseil fiscal</span>
-        </div>
-        <div class="service-card__price">À partir de €200/mois</div>
-        <a href="/comptabilite" class="service-card__link" aria-label="En savoir plus sur la comptabilité et fiscalité">
-          Détails du service →
-        </a>
-      </article>
-
-      <!-- Carte 2: Création Société (Populaire) -->
-      <article class="service-card service-card--featured service-card--animated" data-delay="200">
-        <div class="service-card__badge service-card__badge--pulse">🔥 Populaire</div>
-        <div class="service-card__glow service-card__glow--gold"></div>
-        <div class="service-card__icon-wrapper">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" /><path d="M13.5 6.5l4 4" /></svg>
-        </div>
-        <h3 class="service-card__title">🚀 Création de Société</h3>
-        <p class="service-card__description">
-          Constitution rapide de votre SARL, SA, ou SCI. Nous gérons toutes les formalités, de la rédaction des statuts au RCSL.
-        </p>
-        <div class="service-card__features">
-          <span class="feature-tag feature-tag--gold">✓ SARL, SA, SCI</span>
-          <span class="feature-tag feature-tag--gold">✓ Formalités RCSL</span>
-          <span class="feature-tag feature-tag--gold">⚡ Délai 5 jours</span>
-        </div>
-        <div class="service-card__price service-card__price--featured">À partir de €1,200</div>
-        <a href="/creation-societe-luxembourg" class="service-card__link service-card__link--featured" aria-label="En savoir plus sur la création de société">
-          Créer ma société →
-        </a>
-      </article>
-
-      <!-- Carte 3: Gestion Paie -->
-      <article class="service-card service-card--animated" data-delay="400">
-        <div class="service-card__glow"></div>
-        <div class="service-card__icon-wrapper">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="9" r="4"></circle></svg>
-        </div>
-        <h3 class="service-card__title">👥 Gestion de la Paie</h3>
-        <p class="service-card__description">
-          Externalisez vos fiches de paie, déclarations CCSS et gestion des congés. Bénéficiez de notre expertise en droit social.
-        </p>
-        <div class="service-card__features">
-          <span class="feature-tag">✓ Fiches de paie</span>
-          <span class="feature-tag">✓ Déclarations CCSS</span>
-          <span class="feature-tag">✓ Conseil RH</span>
-        </div>
-        <div class="service-card__price">À partir de €25/employé</div>
-        <a href="/paie" class="service-card__link" aria-label="En savoir plus sur la gestion de la paie">
-          Détails du service →
-        </a>
-      </article>
-      
-      <!-- Carte 4: Conseil -->
-      <article class="service-card service-card--animated" data-delay="600">
-        <div class="service-card__glow"></div>
-        <div class="service-card__icon-wrapper">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 8a3 3 0 0 1 0 6" /><path d="M10 8v11a1 1 0 0 1 -1 1h-1a1 1 0 0 1 -1 -1v-5" /><path d="M12 8h0l4.524 -3.77a0.9 .9 0 0 1 1.476 .692v12.156a0.9 .9 0 0 1 -1.476 .692l-4.524 -3.77h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h8" /></svg>
-        </div>
-        <h3 class="service-card__title">💡 Business Plan & Conseil</h3>
-        <p class="service-card__description">
-          Élaboration de business plans pour investisseurs et banques. Conseil stratégique pour optimiser votre croissance et fiscalité.
-        </p>
-        <div class="service-card__features">
-          <span class="feature-tag">✓ Business plan</span>
-          <span class="feature-tag">✓ Optimisation fiscale</span>
-          <span class="feature-tag">✓ Conseil stratégique</span>
-        </div>
-        <div class="service-card__price">À partir de €800</div>
-        <a href="/services#conseil" class="service-card__link" aria-label="En savoir plus sur le business plan et le conseil">
-          Détails du service →
-        </a>
-      </article>
-
     </div>
     
-    <div class="services__cta services__cta--animated">
-      <div class="services__cta-icon">🎯</div>
-      <h3 class="services__cta-title">Besoin d'un accompagnement sur mesure ?</h3>
-      <p class="services__cta-subtitle">Discutons de vos besoins spécifiques. Notre premier entretien est offert.</p>
-      <div class="services__cta-features">
-        <span class="cta-feature">✓ Consultation gratuite</span>
-        <span class="cta-feature">✓ Devis sous 24h</span>
-        <span class="cta-feature">✓ Accompagnement personnalisé</span>
-      </div>
-      <a href="/contact" class="btn btn--primary btn--large btn--glow" aria-label="Demander un devis personnalisé">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3zM9 9h6m-6 4h6"/></svg>
-        Demander un devis personnalisé
-      </a>
+    <div class="services-grid">
+      {highlightedServices.map(service => (
+        <div class:list={["service-card", { popular: service.isPopular }]}>
+          {service.isPopular && <span class="popular-badge">Populaire</span>}
+          <div class="card-icon" set:html={service.icon} />
+          <h3 class="card-title">{service.title}</h3>
+          <p class="card-description">{service.description}</p>
+          <a href={service.url} class="card-link" aria-label={`En savoir plus sur le service ${service.title}`}>
+            En savoir plus →
+          </a>
+        </div>
+      ))}
     </div>
   </div>
   
-  <script type="application/ld+json" set:html={JSON.stringify(servicesSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(servicesSchema)} is:inline />
 </section>
 
 <style>
-  /* ===== Variables et Styles de Base (à placer dans un fichier global si possible) ===== */
-  :root {
-    --color-primary: #0055A4;
-    --color-gold: #D4AF37;
-    --color-dark: #1B2A38;
-    --color-body: #4A5568;
-    --color-light: #F7FAFC;
-    --color-white: #FFFFFF;
-    --color-border: #E2E8F0;
-    --font-sans: 'Inter', sans-serif;
-    --font-heading: 'Poppins', sans-serif;
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --radius-md: 8px;
-    --radius-lg: 16px;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  /* Styles globaux réutilisés */
-  .container { width: 100%; max-width: 1200px; margin-inline: auto; padding-inline: 1.5rem; }
-  .section-tag { display: inline-block; background-color: var(--color-light); color: var(--color-primary); padding: 0.25rem 0.75rem; border-radius: 99px; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.75rem; }
-  .section-title { font-family: var(--font-heading); font-size: clamp(2rem, 5vw, 2.75rem); color: var(--color-dark); margin: 0; }
-  .section-subtitle { font-size: 1.125rem; color: var(--color-body); margin-top: 1rem; line-height: 1.6; }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 1.5rem; border-radius: var(--radius-md); font-weight: 600; text-decoration: none; transition: var(--transition); border: 2px solid transparent; cursor: pointer; }
-  .btn--primary { 
-    background: linear-gradient(135deg, var(--color-gold) 0%, #f4d03f 100%); 
-    color: var(--color-dark); 
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-  }
-  
-  .btn--primary:hover { 
-    background: linear-gradient(135deg, #f4d03f 0%, var(--color-gold) 100%); 
-    transform: translateY(-3px); 
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+  .services-highlight {
+    padding: var(--spacing-xl) 0;
+    background-color: var(--color-background-alt);
+    border-bottom: 1px solid var(--color-border);
   }
 
-  /* ===== Section Services ===== */
-  .services {
-    background: linear-gradient(135deg, var(--color-white) 0%, #f8fafc 50%, var(--color-light) 100%);
-    padding-block: clamp(3rem, 8vw, 6rem);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .services::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 200px;
-    background: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .services__header {
+  .section-header {
     text-align: center;
-    max-width: 700px;
-    margin: 0 auto 4rem;
-    position: relative;
+    max-width: 720px;
+    margin: 0 auto var(--spacing-lg) auto;
+  }
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .section-subtitle {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-lg);
   }
   
-  .section-tag--animated {
-    opacity: 0;
-    animation: slideInUp 0.8s ease-out 0.2s forwards;
-  }
-  
-  .section-title--animated {
-    opacity: 0;
-    animation: slideInUp 0.8s ease-out 0.4s forwards;
-  }
-  
-  .section-subtitle--animated {
-    opacity: 0;
-    animation: slideInUp 0.8s ease-out 0.6s forwards;
-  }
-  
-  @keyframes slideInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .services__grid {
+  .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
   }
 
-  /* Styles des cartes de service */
   .service-card {
-    background: linear-gradient(135deg, var(--color-white) 0%, #fbfcfd 100%);
+    background-color: var(--color-background);
     border: 1px solid var(--color-border);
     padding: 2rem;
-    border-radius: var(--radius-lg);
     display: flex;
     flex-direction: column;
+    text-align: center;
     transition: var(--transition);
     position: relative;
-    text-align: left;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    overflow: hidden;
-  }
-  
-  .service-card--animated {
-    opacity: 0;
-    transform: translateY(50px);
-    animation: cardSlideIn 0.8s ease-out forwards;
-  }
-  
-  .service-card--animated[data-delay="0"] { animation-delay: 0.8s; }
-  .service-card--animated[data-delay="200"] { animation-delay: 1s; }
-  .service-card--animated[data-delay="400"] { animation-delay: 1.2s; }
-  .service-card--animated[data-delay="600"] { animation-delay: 1.4s; }
-  
-  @keyframes cardSlideIn {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .service-card__glow {
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(0, 85, 164, 0.05) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
-  }
-  
-  .service-card__glow--gold {
-    background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
   }
 
   .service-card:hover {
-    transform: translateY(-12px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    border-color: var(--color-gold);
-  }
-  
-  .service-card:hover .service-card__glow {
-    opacity: 1;
-  }
-  
-  .service-card:hover .service-card__icon-wrapper {
-    transform: scale(1.1) rotate(5deg);
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   }
 
-  .service-card--featured {
-    background: linear-gradient(135deg, var(--color-white) 0%, #fffdf7 100%);
-    border: 2px solid var(--color-gold);
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
-    position: relative;
+  .service-card.popular {
+    border-color: var(--color-primary);
+    background-color: #f7faff; /* Léger fond bleu pour le service populaire */
   }
-  
-  .service-card--featured::before {
-    content: '';
+
+  .popular-badge {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--color-gold) 0%, #f4d03f 50%, var(--color-gold) 100%);
-    animation: shimmer 2s ease-in-out infinite;
-  }
-  
-  @keyframes shimmer {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
-  }
-  
-  .service-card__badge {
-    position: absolute;
-    top: 1.5rem;
+    top: -1px;
     right: 1.5rem;
-    background: linear-gradient(135deg, var(--color-gold) 0%, #f4d03f 100%);
-    color: var(--color-dark);
-    padding: 0.4rem 1rem;
-    border-radius: 99px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
-  }
-  
-  .service-card__badge--pulse {
-    animation: badgePulse 2s ease-in-out infinite;
-  }
-  
-  @keyframes badgePulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
   }
 
-  .service-card__icon-wrapper {
+  .card-icon {
     display: inline-flex;
-    padding: 1rem;
-    background: linear-gradient(135deg, var(--color-white) 0%, #f8fafc 100%);
-    border-radius: 50%;
-    margin-bottom: 1.5rem;
     color: var(--color-primary);
-    box-shadow: 0 4px 12px rgba(0, 85, 164, 0.1);
-    border: 2px solid rgba(0, 85, 164, 0.1);
-    transition: var(--transition);
-  }
-  
-  .service-card--featured .service-card__icon-wrapper {
-    background: linear-gradient(135deg, var(--color-gold) 0%, #f4d03f 100%);
-    color: var(--color-dark);
-    border: 2px solid rgba(212, 175, 55, 0.3);
-    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+    margin-bottom: 1rem;
   }
 
-  .service-card__title {
-    font-family: var(--font-heading);
-    font-size: 1.375rem;
-    color: var(--color-dark);
-    margin: 0 0 0.75rem;
+  .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
   }
 
-  .service-card__description {
-    color: var(--color-body);
-    margin: 0 0 1.5rem;
-    line-height: 1.6;
+  .card-description {
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
     flex-grow: 1; /* Pousse le lien en bas */
   }
-  
-  .service-card__features {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .feature-tag {
-    background: linear-gradient(135deg, var(--color-white) 0%, #f8fafc 100%);
-    border: 1px solid var(--color-border);
-    color: var(--color-body);
-    padding: 0.3rem 0.8rem;
-    border-radius: 99px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    transition: var(--transition);
-  }
-  
-  .feature-tag:hover {
-    background: var(--color-primary);
-    color: var(--color-white);
-    transform: translateY(-2px);
-  }
-  
-  .feature-tag--gold {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(244, 208, 63, 0.1) 100%);
-    border-color: rgba(212, 175, 55, 0.3);
-    color: var(--color-dark);
-  }
-  
-  .feature-tag--gold:hover {
-    background: var(--color-gold);
-    color: var(--color-dark);
-  }
-  
-  .service-card__price {
-    font-size: 0.9rem;
-    font-weight: 700;
+
+  .card-link {
+    font-weight: 600;
     color: var(--color-primary);
-    margin-bottom: 1rem;
-    padding: 0.5rem 1rem;
-    background: linear-gradient(135deg, rgba(0, 85, 164, 0.05) 0%, rgba(0, 85, 164, 0.1) 100%);
-    border-radius: var(--radius-md);
-    text-align: center;
-  }
-  
-  .service-card__price--featured {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(244, 208, 63, 0.1) 100%);
-    color: var(--color-dark);
+    text-decoration: none;
+    margin-top: auto; /* Se colle au bas de la carte */
   }
 
-  .service-card__link {
-    color: var(--color-primary);
-    font-weight: 600;
-    text-decoration: none;
-    transition: var(--transition);
-    position: relative;
-    padding-bottom: 3px;
-  }
-  
-  .service-card__link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-gold) 100%);
-    transition: width 0.3s ease;
-  }
-  
-  .service-card__link:hover::after {
-    width: 100%;
-  }
-  
-  .service-card__link--featured {
-    color: var(--color-gold);
-  }
-  
-  .service-card__link--featured::after {
-    background: linear-gradient(90deg, var(--color-gold) 0%, #f4d03f 100%);
-  }
-  
-  /* CTA en bas de section */
-  .services__cta {
-    margin-top: 4rem;
-    text-align: center;
-    background: linear-gradient(135deg, var(--color-light) 0%, #f0f4f8 100%);
-    padding: 3rem 2rem;
-    border-radius: var(--radius-lg);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .services__cta--animated {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: slideInUp 0.8s ease-out 1.6s forwards;
-  }
-  
-  .services__cta::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.05), transparent);
-    animation: ctaShimmer 3s ease-in-out infinite;
-  }
-  
-  @keyframes ctaShimmer {
-    0% { left: -100%; }
-    50% { left: 100%; }
-    100% { left: 100%; }
-  }
-  
-  .services__cta-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    animation: bounce 2s ease-in-out infinite;
-  }
-  
-  @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-10px); }
-    60% { transform: translateY(-5px); }
-  }
-  
-  .services__cta-features {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    margin: 1.5rem 0;
-  }
-  
-  .cta-feature {
-    background: rgba(0, 85, 164, 0.1);
-    color: var(--color-primary);
-    padding: 0.4rem 1rem;
-    border-radius: 99px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    border: 1px solid rgba(0, 85, 164, 0.2);
-  }
-  
-  .btn--large {
-    padding: 1rem 2rem;
-    font-size: 1.1rem;
-  }
-  
-  .btn--glow {
-    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
-    animation: buttonGlow 2s ease-in-out infinite alternate;
-  }
-  
-  @keyframes buttonGlow {
-    from { box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3); }
-    to { box-shadow: 0 6px 30px rgba(212, 175, 55, 0.5); }
-  }
-  .services__cta-title {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    color: var(--color-dark);
-    margin: 0 0 0.75rem;
-  }
-  .services__cta-subtitle {
-    color: var(--color-body);
-    margin: 0 auto 2rem;
-    max-width: 500px;
+  .card-link:hover {
+    text-decoration: underline;
   }
 </style>

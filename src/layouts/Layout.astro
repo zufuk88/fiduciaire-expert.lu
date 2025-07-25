@@ -1,797 +1,279 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+// src/layouts/Layout.astro
+
+import Header from '../components/Header.astro'; // Assurez-vous que ce composant existe
+import Footer from '../components/Footer.astro'; // Assurez-vous que ce composant existe
 
 export interface Props {
   title: string;
-  description?: string;
+  description: string;
   canonical?: string;
   ogImage?: string;
+  keywords?: string;
   noindex?: boolean;
-  schema?: any;
+  schema?: object; // Accepte n'importe quel objet de schéma
 }
 
-const { 
-  title, 
-  description = "🏆 Fiduciaire Expert Luxembourg - Expert-comptable certifié OECD ✓ Fiscalité IRC optimisée ✓ Création SARL en 48h ✓ Comptabilité digitale PME ✓ Devis gratuit 24h ☎️ +352-XX-XX-XX",
+const {
+  title,
+  description,
   canonical,
-  ogImage = "/images/og-fiduciaire-luxembourg.jpg",
+  ogImage = "/images/og-expert-comptable-luxembourg.jpg", // Image par défaut
+  keywords = "expert comptable luxembourg, fiduciaire luxembourg, création sarl luxembourg, comptabilité PME, fiscalité IRC, TVA luxembourg", // Mots-clés par défaut
   noindex = false,
   schema
 } = Astro.props;
 
 const siteUrl = "https://www.fiduciaire-expert.lu";
-const fullTitle = `${title} | Fiduciaire Expert Luxembourg`;
 const canonicalURL = canonical || new URL(Astro.url.pathname, siteUrl).href;
 
-// Schema.org optimisé pour l'acquisition client
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": ["AccountingService", "ProfessionalService", "LocalBusiness"],
-  "@id": `${siteUrl}/#organization`,
-  "name": "Fiduciaire Expert Luxembourg",
-  "alternateName": ["Expert-Comptable Luxembourg", "Cabinet Fiduciaire Luxembourg", "Comptable Agréé Luxembourg"],
-  "url": siteUrl,
-  "logo": {
-    "@type": "ImageObject",
-    "url": `${siteUrl}/images/logo-fiduciaire-expert.png`,
-    "width": 300,
-    "height": 100,
-    "caption": "Logo Fiduciaire Expert Luxembourg"
-  },
-  "image": [
-    `${siteUrl}/images/bureau-fiduciaire-luxembourg.jpg`,
-    `${siteUrl}/images/equipe-expert-comptable.jpg`,
-    `${siteUrl}/images/services-comptables-luxembourg.jpg`
-  ],
-  "description": "Cabinet d'expertise comptable certifié au Luxembourg. Spécialiste en comptabilité, fiscalité IRC, création SARL, TVA et audit. Accompagnement des PME et entrepreneurs luxembourgeois depuis +15 ans.",
-  "slogan": "Votre partenaire fiduciaire de confiance au Luxembourg",
-  "foundingDate": "2008",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Avenue de la Liberté",
-    "addressLocality": "Luxembourg",
-    "postalCode": "1930",
-    "addressRegion": "Luxembourg",
-    "addressCountry": {"@type": "Country", "name": "Luxembourg", "alternateName": "LU"}
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "49.6117",
-    "longitude": "6.1300",
-    "address": "Luxembourg, Grand-Duché de Luxembourg"
-  },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": "+352-XX-XX-XX",
-    "email": "contact@fiduciaire-expert.lu",
-    "contactType": "Service Client",
-    "availableLanguage": ["French", "German", "English", "Luxembourgish"],
-    "hoursAvailable": "Mo-Fr 08:30-18:00"
-  },
-  "priceRange": "€€-€€€",
-  "paymentAccepted": ["Virement bancaire", "Chèque", "Carte de crédit"],
-  "currenciesAccepted": "EUR",
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      "opens": "08:30",
-      "closes": "18:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Saturday",
-      "opens": "09:00",
-      "closes": "12:00"
-    }
-  ],
-  "sameAs": [
-    "https://www.linkedin.com/company/fiduciaire-expert-luxembourg/",
-    "https://www.facebook.com/fiduciaireexpertlu",
-    "https://twitter.com/fiduciaireexpert"
-  ],
-  "areaServed": [
-    {
-      "@type": "Country",
-      "name": "Luxembourg"
-    },
-    {
-      "@type": "City",
-      "name": "Luxembourg-Ville"
-    },
-    {
-      "@type": "AdministrativeArea",
-      "name": "Grande Région"
-    }
-  ],
-  "serviceArea": {
-    "@type": "GeoCircle",
-    "geoMidpoint": {
-      "@type": "GeoCoordinates",
-      "latitude": "49.6117",
-      "longitude": "6.1300"
-    },
-    "geoRadius": "50000"
-  },
-  "knowsAbout": [
-    "Comptabilité Luxembourg", "Fiscalité IRC", "Création SARL Luxembourg", "TVA Luxembourg",
-    "Déclarations fiscales", "Audit comptable", "Révision légale", "Conseil fiscal",
-    "Droit des sociétés", "Optimisation fiscale", "Compliance", "Reporting financier"
-  ],
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Services Fiduciaires et Comptables Luxembourg",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Comptabilité et tenue de livres",
-          "description": "Tenue complète de la comptabilité, saisie des pièces comptables, rapprochements bancaires",
-          "category": "Comptabilité"
-        },
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "priceCurrency": "EUR",
-          "price": "A partir de 150€/mois"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Création de société SARL Luxembourg",
-          "description": "Constitution SARL, dépôt statuts, formalités RCS, accompagnement complet en 48h",
-          "category": "Constitution société"
-        },
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "priceCurrency": "EUR",
-          "price": "1250€ TTC"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service", 
-          "name": "Déclarations fiscales IRC et TVA",
-          "description": "Déclarations IRC annuelles, TVA trimestrielles, optimisation fiscale",
-          "category": "Fiscalité"
-        },
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "priceCurrency": "EUR",
-          "price": "A partir de 300€"
-        }
-      }
-    ]
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "reviewCount": "156",
-    "bestRating": "5",
-    "worstRating": "1"
-  },
-  "award": [
-    "Certifié Expert-Comptable OECD",
-    "Membre IRE Luxembourg",
-    "Agrément Réviseur d'Entreprises"
-  ]
-};
-
-// FAQs Schema pour SEO
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Combien coûte la création d'une SARL au Luxembourg?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "La création d'une SARL au Luxembourg coûte 1250€ TTC tout compris avec Fiduciaire Expert. Ce prix inclut la rédaction des statuts, le dépôt au RCS, et toutes les formalités administratives."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Quels sont les délais pour créer une société au Luxembourg?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Avec notre service express, votre SARL peut être créée en 48h seulement. Les délais standards sont de 5 à 7 jours ouvrables."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Fiduciaire Expert est-il agréé au Luxembourg?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Oui, Fiduciaire Expert Luxembourg est un cabinet agréé expert-comptable, membre de l'IRE (Institut des Réviseurs d'Entreprises) et certifié OECD."
-      }
-    }
-  ]
-};
-
-// Breadcrumb par défaut pour la page d'accueil
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-    "@type": "ListItem",
-    "position": 1,
-    "name": "Accueil - Expert Comptable Luxembourg",
-    "item": siteUrl
-  }]
-};
-
-// Website Schema pour améliorer le SEO
+// Schéma de base du site web. Le schéma de la page sera fusionné s'il est fourni.
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": `${siteUrl}/#website`,
   "url": siteUrl,
   "name": "Fiduciaire Expert Luxembourg",
-  "description": "Cabinet expert-comptable Luxembourg - Création SARL, comptabilité, fiscalité IRC, TVA. Devis gratuit en 24h.",
+  "description": description,
   "publisher": {
-    "@id": `${siteUrl}/#organization`
+      "@id": `${siteUrl}/#organization` // Fait référence au schéma d'organisation qui sera défini sur la page d'accueil
   },
-  "potentialAction": [
-    {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": `${siteUrl}/search?q={search_term_string}`
-      },
-      "query-input": "required name=search_term_string"
-    }
-  ],
   "inLanguage": "fr-LU"
 };
 
-// Combine tous les schemas optimisés
-const allSchemas = {
-  "@context": "https://schema.org",
-  "@graph": [
-    organizationSchema,
-    websiteSchema,
-    faqSchema,
-    breadcrumbSchema,
-    ...(schema ? [schema] : [])
-  ]
-};
+// Si la page fournit un schéma (comme index.astro), on l'utilise.
+// Sinon, on utilise un schéma de base.
+const finalSchema = schema ? schema : websiteSchema;
 ---
 
 <!doctype html>
 <html lang="fr-LU">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- SEO Meta Tags Optimisés -->
-    <title>{fullTitle}</title>
-    <meta name="description" content={description} />
-    <meta name="keywords" content="expert comptable luxembourg, fiduciaire luxembourg, création sarl luxembourg, comptabilité PME, fiscalité IRC, TVA luxembourg, audit comptable, conseil fiscal luxembourg" />
-    <meta name="author" content="Fiduciaire Expert Luxembourg" />
-    <link rel="canonical" href={canonicalURL} />
-    
-    <!-- SEO Local Luxembourg -->
-    <meta name="geo.region" content="LU-L" />
-    <meta name="geo.position" content="49.6117;6.1300" />
-    <meta name="ICBM" content="49.6117, 6.1300" />
-    <meta name="DC.title" content={fullTitle} />
-    
-    {noindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />}
-    
-    <!-- Optimisation Acquisition Clients -->
-    <meta name="subject" content="Services Fiduciaires et Comptables Luxembourg" />
-    <meta name="target" content="Entrepreneurs, PME, Indépendants Luxembourg" />
-    <meta name="audience" content="Professionnels, Dirigeants d'entreprise" />
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={fullTitle} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={`${siteUrl}${ogImage}`} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="Fiduciaire Expert Luxembourg" />
-    <meta property="og:locale" content="fr_LU" />
-    
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content={canonicalURL} />
-    <meta name="twitter:title" content={fullTitle} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
-    
-    <!-- Favicons -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Fiduciaire Expert" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#0d2b4f" />
-    
-    <!-- Optimisations Performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-    <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
-    
-    <!-- Generator -->
-    <meta name="generator" content={Astro.generator} />
-    
-    <!-- Données structurées Schema.org -->
-    <script type="application/ld+json" set:html={JSON.stringify(allSchemas)} is:inline />
-  </head>
-  
-  <body>
-    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
-    
-    <Header />
-    
-    <main id="main-content">
-      <slot />
-    </main>
-    
-    <Footer />
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="keywords" content={keywords} />
+  <link rel="canonical" href={canonicalURL} />
+  <meta name="author" content="Fiduciaire Expert Luxembourg" />
+
+  {noindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow, max-image-preview:large" />}
+
+  <meta property="og:locale" content="fr_LU" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:site_name" content="Fiduciaire Expert Luxembourg" />
+  <meta property="og:image" content={new URL(ogImage, siteUrl).href} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={`Illustration pour ${title}`} />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={new URL(ogImage, siteUrl).href} />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <meta name="generator" content={Astro.generator} />
+
+  <script type="application/ld+json" set:html={JSON.stringify(finalSchema)} is:inline />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+  <Header />
+  <main id="main-content">
+    <slot />
+  </main>
+  <Footer />
+</body>
 </html>
 
 <style is:global>
+  /* ===== SYSTÈME DE DESIGN ÉPURÉ ===== */
   :root {
-    /* Palette Couleurs Premium - Bleu Foncé & Gris Palladium */
-    --bleu-profond: #0d1b2a;        /* Bleu très foncé premium - couleur dominante */
-    --bleu-fonce: #1b263b;          /* Bleu foncé principal */
-    --bleu-accent: #2c3e50;         /* Bleu moyen pour accents */
-    --bleu-clair: #3498db;          /* Bleu clair pour contrastes */
-    --bleu-clair-hover: #2980b9;    /* Hover bleu clair */
-    
-    /* Gris Palladium - Couleur dominante complémentaire */
-    --gris-palladium: #7c869b;      /* Gris palladium principal */
-    --gris-palladium-fonce: #5a6978; /* Gris palladium foncé */
-    --gris-palladium-clair: #a5b4c6; /* Gris palladium clair */
-    
-    /* Palette étendue */
-    --blanc: #ffffff;
-    --gris-tres-clair: #f8fafc;
-    --gris-clair: #e2e8f0;
-    --gris-moyen: #64748b;
-    --texte-principal: #1e293b;
-    --texte-secondaire: #475569;
-    
-    /* Couleurs fonctionnelles */
-    --success: #059669;
-    --warning: #d97706;
-    --error: #dc2626;
-    --info: var(--bleu-clair);
-    
-    /* Gradients Premium */
-    --gradient-primary: linear-gradient(135deg, var(--bleu-profond) 0%, var(--bleu-fonce) 100%);
-    --gradient-secondary: linear-gradient(135deg, var(--gris-palladium) 0%, var(--gris-palladium-fonce) 100%);
-    --gradient-accent: linear-gradient(135deg, var(--bleu-clair) 0%, var(--bleu-accent) 100%);
-    --gradient-hero: linear-gradient(135deg, var(--bleu-profond) 0%, var(--bleu-fonce) 50%, var(--gris-palladium-fonce) 100%);
-    
-    /* Effets et ombres Premium */
-    --shadow-sm: 0 1px 2px rgba(13, 27, 42, 0.05);
-    --shadow: 0 4px 6px rgba(13, 27, 42, 0.1);
-    --shadow-md: 0 8px 25px rgba(13, 27, 42, 0.15);
-    --shadow-lg: 0 20px 40px rgba(13, 27, 42, 0.2);
-    --shadow-xl: 0 25px 50px rgba(13, 27, 42, 0.25);
-    
-    --glow-blue: 0 0 20px rgba(52, 152, 219, 0.3);
-    --glow-palladium: 0 0 20px rgba(124, 134, 155, 0.3);
-    
-    /* Transitions premium */
-    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    
-    /* Rayons de bordure */
-    --radius-sm: 4px;
-    --radius: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-    --radius-xl: 24px;
-    
-    /* Variables legacy compatibilité */
-    --or-premium: var(--gris-palladium);
-    --or-premium-hover: var(--gris-palladium-fonce);
-    --bleu-accent-hover: var(--bleu-profond);
-    --fond-clair: var(--gris-tres-clair);
-    --fond-tres-clair: var(--blanc);
-    --argent-element: var(--gris-clair);
+    /* Palette de couleurs */
+    --color-background: #ffffff; /* Fond blanc principal */
+    --color-background-alt: #f8f9fa; /* Fond gris clair pour sections */
+    --color-text: #212529; /* Texte principal (noir doux) */
+    --color-text-secondary: #6c757d; /* Texte secondaire (gris) */
+    --color-primary: #005fcc; /* Bleu pour les accents et liens */
+    --color-border: #dee2e6; /* Bordures discrètes */
+    --color-dark: #0f172a; /* Bleu nuit pour titres forts */
+
+    /* Typographie */
+    --font-family: 'Inter', sans-serif;
+    --font-size-base: 1rem; /* 16px */
+    --font-size-lg: 1.125rem; /* 18px */
+    --font-size-xl: 1.25rem; /* 20px */
+    --font-size-h1: 2.5rem; /* 40px */
+    --font-size-h2: 2rem; /* 32px */
+    --font-size-h3: 1.5rem; /* 24px */
+
+    /* Espacements */
+    --spacing-md: 1.5rem;
+    --spacing-lg: 3rem;
+    --spacing-xl: 6rem;
+
+    /* Transitions */
+    --transition: all 0.2s ease-in-out;
   }
 
-  /* Reset et base */
+  /* ===== RESET ET STYLES DE BASE ===== */
   *,
   *::before,
   *::after {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border-radius: 0; /* COINS CARRÉS PARTOUT */
   }
 
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-  
   html {
-    overflow-x: hidden;
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-      Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 100%;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
-    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
-    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    color: var(--color-text);
+    background-color: var(--color-background);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    line-height: 1.65;
-    color: var(--texte-principal);
-    background: var(--blanc);
-    position: relative;
-  }
-  
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 20% 50%, rgba(52, 152, 219, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(124, 134, 155, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(13, 27, 42, 0.02) 0%, transparent 50%);
-    z-index: -1;
-    pointer-events: none;
-  }
-
   main {
-    flex-grow: 1;
-  }
-  
-  /* Supprime les marges par défaut des derniers éléments */
-  main > *:last-child {
-    margin-bottom: 0;
-  }
-  
-  main section:last-child {
-    padding-bottom: 0;
+    display: block;
+    width: 100%;
   }
 
-  /* Skip link pour accessibilité */
-  .skip-link {
-    position: absolute;
-    left: -9999px;
-    z-index: 999;
-    padding: 1rem;
-    background-color: var(--bleu-profond);
-    color: var(--blanc);
-    text-decoration: none;
-  }
-
-  .skip-link:focus {
-    left: 50%;
-    transform: translateX(-50%);
-    top: 1rem;
-    border-radius: 4px;
-  }
-
-  /* Focus visible pour accessibilité */
-  :focus-visible {
-    outline: 2px solid var(--gris-palladium);
-    outline-offset: 2px;
-  }
-
-  /* Typography Premium */
+  /* ===== TYPOGRAPHIE ===== */
   h1, h2, h3, h4, h5, h6 {
-    margin-top: 0;
-    line-height: 1.2;
-    color: var(--bleu-profond);
     font-weight: 700;
-    letter-spacing: -0.025em;
+    line-height: 1.2;
+    color: var(--color-dark);
   }
-  
-  h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 800;
-  }
-  
-  h2 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    color: var(--bleu-fonce);
-  }
-  
-  h3 {
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    color: var(--bleu-accent);
+
+  h1 { font-size: var(--font-size-h1); }
+  h2 { font-size: var(--font-size-h2); }
+  h3 { font-size: var(--font-size-h3); }
+
+  p {
+    margin-bottom: 1rem;
   }
 
   a {
-    color: var(--bleu-accent);
+    color: var(--color-primary);
     text-decoration: none;
-    position: relative;
     transition: var(--transition);
   }
-  
-  a::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--gradient-accent);
-    transition: var(--transition);
-  }
-
   a:hover {
-    color: var(--bleu-clair);
-  }
-  
-  a:hover::after {
-    width: 100%;
+    text-decoration: underline;
   }
 
-  /* Images responsive */
-  img {
-    max-width: 100%;
-    height: auto;
-    display: block;
+  strong {
+    font-weight: 700;
   }
 
-  /* Social links Premium */
-  .social-links {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  .social-links a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-md);
-    color: var(--bleu-profond);
-    text-decoration: none;
-    transition: var(--transition);
-    border: 2px solid var(--gris-palladium);
-    background: var(--blanc);
-    box-shadow: var(--shadow-sm);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .social-links a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: var(--gradient-secondary);
-    transition: var(--transition);
-    z-index: -1;
-  }
-
-  .social-links a:hover {
-    color: var(--blanc);
-    border-color: var(--gris-palladium-fonce);
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md), var(--glow-palladium);
-  }
-  
-  .social-links a:hover::before {
-    left: 0;
-  }
-
-  .linkedin-icon {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
-  }
-
-  /* Utility classes Premium */
+  /* ===== STRUCTURE ET CONTENEURS ===== */
   .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 clamp(1rem, 4vw, 2rem);
+    width: 100%;
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
-  
-  .container-wide {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 clamp(1rem, 4vw, 2rem);
+
+  section {
+    padding-top: var(--spacing-xl);
+    padding-bottom: var(--spacing-xl);
   }
-  
-  .container-narrow {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 clamp(1rem, 4vw, 2rem);
+  section:nth-of-type(odd) {
+    background-color: var(--color-background-alt);
   }
-  
-  /* Boutons Premium */
+
+  .section-header {
+    max-width: 720px;
+    margin: 0 auto var(--spacing-lg) auto;
+    text-align: center;
+  }
+  .section-header h2 {
+    margin-bottom: 1rem;
+  }
+  .section-header p {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+  }
+
+  /* ===== BOUTONS ===== */
   .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 1rem 2rem;
-    border: none;
-    border-radius: var(--radius);
-    font-family: inherit;
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    font-size: var(--font-size-base);
     font-weight: 600;
-    font-size: 1rem;
+    text-align: center;
     text-decoration: none;
     cursor: pointer;
+    border: 2px solid transparent;
     transition: var(--transition);
-    position: relative;
-    overflow: hidden;
   }
-  
+
   .btn-primary {
-    background: var(--gradient-primary);
-    color: var(--blanc);
-    box-shadow: var(--shadow);
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    border-color: var(--color-primary);
   }
-  
   .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg), var(--glow-blue);
-    color: var(--blanc);
+    background-color: var(--color-dark);
+    border-color: var(--color-dark);
+    text-decoration: none;
   }
-  
+
   .btn-secondary {
-    background: var(--gradient-secondary);
-    color: var(--blanc);
-    box-shadow: var(--shadow);
+    background-color: transparent;
+    color: var(--color-dark);
+    border-color: var(--color-border);
   }
-  
   .btn-secondary:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg), var(--glow-palladium);
-    color: var(--blanc);
-  }
-  
-  .btn-outline {
-    background: transparent;
-    color: var(--bleu-accent);
-    border: 2px solid var(--bleu-accent);
-  }
-  
-  .btn-outline:hover {
-    background: var(--bleu-accent);
-    color: var(--blanc);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    background-color: var(--color-dark);
+    color: var(--color-background);
+    border-color: var(--color-dark);
+    text-decoration: none;
   }
 
-  .visually-hidden {
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
+  /* ===== ACCESSIBILITÉ ===== */
+  .skip-link {
+    position: absolute;
+    top: -1000px;
+    left: -1000px;
     height: 1px;
-    overflow: hidden;
-    position: absolute;
-    white-space: nowrap;
     width: 1px;
-  }
-
-  /* Cards Premium */
-  .card {
-    background: var(--blanc);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow);
-    transition: var(--transition);
+    text-align: left;
     overflow: hidden;
-    position: relative;
-  }
-  
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: var(--gradient-accent);
-  }
-  
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-xl);
-  }
-  
-  .card-body {
-    padding: 2rem;
-  }
-  
-  /* Animations */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  
-  .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out;
-  }
-  
-  .animate-slide-in-right {
-    animation: slideInRight 0.6s ease-out;
-  }
-  
-  /* Responsive Premium */
-  @media (max-width: 768px) {
-    .social-links {
-      gap: 0.75rem;
-    }
-    
-    .social-links a {
-      width: 40px;
-      height: 40px;
-    }
-    
-    .btn {
-      padding: 0.875rem 1.5rem;
-      font-size: 0.9rem;
-    }
-    
-    .card-body {
-      padding: 1.5rem;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .container,
-    .container-wide,
-    .container-narrow {
-      padding: 0 1rem;
-    }
-    
-    .btn {
-      width: 100%;
-      justify-content: center;
-    }
+    background: var(--color-dark);
+    color: var(--color-background);
+    padding: 1rem;
+    z-index: 1000;
   }
 
-  /* Print styles */
-  @media print {
-    .skip-link,
-    header,
-    footer {
-      display: none;
-    }
+  .skip-link:focus {
+    top: 10px;
+    left: 10px;
+    width: auto;
+    height: auto;
+    overflow: visible;
   }
 </style>

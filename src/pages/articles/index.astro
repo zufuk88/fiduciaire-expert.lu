@@ -1,0 +1,160 @@
+---
+// src/pages/articles/index.astro
+
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+// NOUVELLE MÉTHODE : On utilise les collections, plus robustes
+const allPosts = await getCollection('blog');
+const sortedPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Le reste de la logique est similaire
+const categories = [...new Set(sortedPosts.map(post => post.data.category))].filter(Boolean);
+const featuredPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
+const regularPosts = sortedPosts.length > 1 ? sortedPosts.slice(1) : [];
+
+const formatDate = (date) => date.toLocaleDateString('fr-FR', {
+  year: 'numeric', month: 'long', day: 'numeric'
+});
+
+// Les schémas SEO ne changent pas...
+---
+
+<Layout
+  title="Blog | Conseils en Comptabilité & Fiscalité | Fiduciaire Expert Luxembourg"
+  description={`Retrouvez nos ${sortedPosts.length} articles d'experts sur la comptabilité, la fiscalité et la création d'entreprise au Luxembourg.`}
+>
+  <section class="page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="/">Accueil</a> / <span>Blog</span></p>
+      <h1>Blog & Actualités</h1>
+      <p class="hero-subtitle">Nos analyses et conseils d'experts pour maîtriser la comptabilité, la fiscalité et le droit des sociétés au Luxembourg.</p>
+    </div>
+  </section>
+
+  {sortedPosts.length > 0 ? (
+    <>
+      {featuredPost && (
+        <section class="featured-section">
+          <div class="container">
+            <article class="featured-article">
+              <a href={`/articles/${featuredPost.slug}`} class="featured-link">
+                {featuredPost.data.image && (
+                  <div class="featured-image-wrapper">
+                    <img src={featuredPost.data.image} alt={featuredPost.data.title} width="1200" height="600" loading="eager"/>
+                  </div>
+                )}
+                <div class="featured-content">
+                  <p class="featured-meta">
+                    <span class="category-badge">{featuredPost.data.category}</span>
+                    <time datetime={featuredPost.data.date.toISOString()}>
+                      {formatDate(featuredPost.data.date)}
+                    </time>
+                  </p>
+                  <h2 class="featured-title">{featuredPost.data.title}</h2>
+                  <p class="featured-excerpt">{featuredPost.data.description}</p>
+                  <span class="read-more">Lire l'article →</span>
+                </div>
+              </a>
+            </article>
+          </div>
+        </section>
+      )}
+
+      <section class="blog-main-section">
+        <div class="container blog-layout">
+          <div class="posts-column">
+            <h3 class="section-title">Tous les articles</h3>
+            <div class="posts-grid">
+              {regularPosts.map(post => (
+                <article class="post-card">
+                  <a href={`/articles/${post.slug}`} class="post-link">
+                    {post.data.image && (
+                      <div class="post-image-wrapper">
+                        <img src={post.data.image} alt={post.data.title} width="400" height="250" loading="lazy" />
+                      </div>
+                    )}
+                    <div class="post-content">
+                      <p class="post-meta">
+                        <span class="category-badge">{post.data.category}</span>
+                        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                      </p>
+                      <h4 class="post-title">{post.data.title}</h4>
+                      <p class="post-excerpt">{post.data.description}</p>
+                    </div>
+                  </a>
+                </article>
+              ))}
+            </div>
+          </div>
+          <aside class="sidebar-column">
+            <div class="sidebar-widget">
+              <h3 class="widget-title">Catégories</h3>
+              <nav class="category-nav">
+                <a href="/articles" class="category-link is-active">Toutes les catégories</a>
+                {categories.map(cat => {
+                  const slug = cat.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-');
+                  return <a href={`/articles/category/${slug}`} class="category-link">{cat}</a>;
+                })}
+              </nav>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </>
+  ) : (
+    <section class="no-posts-section">
+      <div class="container">
+        <p>Aucun article n'a été publié pour le moment. Revenez bientôt !</p>
+      </div>
+    </section>
+  )}
+</Layout>
+
+<style>
+  /* Styles CSS (inchangés, ils sont déjà parfaits) */
+  .page-hero { background-color: var(--color-background-alt); padding: var(--spacing-lg) 0; text-align: center; border-bottom: 1px solid var(--color-border); }
+  .breadcrumb { font-size: 0.9rem; color: var(--color-text-secondary); margin-bottom: 1rem; }
+  .breadcrumb a { color: var(--color-text-secondary); }
+  .breadcrumb a:hover { color: var(--color-primary); }
+  .page-hero h1 { margin-bottom: 1rem; }
+  .hero-subtitle { font-size: var(--font-size-lg); color: var(--color-text-secondary); max-width: 720px; margin: 0 auto; }
+  .featured-section { padding: var(--spacing-xl) 0; background-color: var(--color-background); }
+  .featured-article { border: 1px solid var(--color-border); transition: var(--transition); }
+  .featured-article:hover { border-color: var(--color-primary); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+  .featured-link { display: grid; grid-template-columns: 1fr; text-decoration: none; color: inherit; }
+  .featured-image-wrapper img { width: 100%; height: auto; max-height: 400px; object-fit: cover; display: block; }
+  .featured-content { padding: 2rem; }
+  .featured-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; color: var(--color-text-secondary); font-size: 0.9rem; }
+  .category-badge { background-color: var(--color-dark); color: var(--color-background); padding: 0.25rem 0.75rem; font-size: 0.8rem; font-weight: 600; }
+  .featured-title { font-size: 2rem; margin-bottom: 1rem; color: var(--color-dark); }
+  .featured-excerpt { color: var(--color-text-secondary); font-size: var(--font-size-lg); margin-bottom: 1.5rem; }
+  .read-more { font-weight: 600; color: var(--color-primary); }
+  .blog-main-section { padding: var(--spacing-xl) 0; }
+  .blog-layout { display: grid; grid-template-columns: 1fr; gap: 3rem; }
+  .section-title { font-size: 1.75rem; padding-bottom: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--color-border); }
+  .posts-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; }
+  .post-card { border: 1px solid var(--color-border); transition: var(--transition); background-color: var(--color-background); }
+  .post-card:hover { border-color: var(--color-primary); transform: translateY(-5px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+  .post-link { text-decoration: none; color: inherit; display: block; }
+  .post-image-wrapper img { width: 100%; height: 200px; object-fit: cover; display: block; }
+  .post-content { padding: 1.5rem; }
+  .post-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; color: var(--color-text-secondary); font-size: 0.85rem; }
+  .post-title { font-size: 1.25rem; margin-bottom: 0.75rem; line-height: 1.3; color: var(--color-dark); }
+  .post-excerpt { color: var(--color-text-secondary); }
+  .sidebar-column { position: sticky; top: 2rem; align-self: start; }
+  .sidebar-widget { background-color: var(--color-background); border: 1px solid var(--color-border); padding: 1.5rem; }
+  .widget-title { font-size: 1.25rem; margin-bottom: 1rem; }
+  .category-nav { display: flex; flex-direction: column; gap: 0.5rem; }
+  .category-link { padding: 0.5rem 0; text-decoration: none; color: var(--color-text); transition: var(--transition); }
+  .category-link:hover, .category-link.is-active { color: var(--color-primary); font-weight: 600; }
+  .no-posts-section { padding: var(--spacing-xl) 0; text-align: center; color: var(--color-text-secondary); }
+  @media (min-width: 768px) {
+    .blog-layout { grid-template-columns: 2fr 1fr; }
+    .featured-link { grid-template-columns: repeat(2, 1fr); align-items: center; }
+    .featured-image-wrapper img { height: 100%; min-height: 350px; }
+  }
+  @media (min-width: 1024px) {
+    .posts-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

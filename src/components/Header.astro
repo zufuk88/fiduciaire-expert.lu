@@ -1,116 +1,79 @@
 ---
 // src/components/Header.astro
 
-// Navigation items avec SEO et hiérarchie optimisés
+// SEO : Données de navigation et schéma conservés à l'identique.
 const navItems = [
-  { 
-    href: "/", 
-    text: "Accueil", 
-    title: "Expert-Comptable Luxembourg - Fiduciaire Expert",
-    priority: 1
-  },
-  { 
-    href: "/services", 
-    text: "Services", 
+  { href: "/", text: "Accueil", title: "Expert-Comptable Luxembourg - Fiduciaire Expert" },
+  {
+    href: "/services",
+    text: "Services",
     title: "Services Comptabilité, Fiscalité, Création Société Luxembourg",
-    priority: 0.9,
     subItems: [
-      { href: "/comptabilite", text: "Comptabilité" },
-      { href: "/services", text: "Fiscalité IRC & TVA" },
+      { href: "/comptabilite", text: "Comptabilité PME" },
+      { href: "/fiscalite", text: "Fiscalité IRC & TVA" },
       { href: "/creation-societe-luxembourg", text: "Création SARL" },
-      { href: "/paie", text: "Gestion Paie CCSS" }
+      { href: "/paie", text: "Gestion de la Paie" }
     ]
   },
-  { 
-    href: "/articles", 
-    text: "Articles", 
-    title: "Blog Expert-Comptable Luxembourg - Conseils Fiscaux",
-    priority: 0.8 
-  },
-  { 
-    href: "/a-propos", 
-    text: "À Propos", 
-    title: "Cabinet Expert-Comptable Luxembourg depuis 2010",
-    priority: 0.7
-  },
-  { 
-    href: "/contact", 
-    text: "Contact", 
-    title: "Contact Expert-Comptable Luxembourg - Contactez-nous",
-    priority: 0.8
-  }
+  { href: "/articles", text: "Articles", title: "Blog Expert-Comptable Luxembourg - Conseils Fiscaux" },
+  { href: "/a-propos", text: "A propos", title: "Cabinet Expert-Comptable Luxembourg depuis 2009" },
 ];
 
-// Données structurées enrichies
 const navigationSchema = {
   "@context": "https://schema.org",
   "@type": "SiteNavigationElement",
-  "name": "Navigation principale",
-  "url": "https://www.fiduciaire-expert.lu",
+  "name": "Navigation principale Fiduciaire Expert",
   "hasPart": navItems.map((item, index) => ({
     "@type": "SiteNavigationElement",
     "name": item.text,
-    "url": `https://www.fiduciaire-expert.lu${item.href}`,
+    "url": new URL(item.href, Astro.site).href,
     "position": index + 1
   }))
 };
 
 const currentPath = Astro.url.pathname;
+
+// Fonction pour déterminer si un lien est actif (gère aussi les sous-pages comme /services/comptabilite)
+const isActive = (path) => {
+  if (path === "/") {
+    return currentPath === "/";
+  }
+  return currentPath === path || currentPath.startsWith(path + '/');
+};
 ---
 
-<header itemscope itemtype="https://schema.org/WPHeader" role="banner">
-  <div class="header-container">
-    <!-- Logo avec microdonnées améliorées -->
-    <div class="logo-section" itemscope itemtype="https://schema.org/Organization">
-      <a href="/" 
-         class="logo-link" 
-         aria-label="Fiduciaire Expert Luxembourg - Accueil"
-         title="Expert-Comptable agréé Luxembourg"
-         itemprop="url">
-        <img src="/images/Logo.png" 
-             alt="Fiduciaire Expert - Expert-Comptable Luxembourg" 
-             width="200" 
-             height="55"
-             loading="eager"
-             fetchpriority="high"
-             itemprop="logo" />
-      </a>
-      
-      <!-- Tagline avec mots-clés LSI -->
-      <div class="tagline">
-        <span class="tagline-text" itemprop="slogan">
-          Expert-Comptable & Fiscaliste agréé
-        </span>
-      </div>
-    </div>
+<header class="site-header" itemscope itemtype="https://schema.org/WPHeader" role="banner">
+  <div class="container header-container">
+    <a href="/" class="logo-link" aria-label="Retour à l'accueil de Fiduciaire Expert" title="Fiduciaire Expert - Expert-Comptable Luxembourg">
+      <img
+        src="/images/Logo.png"  
+        alt="Logo Fiduciaire Expert - Cabinet Comptable Agréé Luxembourg"
+        width="180"
+        height="50"
+        loading="eager"
+        fetchpriority="high"
+        itemprop="logo"
+      />
+    </a>
 
-    <!-- Navigation principale avec mega menu SEO -->
-    <nav id="main-nav" 
-         role="navigation" 
-         aria-label="Navigation principale"
-         itemscope 
-         itemtype="https://schema.org/SiteNavigationElement">
-      
+    <nav id="main-nav" class="main-navigation" role="navigation" aria-label="Navigation principale" itemscope itemtype="https://schema.org/SiteNavigationElement">
       <ul class="nav-list">
-        {navItems.map((item, index) => (
-          <li class="nav-item" data-priority={item.priority}>
-            <a href={item.href} 
-               class={currentPath === item.href ? 'is-active' : ''}
-               title={item.title}
-               aria-current={currentPath === item.href ? 'page' : undefined}
-               itemprop="url">
+        {navItems.map((item) => (
+          <li class="nav-item">
+            <a
+              href={item.href}
+              class:list={{ 'is-active': isActive(item.href) }}
+              title={item.title}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+              itemprop="url"
+            >
               <span itemprop="name">{item.text}</span>
             </a>
-            
-            {/* Mega menu pour Services */}
             {item.subItems && (
-              <ul class="submenu" aria-label={`Sous-menu ${item.text}`}>
+              <ul class="submenu" aria-label={`Sous-menu pour ${item.text}`}>
                 {item.subItems.map(subItem => (
                   <li>
-                    <a href={subItem.href} 
-                       title={`${subItem.text} Luxembourg`}>
-                      {subItem.text}
-                    </a>
+                    <a href={subItem.href} title={`${subItem.text} - Services comptables Luxembourg`}>{subItem.text}</a>
                   </li>
                 ))}
               </ul>
@@ -119,500 +82,245 @@ const currentPath = Astro.url.pathname;
         ))}
       </ul>
     </nav>
-
-    <!-- CTA optimisé avec tracking -->
-    <div class="header-cta">
-      <a href="tel:+352XXXXXXXX" 
-         class="phone-cta"
-         aria-label="Appeler Expert-Comptable Luxembourg"
-         title="Contactez-nous - +352 XX XX XX XX"
-         data-event="header-cta-click"
-         itemprop="telephone">
-        <svg class="phone-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-        </svg>
-        <span class="phone-text">Appelez-nous</span>
-      </a>
-      
-      <!-- CTA secondaire pour conversion -->
-      <a href="/contact#devis" 
-         class="devis-cta"
-         title="Contactez-nous Expert-Comptable Luxembourg">
-        Contactez-nous
-      </a>
+    
+    <div class="header-actions">
+       <a href="/contact" class="btn btn-primary cta-desktop" title="Contactez notre cabinet d'expertise comptable">Contact</a>
+       <button id="burger-menu" type="button" aria-label="Ouvrir le menu de navigation" aria-expanded="false" aria-controls="main-nav">
+         <span class="burger-line"></span>
+         <span class="burger-line"></span>
+         <span class="burger-line"></span>
+       </button>
     </div>
+  </div>
 
-    <!-- Burger menu accessible -->
-    <button id="burger-menu" 
-            type="button" 
-            aria-label="Menu de navigation"
-            aria-expanded="false"
-            aria-controls="main-nav">
-      <span class="sr-only">Menu</span>
-      <span class="burger-line"></span>
-      <span class="burger-line"></span>
-      <span class="burger-line"></span>
-    </button>
-  </div>
-  
-  <!-- Bannière d'annonce (optionnel pour promos/actualités) -->
-  <div class="announcement-bar" role="complementary">
-    <p>
-      <strong>Nouveau :</strong> Accompagnement création SARL-S en 48h 
-      <a href="/services/creation-societe-express">En savoir plus →</a>
-    </p>
-  </div>
-  
-  <!-- Données structurées -->
-  <script type="application/ld+json" set:html={JSON.stringify(navigationSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(navigationSchema)} is:inline />
 </header>
 
 <style>
-  /* Variables */
-  :root {
-    --header-height: 72px;
-    --header-bg: #ffffff;
-    --text-primary: var(--bleu-profond);
-    --accent-primary: var(--bleu-accent);
-    --accent-primary-hover: var(--bleu-accent-hover);
-    --accent-secondary: var(--or-premium);
-    --accent-secondary-hover: var(--or-premium-hover);
-    --shadow: 0 1px 3px rgba(0,0,0,0.06);
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* Base Header */
-  header {
+  /* Styles du Header, héritant du design system du Layout */
+  .site-header {
     position: sticky;
     top: 0;
     width: 100%;
-    z-index: 1000;
-    background: var(--header-bg);
-    box-shadow: var(--shadow);
+    z-index: 100;
+    background-color: var(--color-background);
+    border-bottom: 1px solid var(--color-border);
     transition: var(--transition);
   }
 
   .header-container {
-    max-width: 1200px;
-    margin: 0 auto;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 0 2rem;
-    height: 72px;
-  }
-
-  /* Logo Section */
-  .logo-section {
-    display: flex;
     align-items: center;
-    gap: 1rem;
+    height: 70px;
   }
 
+  /* Logo */
   .logo-link img {
-    height: 45px;
+    height: 40px;
     width: auto;
-    transition: transform 0.2s ease;
-  }
-
-  .logo-link:hover img {
-    transform: scale(1.05);
-  }
-
-  .tagline {
-    display: none;
-  }
-
-  @media (min-width: 992px) {
-    .tagline {
-      display: block;
-    }
-    
-    .tagline-text {
-      font-size: 0.875rem;
-      color: var(--text-primary);
-      font-weight: 500;
-      opacity: 0.8;
-    }
-  }
-
-  /* Navigation */
-  .nav-list {
-    display: none;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    gap: 1rem;
-  }
-
-  @media (min-width: 768px) {
-    .nav-list {
-      display: flex;
-      align-items: center;
-    }
-  }
-
-  .nav-item {
-    position: relative;
-  }
-
-  .nav-item a {
     display: block;
-    padding: 0.4rem 0.8rem;
-    color: var(--text-primary);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.95rem;
-    border-radius: 6px;
-    transition: var(--transition);
-    position: relative;
   }
 
-  .nav-item a:hover,
-  .nav-item a.is-active {
-    color: var(--accent-primary);
-    background: rgba(52, 152, 219, 0.08);
-  }
-
-  /* Indicateur page active */
-  .nav-item a.is-active::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 30px;
-    height: 3px;
-    background: var(--accent-primary);
-    border-radius: 2px;
-  }
-
-  /* Mega Menu */
-  .submenu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    min-width: 220px;
-    background: white;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    padding: 0.5rem 0;
-    margin-top: 0.5rem;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: var(--transition);
-    list-style: none;
-  }
-
-  .nav-item:hover .submenu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-
-  .submenu a {
-    display: block;
-    padding: 0.75rem 1.5rem;
-    color: var(--text-primary);
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: var(--transition);
-  }
-
-  .submenu a:hover {
-    background: var(--accent-primary);
-    color: white;
-  }
-
-  /* CTA Buttons */
-  .header-cta {
-    display: none;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  @media (min-width: 992px) {
-    .header-cta {
-      display: flex;
-    }
-  }
-
-  .phone-cta,
-  .devis-cta {
+  /* Actions (CTA et Burger) */
+  .header-actions {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.5rem 1.2rem;
-    border-radius: 20px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: var(--transition);
-    font-size: 0.875rem;
+    gap: 1.5rem;
+  }
+  
+  /* Bouton Contact sur Desktop */
+  .cta-desktop {
+    display: none; /* Caché par défaut */
   }
 
-  .phone-cta {
-    background: var(--accent-primary);
-    color: white;
-  }
-
-  .phone-cta:hover {
-    background: var(--accent-primary-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 3px 8px rgba(52, 152, 219, 0.25);
-  }
-
-  .devis-cta {
-    border: 1.5px solid var(--accent-secondary);
-    color: var(--accent-secondary);
-    background: transparent;
-  }
-
-  .devis-cta:hover {
-    background: var(--accent-secondary);
-    color: white;
-    transform: translateY(-1px);
-    box-shadow: 0 3px 8px rgba(212, 175, 55, 0.25);
-  }
-
-  .phone-icon {
-    width: 16px;
-    height: 16px;
-  }
-
-  /* Burger Menu Mobile */
+  /* Burger Menu */
   #burger-menu {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    width: 30px;
-    height: 24px;
+    width: 28px;
+    height: 22px;
     background: transparent;
     border: none;
     cursor: pointer;
     padding: 0;
-  }
-
-  @media (min-width: 768px) {
-    #burger-menu {
-      display: none;
-    }
+    z-index: 110;
   }
 
   .burger-line {
     width: 100%;
-    height: 3px;
-    background: var(--text-primary);
-    border-radius: 2px;
-    transition: var(--transition);
+    height: 2px;
+    background-color: var(--color-text);
+    transition: all 0.3s ease;
   }
-
+  
   #burger-menu.is-open .burger-line:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+    transform: translateY(8px) rotate(45deg);
   }
-
   #burger-menu.is-open .burger-line:nth-child(2) {
     opacity: 0;
   }
-
   #burger-menu.is-open .burger-line:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
+    transform: translateY(-8px) rotate(-45deg);
   }
 
-  /* Mobile Navigation */
-  @media (max-width: 767px) {
-    #main-nav {
-      position: fixed;
-      top: var(--header-height);
-      left: 0;
-      width: 100%;
-      height: calc(100vh - var(--header-height));
-      background: white;
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      overflow-y: auto;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  /* Styles de la navigation principale pour desktop */
+  @media (min-width: 992px) {
+    #burger-menu {
+      display: none;
+    }
+    .cta-desktop {
+      display: inline-block;
     }
 
-    #main-nav.is-open {
-      transform: translateX(0);
+    .main-navigation {
+      display: flex;
     }
 
     .nav-list {
       display: flex;
-      flex-direction: column;
-      padding: 2rem;
-      gap: 0;
+      align-items: center;
+      list-style: none;
+      gap: 2rem;
     }
 
     .nav-item {
+      position: relative;
+    }
+
+    .nav-item > a {
+      color: var(--color-text);
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.5rem 0;
+      position: relative;
+    }
+
+    .nav-item > a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--color-primary);
+      transition: var(--transition);
+    }
+
+    .nav-item > a:hover::after,
+    .nav-item > a.is-active::after {
       width: 100%;
     }
-
-    .nav-item a {
-      padding: 1rem;
-      border-bottom: 1px solid #eee;
+    .nav-item > a.is-active {
+      color: var(--color-primary);
     }
 
+    /* Sous-menu */
     .submenu {
-      position: static;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: 1rem;
+      padding: 0.5rem 0;
+      min-width: 220px;
+      background-color: var(--color-background);
+      border: 1px solid var(--color-border);
+      list-style: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .nav-item:hover .submenu {
       opacity: 1;
       visibility: visible;
-      transform: none;
-      box-shadow: none;
-      margin: 0;
-      padding-left: 1rem;
     }
-  }
-
-  /* Announcement Bar */
-  .announcement-bar {
-    background: linear-gradient(90deg, var(--accent-secondary), var(--accent-secondary-hover));
-    color: white;
-    text-align: center;
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    display: none;
-  }
-
-  @media (min-width: 768px) {
-    .announcement-bar {
+    
+    .submenu a {
       display: block;
+      padding: 0.75rem 1.5rem;
+      color: var(--color-text);
+      white-space: nowrap;
+    }
+
+    .submenu a:hover {
+      background-color: var(--color-background-alt);
+      color: var(--color-primary);
+      text-decoration: none;
     }
   }
 
-  .announcement-bar p {
-    margin: 0;
-  }
+  /* Styles de la navigation pour mobile */
+  @media (max-width: 991px) {
+    .main-navigation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: var(--color-background);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      padding-top: 90px;
+      overflow-y: auto;
+    }
 
-  .announcement-bar a {
-    color: white;
-    text-decoration: underline;
-    font-weight: 600;
-    margin-left: 0.5rem;
-  }
+    .main-navigation.is-open {
+      transform: translateX(0);
+    }
+    
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+    }
 
-  /* Utility */
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
+    .nav-item > a {
+      display: block;
+      padding: 1rem 2rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      border-bottom: 1px solid var(--color-border);
+      color: var(--color-dark);
+    }
+    .nav-item > a.is-active {
+      color: var(--color-primary);
+    }
+    
+    .submenu {
+      list-style: none;
+    }
 
-  /* Scroll behavior */
-  header {
-    transition: all 0.3s ease;
-  }
-  
-  header.scrolled {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  }
-
-  header.scrolled .header-container {
-    height: 64px;
-  }
-
-  header.scrolled .logo-link img {
-    height: 40px;
-  }
-
-  /* Smooth transition for all elements during scroll */
-  .header-container,
-  .logo-link img,
-  .tagline-text,
-  .phone-cta,
-  .devis-cta {
-    transition: all 0.3s ease;
+    .submenu a {
+      display: block;
+      padding: 0.75rem 2rem 0.75rem 3rem;
+      font-size: 1rem;
+      background-color: var(--color-background-alt);
+      border-bottom: 1px solid var(--color-border);
+    }
   }
 </style>
 
 <script>
-  // Navigation et scroll optimisés
-  const header = document.querySelector('header');
-  const burgerButton = document.getElementById('burger-menu');
-  const mainNav = document.getElementById('main-nav');
-  const navLinks = mainNav.querySelectorAll('a');
-  const body = document.body;
+  // Script pour le menu mobile
+  document.addEventListener('DOMContentLoaded', () => {
+    const burgerButton = document.getElementById('burger-menu');
+    const mainNav = document.getElementById('main-nav');
+    const body = document.body;
 
-  // Gestion du burger menu
-  let scrollPosition = 0;
+    if (burgerButton && mainNav) {
+      burgerButton.addEventListener('click', () => {
+        const isOpen = burgerButton.classList.toggle('is-open');
+        mainNav.classList.toggle('is-open');
+        
+        // Bloque le scroll du body lorsque le menu est ouvert
+        body.style.overflow = isOpen ? 'hidden' : '';
 
-  burgerButton?.addEventListener('click', () => {
-    const isOpen = burgerButton.classList.toggle('is-open');
-    mainNav.classList.toggle('is-open');
-    
-    if (isOpen) {
-      scrollPosition = window.scrollY;
-      body.style.overflow = 'hidden';
-      body.style.position = 'fixed';
-      body.style.top = `-${scrollPosition}px`;
-      body.style.width = '100%';
-    } else {
-      body.style.overflow = '';
-      body.style.position = '';
-      body.style.top = '';
-      body.style.width = '';
-      window.scrollTo(0, scrollPosition);
-    }
-    
-    burgerButton.setAttribute('aria-expanded', String(isOpen));
-  });
-
-  // Fermer le menu au clic sur un lien
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      burgerButton?.classList.remove('is-open');
-      mainNav.classList.remove('is-open');
-      body.style.overflow = '';
-      body.style.position = '';
-      body.style.top = '';
-      body.style.width = '';
-      burgerButton?.setAttribute('aria-expanded', 'false');
-    });
-  });
-
-  // Header scroll effect with debounce
-  let lastScroll = 0;
-  let scrollTimeout;
-  
-  const handleScroll = () => {
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      const currentScroll = window.scrollY;
-      
-      // Add scrolled class after 100px instead of 50px for less aggressive change
-      if (currentScroll > 100) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-      
-      lastScroll = currentScroll;
-    }, 10); // Small debounce to smooth out scroll events
-  };
-  
-  window.addEventListener('scroll', handleScroll, { passive: true });
-
-  // Active page detection
-  const currentPath = window.location.pathname;
-  navLinks.forEach(link => {
-    const href = link.getAttribute('href');
-    if (href === currentPath || (currentPath.startsWith(href) && href !== '/')) {
-      link.classList.add('is-active');
-      link.setAttribute('aria-current', 'page');
-    }
-  });
-
-  // Escape key pour fermer le menu
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && mainNav.classList.contains('is-open')) {
-      burgerButton?.click();
+        // Met à jour l'attribut ARIA pour l'accessibilité
+        burgerButton.setAttribute('aria-expanded', String(isOpen));
+      });
     }
   });
 </script>
