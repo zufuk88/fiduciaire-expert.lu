@@ -10,7 +10,6 @@ import Layout from '../layouts/Layout.astro';
   <main class="legal-page">
     <div class="container-narrow">
       <h1>Politique de Confidentialité</h1>
-      <p class="update-date">Dernière mise à jour : 27 juillet 2025</p>
       
       <section class="legal-section">
         <h2>1. Introduction</h2>
@@ -212,94 +211,72 @@ import Layout from '../layouts/Layout.astro';
           <li><strong>Adresse :</strong> 15 Avenue de la Liberté, L-1931 Luxembourg</li>
         </ul>
       </section>
+
+      <p class="update-date">
+        <em>Dernière mise à jour : Juillet 2025</em>
+      </p>
     </div>
   </main>
 </Layout>
 
 <style>
   .legal-page {
-    padding: var(--spacing-xl) 0;
-    min-height: 100vh;
-    background-color: var(--color-background);
+    padding: 4rem 2rem;
+    background-color: var(--fond-clair);
   }
-
   .container-narrow {
     max-width: 800px;
     margin: 0 auto;
-    padding: 0 var(--spacing-lg);
+    background-color: var(--fond-tres-clair);
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
   }
-
   h1 {
-    font-size: var(--font-size-3xl);
-    color: var(--color-primary);
-    margin-bottom: var(--spacing-md);
-    font-weight: var(--font-weight-bold);
+    color: var(--bleu-profond);
+    margin-bottom: 2rem;
   }
-
-  .update-date {
-    color: var(--color-text-light);
-    font-style: italic;
-    margin-bottom: var(--spacing-xl);
-    font-size: var(--font-size-sm);
+  p {
+    color: var(--texte-secondaire);
+    line-height: 1.7;
+    margin-bottom: 1rem;
   }
-
   .legal-section {
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--bordure);
   }
-
-  .legal-section h2 {
-    font-size: var(--font-size-xl);
-    color: var(--color-secondary);
-    margin-bottom: var(--spacing-md);
-    margin-top: var(--spacing-xl);
-    font-weight: var(--font-weight-semibold);
+  .legal-section:last-of-type {
+    border-bottom: none;
   }
-
-  .legal-section h3 {
-    font-size: var(--font-size-lg);
-    color: var(--color-text);
-    margin-top: var(--spacing-lg);
-    margin-bottom: var(--spacing-sm);
-    font-weight: var(--font-weight-medium);
+  h2 {
+    color: var(--bleu-profond);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    margin-top: 0;
   }
-
-  .legal-section p {
-    line-height: 1.8;
-    margin-bottom: var(--spacing-md);
-    color: var(--color-text);
+  h3 {
+    color: var(--bleu-profond);
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
   }
-
-  .legal-section ul {
-    margin-bottom: var(--spacing-md);
-    padding-left: var(--spacing-lg);
+  strong {
+    color: var(--texte-principal);
   }
-
-  .legal-section li {
-    margin-bottom: var(--spacing-xs);
+  .update-date {
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: var(--texte-tertiaire);
+  }
+  ul {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+  }
+  li {
+    margin-bottom: 0.5rem;
     line-height: 1.6;
-    color: var(--color-text);
-  }
-
-  .legal-section strong {
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-dark);
-  }
-
-  @media (max-width: 768px) {
-    .legal-page {
-      padding: var(--spacing-lg) 0;
-    }
-
-    .container-narrow {
-      padding: 0 var(--spacing-md);
-    }
-
-    h1 {
-      font-size: var(--font-size-2xl);
-    }
-
-    .legal-section h2 {
-      font-size: var(--font-size-lg);
-    }
+    color: var(--texte-secondaire);
   }
 </style>
