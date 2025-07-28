@@ -41,7 +41,7 @@ const formatDate = (date) => date.toLocaleDateString('fr-FR', {
               <a href={`/articles/${featuredPost.slug}`} class="featured-link">
                 {featuredPost.data.image && (
                   <div class="featured-image-wrapper">
-                    <img src={featuredPost.data.image} alt={featuredPost.data.title} width="1200" height="600" loading="eager"/>
+                    <img src={featuredPost.data.image} alt={`${featuredPost.data.title} - Guide expert comptable Luxembourg`} width="1200" height="600" loading="eager" fetchpriority="high"/>
                   </div>
                 )}
                 <div class="featured-content">
@@ -71,7 +71,7 @@ const formatDate = (date) => date.toLocaleDateString('fr-FR', {
                   <a href={`/articles/${post.slug}`} class="post-link">
                     {post.data.image && (
                       <div class="post-image-wrapper">
-                        <img src={post.data.image} alt={post.data.title} width="400" height="250" loading="lazy" />
+                        <img src={post.data.image} alt={`${post.data.title} - Article comptabilité fiscalité Luxembourg`} width="400" height="250" loading="lazy" />
                       </div>
                     )}
                     <div class="post-content">

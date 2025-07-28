@@ -80,11 +80,36 @@ const finalSchema = schema ? schema : websiteSchema;
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
 
+  <!-- Preload des ressources critiques -->
+  <link rel="preload" href="/images/Fiduciare-expert-Hero.webp" as="image" type="image/webp" fetchpriority="high" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" as="style" />
+  
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
 
   <meta name="generator" content={Astro.generator} />
+
+  <!-- Critical CSS inline -->
+  <style is:inline>
+    /* Critical CSS - Styles essentiels pour le rendu initial */
+    *, *::before, *::after { box-sizing: border-box; }
+    :root { --color-background: #ffffff; --color-text: #212529; --color-primary: #005fcc; --font-family: 'Inter', sans-serif; --font-size-base: 1rem; --spacing-md: 1.5rem; }
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+    body { margin: 0; font-family: var(--font-family); font-size: var(--font-size-base); line-height: 1.6; color: var(--color-text); background-color: var(--color-background); }
+    header { position: relative; background-color: var(--color-background); border-bottom: 1px solid #dee2e6; }
+    .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem var(--spacing-md); }
+    nav { display: flex; align-items: center; justify-content: space-between; }
+    .hero-section { padding: 3rem 0; background-color: var(--color-background); }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--spacing-md); }
+    h1 { font-size: 2.5rem; font-weight: 700; line-height: 1.2; margin: 0 0 1rem; color: #0f172a; }
+    @media (max-width: 768px) { h1 { font-size: 2rem; } }
+    .btn { display: inline-block; padding: 0.75rem 1.5rem; font-weight: 600; text-decoration: none; border-radius: 0.5rem; transition: all 0.2s ease-in-out; }
+    .btn-primary { background-color: var(--color-primary); color: white; }
+    img { max-width: 100%; height: auto; display: block; }
+    .skip-link { position: absolute; top: -40px; left: 0; background: var(--color-primary); color: white; padding: 8px; text-decoration: none; z-index: 100; }
+    .skip-link:focus { top: 0; }
+  </style>
 
   <script type="application/ld+json" set:html={JSON.stringify(finalSchema)} is:inline />
 </head>
