@@ -1,6 +1,7 @@
 ---
 import Layout from './Layout.astro';
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 
 const { frontmatter } = Astro.props;
 const { title, seoTitle, description, date, modified, category, image, imageAlt } = frontmatter;
@@ -8,6 +9,13 @@ const { title, seoTitle, description, date, modified, category, image, imageAlt 
 const pageTitle = seoTitle || title;
 const siteUrl = Astro.site ? Astro.site.origin : "https://www.fiduciaire-expert.lu";
 const articleUrl = new URL(Astro.url.pathname, siteUrl).href;
+
+// Récupérer les articles de la même catégorie
+const allPosts = await getCollection('blog');
+const relatedPosts = allPosts
+  .filter(post => post.data.category === category && post.data.title !== title)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
 
 const articleSchema = { /* ... */ };
 const breadcrumbSchema = { /* ... */ };
@@ -22,16 +30,16 @@ const combinedSchema = { "@context": "https://schema.org", "@graph": [ articleSc
 >
   <article class="article-page" itemscope itemtype="https://schema.org/Article">
     <header class="article-header">
-      <div class="container-article">
+      <div class="container">
         <p class="breadcrumb">
-          <a href="/articles">Blog</a> / <span>{category}</span>
+          <a href="/">Accueil</a> / <a href="/articles">Blog</a> / <span>{category}</span>
         </p>
         <h1 class="article-title" itemprop="headline">{title}</h1>
         <div class="article-meta">
+          <span class="category-badge">{category}</span>
           <time datetime={date} itemprop="datePublished">
-            Publié le {new Date(date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
+            {new Date(date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
           </time>
-          <span class="meta-separator">|</span>
           <span itemprop="author" itemscope itemtype="https://schema.org/Organization">
             Par <span itemprop="name">Fiduciaire Expert</span>
           </span>
@@ -69,73 +77,484 @@ const combinedSchema = { "@context": "https://schema.org", "@graph": [ articleSc
           </p>
           <a href="/contact" class="btn btn-primary">Contactez-nous</a>
         </div>
-        
       </div>
     </div>
+
+    {relatedPosts.length > 0 && (
+      <section class="related-articles">
+        <div class="container">
+          <div class="section-header">
+            <h3>Articles similaires</h3>
+            <p>Continuez votre lecture avec ces articles de la catégorie {category}</p>
+          </div>
+          <div class="related-grid">
+            {relatedPosts.map(post => (
+              <article class="related-card">
+                <a href={`/articles/${post.slug}`} class="related-link">
+                  {post.data.image && (
+                    <div class="related-image-wrapper">
+                      <Image 
+                        src={post.data.image} 
+                        alt={post.data.title}
+                        width={400} 
+                        height={200} 
+                        loading="lazy" 
+                        quality="mid" 
+                      />
+                    </div>
+                  )}
+                  <div class="related-content">
+                    <time class="related-date">
+                      {new Date(post.data.date).toLocaleDateString('fr-FR', { 
+                        day: 'numeric', 
+                        month: 'long', 
+                        year: 'numeric' 
+                      })}
+                    </time>
+                    <h4 class="related-title">{post.data.title}</h4>
+                    <p class="related-excerpt">{post.data.description}</p>
+                  </div>
+                </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
   </article>
 </Layout>
 
 <style>
-  /* --- Styles de base (inchangés) --- */
-  .container-article { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
-  .article-header { padding: var(--spacing-lg) 0; text-align: center; background-color: var(--color-background-alt); border-bottom: 1px solid var(--color-border); }
-  .breadcrumb { font-size: 0.9rem; color: var(--color-text-secondary); margin-bottom: 1rem; }
-  .breadcrumb a { color: var(--color-text-secondary); text-decoration: none; }
-  .breadcrumb a:hover { color: var(--color-primary); text-decoration: underline; }
-  .article-title { font-size: 2.8rem; line-height: 1.2; margin-bottom: 1.5rem; }
-  .article-meta { color: var(--color-text-secondary); }
-  .meta-separator { margin: 0 0.5rem; }
-  .article-featured-image { margin: 0; padding: 0; background-color: var(--color-background-alt); }
-  .article-featured-image img { width: 100%; height: auto; max-height: 550px; object-fit: cover; display: block; }
-  .article-body-wrapper { padding: var(--spacing-xl) 0; background-color: var(--color-background); }
-  .article-content { font-size: 1.05rem; line-height: 1.8; }
+  /* ===== STYLE COHÉRENT AVEC LES AUTRES PAGES ===== */
   
-  /* --- NOUVEAU : Styles pour le bloc CTA --- */
+  /* Container spécifique aux articles */
+  .container-article { 
+    max-width: 900px; 
+    margin: 0 auto; 
+    padding: 0 1.5rem; 
+  }
+  
+  /* Header de l'article - Style élégant avec gradient subtil */
+  .article-header { 
+    background: linear-gradient(135deg, var(--color-background) 0%, #f0f4f8 100%);
+    padding: var(--spacing-xl) 0; 
+    text-align: center; 
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .article-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 95, 204, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .article-header .container {
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Breadcrumb - Style cohérent avec les autres pages */
+  .breadcrumb {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: rgba(0, 95, 204, 0.08);
+    border: 1px solid rgba(0, 95, 204, 0.2);
+    border-radius: 24px;
+  }
+  
+  .breadcrumb a {
+    color: var(--color-primary);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Titre de l'article - Style gradient moderne */
+  .article-title { 
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.3; 
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Métadonnées de l'article */
+  .article-meta { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+  }
+  
+  .category-badge {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #0047a3 100%);
+    color: var(--color-background);
+    padding: 0.375rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Image mise en avant */
+  .article-featured-image { 
+    margin: 0; 
+    padding: 0; 
+    background-color: var(--color-background-alt);
+    overflow: hidden;
+  }
+  
+  .article-featured-image img { 
+    width: 100%; 
+    height: auto; 
+    max-height: 600px; 
+    object-fit: cover; 
+    display: block;
+  }
+  
+  /* Corps de l'article */
+  .article-body-wrapper { 
+    padding: var(--spacing-xl) 0; 
+    background-color: var(--color-background); 
+  }
+  
+  .article-content { 
+    font-size: 1.125rem; 
+    line-height: 1.8;
+    color: var(--color-text);
+  }
+  
+  /* CTA Article - Design premium cohérent */
   .article-cta {
-    margin-top: 4rem; /* Espace avant le bloc */
-    padding: 2.5rem;
+    margin-top: 4rem;
+    padding: 3rem;
     text-align: center;
-    border: 1px solid var(--color-border);
+    background: linear-gradient(135deg, var(--color-dark) 0%, #1a2742 100%);
+    color: var(--color-background);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .article-cta::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .cta-title {
+    color: var(--color-background) !important; /* Force le titre en blanc */
+    max-width: 700px;
+    margin: 0 auto 1.5rem;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    position: relative;
+    z-index: 1;
+  }
+  
+  .cta-subtitle {
+    color: #ffffff (255, 255, 255);
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .article-cta .btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    padding: 1rem 2.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .article-cta .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    color: var(--color-background);
+  }
+  
+  /* Section Articles Connexes */
+  .related-articles {
+    padding: var(--spacing-xl) 0;
     background-color: var(--color-background-alt);
   }
-  .cta-title {
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
   }
-  .cta-subtitle {
+  
+  .section-header h3 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    margin-bottom: 1rem;
+    color: var(--color-dark);
+  }
+  
+  .section-header p {
+    font-size: var(--font-size-lg);
     color: var(--color-text-secondary);
     max-width: 600px;
-    margin: 0 auto 1.5rem auto;
+    margin: 0 auto;
+  }
+  
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .related-card {
+    background-color: var(--color-background);
+    border: 1px solid rgba(222, 226, 230, 0.5);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .related-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary) 0%, #0047a3 100%);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .related-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    border-color: transparent;
+  }
+  
+  .related-card:hover::before {
+    transform: translateX(0);
+  }
+  
+  .related-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  
+  .related-image-wrapper {
+    overflow: hidden;
+    background-color: var(--color-background-alt);
+  }
+  
+  .related-image-wrapper img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+  
+  .related-card:hover .related-image-wrapper img {
+    transform: scale(1.05);
+  }
+  
+  .related-content {
+    padding: 1.5rem;
+  }
+  
+  .related-date {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.75rem;
+  }
+  
+  .related-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+    color: var(--color-dark);
+    transition: color 0.2s ease;
+  }
+  
+  .related-card:hover .related-title {
+    color: var(--color-primary);
+  }
+  
+  .related-excerpt {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
   }
 
-  /* --- Styles globaux pour le contenu Markdown (inchangés) --- */
-  .article-content :global(h2), .article-content :global(h3), .article-content :global(h4) { line-height: 1.4; margin: 3rem 0 1.5rem 0; }
-  .article-content :global(h2) { font-size: 2rem; }
+  /* Styles globaux pour le contenu Markdown */
+  .article-content :global(h2), 
+  .article-content :global(h3), 
+  .article-content :global(h4) { 
+    line-height: 1.4; 
+    margin: 3rem 0 1.5rem 0;
+    color: var(--color-dark);
+  }
+  
+  .article-content :global(h2) { 
+    font-size: 2rem;
+    position: relative;
+    padding-bottom: 1rem;
+  }
+  
+  .article-content :global(h2)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary) 0%, transparent 100%);
+  }
+  
   .article-content :global(h3) { font-size: 1.6rem; }
   .article-content :global(p) { margin-bottom: 1.5rem; }
-  .article-content :global(a) { color: var(--color-primary); text-decoration: underline; }
-  .article-content :global(a:hover) { text-decoration: none; }
-  .article-content :global(ul), .article-content :global(ol) { margin-bottom: 1.5rem; padding-left: 1.8rem; }
-  .article-content :global(li) { margin-bottom: 0.75rem; }
-  .article-content :global(blockquote) { margin: 2.5rem 0; padding: 1.5rem; background-color: var(--color-background-alt); border-left: 4px solid var(--color-primary); font-style: italic; }
+  
+  .article-content :global(a) { 
+    color: var(--color-primary); 
+    text-decoration: underline;
+    transition: color 0.2s ease;
+  }
+  
+  .article-content :global(a:hover) { 
+    text-decoration: none;
+    color: #0047a3;
+  }
+  
+  .article-content :global(ul), 
+  .article-content :global(ol) { 
+    margin-bottom: 1.5rem; 
+    padding-left: 2rem; 
+  }
+  
+  .article-content :global(li) { 
+    margin-bottom: 0.75rem;
+    line-height: 1.8;
+  }
+  
+  .article-content :global(blockquote) { 
+    margin: 2.5rem 0; 
+    padding: 1.5rem 1.5rem 1.5rem 2rem; 
+    background-color: var(--color-background-alt); 
+    border-left: 4px solid var(--color-primary); 
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+  }
+  
   .article-content :global(blockquote p) { margin-bottom: 0; }
-  .article-content :global(img) { max-width: 100%; height: auto; margin: 2.5rem 0; }
+  
+  .article-content :global(img) { 
+    max-width: 100%; 
+    height: auto; 
+    margin: 2.5rem 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
   
   /* Styles pour les tableaux */
-  .article-content :global(table) { width: 100%; margin-bottom: 2rem; border-collapse: collapse; border: 1px solid var(--color-border); font-size: 0.95rem; }
-  .article-content :global(th), .article-content :global(td) { border: 1px solid var(--color-border); padding: 0.75rem 1rem; text-align: left; line-height: 1.5; }
-  .article-content :global(th) { background-color: var(--color-background-alt); font-weight: 600; }
-  /*
- * NOUVEAU : Correction pour forcer le texte du bouton en blanc
- * et retirer le soulignement des liens.
-*/
-.article-cta .btn-primary {
-  color: var(--color-background); /* Assure que le texte est blanc */
-  text-decoration: none;         /* Retire le soulignement hérité des liens */
-}
-
-/* Assure que le texte reste blanc même au survol */
-.article-cta .btn-primary:hover {
-  color: var(--color-background);
-}
+  .article-content :global(table) { 
+    width: 100%; 
+    margin-bottom: 2rem; 
+    border-collapse: collapse; 
+    border: 1px solid var(--color-border); 
+    font-size: 0.95rem;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .article-content :global(th), 
+  .article-content :global(td) { 
+    border: 1px solid var(--color-border); 
+    padding: 0.75rem 1rem; 
+    text-align: left; 
+    line-height: 1.5; 
+  }
+  
+  .article-content :global(th) { 
+    background-color: var(--color-background-alt); 
+    font-weight: 600;
+    color: var(--color-dark);
+  }
+  
+  .article-content :global(tr:hover) {
+    background-color: rgba(0, 95, 204, 0.02);
+  }
+  
+  /* Animations subtiles */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .related-card {
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+  }
+  
+  .related-card:nth-child(1) { animation-delay: 0.1s; }
+  .related-card:nth-child(2) { animation-delay: 0.15s; }
+  .related-card:nth-child(3) { animation-delay: 0.2s; }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .article-meta {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .article-title {
+      font-size: 2rem;
+    }
+    
+    .article-content {
+      font-size: 1rem;
+    }
+    
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>

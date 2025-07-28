@@ -10,8 +10,6 @@ image: "../../assets/images/sa-luxembourg.webp"
 
 La **Société Anonyme (SA)** est une société de capitaux où la responsabilité des actionnaires est **limitée à leurs apports**. Ses actions sont librement cessibles, ce qui facilite l’entrée de nouveaux investisseurs et la rend idéale pour les projets ambitieux.
 
----
-
 ## Pourquoi Choisir la SA ? 4 Avantages Stratégiques
 
 Opter pour une SA, c'est choisir une structure conçue pour l'ambition et la croissance à grande échelle.
@@ -28,8 +26,6 @@ Opter pour une SA, c'est choisir une structure conçue pour l'ambition et la cro
 4.  **Optimisation Fiscale pour les Groupes**
     Le cadre fiscal luxembourgeois est particulièrement avantageux pour les SA agissant comme sociétés holding, avec des régimes d'exonération sur les plus-values et les dividendes de participations éligibles.
 
----
-
 ## SA vs SARL : Le Duel des Structures
 
 Pour la plupart des PME, le choix se pose entre la SARL et la SA. Voici les différences clés pour vous aider à décider.
@@ -43,8 +39,6 @@ Pour la plupart des PME, le choix se pose entre la SARL et la SA. Voici les diff
 | **Idéal pour** | Grands projets, holdings, accès aux marchés | PME, startups, entreprises familiales |
 
 > **💼 Notre conseil :** La SA est le véhicule de choix si votre projet a une vocation internationale, si vous prévoyez de lever des fonds importants ou si la libre cessibilité des actions est un critère essentiel pour vos futurs partenaires.
-
----
 
 ## Comment Créer votre SA : La Procédure en 5 Étapes
 
@@ -67,9 +61,7 @@ La création d'une SA est un processus formel qui requiert obligatoirement l'int
 5.  **Immatriculation (2-3 jours) :**
     * Le notaire se charge de l'enregistrement de votre société au **Registre de Commerce et des Sociétés (RCS)**.
 
-**⏱️ Délai total moyen :** Environ **2 à 4 semaines**.
-
----
+**⏱️ Délai total moyen :** Environ **2 à 3 mois**.
 
 ## Quel est le Coût Total pour Créer une SA en 2025 ?
 
@@ -79,10 +71,8 @@ Le budget initial est principalement constitué par le capital social.
 * **Frais administratifs (RCS, publication) :** environ 300 €
 * **Capital social à déposer :** 30 000 € (dont au moins 7 500 € versés)
 
-> **💶 Budget total à prévoir :** Environ **33 000 €**, dont 30 000 € constituent les fonds propres de votre entreprise, disponibles pour vos opérations et investissements.
+> **💶 Budget total conseillé :** Environ **60 000 €**, dont 30 000 € constituent les fonds propres de votre entreprise, disponibles pour vos opérations et investissements de départ.
 
----
+## Conclusion
 
-## Lancez votre Projet d'Envergure
-
-La **Société Anonyme** est plus qu'une simple forme juridique ; c'est une déclaration d'ambition. Elle offre la structure, la crédibilité et les outils nécessaires pour bâtir une entreprise pérenne et attractive pour les capitaux internationaux.
+La **Société Anonyme** est plus qu'une simple forme juridique ; c'est une véritable déclaration d'ambition. Elle offre la structure, la crédibilité et les outils nécessaires pour bâtir une entreprise pérenne et attractive pour les capitaux internationaux.

@@ -177,66 +177,461 @@ const metaDescription = "Découvrez Fiduciaire Expert, cabinet comptable de réf
 </Layout>
 
 <style>
-  /* --- Styles globaux (inchangés) --- */
-  .section-header { text-align: center; max-width: 720px; margin: 0 auto var(--spacing-lg) auto; }
-  .section-title { font-size: 2rem; margin-bottom: 0.5rem; }
-  .section-header p { color: var(--color-text-secondary); font-size: var(--font-size-lg); }
-
-  /* --- Section Héros (inchangée) --- */
-  .page-hero { background-color: var(--color-background-alt); padding: var(--spacing-lg) 0; text-align: center; border-bottom: 1px solid var(--color-border); }
-  .breadcrumb { font-size: 0.9rem; margin-bottom: 1rem; color: var(--color-text-secondary); }
-  .breadcrumb a { color: var(--color-text-secondary); }
-  .page-hero h1 { margin-bottom: 1rem; }
-  .hero-subtitle { font-size: var(--font-size-lg); color: var(--color-text-secondary); max-width: 720px; margin: 0 auto; }
+  /* ===== STYLE COHÉRENT AVEC INDEX, SERVICES ET ARTICLES ===== */
   
-  /* --- Section Chiffres Clés (inchangée) --- */
-  .stats-section { padding: var(--spacing-lg) 0; background-color: var(--color-background); }
-  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; max-width: 960px; margin: 0 auto; text-align: center; }
-  .stat-item { padding: 1rem; }
-  .stat-number { display: block; font-size: 2.5rem; font-weight: 700; color: var(--color-primary); }
-  .stat-label { color: var(--color-text-secondary); }
+  /* Section Header - Style unifié */
+  .section-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto var(--spacing-lg) auto;
+  }
+  
+  .section-title {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    margin-bottom: 1rem;
+    color: var(--color-dark);
+  }
+  
+  .section-header p {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+  }
 
-  /* --- Section Histoire (CORRIGÉE) --- */
-  .story-section { padding: var(--spacing-xl) 0; background-color: var(--color-background-alt); }
-  .story-grid { display: grid; grid-template-columns: 1fr; align-items: center; gap: 3rem; }
-  .story-image img { /* Le composant <Image> génère une balise <img>, on cible donc img */
+  /* Section Héros - Style élégant avec gradient subtil */
+  .page-hero {
+    background: linear-gradient(135deg, var(--color-background) 0%, #f0f4f8 100%);
+    padding: var(--spacing-xl) 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 95, 204, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .page-hero .container {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .breadcrumb {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: rgba(0, 95, 204, 0.08);
+    border: 1px solid rgba(0, 95, 204, 0.2);
+    border-radius: 24px;
+  }
+  
+  .breadcrumb a {
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+  
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+  
+  .page-hero h1 {
+    margin-bottom: 1.5rem;
+    font-size: clamp(2rem, 5vw, 3rem);
+    background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .hero-subtitle {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+  
+  /* Section Chiffres Clés - Design moderne */
+  .stats-section {
+    padding: var(--spacing-xl) 0;
+    background-color: var(--color-background);
+    position: relative;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .stat-item {
+    padding: 2rem 1rem;
+    background-color: var(--color-background);
+    border: 1px solid rgba(222, 226, 230, 0.5);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .stat-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary) 0%, #0047a3 100%);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .stat-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    border-color: transparent;
+  }
+  
+  .stat-item:hover::before {
+    transform: translateX(0);
+  }
+  
+  .stat-number {
+    display: block;
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #0047a3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+  
+  .stat-label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-base);
+  }
+
+  /* Section Histoire - Design moderne avec image */
+  .story-section {
+    padding: var(--spacing-xl) 0;
+    background-color: var(--color-background-alt);
+    position: relative;
+  }
+  
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    gap: 3rem;
+  }
+  
+  .story-image {
+    position: relative;
+  }
+  
+  .story-image::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: 20px;
+    bottom: 20px;
+    background: linear-gradient(135deg, rgba(0, 95, 204, 0.1) 0%, transparent 100%);
+    border-radius: 16px;
+    z-index: -1;
+  }
+  
+  .story-image img {
     width: 100%;
     height: auto;
     display: block;
+    border-radius: 16px;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
   }
-  .story-content p { line-height: 1.7; color: var(--color-text-secondary); margin-bottom: 1.5rem; }
+  
+  .story-content h2 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .story-content p {
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: var(--font-size-base);
+  }
 
-  /* --- Section Valeurs (inchangée) --- */
-  .values-section { padding: var(--spacing-xl) 0; background-color: var(--color-background); }
-  .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
-  .value-card { border: 1px solid var(--color-border); padding: 2rem; }
-  .value-card h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
-  .value-card p { color: var(--color-text-secondary); }
+  /* Section Valeurs - Cartes modernes */
+  .values-section {
+    padding: var(--spacing-xl) 0;
+    background-color: var(--color-background);
+  }
+  
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+  
+  .value-card {
+    background-color: var(--color-background);
+    border: 1px solid rgba(222, 226, 230, 0.5);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .value-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary) 0%, #0047a3 100%);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .value-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    border-color: transparent;
+  }
+  
+  .value-card:hover::before {
+    transform: translateX(0);
+  }
+  
+  .value-card h3 {
+    font-size: 1.375rem;
+    margin-bottom: 1rem;
+    color: var(--color-dark);
+  }
+  
+  .value-card p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
 
-  /* --- Section Équipe (inchangée) --- */
-  .team-section { padding: var(--spacing-xl) 0; background-color: var(--color-background-alt); }
-  .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
-  .team-card { border: 1px solid var(--color-border); background-color: var(--color-background); }
-  .team-image { width: 100%; height: 320px; object-fit: cover; }
-  .team-info { padding: 1.5rem; }
-  .team-info h3 { font-size: 1.5rem; }
-  .team-role { color: var(--color-primary); font-weight: 600; margin-bottom: 1rem; }
-  .team-bio { color: var(--color-text-secondary); margin-bottom: 1rem; }
-  .team-linkedin { font-weight: 600; }
+  /* Section Équipe - Design premium */
+  .team-section {
+    padding: var(--spacing-xl) 0;
+    background-color: var(--color-background-alt);
+  }
+  
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+  
+  .team-card {
+    background-color: var(--color-background);
+    border: 1px solid rgba(222, 226, 230, 0.5);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .team-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary) 0%, #0047a3 100%);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .team-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    border-color: transparent;
+  }
+  
+  .team-card:hover::before {
+    transform: translateX(0);
+  }
+  
+  .team-image {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .team-card:hover .team-image {
+    transform: scale(1.05);
+  }
+  
+  .team-info {
+    padding: 2rem;
+  }
+  
+  .team-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-dark);
+  }
+  
+  .team-role {
+    color: var(--color-primary);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .team-bio {
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+  }
+  
+  .team-linkedin {
+    font-weight: 600;
+    color: var(--color-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: gap 0.2s ease;
+  }
+  
+  .team-linkedin:hover {
+    gap: 0.75rem;
+  }
 
-  /* --- Section Témoignages (inchangée) --- */
-  .testimonials-section { padding: var(--spacing-xl) 0; background-color: var(--color-background); }
-  .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; }
-  .testimonial-card { border: 1px solid var(--color-border); padding: 2rem; }
-  .testimonial-card p { font-size: 1.1rem; font-style: italic; margin: 0 0 1.5rem 0; }
-  .testimonial-card footer { border-top: 1px solid var(--color-border); padding-top: 1rem; }
-  .testimonial-author { font-weight: 600; display: block; }
-  .testimonial-role { font-size: 0.9rem; color: var(--color-text-secondary); }
+  /* Section Témoignages - Design moderne */
+  .testimonials-section {
+    padding: var(--spacing-xl) 0;
+    background-color: var(--color-background);
+  }
+  
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+  }
+  
+  .testimonial-card {
+    background-color: var(--color-background);
+    border: 1px solid rgba(222, 226, 230, 0.5);
+    border-radius: 12px;
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .testimonial-card::before {
+    content: '"';
+    position: absolute;
+    top: 1.5rem;
+    left: 2rem;
+    font-size: 4rem;
+    color: rgba(0, 95, 204, 0.1);
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+  
+  .testimonial-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+    transform: translateY(-4px);
+  }
+  
+  .testimonial-card p {
+    font-size: 1.125rem;
+    font-style: italic;
+    margin: 0 0 1.5rem 0;
+    color: var(--color-text);
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .testimonial-card footer {
+    border-top: 1px solid rgba(222, 226, 230, 0.3);
+    padding-top: 1rem;
+  }
+  
+  .testimonial-author {
+    font-weight: 600;
+    display: block;
+    color: var(--color-dark);
+    margin-bottom: 0.25rem;
+  }
+  
+  .testimonial-role {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
 
-  /* --- Responsive (inchangé) --- */
+  /* Animations subtiles */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .stat-item,
+  .value-card,
+  .team-card,
+  .testimonial-card {
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+  }
+  
+  .stat-item:nth-child(1) { animation-delay: 0.1s; }
+  .stat-item:nth-child(2) { animation-delay: 0.15s; }
+  .stat-item:nth-child(3) { animation-delay: 0.2s; }
+  .stat-item:nth-child(4) { animation-delay: 0.25s; }
+  
+  .value-card:nth-child(1) { animation-delay: 0.1s; }
+  .value-card:nth-child(2) { animation-delay: 0.15s; }
+  .value-card:nth-child(3) { animation-delay: 0.2s; }
+  .value-card:nth-child(4) { animation-delay: 0.25s; }
+  
+  .team-card:nth-child(1) { animation-delay: 0.1s; }
+  .team-card:nth-child(2) { animation-delay: 0.15s; }
+  .team-card:nth-child(3) { animation-delay: 0.2s; }
+
+  /* Responsive */
   @media (min-width: 768px) {
     .story-grid {
       grid-template-columns: 1fr 1fr;
+    }
+    
+    .story-image {
+      order: -1;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .testimonials-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>
