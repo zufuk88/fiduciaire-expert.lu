@@ -3,7 +3,7 @@ title: "L'avantage en nature au Luxembourg : Voiture & Logement"
 description: "Le guide complet de l'avantage en nature (ATN) 2026 au Luxembourg. Maîtrisez les règles pour les véhicules et logements, le calcul, et l'impact sur la fiche de paie."
 date: "2025-07-25"
 category: "Social"
-image: "/images/avantage-nature-voiture.webp"
+image: "../../assets/images/avantage-nature-voiture.webp"
 ---
 
 L’avantage en nature (ATN) — qu'il s'agisse d'une voiture ou d'un logement de fonction — est un complément de salaire incontournable au Luxembourg. Bien géré, il optimise la rémunération et fidélise les salariés. Mal maîtrisé, il peut entraîner des complications fiscales et sociales.

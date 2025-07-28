@@ -3,7 +3,7 @@ title: "La SCI au Luxembourg (2025) : Le Guide Complet"
 description: "Comprendre la SCI au Luxembourg : transparence fiscale, responsabilité des associés, plus-values immobilières et droits d'enregistrement. Nos experts vous guident."
 date: "2025-07-25"
 category: "Fiscalité patrimoniale"
-image: "/images/sci-luxembourg.webp"
+image: "../../assets/images/sci-luxembourg.webp"
 ---
 
 La Société Civile Immobilière (SCI) est l'outil de prédilection pour détenir et gérer un bien immobilier à plusieurs au Luxembourg. Sa facilité de création et sa flexibilité en font un véhicule patrimonial puissant pour organiser la détention et anticiper la transmission.

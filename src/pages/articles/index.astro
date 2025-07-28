@@ -3,12 +3,13 @@
 
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+// NOUVEAU : Importation du composant Image pour l'optimisation
+import { Image } from 'astro:assets';
 
-// NOUVELLE MÉTHODE : On utilise les collections, plus robustes
+// La logique de récupération des articles est inchangée
 const allPosts = await getCollection('blog');
 const sortedPosts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-// Le reste de la logique est similaire
 const categories = [...new Set(sortedPosts.map(post => post.data.category))].filter(Boolean);
 const featuredPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
 const regularPosts = sortedPosts.length > 1 ? sortedPosts.slice(1) : [];
@@ -41,7 +42,8 @@ const formatDate = (date) => date.toLocaleDateString('fr-FR', {
               <a href={`/articles/${featuredPost.slug}`} class="featured-link">
                 {featuredPost.data.image && (
                   <div class="featured-image-wrapper">
-                    <img src={featuredPost.data.image} alt={`${featuredPost.data.title} - Guide expert comptable Luxembourg`} width="1200" height="600" loading="eager" fetchpriority="high"/>
+                    {/* MODIFIÉ : Utilisation du composant Image optimisé */}
+                    <Image src={featuredPost.data.image} alt={`${featuredPost.data.title} - Guide expert comptable Luxembourg`} width={1200} height={600} loading="eager" fetchpriority="high" quality="mid"/>
                   </div>
                 )}
                 <div class="featured-content">
@@ -71,7 +73,8 @@ const formatDate = (date) => date.toLocaleDateString('fr-FR', {
                   <a href={`/articles/${post.slug}`} class="post-link">
                     {post.data.image && (
                       <div class="post-image-wrapper">
-                        <img src={post.data.image} alt={`${post.data.title} - Article comptabilité fiscalité Luxembourg`} width="400" height="250" loading="lazy" />
+                        {/* MODIFIÉ : Utilisation du composant Image optimisé */}
+                        <Image src={post.data.image} alt={`${post.data.title} - Article comptabilité fiscalité Luxembourg`} width={400} height={200} loading="lazy" quality="mid" />
                       </div>
                     )}
                     <div class="post-content">
@@ -112,7 +115,7 @@ const formatDate = (date) => date.toLocaleDateString('fr-FR', {
 </Layout>
 
 <style>
-  /* Styles CSS (inchangés, ils sont déjà parfaits) */
+  /* Vos styles CSS restent inchangés et sont déjà corrects */
   .page-hero { background-color: var(--color-background-alt); padding: var(--spacing-lg) 0; text-align: center; border-bottom: 1px solid var(--color-border); }
   .breadcrumb { font-size: 0.9rem; color: var(--color-text-secondary); margin-bottom: 1rem; }
   .breadcrumb a { color: var(--color-text-secondary); }

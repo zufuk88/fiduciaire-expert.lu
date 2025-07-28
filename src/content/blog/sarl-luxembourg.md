@@ -3,7 +3,7 @@ title: "Créer une SARL au Luxembourg en 2025 : Le Guide Complet"
 description: "✅ Guide 2025 pour créer votre SARL au Luxembourg. Capital, coûts, procédure, fiscalité et avantages. Devenez entrepreneur au Grand-Duché facilement."
 date: "2025-07-25"
 category: "Création d'entreprise"
-image: "/images/creer-sarl-luxembourg.webp"
+image: "../../assets/images/creer-sarl-luxembourg.webp"
 ---
 
 **Créer une SARL au Luxembourg** est le choix privilégié par plus de 70% des entrepreneurs. Simple, protectrice et fiscalement avantageuse, la **Société à Responsabilité Limitée (SARL)** est la structure idéale pour lancer et développer votre activité au Grand-Duché.

@@ -2,12 +2,13 @@
 import { defineCollection, z } from 'astro:content';
 
 const blogCollection = defineCollection({
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
-    date: z.string().transform((str) => new Date(str)), // Transforme la date en objet Date
+    date: z.string().transform((str) => new Date(str)),
     category: z.string(),
-    image: z.string().optional(),
+    // Utilisation du helper image() d'Astro pour l'optimisation
+    image: image().optional(), 
   }),
 });
 

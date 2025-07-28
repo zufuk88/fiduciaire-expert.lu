@@ -3,7 +3,7 @@ title: "La SARL-S au Luxembourg : Avantages, limites & alternatives"
 description: "Découvrez quand la SARL-S est (ou n’est pas) la bonne option : petits services, pas de capital… mais exclue des activités financières. Nos juristes vous guident."
 date: "2025-07-25"
 category: "Création d'entreprise"
-image: "/images/sarl-s.webp"
+image: "../../assets/images/sarl-s.webp"
 ---
 
 La SARL-S, ou la « SARL à 1 € », a facilité l’accès à l’entrepreneuriat au Luxembourg grâce à son capital symbolique et une procédure allégée. Mais derrière cette simplicité se cachent des limites strictes qu'il est important de comprendre avant de choisir cette forme juridique.

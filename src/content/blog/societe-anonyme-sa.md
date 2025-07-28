@@ -3,14 +3,12 @@ title: "Créer une Société Anonyme (SA) au Luxembourg : Guide 2025"
 description: "Le guide complet pour constituer une Société Anonyme (SA) au Luxembourg : capital minimum de 30 000€, formalités, gouvernance, fiscalité et obligations."
 date: "2025-07-26"
 category: "Création d'entreprise"
-image: "/images/sa-luxembourg.webp"
+image: "../../assets/images/sa-luxembourg.webp"
 ---
 
-La **Société Anonyme (SA)** est la forme juridique la plus prestigieuse au Luxembourg. C'est la structure de prédilection pour les projets d'envergure, les entreprises visant une introduction en bourse et celles qui cherchent à attirer des investisseurs internationaux grâce à une crédibilité et une gouvernance solides.
+> **En bref :** La **Société Anonyme (SA)** luxembourgeoise est la structure de prédilection pour les projets d’envergure, les levées de fonds et l’accès aux marchés financiers. Elle exige un **capital minimum de 30 000 €**.
 
-Ce guide vous présente tout ce qu'il faut savoir pour créer et gérer une SA au Grand-Duché.
-
-> **💡 L'essentiel à retenir :** La SA est une société de capitaux qui exige un **capital minimum de 30 000 €**. Elle offre une responsabilité limitée aux apports et une grande facilité de transmission des actions, ce qui en fait un puissant outil de croissance.
+La **Société Anonyme (SA)** est une société de capitaux où la responsabilité des actionnaires est **limitée à leurs apports**. Ses actions sont librement cessibles, ce qui facilite l’entrée de nouveaux investisseurs et la rend idéale pour les projets ambitieux.
 
 ---
 

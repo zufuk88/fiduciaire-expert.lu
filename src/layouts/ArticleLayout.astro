@@ -1,5 +1,6 @@
 ---
 import Layout from './Layout.astro';
+import { Image } from 'astro:assets';
 
 const { frontmatter } = Astro.props;
 const { title, seoTitle, description, date, modified, category, image, imageAlt } = frontmatter;
@@ -40,13 +41,27 @@ const combinedSchema = { "@context": "https://schema.org", "@graph": [ articleSc
 
     {image && (
       <figure class="article-featured-image">
-        <img src={image} alt={imageAlt || `Illustration pour l'article : ${title}`} width="1200" height="600" loading="eager" fetchpriority="high" itemprop="image" />
+        {typeof image === 'string' ? (
+          <img src={image} alt={imageAlt || `Illustration pour l'article : ${title}`} width="1200" height="600" loading="eager" fetchpriority="high" itemprop="image" />
+        ) : (
+          <Image 
+            src={image} 
+            alt={imageAlt || `Illustration pour l'article : ${title}`} 
+            width={1200} 
+            height={600} 
+            loading="eager" 
+            fetchpriority="high" 
+            quality="mid"
+            itemprop="image" 
+          />
+        )}
       </figure>
     )}
 
     <div class="article-body-wrapper">
       <div class="container-article article-content" itemprop="articleBody">
         <slot />
+
         <div class="article-cta">
           <h3 class="cta-title">Besoin d'en savoir plus ?</h3>
           <p class="cta-subtitle">

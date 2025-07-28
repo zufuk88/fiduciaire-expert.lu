@@ -3,7 +3,7 @@ title: "Créer une SAS au Luxembourg en 2025 : Le Guide de la Flexibilité"
 description: "✅ Guide 2025 pour créer une SAS au Luxembourg. Découvrez les avantages de la Société par Actions Simplifiée : flexibilité, gouvernance sur mesure, capital de 30 000€. Idéal pour startups et investisseurs."
 date: "2025-07-26"
 category: "Création d'entreprise"
-image: "/images/SAS-luxembourg.webp"
+image: "../../assets/images/SAS-luxembourg.webp"
 ---
 
 La **SAS (Société par Actions Simplifiée)** est la forme juridique la plus moderne et la plus flexible au Luxembourg. Introduite en 2016, elle combine la sécurité d'une société de capitaux avec une liberté statutaire quasi totale, ce qui en fait l'outil de prédilection des startups, des co-entreprises (joint ventures) et des opérations de capital-investissement.
