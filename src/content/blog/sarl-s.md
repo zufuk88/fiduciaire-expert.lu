@@ -93,7 +93,7 @@ La transformation se réalise via un acte notarié et coûte généralement 1 50
 
 ---
 
-## Conclusion : Un tremplin mais pas une finalité
+## Conclusion
 
 La SARL-S est un outil pour **tester une idée ou lancer une micro-activité de services** sans risque financier. C'est un tremplin, pas une solution à long terme pour une entreprise ambitieuse.
 
