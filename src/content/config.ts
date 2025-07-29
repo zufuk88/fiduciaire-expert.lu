@@ -6,6 +6,7 @@ const blogCollection = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.string().transform((str) => new Date(str)),
+    lastModified: z.string().transform((str) => new Date(str)).optional(),
     category: z.string(),
     // Utilisation du helper image() d'Astro pour l'optimisation
     image: image().optional(), 

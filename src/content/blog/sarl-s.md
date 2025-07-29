@@ -14,8 +14,6 @@ La SARL-S, ou la « SARL à 1 € », a facilité l’accès à l’entrepreneur
 > * **Interdit pour :** Les activités financières, la gestion de fonds, les opérations de bourse, ou les sociétés holding (SOPARFI).
 > * **Évolution :** La transformation en SARL classique devient nécessaire dès que le projet grandit.
 
----
-
 ## Qu'est-ce que la SARL-S ?
 
 La SARL-S (Société à Responsabilité Limitée Simplifiée) est une donc variante de la SARL classique. Elle partage ses principaux avantages, comme la **responsabilité limitée aux apports** et l'imposition classique des sociétés (IRC, ICC et IF). Son succès repose sur trois piliers :
@@ -25,8 +23,6 @@ La SARL-S (Société à Responsabilité Limitée Simplifiée) est une donc varia
 3.  **Frais de lancement limités :** Sans capital important à bloquer à la banque, les démarches sont plus rapides et moins coûteuses.
 
 Cependant, le législateur a volontairement restreint son usage pour éviter les abus dans des secteurs comme la finance.
-
----
 
 ## Les vraies forces de la SARL-S
 
@@ -40,8 +36,6 @@ Cette structure est parfaitement adaptée pour démarrer certains types de proje
 | **Protection du patrimoine** | La responsabilité est limitée aux apports, comme une SARL. | Tous les entrepreneurs. |
 
 > **Exemple concret :** Un développeur web peut tester son marché avec 100 € de capital, sans avoir à immobiliser une trésorerie superflue.
-
----
 
 ## Les limites à connaître absolument
 
@@ -69,29 +63,23 @@ Chaque année, l'entreprise doit obligatoirement affecter **5 % de son bénéfic
 ### 5. Crédibilité bancaire limitée
 Un capital social de quelques euros peut être un frein. Les banques sont plus réticentes à accorder des financements ou même à ouvrir un compte professionnel à une structure jugée moins solide.
 
----
-
 ## L'autorisation d'établissement
 
 La SARL-S ne dispense pas d'une demande d'autorisation d'établissement. C'est même l'inverse. Si votre activité est de nature commerciale, artisanale ou libérale réglementée, vous devez obtenir cet agrément du Ministère de l’Économie **avant** de pouvoir vous immatriculer. Si l'objet n'entre pas dans les activités qui relèvent du droit d'établissement, cette forme est tout simplement interdite.
-
----
 
 ## Quand transformer votre SARL-S ?
 
 Le passage à une SARL classique est une étape naturelle de croissance. Voici les signaux qui indiquent qu'il est temps d'évoluer :
 
-| Signal d'Alarme | Pourquoi Transformer ? |
+| Signal d'alarme | Cause de transformation en SARL |
 | :--- | :--- |
-| **Besoins en capital > 12 000 €** | Pour financer des investissements, des embauches ou le BFR. |
-| **Recherche d'investisseurs** | Pour offrir une structure crédible et solide aux partenaires financiers. |
-| **Projet dans le secteur financier** | Pour obtenir un agrément CSSF, la SARL classique est le minimum requis. |
-| **Nomination d'une holding gérante**| Pour une structuration de groupe, seule la SARL le permet. |
-| **Difficultés avec les banques** | Pour renforcer la crédibilité et faciliter l'accès au crédit. |
+| **Besoins en capital > 12 000 €** | Financer des investissements, des embauches ou le BFR. |
+| **Recherche d'investisseurs** | Offrir une structure crédible et solide aux partenaires financiers. |
+| **Projet dans le secteur financier** | Obtenir un agrément CSSF, la SARL classique est le minimum requis. |
+| **Nomination d'une holding gérante**| Structuration de groupe, seule la SARL le permet. |
+| **Difficultés avec les banques** | Renforcer la crédibilité et faciliter l'accès au crédit. |
 
 La transformation se réalise via un acte notarié et coûte généralement 1 500 € de frais juridiques et administratifs.
-
----
 
 ## Conclusion
 

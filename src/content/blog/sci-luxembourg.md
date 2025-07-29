@@ -2,7 +2,7 @@
 title: "La SCI au Luxembourg (2025) : Le Guide Complet"
 description: "Comprendre la SCI au Luxembourg : transparence fiscale, responsabilité des associés, plus-values immobilières et droits d'enregistrement. Nos experts vous guident."
 date: "2025-07-25"
-category: "Fiscalité patrimoniale"
+category: "Fiscalité"
 image: "../../assets/images/sci-luxembourg.webp"
 ---
 
