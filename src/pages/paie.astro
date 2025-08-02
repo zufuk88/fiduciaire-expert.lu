@@ -1,8 +1,6 @@
 ---
-import Layout from '/src/layouts/Layout.astro'; // Adjust the path as needed
+import Layout from '../layouts/Layout.astro';
 
-// --- SEO & DATA (UNCHANGED) ---
-// Your comprehensive data and schema are perfect and have been fully retained.
 const gestionPaieServices = [
   {
     service: "Établissement des Fiches de Paie",
@@ -33,13 +31,40 @@ const obligationsLegales = [
   { title: "Déclarations d'Entrée/Sortie", detail: "Enregistrement de tout nouveau salarié et déclaration de départ dans les délais légaux." }
 ];
 
-const gestionPaieSchema = { /* Your excellent schema is preserved here */ };
+const gestionPaieSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Gestion de la Paie au Luxembourg",
+  "provider": {
+    "@type": "Organization",
+    "name": "Fiduciaire Expert Luxembourg"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Luxembourg"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services de gestion de paie",
+    "itemListElement": gestionPaieServices.map(s => ({
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": s.service,
+        "description": s.description
+      },
+      "price": s.tarif
+    }))
+  }
+};
+
 const metaDescription = "Service expert de gestion de paie au Luxembourg : fiches de paie, déclarations CCSS/CNS, contrats de travail. Assurez votre conformité sociale.";
 ---
 
 <Layout
   title="Gestion de la Paie au Luxembourg | Expert en Droit Social"
   description={metaDescription}
+  canonical="https://www.fiduciaire-expert.lu/paie"
   schema={gestionPaieSchema}
 >
 
@@ -58,15 +83,15 @@ const metaDescription = "Service expert de gestion de paie au Luxembourg : fiche
   <section class="services-section">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">Une Solution de Paie Complète et Sécurisée</h2>
-        <p class="section-subtitle">De la fiche de paie au conseil juridique, nous couvrons tous vos besoins en matière de gestion sociale.</p>
+        <h2>Une Solution de Paie Complète et Sécurisée</h2>
+        <p>De la fiche de paie au conseil juridique, nous couvrons tous vos besoins en matière de gestion sociale.</p>
       </div>
       <div class="services-grid">
         {gestionPaieServices.map(service => (
           <div class="service-card">
-            <h3 class="service-title">{service.service}</h3>
-            <p class="service-description">{service.description}</p>
-            <p class="service-price">{service.tarif}</p>
+            <h3>{service.service}</h3>
+            <p>{service.description}</p>
+            <div class="service-price">{service.tarif}</div>
           </div>
         ))}
       </div>
@@ -74,21 +99,21 @@ const metaDescription = "Service expert de gestion de paie au Luxembourg : fiche
   </section>
 
   <section class="obligations-section">
-    <div class="container-narrow">
+    <div class="container">
       <div class="section-header">
-        <h2 class="section-title">Conformité et Obligations Légales</h2>
-        <p class="section-subtitle">Le droit du travail luxembourgeois est complexe. Notre expertise garantit votre sérénité en couvrant toutes les obligations essentielles.</p>
+        <h2>Conformité et Obligations Légales</h2>
+        <p>Le droit du travail luxembourgeois est complexe. Notre expertise garantit votre sérénité en couvrant toutes les obligations essentielles.</p>
       </div>
-      <div class="obligations-list">
+      <div class="obligations-grid">
         {obligationsLegales.map(obligation => (
-          <div class="obligation-item">
-            <h4>{obligation.title}</h4>
+          <div class="obligation-card">
+            <h3>{obligation.title}</h3>
             <p>{obligation.detail}</p>
           </div>
         ))}
       </div>
       <div class="legal-note">
-        <p><strong>Note :</strong> Nous assurons également une veille et une application rigoureuse des spécificités liées aux différentes **conventions collectives sectorielles** (Commerce, Banques, Horeca, etc.).</p>
+        <p><strong>Note :</strong> Nous assurons également une veille et une application rigoureuse des spécificités liées aux différentes <strong>conventions collectives sectorielles</strong> (Commerce, Banques, Horeca, etc.).</p>
       </div>
     </div>
   </section>
@@ -96,8 +121,8 @@ const metaDescription = "Service expert de gestion de paie au Luxembourg : fiche
   <section class="process-section">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">Notre Processus de Gestion de Paie</h2>
-        <p class="section-subtitle">Une méthode structurée en 4 étapes pour une prise en charge efficace et transparente.</p>
+        <h2>Notre Processus de Gestion de Paie</h2>
+        <p>Une méthode structurée en 4 étapes pour une prise en charge efficace et transparente.</p>
       </div>
       <div class="process-grid">
         <div class="process-step">
@@ -124,123 +149,396 @@ const metaDescription = "Service expert de gestion de paie au Luxembourg : fiche
     </div>
   </section>
 
+  <section id="cta">
+    <div class="container cta-container">
+      <h2>Prêt à déléguer votre gestion de paie ?</h2>
+      <p>Contactez-nous dès aujourd'hui pour un audit gratuit de votre situation sociale et découvrez comment nous pouvons simplifier votre gestion RH.</p>
+      <a href="/contact" class="btn btn-primary">Demander un devis</a>
+    </div>
+  </section>
+
 </Layout>
 
 <style>
-  /* --- Shared Styles --- */
-  .container-narrow { max-width: 800px; margin: 0 auto; padding: 0 1rem; }
-  .section-header { text-align: center; max-width: 720px; margin: 0 auto var(--spacing-lg) auto; }
-  .section-title { font-size: 2rem; margin-bottom: 0.5rem; }
-  .section-subtitle { color: var(--color-text-secondary); font-size: var(--font-size-lg); }
-
-  /* --- Hero Section --- */
-  .page-hero {
-    background-color: var(--color-background-alt);
-    padding: var(--spacing-lg) 0;
-    text-align: center;
-    border-bottom: 1px solid var(--color-border);
-  }
-  .breadcrumb { font-size: 0.9rem; margin-bottom: 1rem; color: var(--color-text-secondary); }
-  .breadcrumb a { color: var(--color-text-secondary); }
-  .breadcrumb a:hover { color: var(--color-primary); }
-  .page-hero h1 { margin-bottom: 1rem; }
-  .hero-subtitle { font-size: var(--font-size-lg); color: var(--color-text-secondary); max-width: 800px; margin: 0 auto; }
+  /* ===== STYLE COHÉRENT AVEC INDEX, SERVICES, ARTICLES ET A-PROPOS ===== */
   
-  /* --- Services Section --- */
+  /* Section Header - Style unifié */
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .section-header h2 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    margin-bottom: 1rem;
+  }
+  
+  .section-header p {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Section Héros - Style élégant avec gradient subtil */
+  .page-hero {
+    background: linear-gradient(135deg, var(--color-background) 0%, #f0f4f8 100%);
+    padding: var(--spacing-xl) 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 95, 204, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .page-hero .container {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .breadcrumb {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: rgba(0, 95, 204, 0.08);
+    border: 1px solid rgba(0, 95, 204, 0.2);
+    border-radius: 24px;
+  }
+  
+  .breadcrumb a {
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+  
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+  
+  .page-hero h1 {
+    margin-bottom: 1.5rem;
+    font-size: clamp(2rem, 5vw, 3rem);
+    background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .hero-subtitle {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+  
+  /* Section Services - Cartes modernes avec animation */
   .services-section {
     padding: var(--spacing-xl) 0;
+    background-color: var(--color-background-alt);
   }
+  
   .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
   }
+  
   .service-card {
-    border: 1px solid var(--color-border);
+    background-color: var(--color-background);
+    border: 1px solid rgba(222, 226, 230, 0.5);
+    border-radius: 12px;
     padding: 2rem;
     display: flex;
     flex-direction: column;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
   }
-  .service-title {
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
+  
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary) 0%, #0047a3 100%);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
   }
-  .service-description {
+  
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    border-color: transparent;
+  }
+  
+  .service-card:hover::before {
+    transform: translateX(0);
+  }
+  
+  .service-card h3 {
+    font-size: 1.375rem;
+    margin-bottom: 1rem;
+    color: var(--color-dark);
+  }
+  
+  .service-card p {
     color: var(--color-text-secondary);
     flex-grow: 1;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
   }
+  
   .service-price {
-    font-weight: 600;
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+    color: var(--color-dark);
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(222, 226, 230, 0.3);
     margin-top: auto;
-    padding-top: 1rem;
-    border-top: 1px solid var(--color-border);
   }
 
-  /* --- Obligations Section --- */
+  /* Section Obligations - Design moderne aligné */
   .obligations-section {
+    padding: var(--spacing-xl) 0;
+    background-color: var(--color-background);
+  }
+  
+  .obligations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .obligation-card {
+    background-color: var(--color-background);
+    border: 1px solid rgba(222, 226, 230, 0.5);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .obligation-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary) 0%, #0047a3 100%);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .obligation-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    border-color: transparent;
+  }
+  
+  .obligation-card:hover::before {
+    transform: translateX(0);
+  }
+  
+  .obligation-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--color-dark);
+  }
+  
+  .obligation-card p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+  
+  .legal-note {
+    max-width: 800px;
+    margin: 3rem auto 0;
+    text-align: center;
+    padding: 2rem;
+    background-color: rgba(0, 95, 204, 0.03);
+    border: 1px solid rgba(0, 95, 204, 0.1);
+    border-radius: 12px;
+  }
+  
+  .legal-note p {
+    color: var(--color-text-secondary);
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  /* Section Processus - Design moderne avec badges numérotés */
+  .process-section {
     padding: var(--spacing-xl) 0;
     background-color: var(--color-background-alt);
   }
-  .obligations-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
-  .obligation-item {
-    background-color: var(--color-background);
-    padding: 1.5rem;
-    border: 1px solid var(--color-border);
-  }
-  .obligation-item h4 {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-  }
-  .obligation-item p {
-    color: var(--color-text-secondary);
-  }
-  .legal-note {
-    text-align: center;
-    font-style: italic;
-    color: var(--color-text-secondary);
-    background-color: var(--color-background);
-    padding: 1.5rem;
-    margin-top: 2rem;
-    border: 1px solid var(--color-border);
-  }
-
-  /* --- Process Section --- */
-  .process-section {
-    padding: var(--spacing-xl) 0;
-  }
+  
   .process-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
     position: relative;
   }
+  
   .process-step {
     text-align: center;
-    padding: 1.5rem;
+    padding: 2rem;
+    position: relative;
   }
+  
   .step-number {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    background-color: var(--color-dark);
+    background: linear-gradient(135deg, var(--color-primary) 0%, #0047a3 100%);
     color: var(--color-background);
     font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 95, 204, 0.3);
+  }
+  
+  .process-step h3 {
     font-size: 1.25rem;
     margin-bottom: 1rem;
+    color: var(--color-dark);
   }
-  .process-step h3 {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-  }
+  
   .process-step p {
     color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+  
+  /* Ligne de connexion entre les étapes (desktop uniquement) */
+  @media (min-width: 768px) {
+    .process-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 30px;
+      right: -1rem;
+      width: 2rem;
+      height: 2px;
+      background: linear-gradient(90deg, var(--color-primary) 0%, transparent 100%);
+    }
+  }
+
+  /* Section CTA - Design premium aligné avec les autres pages */
+  #cta {
+    background: linear-gradient(135deg, var(--color-dark) 0%, #1a2742 100%);
+    color: var(--color-background);
+    padding: var(--spacing-xl) 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  #cta::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .cta-container {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  
+  #cta h2 {
+    color: var(--color-background);
+    max-width: 700px;
+    margin: 0 auto 1.5rem;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+  }
+  
+  #cta p {
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+  }
+  
+  #cta .btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    padding: 1rem 2.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  #cta .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Animations subtiles */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .service-card,
+  .obligation-card,
+  .process-step {
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+  }
+  
+  .service-card:nth-child(1) { animation-delay: 0.1s; }
+  .service-card:nth-child(2) { animation-delay: 0.15s; }
+  .service-card:nth-child(3) { animation-delay: 0.2s; }
+  .service-card:nth-child(4) { animation-delay: 0.25s; }
+  
+  .obligation-card:nth-child(1) { animation-delay: 0.1s; }
+  .obligation-card:nth-child(2) { animation-delay: 0.15s; }
+  .obligation-card:nth-child(3) { animation-delay: 0.2s; }
+  .obligation-card:nth-child(4) { animation-delay: 0.25s; }
+  
+  .process-step:nth-child(1) { animation-delay: 0.1s; }
+  .process-step:nth-child(2) { animation-delay: 0.15s; }
+  .process-step:nth-child(3) { animation-delay: 0.2s; }
+  .process-step:nth-child(4) { animation-delay: 0.25s; }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .process-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .process-step::after {
+      display: none;
+    }
   }
 </style>

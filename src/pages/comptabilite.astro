@@ -1,13 +1,37 @@
 ---
 import Layout from '/src/layouts/Layout.astro';
 
-// --- DONNÉES & SEO (INCHANGÉS) ---
-const comptabiliteSchema = { /* ... */ };
+// Configuration SEO
 const metaDescription = "Expert comptable à Luxembourg : maîtrise des normes LUX GAAP, du PCN 2020 et du dépôt eCDF. Nous garantissons la conformité de votre comptabilité et le respect des échéances.";
+const comptabiliteSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Service de Comptabilité Luxembourg",
+  "serviceType": "Comptabilité et expertise comptable",
+  "provider": {
+    "@type": "Organization",
+    "name": "Fiduciaire Expert",
+    "url": "https://www.fiduciaire-expert.lu",
+    "areaServed": {
+      "@type": "Place",
+      "name": "Luxembourg"
+    }
+  },
+  "description": metaDescription,
+  "offers": {
+    "@type": "Offer",
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "price": "299",
+      "priceCurrency": "EUR",
+      "unitText": "par mois"
+    }
+  }
+};
 ---
 
 <Layout
-  title="Service de Comptabilité à Luxembourg | Normes LUX GAAP & PCN 2020"
+  title="Service de comptabilité à Luxembourg | Normes LUX GAAP & PCN 2020"
   description={metaDescription}
   schema={comptabiliteSchema}
 >
@@ -16,19 +40,17 @@ const metaDescription = "Expert comptable à Luxembourg : maîtrise des normes L
       <p class="breadcrumb">
         <a href="/">Accueil</a> / <a href="/services">Services</a> / <span>Comptabilité</span>
       </p>
-      <h1>Comptabilité d'Entreprise à Luxembourg</h1>
-      
+      <h1>Comptabilité de sociétés à Luxembourg</h1>
       <p class="hero-subtitle">
         Nous assurons la tenue complète de votre comptabilité en parfaite conformité avec les normes <strong>LUX GAAP</strong> et le <strong>Plan Comptable Normalisé (PCN 2020)</strong>. Garantissez la conformité de votre entreprise et optimisez votre gestion financière.
       </p>
-
     </div>
   </section>
 
   <section class="principles-section">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">Les Fondamentaux de la Comptabilité Luxembourgeoise</h2>
+        <h2 class="section-title">Les fondamentaux de la comptabilité luxembourgeoise</h2>
         <p class="section-subtitle">Notre expertise couvre l'ensemble du cadre réglementaire pour assurer votre sérénité.</p>
       </div>
       <div class="principles-grid">
@@ -41,7 +63,7 @@ const metaDescription = "Expert comptable à Luxembourg : maîtrise des normes L
           <p>Votre comptabilité est structurée selon le Plan Comptable Normalisé 2020 et préparée pour le dépôt électronique obligatoire au format eCDF (electronic Common Data Format).</p>
         </div>
         <div class="principle-card">
-          <h3>Comptabilité en Partie Double</h3>
+          <h3>Comptabilité en partie double</h3>
           <p>Nous assurons une tenue de comptes en partie double, une obligation pour la majorité des sociétés commerciales, garantissant l'équilibre constant de votre bilan (Actif = Passif).</p>
         </div>
       </div>
@@ -51,40 +73,40 @@ const metaDescription = "Expert comptable à Luxembourg : maîtrise des normes L
   <section class="obligations-section">
     <div class="container-narrow">
       <div class="section-header">
-        <h2 class="section-title">Dépôt des Comptes au RCS : Une Échéance Cruciale</h2>
+        <h2 class="section-title">Dépôt des comptes annuels au RCS</h2>
       </div>
       <div class="deadline-notice">
-        <h3>⏰ Date limite impérative : 31 juillet N+1</h3>
-        <p>Toutes les sociétés commerciales doivent déposer leurs comptes annuels au Registre de Commerce et des Sociétés (RCS) <strong>avant le 31 juillet</strong> de l'année suivant la clôture de l'exercice. Un retard entraîne des frais administratifs. Nous garantissons le respect de cette échéance.</p>
+        <h3>⏰ Date limite : 31 juillet N+1</h3>
+        <p>Toutes les sociétés commerciales doivent déposer leurs comptes annuels au Registre de Commerce et des Sociétés (RCS) <strong>avant le 31 juillet</strong> de l'année suivant la clôture de l'exercice. Un retard entraîne des frais administratifs. Nous vous garantissons le respect de cette échéance.</p>
       </div>
 
       <div class="thresholds-info">
         <h3>Obligations selon la taille de votre entreprise</h3>
-        <p>Les informations à publier varient selon que votre entreprise est classée comme petite, moyenne ou grande. Voici les seuils à ne pas dépasser (2 sur 3) pour chaque catégorie :</p>
+        <p>Les informations à publier varient selon que votre entreprise est classée comme petite, moyenne ou grande. Voici les seuils à ne pas dépasser (2 sur 3) sur deux exercices consécutifs pour chaque catégorie :</p>
         <div class="thresholds-grid">
           <div class="threshold-card">
-            <h4>Petite Entreprise</h4>
+            <h4>Petite entreprise</h4>
             <ul>
-              <li>Total Bilan : <strong>4,4 M€</strong></li>
-              <li>Chiffre d'affaires : <strong>8,8 M€</strong></li>
-              <li>Salariés : <strong>50</strong></li>
+              <li>Total Bilan : <strong>7,5 M€ Max.</strong></li>
+              <li>Chiffre d'affaires : <strong>15 M€ Max.</strong></li>
+              <li>Salariés : <strong>50 Max.</strong></li>
             </ul>
             <p class="obligation-summary"><strong>Publication :</strong> Bilan abrégé.</p>
           </div>
           <div class="threshold-card">
-            <h4>Moyenne Entreprise</h4>
+            <h4>Moyenne entreprise</h4>
             <ul>
-              <li>Total Bilan : <strong>20 M€</strong></li>
-              <li>Chiffre d'affaires : <strong>40 M€</strong></li>
-              <li>Salariés : <strong>250</strong></li>
+              <li>Total Bilan : <strong>7,5 - 25 M€</strong></li>
+              <li>Chiffre d'affaires : <strong>15 - 50 M€</strong></li>
+              <li>Salariés : <strong>>50 / <250</strong></li>
             </ul>
              <p class="obligation-summary"><strong>Publication :</strong> Comptes annuels abrégés.</p>
           </div>
           <div class="threshold-card">
             <h4>Grande Entreprise</h4>
             <ul>
-                <li>Total Bilan : <strong>> 20 M€</strong></li>
-                <li>Chiffre d'affaires : <strong>> 40 M€</strong></li>
+                <li>Total Bilan : <strong>> 25 M€</strong></li>
+                <li>Chiffre d'affaires : <strong>> 50 M€</strong></li>
                 <li>Salariés : <strong>> 250</strong></li>
             </ul>
             <p class="obligation-summary"><strong>Publication :</strong> Comptes complets + rapport de gestion.</p>
@@ -96,52 +118,392 @@ const metaDescription = "Expert comptable à Luxembourg : maîtrise des normes L
   
   <section class="cta-section">
     <div class="container cta-container">
-      <h2>Assurez la Conformité et l'Optimisation de Votre Comptabilité</h2>
-      <p>Contactez-nous pour un audit gratuit de votre situation comptable et un devis personnalisé.</p>
+      <h2>Assurez la conformité et l'optimisation de votre comptabilité</h2>
+      <p>Contactez-nous pour un audit de votre situation comptable et un devis personnalisé.</p>
       <a href="/contact?service=comptabilite" class="btn btn-primary">Demander un audit gratuit</a>
     </div>
   </section>
 </Layout>
 
 <style>
-  /* --- Shared Styles --- */
-  .container-narrow { max-width: 800px; margin: 0 auto; padding: 0 1rem; }
-  .section-header { text-align: center; max-width: 720px; margin: 0 auto var(--spacing-lg) auto; }
-  .section-title { font-size: 2rem; margin-bottom: 0.5rem; }
-  .section-subtitle { color: var(--color-text-secondary); font-size: var(--font-size-lg); }
-
-  /* --- Hero Section --- */
-  .page-hero { background-color: var(--color-background-alt); padding: var(--spacing-lg) 0; text-align: center; border-bottom: 1px solid var(--color-border); }
-  .breadcrumb { font-size: 0.9rem; margin-bottom: 1rem; color: var(--color-text-secondary); }
-  .breadcrumb a { color: var(--color-text-secondary); }
-  .breadcrumb a:hover { color: var(--color-primary); }
-  .page-hero h1 { margin-bottom: 1rem; }
-  .hero-subtitle { font-size: var(--font-size-lg); color: var(--color-text-secondary); max-width: 800px; margin: 0 auto; }
+  /* ===== STYLE COHÉRENT AVEC INDEX, SERVICES, ARTICLES ET A-PROPOS ===== */
   
-  /* --- Principles Section --- */
-  .principles-section { padding: var(--spacing-xl) 0; }
-  .principles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto; }
-  .principle-card { border: 1px solid var(--color-border); padding: 2rem; text-align: center; }
-  .principle-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
-  .principle-card p { color: var(--color-text-secondary); }
+  /* Section Header - Style unifié */
+  .section-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto var(--spacing-lg) auto;
+  }
+  
+  .section-title {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    margin-bottom: 1rem;
+    color: var(--color-dark);
+  }
+  
+  .section-subtitle {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+  }
 
-  /* --- Obligations Section --- */
-  .obligations-section { padding: var(--spacing-xl) 0; background-color: var(--color-background-alt); }
-  .deadline-notice { background-color: var(--color-dark); color: var(--color-background); border: 2px solid var(--color-primary); padding: 2rem; text-align: center; margin-bottom: 3rem; }
-  .deadline-notice h3 { color: var(--color-background); font-size: 1.5rem; margin-bottom: 0.5rem; }
-  .thresholds-info { text-align: center; }
-  .thresholds-info h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-  .thresholds-info > p { color: var(--color-text-secondary); margin-bottom: 2rem; }
-  .thresholds-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
-  .threshold-card { background-color: var(--color-background); border: 1px solid var(--color-border); padding: 1.5rem; }
-  .threshold-card h4 { font-size: 1.1rem; margin-bottom: 1rem; }
-  .threshold-card ul { list-style: none; padding: 0; margin: 0; color: var(--color-text-secondary); }
-  .threshold-card li { margin-bottom: 0.25rem; }
-  .obligation-summary { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--color-border); font-weight: 600; }
+  /* Section Héros - Style élégant avec gradient subtil */
+  .page-hero {
+    background: linear-gradient(135deg, var(--color-background) 0%, #f0f4f8 100%);
+    padding: var(--spacing-xl) 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 95, 204, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .page-hero .container {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .breadcrumb {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: rgba(0, 95, 204, 0.08);
+    border: 1px solid rgba(0, 95, 204, 0.2);
+    border-radius: 24px;
+  }
+  
+  .breadcrumb a {
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+  
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+  
+  .page-hero h1 {
+    margin-bottom: 1.5rem;
+    font-size: clamp(2rem, 5vw, 3rem);
+    background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .hero-subtitle {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+  
+  /* Section Principes - Cartes modernes */
+  .principles-section {
+    padding: var(--spacing-xl) 0;
+    background-color: var(--color-background-alt);
+  }
+  
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+  
+  .principle-card {
+    background-color: var(--color-background);
+    border: 1px solid rgba(222, 226, 230, 0.5);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .principle-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary) 0%, #0047a3 100%);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .principle-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    border-color: transparent;
+  }
+  
+  .principle-card:hover::before {
+    transform: translateX(0);
+  }
+  
+  .principle-card h3 {
+    font-size: 1.375rem;
+    margin-bottom: 1rem;
+    color: var(--color-dark);
+  }
+  
+  .principle-card p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
 
-  /* --- CTA Section --- */
-  .cta-section { background-color: var(--color-dark); padding: var(--spacing-xl) 0; color: var(--color-background); }
-  .cta-container { text-align: center; max-width: 720px; margin: 0 auto; }
-  .cta-container h2 { color: var(--color-background); margin-bottom: 1rem; }
-  .cta-container p { margin-bottom: 1.5rem; opacity: 0.8; }
+  /* Section Obligations - Design premium */
+  .obligations-section {
+    padding: var(--spacing-xl) 0;
+    background-color: var(--color-background);
+  }
+  
+  .container-narrow {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .deadline-notice {
+    background: linear-gradient(135deg, var(--color-dark) 0%, #1a2742 100%);
+    color: var(--color-background);
+    border-radius: 12px;
+    padding: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  .deadline-notice::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .deadline-notice h3 {
+    color: var(--color-background);
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .deadline-notice p {
+    position: relative;
+    z-index: 1;
+    line-height: 1.7;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .thresholds-info {
+    text-align: center;
+  }
+  
+  .thresholds-info h3 {
+    font-size: clamp(1.5rem, 3vw, 1.75rem);
+    margin-bottom: 1rem;
+    color: var(--color-dark);
+  }
+  
+  .thresholds-info > p {
+    color: var(--color-text-secondary);
+    margin-bottom: 2rem;
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+  }
+  
+  .thresholds-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+  
+  .threshold-card {
+    background-color: var(--color-background);
+    border: 1px solid rgba(222, 226, 230, 0.5);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .threshold-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary) 0%, #0047a3 100%);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .threshold-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    border-color: transparent;
+  }
+  
+  .threshold-card:hover::before {
+    transform: translateX(0);
+  }
+  
+  .threshold-card h4 {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-dark);
+  }
+  
+  .threshold-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+  }
+  
+  .threshold-card li {
+    padding: 0.5rem 0;
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid rgba(222, 226, 230, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .threshold-card li:last-child {
+    border-bottom: none;
+  }
+  
+  .threshold-card strong {
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+  
+  .obligation-summary {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(222, 226, 230, 0.3);
+    font-weight: 600;
+    color: var(--color-dark);
+    font-size: 0.9rem;
+  }
+
+  /* Section CTA - Design premium aligné avec les autres pages */
+  .cta-section {
+    background: linear-gradient(135deg, var(--color-dark) 0%, #1a2742 100%);
+    color: var(--color-background);
+    padding: var(--spacing-xl) 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .cta-container {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .cta-container h2 {
+    color: var(--color-background);
+    max-width: 700px;
+    margin: 0 auto 1.5rem;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+  }
+  
+  .cta-container p {
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    font-size: var(--font-size-lg);
+    line-height: 1.7;
+  }
+  
+  .cta-container .btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    padding: 1rem 2.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .cta-container .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Animations subtiles */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .principle-card,
+  .threshold-card {
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+  }
+  
+  .principle-card:nth-child(1) { animation-delay: 0.1s; }
+  .principle-card:nth-child(2) { animation-delay: 0.15s; }
+  .principle-card:nth-child(3) { animation-delay: 0.2s; }
+  
+  .threshold-card:nth-child(1) { animation-delay: 0.1s; }
+  .threshold-card:nth-child(2) { animation-delay: 0.15s; }
+  .threshold-card:nth-child(3) { animation-delay: 0.2s; }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .thresholds-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .deadline-notice {
+      padding: 2rem 1.5rem;
+    }
+    
+    .deadline-notice h3 {
+      font-size: 1.375rem;
+    }
+  }
 </style>
