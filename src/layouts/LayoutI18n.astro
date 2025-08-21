@@ -104,6 +104,36 @@ const finalSchema = schema ? schema : websiteSchema;
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   
+  <!-- Chrome Performance Optimizations -->
+  <link rel="stylesheet" href="/src/styles/chrome-optimizations.css" />
+  
+  <!-- Chrome Detection and Optimization Script -->
+  <script is:inline>
+    // Détecter Chrome et appliquer des optimisations
+    if (/Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)) {
+      document.documentElement.classList.add('is-chrome');
+      
+      // Désactiver smooth scroll sur Chrome
+      document.documentElement.style.scrollBehavior = 'auto';
+      
+      // Optimiser le rendu
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+          document.body.style.contain = 'layout style';
+        });
+      }
+      
+      // Forcer l'accélération GPU
+      const stickyElements = document.querySelectorAll('.site-header, .breadcrumbs, .article-sidebar');
+      stickyElements.forEach(el => {
+        if (el) {
+          el.style.transform = 'translateZ(0)';
+          el.style.willChange = 'transform';
+        }
+      });
+    }
+  </script>
+  
   <!-- Critical CSS -->
   <style is:inline>
     /* ===== SYSTÈME DE DESIGN GLOBAL PREMIUM ===== */
@@ -163,6 +193,15 @@ const finalSchema = schema ? schema : websiteSchema;
       font-size: 100%;
       scroll-behavior: smooth;
       -webkit-text-size-adjust: 100%;
+    }
+    
+    /* Override pour Chrome - Performance */
+    .is-chrome html {
+      scroll-behavior: auto !important;
+    }
+    
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
+      html { scroll-behavior: auto !important; }
     }
 
     body {
