@@ -275,6 +275,14 @@ const combinedSchema = {
 <style>
   /* ===== DESIGN PREMIUM ÉPURÉ ET STATUTAIRE ===== */
   
+  /* Variables for sticky heights */
+  :root {
+    --header-height: 72px;
+    --breadcrumb-height: 48px;
+    --sticky-gap: 20px;
+    --sidebar-top: calc(var(--header-height) + var(--breadcrumb-height) + var(--sticky-gap));
+  }
+  
   /* Layout avec sidebar */
   .article-layout {
     max-width: 1280px;
@@ -527,8 +535,12 @@ const combinedSchema = {
   /* Sidebar */
   .article-sidebar {
     position: sticky;
-    top: 180px; /* Increased from 140px to 180px for more space with sticky bar */
+    top: var(--sidebar-top); /* Uses calculated variable */
     align-self: start;
+    max-height: calc(100vh - var(--sidebar-top) - 20px);
+    overflow-y: auto;
+    /* Fallback in case sidebar is too tall */
+    transition: top 0.2s ease;
   }
   
   .sidebar-widget {
