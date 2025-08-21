@@ -1,0 +1,369 @@
+---
+import HeaderI18n from '../components/HeaderI18n.astro';
+import Footer from '../components/Footer.astro';
+import { getLangFromUrl, getAlternateLinks } from '../i18n/utils';
+import { useTranslation, type Language } from '../i18n/translations';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  keywords?: string;
+  noindex?: boolean;
+  schema?: object;
+}
+
+const lang = getLangFromUrl(Astro.url) as Language;
+const t = useTranslation(lang);
+const alternateLinks = getAlternateLinks(Astro.url);
+
+const {
+  title = t('meta.title'),
+  description = t('meta.description'),
+  canonical,
+  ogImage = "/images/og-expert-comptable-luxembourg.jpg",
+  keywords = lang === 'fr' 
+    ? "expert comptable luxembourg, fiduciaire luxembourg, création sarl luxembourg, comptabilité PME, fiscalité IRC, TVA luxembourg"
+    : "chartered accountant luxembourg, fiduciary luxembourg, sarl creation luxembourg, SME accounting, IRC taxation, VAT luxembourg",
+  noindex = false,
+  schema
+} = Astro.props;
+
+const siteUrl = "https://www.fiduciaire-expert.lu";
+const canonicalURL = canonical || new URL(Astro.url.pathname, siteUrl).href;
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
+  "url": siteUrl,
+  "name": "Fiduciaire Expert Luxembourg",
+  "description": description,
+  "publisher": { "@id": `${siteUrl}/#organization` },
+  "inLanguage": lang === 'fr' ? "fr-LU" : "en-US"
+};
+
+const finalSchema = schema ? schema : websiteSchema;
+---
+
+<!doctype html>
+<html lang={lang === 'fr' ? 'fr-LU' : 'en-US'}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="keywords" content={keywords} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+  
+  <!-- Canonical -->
+  <link rel="canonical" href={canonicalURL} />
+  
+  <!-- Hreflang tags for SEO -->
+  {alternateLinks.fr && <link rel="alternate" hreflang="fr-LU" href={`${siteUrl}${alternateLinks.fr}`} />}
+  {alternateLinks.en && <link rel="alternate" hreflang="en-US" href={`${siteUrl}${alternateLinks.en}`} />}
+  <link rel="alternate" hreflang="x-default" href={`${siteUrl}/fr`} />
+  
+  <!-- RSS Feeds -->
+  <link rel="alternate" type="application/rss+xml" title="Fiduciaire Expert - Blog (FR)" href={`${siteUrl}/fr/rss.xml`} />
+  <link rel="alternate" type="application/rss+xml" title="Fiduciaire Expert - Blog (EN)" href={`${siteUrl}/en/rss.xml`} />
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={new URL(ogImage, siteUrl).href} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content={lang === 'fr' ? 'fr_LU' : 'en_US'} />
+  <meta property="og:locale:alternate" content={lang === 'fr' ? 'en_US' : 'fr_LU'} />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={new URL(ogImage, siteUrl).href} />
+  
+  <!-- Schema.org -->
+  <script type="application/ld+json" set:html={JSON.stringify(finalSchema)} />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#ffffff" />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Critical CSS -->
+  <style is:inline>
+    /* ===== SYSTÈME DE DESIGN GLOBAL PREMIUM ===== */
+    :root {
+      /* Palette de couleurs raffinée et sobre */
+      --color-background: #ffffff;
+      --color-background-alt: #fafbfc;
+      --color-text: #0f172a;
+      --color-text-secondary: #64748b;
+      --color-primary: #2c4157;
+      --color-primary-light: #334155;
+      --color-primary-blue: #3b82f6;
+      --color-border: #e2e8f0;
+      --color-border-light: #f1f5f9;
+      --color-dark: #0f172a;
+      --color-accent: #f8fafc;
+
+      /* Typographie premium et élégante */
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      --font-size-base: 0.9375rem;
+      --font-size-sm: 0.875rem;
+      --font-size-lg: 1.125rem;
+      --font-size-xl: 1.25rem;
+      --font-size-h1: clamp(2.5rem, 5vw, 3.75rem);
+      --font-size-h2: clamp(2rem, 4vw, 2.75rem);
+      --font-size-h3: clamp(1.25rem, 3vw, 1.5rem);
+
+      /* Espacements harmonieux */
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 1rem;
+      --spacing-md: 2rem;
+      --spacing-lg: 4rem;
+      --spacing-xl: 6rem;
+      --spacing-2xl: 8rem;
+
+      /* Transitions fluides */
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      
+      /* Ombres ultra-subtiles */
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+      --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
+    }
+
+    /* --- Reset et styles de base --- */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 100%;
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--font-family);
+      font-size: var(--font-size-base);
+      line-height: 1.6;
+      color: var(--color-text);
+      background-color: var(--color-background);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      letter-spacing: 0.025em;
+      font-weight: 400;
+      text-rendering: optimizeLegibility;
+    }
+
+    main {
+      display: block;
+      width: 100%;
+    }
+
+    /* --- Typographie élégante et sobre --- */
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--color-dark);
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+      font-feature-settings: "kern" 1;
+    }
+    
+    h1 { 
+      font-size: var(--font-size-h1);
+      font-weight: 300;
+      margin-bottom: 1.75rem;
+    }
+    
+    h2 { 
+      font-size: var(--font-size-h2);
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+    
+    h3 { 
+      font-size: var(--font-size-h3);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    p { 
+      margin-bottom: 1.5rem;
+      line-height: 1.75;
+      color: var(--color-text-secondary);
+      font-weight: 400;
+    }
+    
+    strong { 
+      font-weight: 600;
+      color: var(--color-text);
+    }
+    
+    /* Override pour la section hero - force le texte en blanc */
+    .hero-section strong,
+    .hero-section .hero-subtitle strong,
+    .hero-section h1 strong,
+    .hero-section p strong {
+      color: #ffffff !important;
+    }
+
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    a:hover { text-decoration: underline; }
+
+    /* --- Structure & Conteneurs premium --- */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    section {
+      padding-top: var(--spacing-2xl);
+      padding-bottom: var(--spacing-2xl);
+    }
+    
+    .section-header {
+      max-width: 800px;
+      margin: 0 auto var(--spacing-xl) auto;
+      text-align: center;
+    }
+    .section-header h2 { 
+      margin-bottom: 1.5rem;
+      color: var(--color-dark);
+    }
+    .section-header p { 
+      font-size: var(--font-size-lg); 
+      color: var(--color-text-secondary);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    /* --- Boutons premium --- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.875rem 2rem;
+      font-size: var(--font-size-base);
+      font-weight: 500;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+      position: relative;
+      white-space: nowrap;
+      letter-spacing: 0.025em;
+    }
+    
+    .btn:hover { 
+      text-decoration: none; 
+      transform: translateY(-0.5px); 
+    }
+
+    .btn-primary {
+      background: var(--color-primary);
+      color: white;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      background: var(--color-dark);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+      transform: translateY(-0.5px);
+    }
+    
+    .btn-primary:hover::before {
+      opacity: 1;
+    }
+
+    .btn-secondary {
+      background-color: white;
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+    }
+    
+    .btn-secondary:hover {
+      background-color: var(--color-accent);
+      border-color: var(--color-border);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    /* --- Accessibilité --- */
+    .skip-link {
+      position: absolute;
+      top: -1000px;
+      left: -1000px;
+      height: 1px;
+      width: 1px;
+      overflow: hidden;
+      background: var(--color-dark);
+      color: var(--color-background);
+      padding: 1rem;
+      z-index: 1000;
+    }
+    .skip-link:focus {
+      top: 10px;
+      left: 10px;
+      width: auto;
+      height: auto;
+      overflow: visible;
+    }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+  <HeaderI18n lang={lang} />
+  <main id="main-content">
+    <slot />
+  </main>
+  <Footer lang={lang} />
+</body>
+</html>

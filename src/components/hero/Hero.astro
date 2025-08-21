@@ -1,0 +1,274 @@
+---
+import heroImage from '../../assets/images/Fiduciaire-expert-Hero.jpg';
+import Button from '../ui/Button.astro';
+
+export interface Props {
+  badge?: string;
+  title: string;
+  subtitle: string;
+  ctaPrimary?: { text: string; href: string };
+  ctaSecondary?: { text: string; href: string };
+  showImageOnMobile?: boolean;
+}
+
+const { 
+  badge,
+  title, 
+  subtitle, 
+  ctaPrimary,
+  ctaSecondary,
+  showImageOnMobile = false
+} = Astro.props;
+---
+
+<header class="hero-section" aria-labelledby="hero-title">
+  <!-- Image de fond optimisée -->
+  <div 
+    class="hero-background" 
+    class:list={[{ 'hide-mobile': !showImageOnMobile }]}
+    style={`background-image: url(${heroImage.src})`}
+    role="presentation"
+  />
+  
+  <div class="container">
+    <div class="hero-content">
+      {badge && (
+        <span class="hero-badge">{badge}</span>
+      )}
+      
+      <h1 id="hero-title" set:html={title} />
+      <p class="hero-subtitle" set:html={subtitle} />
+      
+      {(ctaPrimary || ctaSecondary) && (
+        <div class="hero-actions">
+          {ctaPrimary && (
+            <Button 
+              href={ctaPrimary.href} 
+              variant="secondary" 
+              size="large"
+              aria-label={`Action principale: ${ctaPrimary.text}`}
+            >
+              {ctaPrimary.text}
+            </Button>
+          )}
+          {ctaSecondary && (
+            <Button 
+              href={ctaSecondary.href} 
+              variant="outline" 
+              size="large"
+              aria-label={`Action secondaire: ${ctaSecondary.text}`}
+            >
+              {ctaSecondary.text}
+            </Button>
+          )}
+        </div>
+      )}
+    </div>
+  </div>
+</header>
+
+<style>
+  .hero-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    background: #0f172a;
+    position: relative;
+    overflow: hidden;
+    padding: 4rem 0;
+  }
+
+  /* Image de fond avec traitement professionnel */
+  .hero-background {
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.08;
+    z-index: 1;
+  }
+
+  /* Overlay gradient subtil pour améliorer la lisibilité */
+  .hero-background::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      #0f172a 0%,
+      rgba(15, 23, 42, 0.7) 50%,
+      rgba(15, 23, 42, 0.3) 100%
+    );
+  }
+
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+  }
+
+  .hero-content {
+    max-width: 720px;
+  }
+
+  /* Badge minimaliste */
+  .hero-badge {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.025em;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Titre principal */
+  .hero-section h1 {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-weight: 200;
+    line-height: 1.15;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* Sous-titre optimisé */
+  .hero-subtitle {
+    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 0 2.5rem;
+    font-weight: 400;
+    max-width: 600px;
+  }
+
+  /* Actions CTA */
+  .hero-actions {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .hero-section {
+      min-height: 70vh;
+    }
+    
+    .hero-content {
+      max-width: 600px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .hero-section {
+      min-height: auto;
+      padding: 3rem 0;
+    }
+    
+    .hero-background.hide-mobile {
+      display: none;
+    }
+    
+    .container {
+      padding: 0 1.5rem;
+    }
+    
+    .hero-badge {
+      font-size: 0.8125rem;
+      margin-bottom: 1rem;
+    }
+    
+    .hero-section h1 {
+      font-size: 2rem;
+      margin-bottom: 1.25rem;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.125rem;
+      margin-bottom: 2rem;
+    }
+    
+    .hero-actions {
+      gap: 1rem;
+    }
+  }
+
+  /* Petits mobiles */
+  @media (max-width: 480px) {
+    .hero-section {
+      padding: 2.5rem 0;
+    }
+    
+    .container {
+      padding: 0 1rem;
+    }
+    
+    .hero-section h1 {
+      font-size: 1.75rem;
+    }
+    
+    .hero-subtitle {
+      font-size: 1rem;
+    }
+    
+    .hero-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+    
+    .hero-actions :global(.button) {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  /* Mode haute résolution */
+  @media (min-width: 1536px) {
+    .container {
+      max-width: 1400px;
+    }
+    
+    .hero-content {
+      max-width: 800px;
+    }
+  }
+
+  /* Amélioration pour les écrans très larges */
+  @media (min-width: 1920px) {
+    .hero-section {
+      min-height: 60vh;
+    }
+  }
+
+  /* Support du mode sombre préféré */
+  @media (prefers-color-scheme: light) {
+    .hero-section {
+      background: #0f172a;
+    }
+  }
+
+  /* Optimisation pour l'impression */
+  @media print {
+    .hero-background {
+      display: none;
+    }
+    
+    .hero-section {
+      min-height: auto;
+      background: white;
+      color: black;
+    }
+    
+    .hero-section h1,
+    .hero-subtitle,
+    .hero-badge {
+      color: black;
+    }
+  }
+</style>

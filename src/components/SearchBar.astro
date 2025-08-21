@@ -1,0 +1,139 @@
+---
+export interface Props {
+  placeholder?: string;
+  currentPath?: string;
+  lang?: 'fr' | 'en';
+}
+
+const { 
+  placeholder = "Rechercher un article...",
+  currentPath = "/fr/articles",
+  lang = 'fr'
+} = Astro.props;
+
+const searchAction = lang === 'fr' ? '/fr/recherche' : '/en/search';
+---
+
+<div class="search-container">
+  <form class="search-form" action={searchAction} method="get">
+    <div class="search-wrapper">
+      <input
+        type="search"
+        name="q"
+        class="search-input"
+        placeholder={placeholder}
+        aria-label="Rechercher dans les articles"
+      />
+      <button type="submit" class="search-button" aria-label="Lancer la recherche">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+      </button>
+    </div>
+  </form>
+</div>
+
+<style>
+  .search-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+  }
+
+  .search-form {
+    width: 100%;
+  }
+
+  .search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.875rem 3.5rem 0.875rem 1.5rem;
+    font-size: 0.9375rem;
+    font-family: inherit;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #0f172a;
+    transition: all 0.2s ease;
+    outline: none;
+  }
+
+  .search-input::placeholder {
+    color: #94a3b8;
+  }
+
+  .search-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .search-button {
+    position: absolute;
+    right: 0.5rem;
+    padding: 0.625rem;
+    background-color: #3b82f6;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .search-button:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+  }
+
+  .search-button:active {
+    transform: translateY(0);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .search-container {
+      margin-bottom: 2rem;
+    }
+
+    .search-input {
+      font-size: 0.875rem;
+      padding: 0.75rem 3rem 0.75rem 1.25rem;
+    }
+
+    .search-button {
+      padding: 0.5rem;
+    }
+  }
+</style>
+
+<script>
+  // Gestion de la recherche côté client pour une meilleure UX
+  const searchForm = document.querySelector('.search-form') as HTMLFormElement;
+  const searchInput = document.querySelector('.search-input') as HTMLInputElement;
+
+  if (searchForm && searchInput) {
+    // Récupérer la valeur de recherche depuis l'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchQuery = urlParams.get('q');
+    
+    if (searchQuery) {
+      searchInput.value = searchQuery;
+    }
+
+    // Focus sur le champ de recherche avec Ctrl+K ou Cmd+K
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    });
+  }
+</script>

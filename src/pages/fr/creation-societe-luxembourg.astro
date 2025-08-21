@@ -1,0 +1,202 @@
+---
+import LayoutI18n from '../../layouts/LayoutI18n.astro';
+import LegalFormInfo from '../../components/LegalFormInfo.astro';
+import ProcessTimeline from '../../components/ProcessTimeline.astro';
+import StickyPageTop from '../../components/StickyPageTop.astro';
+import BlogCarousel from '../../components/BlogCarousel.astro';
+import CTA from '../../components/CTA.astro';
+import ServicesHighlight from '../../components/ServicesHighlight.astro';
+import FAQ from '../../components/FAQ.astro';
+
+// --- DONNÉES & SEO (INCHANGÉS) ---
+const societyTypes = [
+  { type: "SARL-S (Simplifiée)", capital: "1€ à 12 000€", notaire: false, description: "Réservée aux personnes physiques, idéale pour tester un projet. Autorisation d'établissement requise avant immatriculation RCS.", avantages: ["Sans notaire", "Création rapide", "Capital flexible 1-12k€"], cout: "2 000€ HT", link: "/fr/articles/sarl-s" },
+  { type: "SARL", capital: "12 000€", notaire: true, description: "La forme la plus courante et la plus crédible pour les PME. Dépôt préalable du capital sur compte bloqué. Immatriculation RCS possible avant obtention autorisation d'établissement.", avantages: ["Crédibilité maximale", "Protection des associés", "Structure évolutive"], cout: "3 500€ HT", link: "/fr/articles/sarl-luxembourg" },
+  { type: "SA (Société Anonyme)", capital: "30 000€", notaire: true, description: "Adaptée aux grands projets et à l'ouverture du capital à des investisseurs. Capital minimum 25% libéré à la constitution, solde dans les 5 ans.", avantages: ["Prestige", "Accès aux marchés financiers", "Transmission d'actions facile"], cout: "4 000€ HT", link: "/fr/articles/societe-anonyme-sa" },
+  { type: "SAS", capital: "30 000€", notaire: true, description: "Forme juridique flexible offrant une grande liberté statutaire. Capital minimum 25% libéré à la constitution. Commissaire aux comptes obligatoire.", avantages: ["Flexibilité statutaire", "Gouvernance sur mesure", "Adaptée aux startups"], cout: "3 500€ HT", link: "/fr/articles/sas-luxembourg" },
+  { type: "SCI (Société Civile)", capital: "Variable", notaire: false, description: "Exclusivement pour la gestion de patrimoine immobilier, sans activité commerciale. Attention : apport ou cession d'immeuble nécessite un acte notarié.", avantages: ["Gestion immobilière", "Transmission familiale", "Fiscalité adaptée"], cout: "1 000€ HT", link: "/fr/articles/sci-luxembourg" },
+  { type: "SCSp", capital: "Variable", notaire: false, description: "Société en commandite spéciale, idéale pour les fonds d'investissement et le private equity. Peut être créée par acte sous seing privé.", avantages: ["Structure transparente", "Flexibilité fiscale", "Idéale pour fonds"], cout: "Sur devis", link: null }
+];
+
+const legalServices = [
+  {
+    title: "Gouvernance et vie sociale",
+    description: "Organisation complète des AG ordinaires et extraordinaires, rédaction des PV, résolutions, dépôts RCS/RESA. Gestion des organes de direction et déclarations RBE.",
+    href: "/fr/services"
+  },
+  {
+    title: "Modifications statutaires et restructurations",
+    description: "Transferts de siège, opérations sur capital, fusions transfrontalières, scissions et transformations juridiques. Coordination avec études notariales luxembourgeoises.",
+    href: "/fr/services"
+  },
+  {
+    title: "Contrats commerciaux et corporate",
+    description: "Rédaction de contrat de cession, acquisition, NDA, pactes d'actionnaires. Due diligence, audit contractuel et mise en conformité complète.",
+    href: "/fr/services"
+  },
+  {
+    title: "Liquidation et dissolution",
+    description: "Accompagnement complet : plan de liquidation, publications légales, coordination notariale, quitus fiscal, gestion créanciers et radiation RCS Luxembourg.",
+    href: "/fr/services"
+  },
+  {
+    title: "Domiciliation et services administratifs",
+    description: "Siège social prestigieux au Luxembourg, salles de réunion, archivage légal et tenue des registres obligatoires.",
+    href: "/fr/services"
+  },
+  {
+    title: "Secrétariat juridique et compliance",
+    description: "Dépôts RCS/RESA, obligations AML/KYC, registre bénéficiaires effectifs, veille réglementaire luxembourgeoise/européenne, corporate housekeeping et préparation audits.",
+    href: "/fr/services"
+  }
+];
+
+const processSteps = [
+  {
+    number: "1",
+    title: "Analyse initiale & conseil",
+    description: [
+      "Étude de votre projet et de vos objectifs",
+      "Recommandation de la forme juridique et du régime fiscal les plus adaptés",
+      "Identification des obligations réglementaires propres à votre activité",
+      "Préparation des documents pour les associés, administrateurs et bénéficiaires effectifs (KYC/AML)"
+    ]
+  },
+  {
+    number: "2",
+    title: "Préparation & rédaction",
+    description: [
+      "Rédaction des statuts en coordination avec un notaire luxembourgeois (obligatoire pour la plupart des formes de sociétés)",
+      "Assistance à l'ouverture d'un compte bancaire et au versement du capital social. Certificat de blocage bancaire requis pour SA/SARL/SAS avant passage chez le notaire (non requis pour SARL-S)",
+      "Autorisation d'établissement à obtenir via MyGuichet pour toute activité commerciale, artisanale ou industrielle (non requise pour holdings pures et activités non réglementées)"
+    ],
+    highlight: true
+  },
+  {
+    number: "3",
+    title: "Constitution & immatriculation",
+    description: [
+      "Présence lors de la signature de l'acte notarié (ou signature par procuration)",
+      "Dépôt auprès du Registre de Commerce et des Sociétés (RCS)",
+      "Immatriculation à la TVA et autres obligations fiscales auprès de l'Administration de l'Enregistrement, des Domaines et de la TVA",
+      "Déclaration obligatoire des bénéficiaires effectifs au RBE (Registre des Bénéficiaires Effectifs) - Sanctions pénales jusqu'à 1.250.000€ en cas d'omission. Depuis le 1er février 2025, accès public restreint mais obligation de déclaration maintenue"
+    ]
+  },
+  {
+    number: "4",
+    title: "Suivi post-constitution",
+    description: [
+      "Accompagnement à la mise en place opérationnelle et au respect des obligations",
+      "Assistance à l'activation définitive du compte bancaire",
+      "Mise en place du suivi comptable et juridique"
+    ]
+  }
+];
+
+const metaDescription = "Service expert pour la création de votre société au Luxembourg : SARL, SARL-S, SA, SCI. Nous gérons toutes les formalités de constitution et le suivi juridique.";
+
+const constitutionSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://www.fiduciaire-expert.lu/fr/creation-societe-luxembourg",
+  "name": "Création de Société au Luxembourg - Fiduciaire Expert",
+  "description": metaDescription,
+  "provider": {
+    "@type": "Organization",
+    "name": "Fiduciaire Expert",
+    "url": "https://www.fiduciaire-expert.lu"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Luxembourg"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Types de sociétés",
+    "itemListElement": societyTypes.map(society => ({
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": society.type,
+        "description": society.description
+      }
+    }))
+  }
+};
+---
+
+<LayoutI18n
+  title="Création de Société au Luxembourg | SARL, SARL-S, SA"
+  description={metaDescription}
+  schema={constitutionSchema}
+>
+  <StickyPageTop
+    breadcrumbItems={[
+      { text: "Accueil", href: "/fr" },
+      { text: "Services", href: "/fr/services" },
+      { text: "Création de Société" }
+    ]}
+    title="Création de société au Luxembourg"
+    subtitle="Nous vous accompagnons de A à Z dans la constitution de votre entreprise (SARL, SARL-S, SA, SCI). Profitez de notre expertise pour un lancement rapide, conforme et optimisé."
+  />
+
+  <ProcessTimeline
+    title="Création d'entreprise – processus simplifié et conforme"
+    subtitle="Nous gérons l'ensemble des formalités pour constituer votre société rapidement et dans le respect du droit luxembourgeois."
+    steps={processSteps}
+    variant="vertical"
+  />
+
+  <CTA
+    title="Prêt à créer votre société au Luxembourg ?"
+    subtitle="Bénéficiez d'un accompagnement expert pour choisir la structure juridique adaptée et lancer votre activité en toute sérénité. Nous gérons toutes les formalités pour vous."
+    buttonText="Demander un devis gratuit"
+    buttonHref="/fr/contact"
+  />
+
+  <LegalFormInfo
+    title="Quelle forme juridique choisir ?"
+    subtitle="Chaque structure a ses spécificités. Voici un comparatif pour vous aider à décider."
+    societyTypes={societyTypes}
+    lang="fr"
+  />
+
+  <BlogCarousel
+    title="Articles sur la création de société"
+    subtitle="Découvrez nos guides détaillés pour chaque forme juridique"
+    category="Juridique"
+    maxPosts={4}
+    lang="fr"
+    backgroundColor="#f1f5f9"
+  />
+
+  <ServicesHighlight
+    title="Secrétariat juridique – accompagnement complet"
+    subtitle="Nous assurons la gestion juridique et administrative de votre société tout au long de sa vie."
+    services={legalServices}
+  />
+
+  <FAQ
+    title="Questions fréquentes sur la création de société"
+    backgroundColor="#f1f5f9"
+    faqItems={[
+      {
+        question: "Quelle est la différence entre une SARL et une SARL-S au Luxembourg ?",
+        answer: "La SARL-S est réservée aux personnes physiques, idéale pour tester un projet avec un capital de 1€ à 12.000€. Autorisation d'établissement requise avant immatriculation RCS. La SARL classique nécessite 12.000€ de capital minimum avec dépôt préalable sur compte bloqué et un acte notarié. Pour la SARL, l'immatriculation RCS est possible avant l'obtention de l'autorisation d'établissement."
+      },
+      {
+        question: "Combien coûte la création d'une société au Luxembourg ?",
+        answer: "La création d'une société au Luxembourg démarre à partir de 1.000€ HT pour une SCI, 2.000€ HT pour une SARL-S, 3.500€ HT pour une SARL ou SAS, et 4.000€ HT pour une SA. Ces tarifs comprennent nos honoraires, les frais administratifs et le suivi post-création."
+      },
+      {
+        question: "Faut-il obligatoirement un notaire pour créer une société ?",
+        answer: "Non, pas toujours. La SARL-S (réservée aux personnes physiques) et certaines SCI peuvent être créées sans notaire. Cependant, pour une SARL classique ou une SA, l'acte notarié est obligatoire selon le droit luxembourgeois."
+      },
+      {
+        question: "Puis-je créer une société au Luxembourg sans y résider ?",
+        answer: "Oui, il est possible de créer une société au Luxembourg sans y résider. Cependant, certaines obligations s'appliquent : domiciliation légale au Luxembourg, désignation d'un représentant fiscal si nécessaire, et respect des obligations comptables locales."
+      }
+    ]}
+  />
+
+</LayoutI18n>

@@ -1,0 +1,547 @@
+---
+import Button from '../ui/Button.astro';
+
+export interface Props {
+  lang?: 'fr' | 'en';
+  action?: string;
+  service?: string;
+}
+
+const { 
+  lang = 'fr', 
+  action = lang === 'fr' ? '/fr/merci' : '/en/contact/thank-you',
+  service = ''
+} = Astro.props;
+
+// Traductions
+const translations = {
+  fr: {
+    title: "Envoyez-nous un message",
+    subtitle: "Recevez une proposition personnalisée sous 48h",
+    name: "Nom complet",
+    namePlaceholder: "Jean Dupont",
+    email: "Adresse e-mail",
+    emailPlaceholder: "jean.dupont@exemple.com",
+    phone: "Téléphone (format international)",
+    phonePlaceholder: "+352 20 60 58 57",
+    company: "Société",
+    companyPlaceholder: "Nom de votre société",
+    service: "Service souhaité",
+    selectService: "Sélectionnez un service...",
+    services: {
+      comptabilite: "Comptabilité",
+      "creation-societe": "Création de société",
+      domiciliation: "Domiciliation",
+      paie: "Gestion de paie",
+      "conseil-fiscal": "Conseil fiscal",
+      autre: "Autre service"
+    },
+    message: "Votre message",
+    messagePlaceholder: "Décrivez votre projet, vos besoins ou vos questions...",
+    submit: "Envoyer ma demande",
+    optional: "Optionnel",
+    required: "Obligatoire",
+    sending: "Envoi en cours...",
+    privacyNote: "Vos données sont protégées et utilisées uniquement pour traiter votre demande."
+  },
+  en: {
+    title: "Send us a message",
+    subtitle: "Receive a personalized proposal within 48h",
+    name: "Full name",
+    namePlaceholder: "John Doe",
+    email: "Email address",
+    emailPlaceholder: "john.doe@example.com",
+    phone: "Phone (international format)",
+    phonePlaceholder: "+352 20 60 58 57",
+    company: "Company",
+    companyPlaceholder: "Your company name",
+    service: "Desired service",
+    selectService: "Select a service...",
+    services: {
+      accounting: "Accounting",
+      "company-formation": "Company formation",
+      domiciliation: "Domiciliation",
+      payroll: "Payroll management",
+      "tax-advisory": "Tax advisory",
+      other: "Other service"
+    },
+    message: "Your message",
+    messagePlaceholder: "Describe your project, needs or questions...",
+    submit: "Send my request",
+    optional: "Optional",
+    required: "Required",
+    sending: "Sending...",
+    privacyNote: "Your data is protected and used only to process your request."
+  }
+};
+
+const t = translations[lang];
+const services = lang === 'fr' 
+  ? Object.entries(translations.fr.services)
+  : Object.entries(translations.en.services);
+---
+
+<div class="form-container">
+  <div class="form-header">
+    <h2>{t.title}</h2>
+    <p>{t.subtitle}</p>
+  </div>
+  
+  <form 
+    name="contact-fiduciaire"
+    method="POST" 
+    action={action}
+    data-netlify="true" 
+    netlify-honeypot="bot-field"
+    class="contact-form"
+  >
+    <input type="hidden" name="form-name" value="contact-fiduciaire" />
+    <input type="hidden" name="language" value={lang} />
+    
+    <!-- Honeypot anti-spam -->
+    <div class="visually-hidden">
+      <label>Ne pas remplir: <input name="bot-field" tabindex="-1" /></label>
+    </div>
+    
+    <!-- Nom et Email -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="name" class="form-label">
+          <span>{t.name}</span>
+          <span class="required-indicator" aria-label={t.required}>*</span>
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            required 
+            autocomplete="name" 
+            placeholder={t.namePlaceholder}
+            aria-required="true"
+            class="form-input"
+          />
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="email" class="form-label">
+          <span>{t.email}</span>
+          <span class="required-indicator" aria-label={t.required}>*</span>
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            required 
+            autocomplete="email" 
+            placeholder={t.emailPlaceholder}
+            aria-required="true"
+            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+            title={lang === 'fr' ? "Veuillez entrer une adresse email valide" : "Please enter a valid email address"}
+            class="form-input"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Téléphone et Société -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="phone" class="form-label">
+          <span>{t.phone}</span>
+          <span class="required-indicator" aria-label={t.required}>*</span>
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="tel" 
+            id="phone" 
+            name="phone" 
+            required 
+            autocomplete="tel" 
+            placeholder={t.phonePlaceholder}
+            aria-required="true"
+            class="form-input"
+          />
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="company" class="form-label">
+          <span>{t.company}</span>
+          <span class="optional-indicator">({t.optional})</span>
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            id="company" 
+            name="company" 
+            autocomplete="organization" 
+            placeholder={t.companyPlaceholder}
+            class="form-input"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Service -->
+    <div class="form-group">
+      <label for="service" class="form-label">
+        <span>{t.service}</span>
+        <span class="required-indicator" aria-label={t.required}>*</span>
+      </label>
+      <div class="input-wrapper">
+        <select 
+          id="service" 
+          name="service"
+          class="form-input form-select"
+          required
+          aria-required="true"
+          value={service}
+        >
+          <option value="">{t.selectService}</option>
+          {services.map(([value, label]) => (
+            <option value={value} selected={service === value}>{label}</option>
+          ))}
+        </select>
+        <div class="select-arrow">
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+            <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Message -->
+    <div class="form-group">
+      <label for="message" class="form-label">
+        <span>{t.message}</span>
+        <span class="required-indicator" aria-label={t.required}>*</span>
+      </label>
+      <div class="input-wrapper">
+        <textarea 
+          id="message" 
+          name="message" 
+          rows="5" 
+          required 
+          placeholder={t.messagePlaceholder}
+          aria-required="true"
+          class="form-input form-textarea"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Note de confidentialité -->
+    <p class="privacy-note">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      {t.privacyNote}
+    </p>
+    
+    <!-- Bouton submit -->
+    <Button type="submit" variant="primary" class="form-submit">
+      <span class="submit-text">{t.submit}</span>
+      <span class="submit-loading" aria-hidden="true">
+        <svg class="spinner" width="20" height="20" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="60" stroke-dashoffset="45"/>
+        </svg>
+        {t.sending}
+      </span>
+    </Button>
+  </form>
+</div>
+
+<style>
+  .form-container {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .form-header {
+    margin-bottom: 2rem;
+  }
+
+  .form-header h2 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.2;
+  }
+
+  .form-header p {
+    color: #64748b;
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    color: #334155;
+    font-size: 0.9375rem;
+    letter-spacing: -0.01em;
+  }
+
+  .required-indicator {
+    color: #ef4444;
+    font-weight: 600;
+  }
+
+  .optional-indicator {
+    color: #94a3b8;
+    font-size: 0.875rem;
+    font-weight: 400;
+  }
+
+  .input-wrapper {
+    position: relative;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    background: #f8fafc;
+    color: #0f172a;
+  }
+
+  .form-input::placeholder {
+    color: #94a3b8;
+  }
+
+  .form-input:hover {
+    border-color: #cbd5e1;
+    background: #ffffff;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: #9ca3af;
+    background: #ffffff;
+  }
+  
+  /* Fond blanc quand le champ est rempli */
+  .form-input:not(:placeholder-shown) {
+    background: #ffffff;
+  }
+
+  .form-select {
+    appearance: none;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+
+  .select-arrow {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #64748b;
+  }
+
+  .form-select:focus ~ .select-arrow {
+    color: #9ca3af;
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+    line-height: 1.5;
+  }
+
+  .privacy-note {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: #f0f9ff;
+    border-radius: 6px;
+    color: #0369a1;
+    font-size: 0.875rem;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .privacy-note svg {
+    flex-shrink: 0;
+    color: #0284c7;
+  }
+
+  .form-submit {
+    align-self: flex-start;
+    position: relative;
+    overflow: hidden;
+    min-width: 200px;
+  }
+
+  .submit-text,
+  .submit-loading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .submit-loading {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .form-submit:disabled .submit-text {
+    display: none;
+  }
+
+  .form-submit:disabled .submit-loading {
+    display: flex;
+  }
+
+  .spinner {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Animations et états */
+  .form-input:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: #fca5a5;
+    background: #fef2f2;
+  }
+
+  .form-input:valid:not(:focus):not(:placeholder-shown):not(:hover) {
+    border-color: #86efac;
+    background: #ffffff;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .form-container {
+      padding: 1.5rem;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    .form-header h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  /* Focus visible pour accessibilité */
+  .form-input:focus-visible {
+    outline: none;
+  }
+  
+  .form-submit:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+
+  /* Hover effects pour desktop */
+  @media (hover: hover) {
+    .form-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    }
+  }
+</style>
+
+<script>
+  // Import de libphonenumber-js - validation Google pure
+  import { parsePhoneNumberFromString } from 'libphonenumber-js/min';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const phoneInput = document.getElementById('phone') as HTMLInputElement;
+    const form = document.querySelector('form[data-netlify="true"]') as HTMLFormElement;
+    
+    if (phoneInput && form) {
+      const validatePhone = (value: string): boolean => {
+        if (!value) return false;
+        
+        try {
+          const phoneNumber = parsePhoneNumberFromString(value);
+          return phoneNumber ? phoneNumber.isValid() : false;
+        } catch {
+          return false;
+        }
+      };
+      
+      // Validation à la saisie
+      phoneInput.addEventListener('input', (e) => {
+        const target = e.target as HTMLInputElement;
+        const isValid = validatePhone(target.value);
+        const lang = document.documentElement.lang || 'fr';
+        
+        if (!isValid && target.value !== '') {
+          const message = lang === 'fr' 
+            ? 'Format international requis (ex: +33 6 60 27 87 47)'
+            : 'International format required (ex: +33 6 60 27 87 47)';
+          phoneInput.setCustomValidity(message);
+        } else {
+          phoneInput.setCustomValidity('');
+        }
+      });
+      
+      // Validation à la soumission
+      form.addEventListener('submit', (e) => {
+        if (!validatePhone(phoneInput.value)) {
+          e.preventDefault();
+          const lang = document.documentElement.lang || 'fr';
+          const message = lang === 'fr'
+            ? 'Veuillez utiliser le format international (+33...)'
+            : 'Please use international format (+33...)';
+          phoneInput.setCustomValidity(message);
+          phoneInput.reportValidity();
+        }
+      });
+    }
+  });
+</script>

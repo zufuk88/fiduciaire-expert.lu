@@ -1,132 +1,542 @@
 ---
-// src/components/Footer.astro
-
-// NOUVEAU : Importation du composant Image et du logo
 import { Image } from 'astro:assets';
-import logoImageWhite from '/src/assets/images/Logo.webp'; // Assurez-vous d'avoir une version blanche du logo dans src/assets/images
+import logoImage from '/src/assets/images/Logo.webp';
+import { useTranslation, type Language } from '../i18n/translations';
 
-// --- DATA & SCHEMA ---
+export interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslation(lang);
 const currentYear = new Date().getFullYear();
 
-const footerLinkColumns = {
-  services: {
-    title: "Nos Services",
-    links: [
-      { href: "/comptabilite", text: "Comptabilité" },
-      { href: "/creation-societe-luxembourg", text: "Création de sociétés" },
-      { href: "/paie", text: "Gestion de la paie" },
-      { href: "/domiciliation", text: "Domiciliation" }
-    ]
-  },
-  company: {
-    title: "Le Cabinet",
-    links: [
-      { href: "/a-propos", text: "À Propos" },
-      { href: "/articles", text: "Blog" },
-      { href: "/temoignages", text: "Clients" },
-      { href: "/contact", text: "Contact" }
-    ]
-  },
-};
-
-const columnOrder = ['services', 'company'];
-
-const legalLinks = [
-  { href: "/mentions-legales", text: "Mentions Légales" },
-  { href: "/politique-confidentialite", text: "Politique de Confidentialité" },
+const footerColumns = [
+  [
+    { href: `/${lang}`, text: t('nav.home') },
+    { href: `/${lang}/services`, text: t('nav.services') },
+    { href: `/${lang}/${lang === 'en' ? 'accounting' : 'comptabilite'}`, text: t('nav.accounting') },
+    { href: `/${lang}/${lang === 'en' ? 'tax' : 'fiscalite'}`, text: t('nav.tax') }
+  ],
+  [
+    { href: `/${lang}/taxpertize`, text: 'Taxpertize', isPremium: true },
+    { href: `/${lang}/${lang === 'en' ? 'company-formation-luxembourg' : 'creation-societe-luxembourg'}`, text: t('nav.company-creation') },
+    { href: `/${lang}/domiciliation`, text: t('nav.domiciliation') },
+    { href: `/${lang}/${lang === 'en' ? 'payroll' : 'paie'}`, text: t('nav.payroll') }
+  ],
+  [
+    { href: `/${lang}/${lang === 'en' ? 'about' : 'a-propos'}`, text: t('nav.about') },
+    { href: `/${lang}/contact`, text: t('nav.contact') },
+    { href: `/${lang}/articles`, text: t('nav.articles') }
+  ]
 ];
 
 const contactInfo = {
-  phone: "+352 26 00 00 00",
+  phone: "+352 20 60 58 57",
   email: "contact@fiduciaire-expert.lu",
   address: "15 Avenue de la Liberté, L-1931 Luxembourg"
 };
 
-const footerSchema = { /* ... votre excellent schéma ... */ };
+const footerSchema = {
+  "@context": "https://schema.org",
+  "@type": "WPFooter",
+  "copyrightYear": currentYear,
+  "copyrightHolder": {
+    "@type": "Organization",
+    "name": "Fiduciaire Expert",
+    "url": "https://www.fiduciaire-expert.lu"
+  }
+};
 ---
+
 <footer class="site-footer" role="contentinfo" itemscope itemtype="https://schema.org/WPFooter">
   <div class="container">
+    <!-- Main Footer Content -->
     <div class="footer-main">
+      <!-- Logo and Description -->
       <div class="footer-brand">
-        <a href="/" aria-label="Retour à l'accueil">
+        <a href={`/${lang}`} aria-label={t('common.back-to-home')} class="logo-link">
           <Image 
-            src={logoImageWhite} 
-            alt="Logo Fiduciaire Expert Luxembourg" 
-            width="180" 
-            height="50"
+            src={logoImage} 
+            alt="Fiduciaire Expert" 
+            width="140" 
+            height="40"
             loading="lazy"
             itemprop="logo"
             quality="mid"
           />
         </a>
-        <p class="brand-description" itemprop="description">
-          Votre partenaire expert-comptable, fiscal et conseil en création d'entreprise au Grand-Duché de Luxembourg.
+        <p class="brand-tagline" itemprop="description">
+          {t('footer.description')}
         </p>
       </div>
 
-      {columnOrder.map(key => {
-        const column = footerLinkColumns[key];
-        return (
-          <div class="footer-column">
-            <h4 class="footer-title">{column.title}</h4>
-            <ul class="footer-links">
-              {column.links.map(link => (
-                <li><a href={link.href}>{link.text}</a></li>
-              ))}
-            </ul>
+      <!-- Navigation Links - 4 columns including contact -->
+      <nav class="footer-nav" aria-label="Footer navigation">
+        {footerColumns.map((column, colIndex) => (
+          <div class="footer-nav-column" key={colIndex}>
+            {column.map((link) => (
+              <a href={link.href} class:list={{'taxpertize-link': link.isPremium}}>{link.text}</a>
+            ))}
           </div>
-        )
-      })}
-
-      <div class="footer-column">
-        <h4 class="footer-title">Contact</h4>
-        <address class="footer-contact-info">
-          <p itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-            <span itemprop="streetAddress">{contactInfo.address.split(',')[0]}</span><br/>
-            <span itemprop="postalCode">{contactInfo.address.split(', ')[1]}</span>, 
-            <span itemprop="addressLocality">{contactInfo.address.split(', ')[2]}</span>
-          </p>
-          <a href={`mailto:${contactInfo.email}`} itemprop="email">{contactInfo.email}</a><br/>
-          <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} itemprop="telephone">{contactInfo.phone}</a>
-        </address>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <p class="copyright">&copy; {currentYear} Fiduciaire Expert. Tous droits réservés.</p>
-      <nav class="legal-links" aria-label="Liens légaux">
-        {legalLinks.map(link => (
-          <a href={link.href}>{link.text}</a>
         ))}
+        
+        <!-- Contact as 4th column -->
+        <div class="footer-nav-column footer-contact-column">
+          <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} class="contact-link" itemprop="telephone">
+            {contactInfo.phone}
+          </a>
+          <a href={`mailto:${contactInfo.email}`} class="contact-link" itemprop="email">
+            {contactInfo.email}
+          </a>
+          <!-- LinkedIn Button -->
+          <a 
+            href="https://www.linkedin.com/company/fiduciaire-expert-luxembourg" 
+            aria-label="LinkedIn Fiduciaire Expert"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="linkedin-footer-link"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#0077B5" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+        </div>
       </nav>
     </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <p class="copyright">&copy; {currentYear} Fiduciaire Expert. {t('footer.rights-reserved')}</p>
+      <div class="legal-links">
+        <a href={`/${lang}/${lang === 'en' ? 'legal-notice' : 'mentions-legales'}`}>{t('footer.legal-notices')}</a>
+        <span class="separator">|</span>
+        <a href={`/${lang}/${lang === 'en' ? 'privacy-policy' : 'politique-confidentialite'}`}>{t('footer.privacy-policy')}</a>
+      </div>
+    </div>
   </div>
+
+  <!-- Background decoration -->
+  <div class="footer-decoration"></div>
   
   <script type="application/ld+json" set:html={JSON.stringify(footerSchema)} is:inline />
 </footer>
 
 <style>
-  /* Vos styles CSS restent inchangés, ils sont déjà parfaits */
-  .site-footer { background-color: var(--color-dark); color: var(--color-background); padding: var(--spacing-xl) 0 0 0; }
-  .footer-main { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--spacing-lg); padding-bottom: var(--spacing-lg); }
-  .footer-brand img { height: 40px; width: auto; margin-bottom: 1rem; }
-  .brand-description { font-size: 0.9rem; line-height: 1.5; color: rgba(255, 255, 255, 0.85); margin: 0; max-width: 300px; }
-  .footer-column { padding-top: 0.5rem; }
-  .footer-title { font-size: 1rem; font-weight: 600; color: var(--color-background); margin-bottom: 1rem; }
-  .footer-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
-  .footer-links a, .footer-contact-info a { color: rgba(255, 255, 255, 0.85); text-decoration: none; transition: var(--transition); }
-  .footer-links a:hover, .footer-contact-info a:hover { color: var(--color-background); text-decoration: underline; }
-  .footer-contact-info { font-style: normal; font-size: 0.9rem; line-height: 1.6; color: rgba(255, 255, 255, 0.85); }
-  .footer-contact-info p { margin-bottom: 0.5rem; }
-  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding: 1.5rem 0; border-top: 1px solid rgba(255, 255, 255, 0.1); }
-  .copyright, .legal-links a { font-size: 0.85rem; color: rgba(255, 255, 255, 0.7); }
-  .legal-links { display: flex; gap: 1.5rem; }
-  .legal-links a { text-decoration: none; transition: var(--transition); }
-  .legal-links a:hover { color: var(--color-background); text-decoration: underline; }
+  .site-footer {
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    border-top: 1px solid rgba(0, 95, 204, 0.1);
+    padding: 3rem 0 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Background decoration */
+  .footer-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background-image: 
+      radial-gradient(circle at 1px 1px, rgba(0, 95, 204, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+  }
+  
+  /* Container */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+    overflow-x: hidden;
+  }
+  
+  /* Main Footer - Horizontal Layout */
+  .footer-main {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 4rem;
+    padding-bottom: 2.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 95, 204, 0.08);
+  }
+  
+  /* Brand Section */
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    padding-right: 3rem;
+  }
+  
+  /* Barre verticale élégante après la section brand */
+  .footer-brand::after {
+    content: '';
+    position: absolute;
+    right: 1.5rem;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, 
+      transparent 0%, 
+      rgba(0, 95, 204, 0.15) 20%, 
+      rgba(0, 95, 204, 0.15) 80%, 
+      transparent 100%
+    );
+  }
+  
+  .logo-link {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+  
+  .logo-link:hover {
+    transform: translateX(2px);
+  }
+  
+  .footer-brand img {
+    height: 42px;
+    width: auto;
+  }
+  
+  .brand-tagline {
+    font-size: 0.9375rem;
+    color: #475569;
+    margin: 0;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+  }
+  
+  /* Navigation - 4 Columns avec colonne contact plus large */
+  .footer-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr 0.8fr 1.4fr;
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .footer-nav-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  /* Suppression de la bordure qui crée un décalage */
+  /* .footer-nav-column:first-child {
+    padding-left: 2rem;
+    border-left: 2px solid rgba(0, 95, 204, 0.1);
+  } */
+  
+  .footer-nav a {
+    color: #64748b;
+    text-decoration: none;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    transition: all 0.2s ease;
+    white-space: normal;
+    word-break: break-word;
+    position: relative;
+    padding-left: 0;
+  }
+  
+  .footer-nav a::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    background: #005fcc;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  
+  .footer-nav a:hover {
+    color: #3b82f6;
+    padding-left: 8px;
+  }
+  
+  .footer-nav a:hover::before {
+    opacity: 1;
+    background: #3b82f6;
+  }
+  
+  /* Taxpertize - Style spécial */
+  .footer-nav a.taxpertize-link {
+    position: relative;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  
+  /* Taxpertize - couleur verte vif au hover */
+  .footer-nav a.taxpertize-link:hover {
+    color: #4ade80 !important;
+    padding-left: 8px;
+  }
+  
+  .footer-nav a.taxpertize-link:hover::before {
+    background: #4ade80 !important;
+    opacity: 1;
+  }
+  
+  /* Contact Column - Style harmonisé avec les autres colonnes */
+  .footer-contact-column {
+    align-items: flex-start;
+  }
+  
+  .footer-contact-column .contact-link {
+    color: #64748b;
+    text-decoration: none;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    position: relative;
+    padding-left: 0;
+  }
+  
+  .footer-contact-column .contact-link::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    background: rgba(0, 95, 204, 0.3);
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    opacity: 0;
+  }
+  
+  .footer-contact-column .contact-link:hover {
+    color: #3b82f6;
+    padding-left: 8px;
+  }
+  
+  .footer-contact-column .contact-link:hover::before {
+    opacity: 1;
+    background: #3b82f6;
+  }
+  
+  /* LinkedIn link dans la colonne contact */
+  .linkedin-footer-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    position: relative;
+    padding-left: 0;
+    margin-top: 0.25rem;
+  }
+  
+  .linkedin-footer-link svg {
+    width: 24px;
+    height: 24px;
+    transition: all 0.2s ease;
+  }
+  
+  .linkedin-footer-link::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    background: rgba(0, 119, 181, 0.3);
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    opacity: 0;
+  }
+  
+  .linkedin-footer-link:hover {
+    padding-left: 8px;
+  }
+  
+  .linkedin-footer-link:hover svg {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+  }
+  
+  .linkedin-footer-link:hover::before {
+    opacity: 1;
+    background: #0077b5;
+  }
+  
+  /* Bottom Bar */
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #64748b;
+  }
+  
+  .copyright {
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+  
+  .legal-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .legal-links a {
+    color: #64748b;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 0.25rem 0.5rem;
+    position: relative;
+  }
+  
+  .legal-links a:hover {
+    color: #3b82f6;
+  }
+  
+  .separator {
+    color: rgba(0, 95, 204, 0.2);
+    font-size: 0.75rem;
+    user-select: none;
+  }
+  
+  /* Responsive - Tablettes larges */
+  @media (max-width: 1024px) {
+    .footer-nav {
+      grid-template-columns: 1fr 1.3fr;
+      gap: 2.5rem;
+      row-gap: 2rem;
+    }
+    
+    .footer-nav-column {
+      min-width: 180px;
+    }
+    
+    /* Colonnes 3 et 4 sur la deuxième ligne avec plus d'espace pour contact */
+    .footer-nav-column:nth-child(3) {
+      grid-column: 1;
+    }
+    
+    .footer-nav-column:nth-child(4) {
+      grid-column: 2;
+    }
+  }
+  
+  /* Responsive - Tablettes et petits écrans */
+  @media (max-width: 968px) {
+    .footer-main {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      text-align: center;
+    }
+    
+    .footer-brand {
+      align-items: center;
+      padding-right: 0;
+    }
+    
+    .footer-brand::after {
+      display: none;  /* Masquer la barre verticale sur mobile */
+    }
+    
+    .footer-nav {
+      grid-template-columns: repeat(2, 1fr);
+      padding: 0;
+      gap: 2rem;
+      row-gap: 2.5rem;
+    }
+    
+    .footer-nav-column {
+      align-items: center;
+    }
+    
+    .footer-nav-column:first-child {
+      padding-left: 0;
+      border-left: none;
+    }
+    
+    .footer-nav a::before,
+    .footer-contact-column .contact-link::before,
+    .linkedin-footer-link::before {
+      display: none;
+    }
+    
+    .footer-nav a:hover,
+    .footer-contact-column .contact-link:hover,
+    .linkedin-footer-link:hover {
+      padding-left: 0;
+    }
+  }
+  
   @media (max-width: 768px) {
-    .footer-brand, .footer-main { text-align: center; }
-    .footer-brand { grid-column: 1 / -1; }
-    .brand-description { margin-left: auto; margin-right: auto; }
-    .footer-bottom { flex-direction: column; text-align: center; }
+    .container {
+      padding: 0 1.5rem;
+    }
+    
+    .footer-nav {
+      gap: 1.5rem;
+    }
+    
+    .footer-nav-column {
+      min-width: 120px;
+    }
+    
+    .footer-main {
+      gap: 1.5rem;
+    }
+    
+    /* Augmenter la taille de police sur mobile pour une meilleure lisibilité */
+    .footer-nav a,
+    .footer-contact-column .contact-link {
+      font-size: 1rem;  /* 16px - taille confortable sur mobile */
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .site-footer {
+      padding: 2rem 0 1rem;
+    }
+    
+    .container {
+      padding: 0 1rem;
+    }
+    
+    .footer-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .footer-nav-column {
+      width: 100%;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .footer-nav a,
+    .footer-contact-column .contact-link {
+      font-size: 1rem;  /* 16px - taille confortable et cohérente sur mobile */
+    }
+    
+    .footer-bottom {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+    
+    .contact-item {
+      justify-content: center;
+    }
   }
 </style>

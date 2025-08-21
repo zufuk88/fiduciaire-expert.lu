@@ -9,7 +9,7 @@
 :root {
   --color-background: #ffffff;
   --color-text: #212529;
-  --color-primary: #005fcc;
+  --color-primary: #2c4157; /* Aligné avec colors.css */
   --font-family: 'Inter', sans-serif;
   --font-size-base: 1rem;
   --spacing-md: 1.5rem;
@@ -83,7 +83,7 @@ h1 {
   padding: 0.75rem 1.5rem;
   font-weight: 600;
   text-decoration: none;
-  border-radius: 0.5rem;
+  border-radius: 4px;
   transition: all 0.2s ease-in-out;
 }
 

@@ -1,0 +1,147 @@
+---
+import LayoutI18n from '../../layouts/LayoutI18n.astro';
+import StickyPageTop from '../../components/StickyPageTop.astro';
+import ContactForm from '../../components/forms/ContactForm.astro';
+import ContactInfo from '../../components/ContactInfo.astro';
+
+// SEO Schema - Enrichi avec BreadcrumbList et ContactPoint
+const contactSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Accueil",
+          "item": "https://www.fiduciaire-expert.lu/fr"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Contact",
+          "item": "https://www.fiduciaire-expert.lu/fr/contact"
+        }
+      ]
+    },
+    {
+      "@type": "ContactPage",
+      "name": "Contact Expert-Comptable Luxembourg - Fiduciaire Expert",
+      "description": "Contactez le cabinet d'expertise comptable N°1 du Luxembourg. Consultation gratuite, devis personnalisé sous 48h.",
+      "url": "https://www.fiduciaire-expert.lu/fr/contact",
+    },
+    {
+      "@type": ["AccountingService", "LocalBusiness", "ProfessionalService"],
+      "@id": "https://www.fiduciaire-expert.lu/#organization",
+      "name": "Fiduciaire Expert Luxembourg",
+      "alternateName": "Cabinet Expert-Comptable Luxembourg",
+      "telephone": "+352 20 60 58 57",
+      "email": "contact@fiduciaire-expert.lu",
+      "url": "https://www.fiduciaire-expert.lu",
+      "logo": "https://www.fiduciaire-expert.lu/logo.webp",
+      "image": "https://www.fiduciaire-expert.lu/bureau-fiduciaire.jpg",
+      "priceRange": "€€",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Luxembourg"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/fiduciaire-expert",
+        "https://www.facebook.com/fiduciaireexpert"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+352 20 60 58 57",
+        "contactType": "customer service",
+        "availableLanguage": ["fr", "en", "de", "lu"],
+        "contactOption": "TollFree"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "15 Avenue de la Liberté",
+        "addressLocality": "Luxembourg",
+        "postalCode": "L-1931",
+        "addressCountry": "LU"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "08:30",
+          "closes": "18:00"
+        }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "47",
+        "bestRating": "5"
+      },
+      "hasMap": "https://maps.google.com/?q=Fiduciaire+Expert+15+Avenue+Liberté+Luxembourg"
+    }
+  ]
+};
+
+const metaDescription = "Contact Expert-Comptable Luxembourg +352 20 60 58 57. Cabinet Fiduciaire Expert agréé OEC. Consultation gratuite, devis personnalisé sous 48h. 15 Avenue Liberté L-1931.";
+---
+
+<LayoutI18n
+  title="Contact Expert-Comptable Luxembourg | Fiduciaire Expert | +352 20 60 58 57"
+  description={metaDescription}
+  canonical="https://www.fiduciaire-expert.lu/fr/contact"
+  schema={contactSchema}
+>
+  <StickyPageTop
+    breadcrumbItems={[
+      { text: "Accueil", href: "/fr" },
+      { text: "Contact" }
+    ]}
+    title="Contactez votre expert-comptable à Luxembourg"
+    subtitle="Consultation gratuite avec nos experts-comptables agréés OEC. Devis personnalisé sous 48h pour tous vos projets comptables et fiscaux."
+  />
+
+  <section class="contact-content">
+    <div class="container">
+      <div class="contact-grid">
+        
+        <div class="form-section">
+          <ContactForm lang="fr" service={Astro.url.searchParams.get('service') || ''} />
+        </div>
+        
+        <aside class="side-info">
+          <ContactInfo lang="fr" />
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(contactSchema)} is:inline />
+</LayoutI18n>
+
+<style>
+  .contact-content {
+    padding: 5rem 0;
+    background: linear-gradient(180deg, #fafbfc 0%, #ffffff 100%);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  @media (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

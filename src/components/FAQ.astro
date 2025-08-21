@@ -1,30 +1,27 @@
 ---
-// src/components/FAQ.astro
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  faqItems: Array<{
+    question: string;
+    answer: string;
+  }>;
+  generateSchema?: boolean;
+  showCTA?: boolean;
+  backgroundColor?: string;
+}
 
-// --- DONNÉES POUR L'AFFICHAGE ET LE SEO ---
-// Modifiez simplement cette liste pour mettre à jour votre FAQ.
-const faqItems = [
-    {
-        question: "Quels sont les tarifs d'un expert-comptable au Luxembourg ?",
-        answer: "Nos forfaits pour la tenue comptable d'une PME débutent à 299€ HTVA/mois. Le tarif final dépend de la complexité de votre dossier. La création d'une société SARL est proposée sous forme de forfait. Contactez-nous pour un devis précis et transparent sous 48h."
-    },
-    {
-        question: "En combien de temps ma société peut-elle être créée ?",
-        answer: "Le processus complet de création d'une SARL à Luxembourg, incluant l'acte notarié et l'immatriculation au RCS, prend généralement entre 5 et 7 jours ouvrables. Nous proposons également une formule express."
-    },
-    {
-        question: "Gérez-vous également la comptabilité pour les travailleurs indépendants ?",
-        answer: "Absolument. Nous offrons des services complets de comptabilité et de déclarations fiscales (impôt sur le revenu, TVA) spécifiquement adaptés aux besoins et aux obligations des travailleurs indépendants au Luxembourg."
-    },
-    {
-        question: "Proposez-vous des consultations à distance ?",
-        answer: "Oui, nous sommes entièrement équipés pour des consultations à distance par visioconférence (Teams, Zoom, Google Meet) afin de vous offrir un maximum de flexibilité, que vous soyez au Luxembourg ou à l'étranger."
-    }
-];
+const {
+  title = "Questions Fréquentes",
+  subtitle = "Les réponses claires à vos interrogations les plus courantes",
+  faqItems,
+  generateSchema = true,
+  showCTA = false,
+  backgroundColor
+} = Astro.props;
 
-// --- SCHÉMA JSON-LD (GÉNÉRÉ AUTOMATIQUEMENT) ---
-// Ce schéma est optimisé pour que Google comprenne votre FAQ et l'affiche potentiellement dans les résultats de recherche.
-const faqSchema = {
+// Génération du schéma si demandé
+const faqSchema = generateSchema ? {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": faqItems.map(item => ({
@@ -35,16 +32,14 @@ const faqSchema = {
       "text": item.answer
     }
   }))
-};
+} : null;
 ---
 
-<section id="faq" class="faq-section">
+<section id="faq" class="faq-section" aria-labelledby="faq-title" style={backgroundColor ? `background-color: ${backgroundColor};` : ''}>
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">Questions Fréquentes</h2>
-      <p class="section-subtitle">
-        Les réponses claires à vos interrogations les plus courantes sur nos services d'expertise comptable.
-      </p>
+      <h2 id="faq-title" class="section-title">{title}</h2>
+      <p class="section-subtitle">{subtitle}</p>
     </div>
     
     <div class="faq-accordion">
@@ -61,44 +56,110 @@ const faqSchema = {
       ))}
     </div>
 
-    <div class="faq-cta">
-        <p>Une autre question ? Notre équipe est à votre disposition.</p>
-        <a href="/contact" class="btn btn-secondary">Nous contacter</a>
-    </div>
+    {showCTA && (
+      <div class="faq-cta">
+        <p>Une autre question ?</p>
+        <a href="/contact" class="cta-button">Nous contacter</a>
+      </div>
+    )}
   </div>
   
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
+  {generateSchema && faqSchema && (
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
+  )}
 </section>
+
+<script>
+  // Gestion de l'état ouvert/fermé des FAQ
+  document.addEventListener('DOMContentLoaded', () => {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+      // Initialiser la classe en fonction de l'état initial
+      if (item.hasAttribute('open')) {
+        item.classList.add('is-open');
+      }
+      
+      // Écouter les changements d'état
+      item.addEventListener('toggle', () => {
+        if (item.hasAttribute('open')) {
+          item.classList.add('is-open');
+        } else {
+          item.classList.remove('is-open');
+        }
+      });
+    });
+  });
+</script>
 
 <style>
   .faq-section {
-    padding: var(--spacing-xl) 0;
-    background-color: var(--color-background-alt);
-    border-bottom: 1px solid var(--color-border);
+    padding: 6rem 0;
+    position: relative;
   }
 
   .section-header {
-    text-align: center;
-    max-width: 720px;
-    margin: 0 auto var(--spacing-lg) auto;
+    text-align: left;
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
+    padding-left: 2rem;
   }
   .section-title {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+    position: relative;
+    padding-bottom: 1.5rem;
+  }
+  
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: #3b82f6;
+    margin: 1.5rem 0 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: none;
   }
   .section-subtitle {
-    color: var(--color-text-secondary);
-    font-size: var(--font-size-lg);
+    color: #64748b;
+    font-size: 1.25rem;
+    font-weight: 400;
+    max-width: 600px;
+    margin: 1rem 0 0 2.5rem;
+    line-height: 1.75;
+    position: relative;
   }
   
   .faq-accordion {
     max-width: 800px;
-    margin: 0 auto;
-    border-top: 1px solid var(--color-border);
+    margin: 3rem auto 0;
   }
 
   .faq-item {
-    border-bottom: 1px solid var(--color-border);
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease;
+    background-color: #ffffff;
+  }
+  
+  .faq-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+    border-color: #cbd5e1;
+  }
+  
+  .faq-item[open],
+  .faq-item.is-open {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background-color: #ffffff;
+    border-color: #cbd5e1;
   }
 
   .faq-question {
@@ -106,25 +167,25 @@ const faqSchema = {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 1.5rem 0;
+    padding: 1.5rem;
     cursor: pointer;
-    list-style: none; /* Cache la flèche par défaut */
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--color-dark);
-    transition: var(--transition);
+    list-style: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #0f172a;
+    transition: all 0.2s ease;
   }
   .faq-question::-webkit-details-marker { display: none; }
 
   .faq-question:hover {
-    color: var(--color-primary);
+    color: #334155;
   }
 
   /* --- Icône + et - --- */
   .faq-icon {
     position: relative;
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     flex-shrink: 0;
     margin-left: 1rem;
   }
@@ -132,34 +193,41 @@ const faqSchema = {
   .faq-icon::after {
     content: '';
     position: absolute;
-    background-color: var(--color-text-secondary);
-    transition: transform 0.3s ease;
+    background-color: #94a3b8;
+    transition: all 0.3s ease;
   }
-  .faq-icon::before { /* Ligne horizontale */
+  .faq-icon::before {
     top: 50%;
     left: 0;
     width: 100%;
     height: 2px;
     margin-top: -1px;
   }
-  .faq-icon::after { /* Ligne verticale */
+  .faq-icon::after {
     top: 0;
     left: 50%;
     width: 2px;
     height: 100%;
     margin-left: -1px;
   }
-  .faq-item[open] > .faq-question .faq-icon::after {
-    transform: rotate(90deg);
+  
+  /* Quand FAQ ouverte : trait horizontal bleu */
+  .faq-item[open] > .faq-question .faq-icon::before,
+  .faq-item.is-open > .faq-question .faq-icon::before {
+    background-color: #3b82f6;
   }
-  .faq-item[open] > .faq-question .faq-icon::before {
-    transform: scaleX(0); /* Cache la ligne horizontale pour faire un '-' */
+  
+  .faq-item[open] > .faq-question .faq-icon::after,
+  .faq-item.is-open > .faq-question .faq-icon::after {
+    transform: rotate(90deg);
+    opacity: 0;
   }
   
   .faq-answer {
-    padding-bottom: 1.5rem;
-    color: var(--color-text-secondary);
-    line-height: 1.7;
+    padding: 0 1.5rem 1.5rem;
+    color: #64748b;
+    line-height: 1.75;
+    font-size: 1rem;
   }
   .faq-answer p {
     margin: 0;
@@ -167,10 +235,53 @@ const faqSchema = {
   
   .faq-cta {
     text-align: center;
-    margin-top: var(--spacing-lg);
+    margin-top: 3rem;
   }
   .faq-cta p {
     margin-bottom: 1rem;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    color: #64748b;
+  }
+
+  /* CTA Button */
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.875rem 2rem;
+    background-color: #ffffff;
+    color: #334155;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+  
+  .cta-button:hover {
+    background-color: #f8fafc;
+    border-color: #cbd5e1;
+    color: #2c4157;
+    transform: translateY(-0.5px);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .faq-section {
+      padding: 3rem 0;
+    }
+    
+    .section-header {
+      padding-left: 1rem;
+    }
+    
+    .section-title {
+      font-size: 2rem;
+    }
+    
+    .section-subtitle {
+      font-size: 1.125rem;
+      margin-left: 1.5rem;
+    }
   }
 </style>

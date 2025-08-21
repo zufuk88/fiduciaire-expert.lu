@@ -1,0 +1,280 @@
+---
+import LayoutI18n from '../../layouts/LayoutI18n.astro';
+import StickyPageTop from '../../components/StickyPageTop.astro';
+import CTA from '../../components/CTA.astro';
+import FAQ from '../../components/FAQ.astro';
+import BlogCarousel from '../../components/BlogCarousel.astro';
+import StatsSection from '../../components/StatsSection.astro';
+import ExpertiseSection from '../../components/ExpertiseSection.astro';
+import ServicesSimple from '../../components/ServicesSimple.astro';
+import ProcessTimeline from '../../components/ProcessTimeline.astro';
+
+const metaDescription = "Luxembourg tax expert specializing in corporate compliance: CIT/MBT/NWT returns (form 500), VAT eCDF, withholding tax 950. SOPARFI optimization, IP Box, tax consolidation. OECD transfer pricing, tax authority support. Free quote.";
+
+const taxSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Tax Compliance Services Luxembourg",
+  "serviceType": "Tax advisory and compliance service",
+  "provider": {
+    "@type": "Organization",
+    "name": "Fiduciaire Expert",
+    "url": "https://www.fiduciaire-expert.lu",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "LU"
+    },
+    "priceRange": "€€€"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Luxembourg"
+  },
+  "description": metaDescription,
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Tax services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Corporate tax returns",
+          "description": "CIT, MBT, NWT - Form 500"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "VAT management",
+          "description": "Periodic returns, ESL, Intrastat"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Tax optimization",
+          "description": "SOPARFI, IP Box, tax consolidation"
+        }
+      }
+    ]
+  }
+};
+
+const faqItems = [
+  {
+    question: "Which form and deadline for corporate tax returns in Luxembourg?",
+    answer: "For capital companies (SA, Sàrl, Sàrl-S, SAS, SCA, SE), the unified return '500' must be filed online via MyGuichet.lu and covers CIT, MBT and NWT; forms 200 (joint income assessment) and 300 (commercial income and MBT) mainly target fiscally transparent entities and partnerships, with form 205 applying to specific cases (notably reverse hybrid entities); CIT/MBT returns for year N must be filed by 31 December of N+1, while NWT returns for year N are due by 31 December of N; the filing campaign opens in early April and runs until 31 December; LuxTrust or eID authentication is required for filing. Annual accounts must be attached if not filed with the RCS; in case of late filing of forms 500, 300 or 200, the tax authorities set penalties and may apply sanctions."
+  },
+  {
+    question: "What are the VAT rates and VAT return deadlines in Luxembourg?",
+    answer: "The standard VAT rate is 17%, with reduced rates of 14%, 8% and 3% depending on the nature of goods and services. Periodic returns (monthly or quarterly based on turnover) must be filed electronically via eCDF by the 15th of the month following the relevant period, but the tax authorities apply in practice an administrative tolerance of 2 months for periodic filings (tolerance not provided by law and revocable). The annual VAT return is due on 31 December of the year following the reporting period, except if the frequency is annual, in which case the deadline is 31 October. European Sales Lists (ESL) must be filed by the 25th of the month following the period; for services, frequency is optional (monthly or quarterly); for goods, it's monthly by default, with quarterly option only if the amount of intra-community supplies hasn't exceeded €50,000 in the current quarter and in each of the four previous quarters."
+  },
+  {
+    question: "How to process salary withholding tax in Luxembourg? Deadlines and frequency?",
+    answer: "Salary withholding tax is the tax withheld by the employer on employee remuneration. Since 1 January 2025, the 'Declaration of withholding tax on remuneration and tax credit bonuses' must be filed online via MyGuichet.lu using form 950 (LuxTrust/eID authentication), by the employer, pension fund or a representative. Declaration and payment are due within 10 days after the end of the period. Frequency depends on total monthly withholdings: monthly if ≥€750, quarterly if €75 to <€750, annual if <€75. Payment is made to the competent tax office mentioning the tax number, relevant period and declaration reference. Form 950 also covers tax credit bonuses (e.g. CIS, CISSM)."
+  },
+  {
+    question: "How to optimize the tax burden in Luxembourg?",
+    answer: "Tax optimization relies on appropriate legal structuring (Sàrl/SA, SOPARFI, SCS/SCSp), proper application of treaties to avoid double taxation, OECD-compliant transfer pricing policies (local/master file, potential APAs) and controlled use of special regimes (participation exemption, IP 'nexus' regime). This includes neutral reorganizations (contributions, mergers, splits), financing management and interest limitations, VAT optimization of flows and supply chain, international mobility of executives/employees, as well as planning for losses and credits utilization. Our tailored advice covers diagnosis, quantified scenarios, legal and accounting implementation, documentation and governance (substance, DAC6), with annual monitoring to maintain compliance and performance. Support by Taxpertize to provide answers to your questions."
+  }
+];
+---
+
+<LayoutI18n
+  title="Tax Compliance Services Luxembourg | CIT MBT VAT Returns"
+  description={metaDescription}
+  canonical="https://www.fiduciaire-expert.lu/en/tax"
+  ogImage="/og-expert-comptable-luxembourg.jpg"
+  keywords="tax luxembourg, corporate tax return, CIT, MBT, VAT luxembourg, tax optimization, tax advisory"
+  schema={taxSchema}
+>
+  <StickyPageTop
+    breadcrumbItems={[
+      { text: "Home", href: "/en" },
+      { text: "Services", href: "/en/services" },
+      { text: "Tax compliance" }
+    ]}
+    title="Tax compliance services in Luxembourg"
+    subtitle="Tax compliance in Luxembourg: corporate income tax, municipal business tax, net wealth tax and value added tax fully managed. Accurate and timely filings, 100% digital."
+  />
+
+  <!-- Key Metrics Section -->
+  <StatsSection
+    stats={[
+      { number: "23.87%", label: "Overall tax rate" },
+      { number: "17%", label: "Standard VAT" },
+      { number: "31 Dec", label: "Filing deadline" },
+      { number: "100%", label: "Digital" }
+    ]}
+    backgroundColor="#f1f5f9"
+  />
+
+  <!-- Services Section -->
+  <ExpertiseSection
+    title="Tax expertise areas"
+    subtitle="Our firm supports Luxembourg and international companies in managing their complete tax obligations. With over 20 years of experience in the Luxembourg financial center, we have deep expertise in the Luxembourg tax system and its interactions with international regulations."
+    expertiseAreas={[
+      {
+        title: "Corporate taxation",
+        items: [
+          { label: "CIT", description: "Corporate Income Tax" },
+          { label: "MBT", description: "Municipal Business Tax" },
+          { label: "NWT", description: "Net Wealth Tax" },
+          { label: "Form 500", description: "Unified CIT+MBT+NWT return for capital companies" },
+          { label: "Advances", description: "Quarterly advance payments calculation & management" }
+        ]
+      },
+      {
+        title: "VAT & international trade",
+        items: [
+          { label: "Periodic", description: "Monthly, quarterly or annual returns" },
+          { label: "Intra-EU", description: "Summary statement & Intrastat (thresholds: €250k arrivals / €200k dispatches)" },
+          { label: "Ecommerce", description: "OSS/IOSS regimes for online sales" },
+          { label: "Foreign", description: "Foreign VAT" }
+        ]
+      },
+      {
+        title: "Personal taxation",
+        items: [
+          { label: "Form 100", description: "Annual personal income tax return" },
+          { label: "Withholding", description: "Salary withholding tax optimization (form 950 since 2025)" },
+          { label: "Wealth", description: "Real estate and securities capital gains" },
+          { label: "Impatriates", description: "Impatriate regime: 50% exemption capped at €400k/year" }
+        ]
+      }
+    ]}
+  />
+
+  <!-- Optimization Section -->
+  <ServicesSimple
+    title="Tax Optimization Strategies"
+    subtitle="Legal tax optimization is an essential lever for competitiveness. Luxembourg offers an attractive tax environment with many favorable regimes recognized at European and international levels. Our role is to guide you in the optimal use of these mechanisms while ensuring perfect legal security."
+    backgroundColor="#f1f5f9"
+    services={[
+      {
+        title: "SOPARFI Structuring",
+        description: "Holding regime for exempt participations and dividends"
+      },
+      {
+        title: "Tax Consolidation",
+        description: "Results consolidation within the group"
+      },
+      {
+        title: "IP Box Regime",
+        description: "80% exemption - effective rate ≈ 4.774% on intellectual property income (2025)"
+      },
+      {
+        title: "Transfer Pricing",
+        description: "OECD-compliant documentation and intragroup optimization"
+      },
+      {
+        title: "Tax Treaties",
+        description: "Optimal use of 88 international conventions in force"
+      },
+      {
+        title: "Tax Audits",
+        description: "Assistance and defense during ACD verifications"
+      }
+    ]}
+  />
+
+  <!-- Calendar Section -->
+  <ProcessTimeline
+    title="Tax Calendar"
+    subtitle="Punctuality in tax returns is crucial to avoid penalties and late interest. Our proactive monitoring system guarantees compliance with all legal deadlines."
+    steps={[
+      {
+        number: "Q1",
+        title: "January - March",
+        description: [
+          "February 10: ICC and IF quarterly advance",
+          "March 10: IRC quarterly advance",
+          "Monthly VAT: 15th of each month",
+          "Withholding tax: form 950 declaration within 10 days"
+        ]
+      },
+      {
+        number: "Q2",
+        title: "April - June",
+        description: [
+          "May 10: ICC and IF quarterly advance",
+          "June 10: IRC quarterly advance",
+          "Quarterly VAT recapitulative statement",
+          "Intrastat declaration if threshold reached"
+        ]
+      },
+      {
+        number: "Q3",
+        title: "July - September",
+        description: [
+          "August 10: ICC and IF quarterly advance",
+          "September 10: IRC quarterly advance",
+          "Preparation of interim closures",
+          "Current year tax optimization review"
+        ]
+      },
+      {
+        number: "Q4",
+        title: "October - December",
+        description: [
+          "November 10: Last ICC and IF advance",
+          "December 10: Last IRC advance",
+          "December 31: Filing of IRC, ICC, IF returns",
+          "Next year tax planning"
+        ],
+        highlight: true
+      }
+    ]}
+    variant="vertical"
+  />
+
+  <div class="blog-carousel-wrapper">
+    <BlogCarousel
+      title="Tax Articles in Luxembourg"
+      subtitle="Discover our latest tax articles and advice"
+      lang="en"
+      category="Tax"
+      maxPosts={4}
+      ctaText="View all tax articles"
+      ctaHref="/en/articles/category/tax"
+    />
+  </div>
+
+  <CTA
+    title="Ready to optimize your tax situation?"
+    subtitle="Contact us for a free tax audit and discover how we can reduce your tax burden while ensuring compliance."
+    buttonText="Contact us"
+    buttonHref="/en/contact?service=tax"
+  />
+
+  <FAQ
+    title="Frequently Asked Questions about Taxation in Luxembourg"
+    subtitle="Everything you need to know about your tax obligations"
+    faqItems={faqItems}
+    showCTA={false}
+    generateSchema={true}
+  />
+</LayoutI18n>
+
+<style>
+  :root {
+    --color-primary: #005fcc;
+    --color-dark: #0f172a;
+    --color-text: #334155;
+    --color-text-secondary: #64748b;
+    --color-background: #ffffff;
+    --color-grey-light: #f8fafc;
+    --color-grey: #f1f5f9;
+    --color-border: #e2e8f0;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .blog-carousel-wrapper {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 5rem 0;
+  }
+</style>

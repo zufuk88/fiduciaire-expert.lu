@@ -1,0 +1,285 @@
+---
+import LayoutI18n from '../../layouts/LayoutI18n.astro';
+import Hero from '../../components/hero/Hero.astro';
+import ServicesHighlight from '../../components/ServicesHighlight.astro';
+import BlogCarousel from '../../components/BlogCarousel.astro';
+import WhyUs from '../../components/WhyUs.astro';
+import CTA from '../../components/CTA.astro';
+import FAQ from '../../components/FAQ.astro';
+import { Image } from 'astro:assets';
+import logoImage from '../../assets/images/Logo.webp';
+
+// SEO Metadata - Optimized for 10/10
+const pageTitle = "Chartered Accountant Luxembourg | Fiduciaire Expert - OEC Licensed";
+const pageDescription = "Luxembourg's leading chartered accounting firm. Expert tax advisory, company formation (SARL, SA), and payroll services for SMEs. Licensed OEC member.";
+const pageKeywords = "chartered accountant Luxembourg, tax advisor Luxembourg, company formation Luxembourg, SARL formation, payroll services Luxembourg, accounting firm, expert-comptable, fiduciary services, OEC Luxembourg";
+
+// FAQ Data - Used for both component and schema
+const faqItems = [
+  {
+    question: "What is the cost of a chartered accountant in Luxembourg in 2025?",
+    answer: "Fees are not regulated. They vary by firm and scope of each mission. At Fiduciaire Expert, accounting and tax support for an SME in Luxembourg starts at €150 excl. VAT / month. The price depends on transaction volume, structural complexity and included services (payroll, taxation, VAT, reporting). Get a free personalized quote before any engagement."
+  },
+  {
+    question: "How long does it take to create a SARL in Luxembourg?",
+    answer: "Our express service handles drafting articles of association, capital deposit, notary signature and RCS Luxembourg registration. The exact timeframe depends on the notary and banking formalities."
+  },
+  {
+    question: "Why choose a chartered accountant in Luxembourg?",
+    answer: "A chartered accountant in Luxembourg secures accounting, VAT, taxation and CCSS obligations. They ensure legal compliance, optimize tax burden and improve your company's financial management. It's a lever for growth and sustainability."
+  },
+  {
+    question: "Difference between accountant and chartered accountant in Luxembourg",
+    answer: "An accountant handles bookkeeping and routine declarations. A chartered accountant, licensed by the Order of Chartered Accountants (OEC), operates more broadly: strategic advice, review and certification, legal and tax support. Choosing an OEC-licensed chartered accountant guarantees methodology, control and security."
+  },
+  {
+    question: "What accounting and tax obligations for a company in Luxembourg?",
+    answer: "Every company must maintain accounting compliant with Luxembourg law, file annual accounts with RCS, and meet VAT, corporate income tax (CIT) and municipal business tax (MBT) or net wealth tax (NWT) deadlines. Penalties apply for delays. A chartered accountant secures your processes and filings."
+  }
+];
+
+// Structured Data JSON-LD - Enhanced semantic structure
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    // 1. Organization
+    {
+      "@type": "Organization",
+      "@id": "https://www.fiduciaire-expert.lu/#organization",
+      "name": "Fiduciaire Expert",
+      "alternateName": "Fiduciaire Expert Luxembourg",
+      "url": "https://www.fiduciaire-expert.lu/en/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `https://www.fiduciaire-expert.lu${logoImage.src}`,
+        "width": 250,
+        "height": 60
+      },
+      "image": `https://www.fiduciaire-expert.lu${logoImage.src}`,
+      "telephone": "+352 20 60 58 57",
+      "email": "info@fiduciaire-expert.lu",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "15 Avenue de la Liberté",
+        "addressLocality": "Luxembourg",
+        "postalCode": "L-1931",
+        "addressCountry": "LU"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/fiduciaire-expert",
+        "https://www.facebook.com/fiduciaireexpert"
+      ],
+      "foundingDate": "2009",
+      "numberOfEmployees": {
+        "@type": "QuantitativeValue",
+        "value": 10
+      }
+    },
+    // 2. AccountingService
+    {
+      "@type": "AccountingService",
+      "@id": "https://www.fiduciaire-expert.lu/en/#service",
+      "name": "Fiduciaire Expert - Accounting Services for SMEs",
+      "description": "Licensed accounting firm for Luxembourg companies and SMEs. We master accounting, company formation (SARL, SA), taxation (CIT, MBT, NWT, VAT) and social management.",
+      "image": `https://www.fiduciaire-expert.lu${logoImage.src}`,
+      "provider": {
+        "@id": "https://www.fiduciaire-expert.lu/#organization"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Luxembourg"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Accounting, tax and social services",
+        "itemListElement": [
+          { 
+            "@type": "Offer", 
+            "itemOffered": { 
+              "@type": "Service", 
+              "name": "Accounting and annual financial statements",
+              "description": "Complete bookkeeping services and annual reports"
+            }
+          },
+          { 
+            "@type": "Offer", 
+            "itemOffered": { 
+              "@type": "Service", 
+              "name": "Company formation (SARL, SA, SARL-S)",
+              "description": "48-hour express company formation service"
+            }
+          },
+          { 
+            "@type": "Offer", 
+            "itemOffered": { 
+              "@type": "Service", 
+              "name": "Payroll management and social obligations",
+              "description": "Complete payroll and CCSS declaration services"
+            }
+          }
+        ]
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "47"
+      },
+      "priceRange": "€€"
+    },
+    // 3. BreadcrumbList
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.fiduciaire-expert.lu/en/"
+        }
+      ]
+    },
+    // 4. FAQPage
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.answer
+        }
+      }))
+    },
+    // 5. WebPage
+    {
+      "@type": "WebPage",
+      "@id": "https://www.fiduciaire-expert.lu/en/#webpage",
+      "url": "https://www.fiduciaire-expert.lu/en/",
+      "name": "Chartered Accountant Luxembourg | Fiduciaire Expert",
+      "isPartOf": {
+        "@id": "https://www.fiduciaire-expert.lu/#website"
+      },
+      "about": {
+        "@id": "https://www.fiduciaire-expert.lu/#organization"
+      },
+      "description": pageDescription,
+      "breadcrumb": {
+        "@id": "https://www.fiduciaire-expert.lu/en/#breadcrumb"
+      },
+      "inLanguage": "en-US",
+      "potentialAction": [
+        {
+          "@type": "ReadAction",
+          "target": ["https://www.fiduciaire-expert.lu/en/"]
+        }
+      ]
+    }
+  ]
+};
+
+---
+
+<LayoutI18n 
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  ogImage="/images/og-chartered-accountant-luxembourg.jpg"
+  schema={schema}
+>
+  <!-- Preload critical resources -->
+  <link slot="head" rel="preload" as="image" href={logoImage.src} fetchpriority="high" />
+  
+  <Hero 
+    badge="Fiduciaire Expert"
+    title="Luxembourg Chartered Accountant & Tax Advisor"
+    subtitle="<strong>Licensed accounting firm</strong> for financing companies and SMEs in Luxembourg. Bookkeeping, publication of annual accounts, payroll management, preparation of tax returns and VAT declarations."
+    ctaPrimary={{
+      text: "Contact us",
+      href: "/en/contact#get-quote"
+    }}
+    ctaSecondary={{
+      text: "Call: +352 20 60 58 57",
+      href: "tel:+35220605857"
+    }}
+  />
+
+  <ServicesHighlight 
+    title="Complete accounting solutions: from incorporation to daily management"
+    subtitle="As a licensed accounting firm, we offer a complete range of services designed to meet all accounting and tax needs of businesses in Luxembourg."
+    services={[
+      {
+        title: "Annual Accounts Preparation",
+        description: "Chartered accountant services for balance sheets, income statements and management of all your tax returns (CIT, MBT, NWT and VAT) in perfect compliance with Luxembourg tax law.",
+        href: "/en/accounting"
+      },
+      {
+        title: "Company Formation",
+        description: "We handle the formation of your SARL, SA, SAS, SARL-S or SCI within 48 hours. A turnkey service, from drafting articles of association to RCS registration.",
+        href: "/en/company-formation-luxembourg"
+      },
+      {
+        title: "Payroll Management for SMEs",
+        description: "Management of your social obligations: payslips, CCSS declarations, and drafting of employment contracts in accordance with Luxembourg labor law.",
+        href: "/en/payroll"
+      }
+    ]}
+  />
+
+  <BlogCarousel 
+    title="Chartered Accountant blog: tax and accounting advice"
+    subtitle="Our chartered accountant articles to optimize your business management in Luxembourg"
+    lang="en"
+    maxPosts={4}
+    backgroundColor="#f1f5f9"
+  />
+
+  <WhyUs 
+    title="Chartered Accountant in Luxembourg"
+    subtitle="Chartered accounting firm specialized in CIT/MBT/NWT and VAT taxation and CCSS social management for Luxembourg SMEs and companies"
+    metrics={[
+      {
+        value: "20+",
+        label: "Years of accounting expertise"
+      },
+      {
+        value: "OEC",
+        label: "Licensed Order of Chartered Accountants"
+      },
+      {
+        value: "48h",
+        label: "Guaranteed response"
+      }
+    ]}
+    advantages={[
+      {
+        title: "OEC licensed member in Luxembourg",
+        description: "Quality guarantee and compliance with the strictest professional standards of the Order of Chartered Accountants."
+      },
+      {
+        title: "Luxembourg tax expert",
+        description: "Complete mastery of CIT, MBT, NWT and   VAT and legal tax optimization for SMEs and holding companies."
+      },
+      {
+        title: "Personalized SME support",
+        description: "A dedicated chartered accountant who knows your sector and responds within 48h to all your questions."
+      }
+    ]}
+  />
+
+  <CTA 
+    title="Your free expert quote within 48 hours"
+    subtitle="Accounting, compliance in direct and inderect taxes and SARL company formation. Free consultation with our OEC-certified experts."
+    buttonText="Get my free quote"
+    buttonHref="/en/contact#get-quote"
+  />
+
+  <FAQ 
+    title="Frequently Asked Questions about Chartered Accountants in Luxembourg"
+    subtitle="Everything you need to know about accounting and tax services for your Luxembourg company."
+    backgroundColor="#f1f5f9"
+    faqItems={faqItems}
+    showCTA={false}
+  />
+
+  <!-- Additional Schema.org script handled by layout -->
+</LayoutI18n>

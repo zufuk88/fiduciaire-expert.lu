@@ -1,0 +1,492 @@
+---
+import LanguageSelector from './LanguageSelector.astro';
+import Button from './ui/Button.astro';
+import { useTranslation, type Language } from '../i18n/translations';
+import { Image } from 'astro:assets';
+import logoImage from '../assets/images/Logo.webp';
+
+export interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslation(lang);
+
+// Navigation items avec sous-menus
+const navItems = [
+  { href: `/${lang}`, text: t('nav.home'), title: t('meta.title') },
+  {
+    href: `/${lang}/services`,
+    text: t('nav.services'),
+    title: t('nav.services'),
+    subItems: [
+      { href: `/${lang}/${lang === 'en' ? 'accounting' : 'comptabilite'}`, text: t('nav.accounting') },
+      { href: `/${lang}/${lang === 'en' ? 'tax' : 'fiscalite'}`, text: t('nav.tax') },
+      { href: `/${lang}/taxpertize`, text: lang === 'fr' ? 'Conseil fiscal (Taxpertize by Fiduciaire Expert)' : 'Tax Advisory (Taxpertize by Fiduciaire Expert)', isSubItem: true },
+      { href: `/${lang}/${lang === 'en' ? 'company-formation-luxembourg' : 'creation-societe-luxembourg'}`, text: t('nav.company-creation') },
+      { href: `/${lang}/${lang === 'en' ? 'payroll' : 'paie'}`, text: t('nav.payroll') }
+    ]
+  },
+  { href: `/${lang}/articles`, text: t('nav.articles'), title: t('nav.articles') },
+  { href: `/${lang}/${lang === 'en' ? 'about' : 'a-propos'}`, text: t('nav.about'), title: t('nav.about') },
+];
+
+// Schema de navigation pour SEO
+const navigationSchema = {
+  "@context": "https://schema.org",
+  "@type": "SiteNavigationElement",
+  "name": "Navigation principale Fiduciaire Expert",
+  "hasPart": navItems.map((item, index) => ({
+    "@type": "SiteNavigationElement",
+    "name": item.text,
+    "url": new URL(item.href, Astro.site).href,
+    "position": index + 1
+  }))
+};
+
+const currentPath = Astro.url.pathname;
+
+const isActive = (path: string) => {
+  if (path === `/${lang}`) {
+    return currentPath === `/${lang}` || currentPath === `/${lang}/`;
+  }
+  return currentPath === path || currentPath.startsWith(path + '/');
+};
+---
+
+<header class="site-header" itemscope itemtype="https://schema.org/WPHeader" role="banner">
+  <div class="container header-container">
+    <a href={`/${lang}`} class="logo-link" aria-label={t('common.back-to-home')} title={t('meta.title')}>
+      <Image
+        src={logoImage}
+        alt="Logo Fiduciaire Expert - Cabinet Comptable Agréé Luxembourg"
+        width={180}
+        height={50}
+        loading="eager"
+        fetchpriority="high"
+        itemprop="logo"
+        quality="mid"
+      />
+    </a>
+
+    <nav id="main-nav" class="main-navigation" role="navigation" aria-label="Navigation principale" itemscope itemtype="https://schema.org/SiteNavigationElement">
+      <ul class="nav-list">
+        {navItems.map((item) => (
+          <li class="nav-item">
+            <a
+              href={item.href}
+              class:list={{ 'is-active': isActive(item.href) }}
+              title={item.title}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+              itemprop="url"
+            >
+              <span itemprop="name">{item.text}</span>
+            </a>
+            {item.subItems && (
+              <ul class="submenu" aria-label={`Sous-menu pour ${item.text}`}>
+                {item.subItems.map(subItem => (
+                  <li>
+                    <a href={subItem.href} title={subItem.text} class:list={{'sub-item': subItem.isSubItem}}>
+                      {subItem.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+        <li class="nav-item mobile-only">
+          <a
+            href={`/${lang}/contact`}
+            class:list={{ 'is-active': isActive(`/${lang}/contact`) }}
+            title={t('nav.contact')}
+            aria-current={isActive(`/${lang}/contact`) ? 'page' : undefined}
+            itemprop="url"
+          >
+            <span itemprop="name">{t('nav.contact')}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    
+    <div class="header-actions">
+       <LanguageSelector />
+       <Button href={`/${lang}/contact`} variant="primary" class="cta-desktop" title={t('nav.contact')}>{t('nav.contact')}</Button>
+       <button id="burger-menu" type="button" aria-label="Ouvrir le menu de navigation" aria-expanded="false" aria-controls="main-nav">
+         <span class="burger-line"></span>
+         <span class="burger-line"></span>
+         <span class="burger-line"></span>
+       </button>
+    </div>
+  </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(navigationSchema)} is:inline />
+</header>
+
+<style>
+  .site-header { 
+    position: sticky; 
+    top: 0; 
+    width: 100%; 
+    z-index: 1000; 
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .header-container { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    height: 72px;
+    padding: 0 2rem;
+  }
+  
+  .logo-link {
+    transition: opacity 0.2s ease;
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-link:hover {
+    opacity: 0.8;
+  }
+  
+  .logo-link img { 
+    height: 40px; 
+    width: auto; 
+    display: block; 
+  }
+  
+  .header-actions { 
+    display: flex; 
+    align-items: center; 
+    gap: 2rem; 
+  }
+  
+  .cta-desktop { 
+    display: none;
+    padding: 0.5rem 1.25rem !important;
+    font-size: 0.9375rem;
+  }
+  
+  #burger-menu { 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-around; 
+    width: 28px; 
+    height: 22px; 
+    background: transparent; 
+    border: none; 
+    cursor: pointer; 
+    padding: 0; 
+    z-index: 110;
+    transition: transform 0.2s ease;
+  }
+  
+  #burger-menu:hover {
+    transform: scale(1.1);
+  }
+  
+  .burger-line { 
+    width: 100%; 
+    height: 2px; 
+    background-color: #1a1a1a; 
+    transition: all 0.3s ease;
+    border-radius: 1px;
+  }
+  
+  #burger-menu.is-open .burger-line:nth-child(1) { 
+    transform: translateY(8px) rotate(45deg); 
+  }
+  
+  #burger-menu.is-open .burger-line:nth-child(2) { 
+    opacity: 0; 
+  }
+  
+  #burger-menu.is-open .burger-line:nth-child(3) { 
+    transform: translateY(-8px) rotate(-45deg); 
+  }
+
+  @media (min-width: 992px) {
+    #burger-menu { display: none; }
+    .cta-desktop { 
+      display: inline-block;
+      padding: 0.5rem 1.25rem !important;
+      font-size: 0.9375rem;
+    }
+    .main-navigation { display: flex; }
+    
+    .nav-list { 
+      display: flex; 
+      align-items: center; 
+      list-style: none; 
+      gap: 2.5rem; 
+    }
+    
+    .nav-item { position: relative; }
+    .nav-item.mobile-only { display: none; }
+    
+    .nav-item > a { 
+      color: #64748b; 
+      font-weight: 450; 
+      text-decoration: none; 
+      padding: 0.5rem 0; 
+      position: relative;
+      font-size: 0.9375rem;
+      letter-spacing: -0.01em;
+      transition: color 0.2s ease;
+    }
+    
+    .nav-item > a:hover {
+      color: #3b82f6;
+    }
+    
+    .nav-item > a.is-active { 
+      color: #3b82f6;
+      font-weight: 500;
+    }
+    
+    .submenu { 
+      position: absolute; 
+      top: 100%; 
+      left: 50%; 
+      transform: translateX(-50%);
+      margin-top: 0.75rem;
+      padding: 0.25rem;
+      min-width: 240px; 
+      background-color: #ffffff; 
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 4px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      list-style: none; 
+      opacity: 0; 
+      visibility: hidden; 
+      transition: opacity 0.15s ease, visibility 0.15s ease;
+    }
+    
+    .submenu::before {
+      content: '';
+      position: absolute;
+      top: -0.75rem;
+      left: 0;
+      right: 0;
+      height: 0.75rem;
+      background: transparent;
+    }
+    
+    .nav-item:hover .submenu { 
+      opacity: 1; 
+      visibility: visible;
+    }
+    
+    
+    .submenu a { 
+      display: block; 
+      padding: 0.75rem 1rem; 
+      color: #475569; 
+      white-space: nowrap;
+      font-size: 0.9375rem;
+      transition: color 0.15s ease;
+      position: relative;
+      border-radius: 2px;
+      font-weight: 400;
+    }
+    
+    .submenu a:hover { 
+      color: #3b82f6; 
+      text-decoration: none;
+    }
+    
+    /* Style pour Taxpertize - sous-élément de Fiscalité */
+    .submenu a.sub-item {
+      padding-left: 2rem;
+      font-size: 0.875rem;
+      opacity: 0.95;
+      transition: all 0.2s ease;
+    }
+
+    .submenu a.sub-item::before {
+      content: "└";
+      position: absolute;
+      left: 1rem;
+      color: #64748b;
+      font-weight: 600;
+      opacity: 0.8;
+      transition: color 0.2s ease;
+    }
+    
+    .submenu a.sub-item:hover {
+      color: #4ade80 !important;
+    }
+    
+    .submenu a.sub-item:hover::before {
+      color: #4ade80;
+    }
+  }
+
+  @media (max-width: 991px) {
+    /* Afficher le sélecteur de langue sur mobile */
+    .header-actions .language-selector {
+      display: block;
+    }
+    
+    .main-navigation { 
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100vh; 
+      background-color: #ffffff; 
+      transform: translateX(-100%); 
+      transition: transform 0.3s ease; 
+      padding-top: 100px; 
+      overflow-y: auto;
+      box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .main-navigation.is-open { 
+      transform: translateX(0); 
+    }
+    
+    .nav-list { 
+      list-style: none; 
+      display: flex; 
+      flex-direction: column; 
+    }
+    
+    .nav-item > a { 
+      display: block; 
+      padding: 1.25rem 2rem; 
+      font-size: 1rem; 
+      font-weight: 500; 
+      color: #1a1a1a;
+      transition: color 0.2s ease;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+      text-decoration: none;
+    }
+    
+    .nav-item > a:hover {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+    
+    .nav-item > a.is-active { 
+      color: #3b82f6;
+      font-weight: 600;
+      background-color: transparent;
+      text-decoration: none;
+    }
+    
+    .submenu { 
+      list-style: none; 
+    }
+    
+    .submenu a { 
+      display: block; 
+      padding: 1rem 2rem 1rem 3.5rem; 
+      font-size: 1rem; 
+      background-color: rgba(248, 249, 250, 0.5);
+      color: #64748b;
+      transition: color 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+      text-decoration: none;
+    }
+    
+    .submenu a:hover {
+      background-color: rgba(59, 130, 246, 0.05);
+      color: #3b82f6;
+      text-decoration: none;
+    }
+    
+
+    /* Style pour Taxpertize mobile - sous-élément de Fiscalité */
+    .submenu a.sub-item {
+      padding-left: 4.5rem;
+      font-size: 0.9375rem;
+      background-color: rgba(248, 249, 250, 0.7);
+      font-style: italic;
+    }
+
+    .submenu a.sub-item::before {
+      content: "└";
+      position: absolute;
+      left: 3rem;
+      color: #64748b;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+
+    .submenu a.sub-item:hover {
+      color: #4ade80 !important;
+    }
+  }
+</style>
+
+<script>
+  // Script pour le menu mobile et mega menu
+  document.addEventListener('DOMContentLoaded', () => {
+    const burgerMenu = document.getElementById('burger-menu');
+    const mainNav = document.getElementById('main-nav');
+    
+    
+    if (burgerMenu && mainNav) {
+      // Gestion du clic sur le burger menu
+      burgerMenu.addEventListener('click', () => {
+        const isOpen = burgerMenu.classList.contains('is-open');
+        
+        // Toggle les classes
+        burgerMenu.classList.toggle('is-open');
+        mainNav.classList.toggle('is-open');
+        
+        // Met à jour l'attribut ARIA
+        burgerMenu.setAttribute('aria-expanded', (!isOpen).toString());
+        
+        // Empêche le scroll du body quand le menu est ouvert
+        document.body.style.overflow = !isOpen ? 'hidden' : '';
+      });
+      
+      // Ferme le menu quand on clique sur un lien
+      const navLinks = mainNav.querySelectorAll('a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          burgerMenu.classList.remove('is-open');
+          mainNav.classList.remove('is-open');
+          burgerMenu.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        });
+      });
+      
+      // Ferme le menu quand on redimensionne la fenêtre au-dessus du breakpoint
+      let resizeTimer: ReturnType<typeof setTimeout>;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          if (window.innerWidth >= 992) {
+            burgerMenu.classList.remove('is-open');
+            mainNav.classList.remove('is-open');
+            burgerMenu.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+          }
+        }, 250);
+      });
+      
+      // Ferme le menu avec la touche Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && burgerMenu.classList.contains('is-open')) {
+          burgerMenu.classList.remove('is-open');
+          mainNav.classList.remove('is-open');
+          burgerMenu.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        }
+      });
+    }
+  });
+</script>

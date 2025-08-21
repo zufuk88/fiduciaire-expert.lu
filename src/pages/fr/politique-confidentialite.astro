@@ -1,0 +1,143 @@
+---
+import LayoutI18n from '../../layouts/LayoutI18n.astro';
+import StickyPageTop from '../../components/StickyPageTop.astro';
+
+const breadcrumbItems = [
+  { text: "Accueil", href: "/fr" },
+  { text: "Politique de confidentialité" }
+];
+---
+
+<LayoutI18n 
+  title="Politique de Confidentialité | Fiduciaire Expert Luxembourg" 
+  description="Découvrez comment Fiduciaire Expert protège vos données personnelles conformément au RGPD."
+  keywords="politique confidentialité, protection données, RGPD, données personnelles, Luxembourg"
+>
+  <StickyPageTop
+    breadcrumbItems={breadcrumbItems}
+    title="Politique de confidentialité"
+    subtitle="Protection de vos données personnelles conformément au RGPD"
+  />
+
+  <main class="politique-confidentialite">
+    <div class="container">
+      <div class="content">
+        <p class="update-info">Dernière mise à jour : janvier 2025</p>
+
+        <section>
+          <h2>1) Qui sommes-nous ?</h2>
+          <p><strong>Responsable du traitement :</strong> Fiduciaire Expert S.à r.l.</p>
+          <p>15, avenue de la Liberté, L-1931 Luxembourg</p>
+          <p><strong>Contact :</strong> contact@fiduciaire-expert.lu</p>
+          <p><strong>Point de contact RGPD / DPO :</strong> dpo@fiduciaire-expert.lu</p>
+        </section>
+
+        <section>
+          <h2>2) Quelles données traitons-nous ?</h2>
+          <p>Dans le cadre de nos activités, nous collectons et traitons les catégories de données suivantes :</p>
+          <ul>
+            <li>Données d'identification et de contact</li>
+            <li>Données professionnelles</li>
+            <li>Données contractuelles et de facturation</li>
+            <li>Documents comptables et fiscaux</li>
+            <li>Données sociales (paie/déclarations)</li>
+            <li>Données KYC/LBC-FT (connaissance client et lutte anti-blanchiment)</li>
+            <li>Échanges et rendez-vous</li>
+            <li>Données de recrutement (CV, lettre de motivation, échanges)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>3) Finalités et bases juridiques</h2>
+          
+          <p><strong>Exécution du contrat (art. 6-1-b RGPD) :</strong></p>
+          <p>Prestations comptables et fiscales, gestion de dossier, facturation.</p>
+          
+          <p><strong>Obligations légales (art. 6-1-c) :</strong></p>
+          <p>Fiscalité et sécurité sociale, LBC/FT (KYC), tenue et conservation des pièces comptables.</p>
+          
+          <p><strong>Intérêts légitimes (art. 6-1-f) :</strong></p>
+          <p>Gestion interne, sécurité IT, prévention de la fraude, recouvrement, amélioration du service.</p>
+          
+          <p><strong>Consentement (art. 6-1-a) :</strong></p>
+          <p>Prospection par e-mail non client, cookies non essentiels.</p>
+        </section>
+
+        <section>
+          <h2>4) Destinataires</h2>
+          <p>Vos données peuvent être communiquées aux destinataires suivants, dans le strict respect du secret professionnel :</p>
+          <ul>
+            <li>Autorités et organismes compétents (ACD, AED, CCSS, CRF)</li>
+            <li>Établissements bancaires</li>
+            <li>Auxiliaires de justice sur mandat</li>
+            <li>Sous-traitants (outils cloud, IT) liés par contrat conforme au RGPD</li>
+          </ul>
+          <p>Le secret professionnel est strictement respecté dans tous les cas.</p>
+        </section>
+
+        <section>
+          <h2>5) Transferts hors UE/EEE</h2>
+          <p>Tout transfert international éventuel de vos données est soumis à des garanties appropriées conformément au RGPD.</p>
+        </section>
+
+        <section>
+          <h2>6) Durées de conservation</h2>
+          <ul>
+            <li><strong>Dossiers comptables/fiscaux :</strong> 10 ans</li>
+            <li><strong>Dossiers sociaux :</strong> 10 ans</li>
+            <li><strong>Données LBC/FT (KYC) :</strong> 5 ans après la fin de la relation (prolongeable si la loi l'exige)</li>
+            <li><strong>Candidatures non retenues :</strong> 2 mois après notification</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>7) Vos droits</h2>
+          <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+          <ul>
+            <li>Droit d'accès à vos données</li>
+            <li>Droit de rectification</li>
+            <li>Droit à l'effacement</li>
+            <li>Droit à la limitation du traitement</li>
+            <li>Droit à la portabilité</li>
+            <li>Droit d'opposition</li>
+          </ul>
+          
+          <p><strong>Pour exercer vos droits :</strong></p>
+          <p>Contactez-nous à dpo@fiduciaire-expert.lu ou par courrier au siège. Une preuve d'identité peut être requise.</p>
+          
+          <p><strong>Réclamation :</strong></p>
+          <p>CNPD, 15 Boulevard du Jazz, L-4370 Belvaux – www.cnpd.public.lu</p>
+          
+          <p><strong>Limites :</strong></p>
+          <p>Certains droits peuvent être restreints en raison d'obligations légales, notamment LBC/FT et conservation légale.</p>
+        </section>
+
+        <section>
+          <h2>8) Sécurité</h2>
+          <p>Nous mettons en œuvre des mesures techniques et organisationnelles proportionnées pour assurer la confidentialité, l'intégrité et la disponibilité de vos données.</p>
+          <p>Des procédures de gestion d'incident sont en place et nous procédons aux notifications requises par la loi en cas de violation de données.</p>
+        </section>
+        
+        <section>
+          <h2>9) Origine des données</h2>
+          <p>Les données que nous traitons proviennent de :</p>
+          <ul>
+            <li>Données fournies directement par vous ou vos représentants</li>
+            <li>Sources publiques/professionnelles (registres, administrations)</li>
+            <li>Tiers mandatés (banques, conseils, partenaires techniques) selon les besoins du dossier</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>10) Mises à jour</h2>
+          <p>Nous pouvons modifier la présente politique de confidentialité pour rester conformes à la réglementation ou améliorer la protection de vos données.</p>
+          <p>La date de dernière mise à jour figure en tête de page.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+</LayoutI18n>
+
+<style>
+  @import '/src/styles/legal.css';
+</style>

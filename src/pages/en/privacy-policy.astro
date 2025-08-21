@@ -1,0 +1,143 @@
+---
+import LayoutI18n from '../../layouts/LayoutI18n.astro';
+import StickyPageTop from '../../components/StickyPageTop.astro';
+
+const breadcrumbItems = [
+  { text: "Home", href: "/en" },
+  { text: "Privacy Policy" }
+];
+---
+
+<LayoutI18n 
+  title="Privacy Policy | Fiduciaire Expert Luxembourg" 
+  description="Discover how Fiduciaire Expert protects your personal data in accordance with GDPR."
+  keywords="privacy policy, data protection, GDPR, personal data, Luxembourg"
+>
+  <StickyPageTop
+    breadcrumbItems={breadcrumbItems}
+    title="Privacy Policy"
+    subtitle="Protection of your personal data in accordance with GDPR"
+  />
+
+  <main class="politique-confidentialite">
+    <div class="container">
+      <div class="content">
+        <p class="update-info">Last updated: January 2025</p>
+
+        <section>
+          <h2>1) Who we are</h2>
+          <p><strong>Data Controller:</strong> Fiduciaire Expert S.à r.l.</p>
+          <p>15, avenue de la Liberté, L-1931 Luxembourg</p>
+          <p><strong>Contact:</strong> contact@fiduciaire-expert.lu</p>
+          <p><strong>GDPR Contact Point / DPO:</strong> dpo@fiduciaire-expert.lu</p>
+        </section>
+
+        <section>
+          <h2>2) What data do we process?</h2>
+          <p>As part of our activities, we collect and process the following categories of data:</p>
+          <ul>
+            <li>Identification and contact data</li>
+            <li>Professional data</li>
+            <li>Contractual and billing data</li>
+            <li>Accounting and tax documents</li>
+            <li>Social data (payroll/declarations)</li>
+            <li>KYC/AML data (know your customer and anti-money laundering)</li>
+            <li>Communications and appointments</li>
+            <li>Recruitment data (CV, cover letter, communications)</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>3) Purposes and legal bases</h2>
+          
+          <p><strong>Contract performance (Art. 6-1-b GDPR):</strong></p>
+          <p>Accounting and tax services, file management, invoicing.</p>
+          
+          <p><strong>Legal obligations (Art. 6-1-c):</strong></p>
+          <p>Tax and social security, AML/CFT (KYC), keeping and storing accounting documents.</p>
+          
+          <p><strong>Legitimate interests (Art. 6-1-f):</strong></p>
+          <p>Internal management, IT security, fraud prevention, debt collection, service improvement.</p>
+          
+          <p><strong>Consent (Art. 6-1-a):</strong></p>
+          <p>Email marketing to non-clients, non-essential cookies.</p>
+        </section>
+
+        <section>
+          <h2>4) Recipients</h2>
+          <p>Your data may be shared with the following recipients, in strict compliance with professional secrecy:</p>
+          <ul>
+            <li>Competent authorities and organizations (ACD, AED, CCSS, CRF)</li>
+            <li>Banking institutions</li>
+            <li>Legal professionals on mandate</li>
+            <li>Subcontractors (cloud tools, IT) bound by GDPR-compliant contracts</li>
+          </ul>
+          <p>Professional secrecy is strictly respected in all cases.</p>
+        </section>
+
+        <section>
+          <h2>5) Transfers outside EU/EEA</h2>
+          <p>Any international transfer of your data is subject to appropriate safeguards in accordance with GDPR.</p>
+        </section>
+
+        <section>
+          <h2>6) Retention periods</h2>
+          <ul>
+            <li><strong>Accounting/tax files:</strong> 10 years</li>
+            <li><strong>Social files:</strong> 10 years</li>
+            <li><strong>AML/CFT (KYC) data:</strong> 5 years after the end of the relationship (extendable if required by law)</li>
+            <li><strong>Unsuccessful applications:</strong> 2 months after notification</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>7) Your rights</h2>
+          <p>In accordance with GDPR, you have the following rights:</p>
+          <ul>
+            <li>Right of access to your data</li>
+            <li>Right to rectification</li>
+            <li>Right to erasure</li>
+            <li>Right to restriction of processing</li>
+            <li>Right to data portability</li>
+            <li>Right to object</li>
+          </ul>
+          
+          <p><strong>To exercise your rights:</strong></p>
+          <p>Contact us at dpo@fiduciaire-expert.lu or by mail to our registered office. Proof of identity may be required.</p>
+          
+          <p><strong>Complaints:</strong></p>
+          <p>CNPD, 15 Boulevard du Jazz, L-4370 Belvaux – www.cnpd.public.lu</p>
+          
+          <p><strong>Limitations:</strong></p>
+          <p>Certain rights may be restricted due to legal obligations, including AML/CFT and legal retention requirements.</p>
+        </section>
+
+        <section>
+          <h2>8) Security</h2>
+          <p>We implement proportionate technical and organizational measures to ensure the confidentiality, integrity and availability of your data.</p>
+          <p>Incident management procedures are in place and we provide notifications required by law in case of data breach.</p>
+        </section>
+        
+        <section>
+          <h2>9) Data origin</h2>
+          <p>The data we process comes from:</p>
+          <ul>
+            <li>Data provided directly by you or your representatives</li>
+            <li>Public/professional sources (registers, administrations)</li>
+            <li>Mandated third parties (banks, advisors, technical partners) according to file needs</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>10) Updates</h2>
+          <p>We may modify this privacy policy to remain compliant with regulations or improve the protection of your data.</p>
+          <p>The last update date appears at the top of the page.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+</LayoutI18n>
+
+<style>
+  @import '/src/styles/legal.css';
+</style>

@@ -1,0 +1,278 @@
+---
+export interface Props {
+  title: string;
+  subtitle: string;
+  metrics: Array<{
+    value: string;
+    label: string;
+  }>;
+  advantages: Array<{
+    title: string;
+    description: string;
+  }>;
+}
+
+const { 
+  title,
+  subtitle,
+  metrics,
+  advantages
+} = Astro.props;
+---
+
+<section id="why-us" class="why-us-section" aria-labelledby="why-us-title">
+  <div class="container">
+    <div class="section-header">
+      <h2 id="why-us-title">{title}</h2>
+      <p class="subtitle">{subtitle}</p>
+    </div>
+    
+    <div class="trust-metrics">
+      {metrics.map((metric) => (
+        <div class="metric-badge">
+          <span class="metric-number">{metric.value}</span>
+          <span class="metric-label">{metric.label}</span>
+        </div>
+      ))}
+    </div>
+    
+    <!-- Advantages list -->
+    <div class="advantages-timeline">
+      {advantages.map((advantage) => (
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h3>{advantage.title}</h3>
+            <p>{advantage.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  
+  .why-us-section {
+    padding: 6rem 0;
+    background: linear-gradient(to bottom, #ffffff, #f8fafc);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* Section Header */
+  .section-header {
+    text-align: left;
+    margin-bottom: 4rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2rem;
+  }
+  
+  
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #0f172a;
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-align: left;
+    max-width: 900px;
+    position: relative;
+    padding-bottom: 1.5rem;
+  }
+  
+  h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: #3b82f6;
+    margin: 1.5rem 0 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: none;
+  }
+  
+  h2 strong {
+    font-weight: 600;
+    background: linear-gradient(135deg, #0f172a 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .subtitle {
+    font-size: 1.25rem;
+    color: #64748b;
+    line-height: 1.75;
+    max-width: 600px;
+    margin: 1rem 0 0 2.5rem;
+    font-weight: 400;
+    position: relative;
+  }
+  
+  /* Trust Metrics - Elegant card design */
+  .trust-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin: 4rem auto;
+    max-width: 900px;
+  }
+  
+  
+  /* Metric badges - Premium design */
+  .metric-badge {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 1.75rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .metric-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    border-color: #cbd5e1;
+  }
+  
+  .metric-number {
+    display: block;
+    font-size: 2.25rem;
+    font-weight: 200;
+    color: #0f172a;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  
+  .metric-label {
+    display: block;
+    font-size: 0.875rem;
+    color: #64748b;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+  }
+  
+  /* Advantages - Clean list */
+  .advantages-timeline {
+    max-width: 800px;
+    margin: 4rem auto 0;
+    display: grid;
+    gap: 1rem;
+  }
+  
+  .timeline-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    position: relative;
+  }
+  
+  
+  .timeline-content {
+    flex: 1;
+    background: #ffffff;
+    border-left: 3px solid #e2e8f0;
+    padding: 1.25rem 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .timeline-item:hover .timeline-content {
+    border-left-color: #3b82f6;
+  }
+  
+  .timeline-content h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #0f172a;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  
+  .timeline-content p {
+    font-size: 0.9375rem;
+    color: #64748b;
+    line-height: 1.65;
+    margin: 0;
+    font-weight: 400;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .why-us-section {
+      padding: 4rem 0;
+    }
+    
+    .section-header {
+      margin-bottom: 3rem;
+    }
+    
+    .trust-metrics {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin: 3rem auto;
+    }
+    
+    .metric-badge {
+      padding: 1.5rem;
+    }
+    
+    .metric-number {
+      font-size: 2rem;
+    }
+    
+    .metric-label {
+      font-size: 0.875rem;
+    }
+    
+    .advantages-timeline {
+      gap: 0.75rem;
+      margin: 3rem auto;
+    }
+    
+    .timeline-content {
+      padding: 1rem 1.25rem;
+      border-left-width: 2px;
+    }
+    
+    .timeline-content h3 {
+      font-size: 1rem;
+    }
+    
+    .timeline-content p {
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+    
+    .section-header {
+      padding-left: 1rem;
+    }
+    
+    h2 {
+      font-size: 2rem;
+    }
+    
+    .subtitle {
+      font-size: 1.125rem;
+      margin-left: 1.5rem;
+    }
+  }
+</style>

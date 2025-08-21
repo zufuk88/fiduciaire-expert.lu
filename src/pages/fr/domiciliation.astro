@@ -1,0 +1,670 @@
+---
+import LayoutI18n from '../../layouts/LayoutI18n.astro';
+import StickyPageTop from '../../components/StickyPageTop.astro';
+import FAQ from '../../components/FAQ.astro';
+import CTA from '../../components/CTA.astro';
+
+const metaDescription = "Service de domiciliation d'entreprise au Luxembourg strictement conforme, réservé aux sociétés patrimoniales (SOPARFI, holdings, SPV). Expert-comptable agréé, conformité AML/KYC complète.";
+
+const domiciliationSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://www.fiduciaire-expert.lu/fr/domiciliation",
+      "name": "Domiciliation d'Entreprise au Luxembourg - Fiduciaire Expert",
+      "description": metaDescription,
+      "provider": {
+        "@type": "Organization",
+        "name": "Fiduciaire Expert",
+        "url": "https://www.fiduciaire-expert.lu"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Luxembourg"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "price": "150",
+          "priceCurrency": "EUR",
+          "unitText": "par mois"
+        }
+      }
+    }
+  ]
+};
+
+const faqItems = [
+  {
+    question: "Peut-on domicilier une société commerciale active ?",
+    answer: "Non pour l'exploitation : les activités soumises à droit d'établissement exigent des locaux propres. La domiciliation peut couvrir le siège social, mais ne remplace pas les locaux d'exploitation."
+  },
+  {
+    question: "Qui signe les comptes et résolutions ?",
+    answer: "Les gérants/administrateurs. Nous organisons les réunions et assurons les formalités RESA/RCS."
+  },
+  {
+    question: "SPF : obligations spécifiques ?",
+    answer: "Oui : certification annuelle à produire à l'ACD via MyGuichet."
+  },
+  {
+    question: "Que se passe-t-il si la société ne coopère pas au KYC ?",
+    answer: "Refus d'entrer en relation ou résiliation, avec notification RCS/RESA."
+  }
+];
+---
+
+<LayoutI18n
+  title="Domiciliation d'Entreprise Luxembourg | Service Conforme AML/KYC"
+  description={metaDescription}
+  canonical="https://www.fiduciaire-expert.lu/fr/domiciliation"
+  schema={domiciliationSchema}
+>
+  <StickyPageTop
+    breadcrumbItems={[
+      { text: "Accueil", href: "/fr" },
+      { text: "Services", href: "/fr/services" },
+      { text: "Domiciliation" }
+    ]}
+    title="Domiciliation d'entreprise au Luxembourg"
+    subtitle="Service strictement conforme réservé aux sociétés patrimoniales"
+  />
+
+  <!-- Section: Ce que nous proposons -->
+  <section class="legal-section">
+    <div class="container">
+      <div class="legal-content">
+        <h2>Ce que nous proposons</h2>
+        <p class="lead">Service de domiciliation strictement conforme et réservé aux sociétés patrimoniales (SOPARFI/holdings, SPV d'investissement, sociétés de propriété intellectuelle, SPF). Nous exigeons un lien de gestion effectif au Luxembourg et appliquons des contrôles KYC/AML complets.</p>
+        
+        <div class="alert-box">
+          <strong>Important :</strong> les activités commerciales opérationnelles (commerce, e‑commerce, services exécutés au quotidien) nécessitent une autorisation d'établissement et des locaux appropriés. Une simple domiciliation ne suffit pas pour exploiter ces activités.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Base légale -->
+  <section class="legal-framework">
+    <div class="container">
+      <h2>Base légale et périmètre</h2>
+      <div class="legal-grid">
+        <div class="legal-item">
+          <h3>Loi du 31 mai 1999</h3>
+          <p>Régissant la domiciliation des sociétés (version consolidée)</p>
+        </div>
+        <div class="legal-item">
+          <h3>Loi du 12 novembre 2004</h3>
+          <p>Relative à la lutte contre le blanchiment de capitaux et le financement du terrorisme (AML/CFT), telle que modifiée</p>
+        </div>
+        <div class="legal-item">
+          <h3>Droit d'établissement</h3>
+          <p>Loi modifiée du 2 septembre 2011 (locaux appropriés requis pour les activités soumises)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Qui peut domicilier -->
+  <section class="professionals-section">
+    <div class="container">
+      <h2>Qui peut domicilier ?</h2>
+      <p class="section-intro">Seules les professions réglementées établies au Luxembourg (liste limitative) :</p>
+      <ul class="regulated-list">
+        <li>Établissements de crédit et professionnels du secteur financier (PFS) / du secteur des assurances</li>
+        <li>Avocats à la Cour (liste I) et avocats européens (liste IV)</li>
+        <li>Réviseurs d'entreprises / réviseurs agréés</li>
+        <li>Experts-comptables (inscrits à l'OEC)</li>
+      </ul>
+      <p class="highlight-text">Nous sommes expert-comptable agréé et intervenons dans ce cadre, selon des procédures internes strictes.</p>
+    </div>
+  </section>
+
+  <!-- Section: Conditions d'éligibilité -->
+  <section class="eligibility-section">
+    <div class="container">
+      <h2>Conditions d'éligibilité</h2>
+      <div class="conditions-grid">
+        <div class="condition-card">
+          <h3>Objet non commercial</h3>
+          <p>Holding/financement, détention d'actifs, IP holding, véhicule d'investissement. Pour les activités commerciales : l'adresse de domiciliation ne remplace pas les locaux physiques requis par le droit d'établissement. Sans locaux, pas d'établissement au Luxembourg possible.</p>
+        </div>
+        <div class="condition-card">
+          <h3>Siège de direction effective</h3>
+          <p>Exigence de pratique fiscale et de gouvernance, appréciée au cas par cas. Réunions de gérance/conseil tenues au Luxembourg, décisions stratégiques prises au Luxembourg, signature locale prévue au besoin</p>
+        </div>
+        <div class="condition-card">
+          <h3>Substance adaptée au modèle</h3>
+          <p>Secrétariat juridique, tenue des registres, comptabilité locale, prestataires et comptes bancaires opérationnels au Luxembourg lorsque pertinent</p>
+        </div>
+        <div class="condition-card">
+          <h3>KYC/AML</h3>
+          <p>Identification des dirigeants, UBO, origine des fonds, évaluation de risque, monitoring</p>
+        </div>
+      </div>
+      <p class="note-text"><strong>Remarque :</strong> ces critères sont exigences de substance et de fiscalité usuelles. Ils s'apprécient au cas par cas selon l'activité et la chaîne de valeur.</p>
+    </div>
+  </section>
+
+  <!-- Section: Services inclus -->
+  <section class="services-section">
+    <div class="container">
+      <h2>Ce que comprend la domiciliation</h2>
+      <div class="services-list">
+        <div class="service-item">
+          <div class="service-icon">✓</div>
+          <div class="service-content">
+            <h3>Adresse de siège social</h3>
+            <p>Dans un quartier d'affaires à Luxembourg</p>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-icon">✓</div>
+          <div class="service-content">
+            <h3>Gestion du courrier</h3>
+            <p>Réception, tri, scan/notification, conservation et remise sécurisée</p>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-icon">✓</div>
+          <div class="service-content">
+            <h3>Secrétariat légal</h3>
+            <p>Tenue d'un registre des sociétés domiciliées, rappels d'échéances, assistance RESA/RCS</p>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-icon">✓</div>
+          <div class="service-content">
+            <h3>Salles de réunion</h3>
+            <p>Sur réservation pour les conseils d'administration/gérance</p>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-icon">✓</div>
+          <div class="service-content">
+            <h3>Services additionnels</h3>
+            <p>Ligne d'accueil (option) et agenda de signatures</p>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-icon">✓</div>
+          <div class="service-content">
+            <h3>Conformité AML</h3>
+            <p>KYC/AML initial et revues annuelles</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Procédure -->
+  <section class="process-section">
+    <div class="container">
+      <h2>Procédure en 4 étapes</h2>
+      <div class="process-timeline">
+        <div class="process-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Pré-KYC & admissibilité</h3>
+            <p>Informations sur l'activité, organigramme, UBO, origine des fonds, screening sanctions/PEP</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Contrat de domiciliation écrit</h3>
+            <p>Description des services, obligations réciproques, pouvoirs de notification RCS/RESA et clauses de résiliation</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Mise en place</h3>
+            <p>Ouverture des services, planification des réunions au Luxembourg, désignation des signataires/mandataires locaux, paramétrage du secrétariat juridique</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Suivi</h3>
+            <p>Conservation des pièces, mises à jour KYC, rappels juridiques (AGO, dépôts), contrôles de substance, rapports périodiques</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Obligations -->
+  <section class="obligations-section">
+    <div class="container">
+      <h2>Obligations du domiciliataire (extraits)</h2>
+      <ul class="obligations-list">
+        <li>Vérifier la conformité de la société aux règles du droit des sociétés et du droit d'établissement avant contrat</li>
+        <li>Identifier et documenter l'organe de gestion et, le cas échéant, l'ayant droit économique ; conserver les pièces ≥ 5 ans après la fin de la relation</li>
+        <li>Mettre fin avec effet immédiat au contrat en cas d'infraction constatée et notifier le RCS. La cessation est ensuite publiée au RESA. Cas spécial CSSF : si la société domiciliée est soumise à la CSSF, la résiliation doit lui être notifiée ≥ 1 mois avant de prendre effet</li>
+        <li>Le domiciliataire dépose l'avis de cessation au RCS, la publication au RESA est effectuée, et c'est le gestionnaire du RCS qui informe le Procureur d'État</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Section: Sanctions -->
+  <section class="sanctions-section">
+    <div class="container">
+      <h2>Sanctions et risques en cas de non-conformité</h2>
+      <div class="sanctions-grid">
+        <div class="sanction-item">
+          <h3>Domiciliation sans professionnel autorisé</h3>
+          <p>Exercer la domiciliation sans être habilité : emprisonnement de 8 jours à 5 ans et/ou amende de 1 250 € à 125 000 €</p>
+        </div>
+        <div class="sanction-item">
+          <h3>Absence de contrat écrit</h3>
+          <p>Domicilier sans contrat écrit : emprisonnement de 8 jours à 5 ans et/ou amende de 1 250 € à 125 000 €</p>
+        </div>
+        <div class="sanction-item">
+          <h3>Manquements graves</h3>
+          <p>Domiciliation irrégulière d'une société commerciale ou autres infractions graves : fermeture ou liquidation judiciaire de la société possible</p>
+        </div>
+        <div class="sanction-item">
+          <h3>Résiliation/dénonciation</h3>
+          <p>Publication RESA, perte du domicile légal, information du Procureur d'État</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Tarification -->
+  <section class="pricing-section">
+    <div class="container">
+      <h2>Tarification</h2>
+      <div class="pricing-content">
+        <div class="price-box">
+          <span class="price">À partir de 150 €</span>
+          <span class="period">/ mois</span>
+        </div>
+        <p>Le prix dépend du profil de risque AML, du niveau de substance attendu, de la complexité du groupe et des services optionnels (ligne d'accueil, salles, scans quotidiens, secrétariat renforcé).</p>
+        <p class="note">Un devis est émis après pré-KYC.</p>
+      </div>
+    </div>
+  </section>
+
+  <FAQ
+    title="FAQ express"
+    subtitle=""
+    faqItems={faqItems}
+    showCTA={false}
+    generateSchema={true}
+  />
+
+  <CTA
+    title="Analysons votre éligibilité"
+    subtitle="Contactez-nous pour une évaluation préliminaire de votre dossier de domiciliation"
+    buttonText="Demander une analyse"
+    buttonHref="/fr/contact?service=domiciliation"
+  />
+</LayoutI18n>
+
+<style>
+  :root {
+    --color-primary: #005fcc;
+    --color-dark: #0f172a;
+    --color-text: #334155;
+    --color-text-secondary: #64748b;
+    --color-background: #ffffff;
+    --color-grey-light: #f8fafc;
+    --color-border: #e2e8f0;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Sections */
+  .legal-section,
+  .legal-framework,
+  .professionals-section,
+  .eligibility-section,
+  .services-section,
+  .process-section,
+  .obligations-section,
+  .sanctions-section,
+  .pricing-section {
+    padding: 4rem 0;
+    background: var(--color-background);
+  }
+
+  .legal-framework,
+  .eligibility-section,
+  .process-section,
+  .sanctions-section {
+    background: var(--color-grey-light);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--color-dark);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .lead {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    margin-bottom: 2rem;
+  }
+
+  /* Alert Box */
+  .alert-box {
+    background: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 4px;
+  }
+
+  /* Legal Grid */
+  .legal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .legal-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+  }
+
+  .legal-item h3 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  /* Regulated List */
+  .section-intro {
+    text-align: center;
+    color: var(--color-text);
+    margin-bottom: 2rem;
+  }
+
+  .regulated-list {
+    list-style: none;
+    padding: 0;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+  }
+
+  .regulated-list li {
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    background: var(--color-grey-light);
+    border-left: 3px solid var(--color-primary);
+    border-radius: 4px;
+  }
+
+  .highlight-text {
+    text-align: center;
+    font-weight: 500;
+    color: var(--color-primary);
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 4px;
+  }
+
+  /* Conditions Grid */
+  .conditions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .condition-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+  }
+
+  .condition-card h3 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  .condition-card p {
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .note-text {
+    color: var(--color-text-secondary);
+    font-style: italic;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  /* Services List */
+  .services-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .service-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .service-icon {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+
+  .service-content h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-dark);
+    margin-bottom: 0.25rem;
+  }
+
+  .service-content p {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+  }
+
+  /* Process Timeline */
+  .process-timeline {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .process-timeline::before {
+    content: '';
+    position: absolute;
+    left: 2rem;
+    top: 2rem;
+    bottom: 2rem;
+    width: 2px;
+    background: var(--color-border);
+  }
+
+  .process-step {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .step-number {
+    flex-shrink: 0;
+    width: 4rem;
+    height: 4rem;
+    background: white;
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    z-index: 1;
+  }
+
+  .step-content {
+    flex: 1;
+    padding-top: 0.5rem;
+  }
+
+  .step-content h3 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--color-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .step-content p {
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  /* Obligations List */
+  .obligations-list {
+    list-style: none;
+    padding: 0;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .obligations-list li {
+    padding: 1rem 1rem 1rem 3rem;
+    margin-bottom: 1rem;
+    background: white;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+    position: relative;
+  }
+
+  .obligations-list li::before {
+    content: "•";
+    position: absolute;
+    left: 1rem;
+    color: var(--color-primary);
+    font-size: 1.5rem;
+  }
+
+  /* Sanctions Grid */
+  .sanctions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .sanction-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 4px;
+    border: 1px solid #ef4444;
+    border-left-width: 4px;
+  }
+
+  .sanction-item h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #dc2626;
+    margin-bottom: 0.5rem;
+  }
+
+  .sanction-item p {
+    color: var(--color-text);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  /* Pricing */
+  .pricing-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .price-box {
+    display: inline-block;
+    padding: 2rem;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 4px;
+    margin-bottom: 2rem;
+  }
+
+  .price {
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--color-primary);
+  }
+
+  .period {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+  }
+
+  .pricing-content p {
+    color: var(--color-text);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .pricing-content .note {
+    font-style: italic;
+    color: var(--color-text-secondary);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .legal-grid,
+    .conditions-grid,
+    .services-list,
+    .sanctions-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .process-timeline::before {
+      left: 1.5rem;
+    }
+
+    .step-number {
+      width: 3rem;
+      height: 3rem;
+      font-size: 1.25rem;
+    }
+
+    .process-step {
+      gap: 1.5rem;
+    }
+  }
+</style>

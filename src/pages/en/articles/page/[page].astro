@@ -1,0 +1,201 @@
+---
+import { getCollection } from 'astro:content';
+import LayoutI18n from '../../../../layouts/LayoutI18n.astro';
+import { Image } from 'astro:assets';
+import SearchBar from '../../../../components/SearchBar.astro';
+import StickyPageTop from '../../../../components/StickyPageTop.astro';
+import { calculateReadingTime } from '../../../../utils/reading-time';
+import '../../../../styles/blog-articles.css';
+
+export async function getStaticPaths() {
+  const POSTS_PER_PAGE = 9;
+  
+  const allPosts = await getCollection('blog');
+  const englishCategories = ['Tax', 'Payroll', 'Accounting', 'Corporate Law'];
+  const englishPosts = allPosts.filter(post => englishCategories.includes(post.data.category) && post.data.draft !== true);
+  
+  const sortedPosts = englishPosts.sort((a, b) => {
+    const dateA = new Date(a.data.modified || a.data.date).getTime();
+    const dateB = new Date(b.data.modified || b.data.date).getTime();
+    return dateB - dateA;
+  });
+
+  // Calculate total number of pages
+  // Each page displays POSTS_PER_PAGE articles
+  const totalPages = Math.max(1, Math.ceil(sortedPosts.length / POSTS_PER_PAGE));
+  
+  // Generate paths for each additional page
+  const paths = [];
+  for (let page = 2; page <= totalPages; page++) {
+    const startIndex = (page - 1) * POSTS_PER_PAGE; // Page 2 starts at index 9
+    const endIndex = startIndex + POSTS_PER_PAGE;
+    const pagePosts = sortedPosts.slice(startIndex, endIndex);
+    
+    // Generate only if there are articles for this page
+    if (pagePosts.length > 0) {
+      paths.push({
+        params: { page: page.toString() },
+        props: {
+          posts: pagePosts,
+          currentPage: page,
+          totalPages,
+          allPostsCount: sortedPosts.length
+        }
+      });
+    }
+  }
+  
+  return paths;
+}
+
+const { posts, currentPage, totalPages, allPostsCount } = Astro.props;
+
+// Get categories
+const englishCategories = ['Tax', 'Payroll', 'Accounting', 'Corporate Law'];
+const categories = englishCategories;
+
+const formatDate = (date: Date) => date.toLocaleDateString('en-GB', {
+  year: 'numeric', month: 'long', day: 'numeric'
+});
+
+// URLs for rel prev/next
+const siteUrl = Astro.site ? Astro.site.origin : "https://www.fiduciaire-expert.lu";
+const prevUrl = currentPage === 2 ? '/en/articles' : `/en/articles/page/${currentPage - 1}`;
+const nextUrl = currentPage < totalPages ? `/en/articles/page/${currentPage + 1}` : null;
+const canonicalUrl = `${siteUrl}/en/articles/page/${currentPage}`;
+
+// Schema for SEO
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": siteUrl
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": `${siteUrl}/en/articles`
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": `Page ${currentPage}`
+    }
+  ]
+};
+---
+
+<LayoutI18n
+  title={`Blog - Page ${currentPage} | Accounting & Tax Advice | Fiduciaire Expert Luxembourg`}
+  description={`Page ${currentPage} - Find our ${allPostsCount} expert articles on accounting, taxation and business creation in Luxembourg.`}
+  canonical={canonicalUrl}
+  schema={breadcrumbSchema}
+>
+  <!-- Link tags for prev/next SEO -->
+  <Fragment slot="head">
+    <link rel="prev" href={prevUrl} />
+    {nextUrl && <link rel="next" href={nextUrl} />}
+  </Fragment>
+
+  <StickyPageTop
+    breadcrumbItems={[
+      { text: "Home", href: "/en" },
+      { text: "Blog", href: "/en/articles" },
+      { text: `Page ${currentPage}` }
+    ]}
+    title="Our latest blog articles"
+    subtitle={`Page ${currentPage} of ${totalPages} - Check out our expert analysis and advice to stay informed on accounting, taxation, payroll and corporate law in Luxembourg.`}
+  />
+
+  <section class="blog-main-section">
+    <div class="container blog-layout">
+      <div class="posts-column">
+        <div class="posts-grid">
+          {posts.map(post => (
+            <article class="post-card">
+              <a href={`/en/articles/${post.slug.replace('en/', '')}`} class="post-link">
+                {post.data.image && (
+                  <div class="post-image-wrapper">
+                    <Image 
+                      src={post.data.image} 
+                      alt={`${post.data.title} - Luxembourg accounting taxation article`} 
+                      width={400} 
+                      height={200} 
+                      loading="lazy" 
+                      quality="mid" 
+                    />
+                  </div>
+                )}
+                <div class="post-content">
+                  <p class="post-meta">
+                    <span class="category-badge">{post.data.category}</span>
+                    <time datetime={(post.data.modified && new Date(post.data.modified) > new Date(post.data.date) ? new Date(post.data.modified) : post.data.date).toISOString()}>
+                      {formatDate(post.data.modified && new Date(post.data.modified) > new Date(post.data.date) ? new Date(post.data.modified) : post.data.date)}
+                    </time>
+                    <span class="reading-time">• {calculateReadingTime(post.body, 'en')} min</span>
+                  </p>
+                  <h4 class="post-title">{post.data.title}</h4>
+                  <p class="post-excerpt">{post.data.description}</p>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+        
+        {/* Pagination with rel prev/next */}
+        <div class="pagination">
+          {currentPage === 2 ? (
+            <a href="/en/articles" rel="prev" class="pagination-prev">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+              Previous articles
+            </a>
+          ) : (
+            <a href={`/en/articles/page/${currentPage - 1}`} rel="prev" class="pagination-prev">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+              Previous articles
+            </a>
+          )}
+          
+          <span class="pagination-info">
+            Page {currentPage} of {totalPages}
+          </span>
+          
+          {nextUrl && (
+            <a href={nextUrl} rel="next" class="pagination-next">
+              Next articles
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </a>
+          )}
+        </div>
+      </div>
+      <aside class="sidebar-column">
+        <div class="sidebar-widget">
+          <h3 class="widget-title">Categories</h3>
+          <nav class="category-nav">
+            <a href="/en/articles" class="category-link">All categories</a>
+            {categories.map(cat => {
+              const slug = cat.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-');
+              return <a href={`/en/articles/category/${slug}`} class="category-link">{cat}</a>;
+            })}
+          </nav>
+        </div>
+        
+        <div class="sidebar-widget sidebar-search">
+          <h3 class="widget-title">Search</h3>
+          <SearchBar placeholder="Search" lang="en" />
+        </div>
+      </aside>
+    </div>
+  </section>
+</LayoutI18n>

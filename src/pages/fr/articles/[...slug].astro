@@ -1,0 +1,31 @@
+---
+// src/pages/articles/[...slug].astro
+
+import { getCollection, getEntryBySlug } from 'astro:content';
+import ArticleLayout from '../../../layouts/ArticleLayout.astro'; // On réutilise le layout d'article
+
+// 1. Génère une page pour chaque article de la collection 'blog'
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog');
+  const frenchCategories = ['Fiscalité', 'Social', 'Comptabilité', 'Juridique'];
+  const frenchPosts = allPosts.filter(post => frenchCategories.includes(post.data.category) && post.data.draft !== true);
+  return frenchPosts.map(entry => ({
+    params: { slug: entry.slug.replace('fr/', '') },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await entry.render();
+
+// Passer le slug pour permettre la gestion des traductions
+const articleData = {
+  ...entry.data,
+  slug: entry.slug.replace('fr/', ''),
+  rawContent: entry.body, // Ajouter le contenu brut pour le temps de lecture
+  headings: headings // Passer les headings pour la table des matières
+};
+---
+<ArticleLayout frontmatter={articleData}>
+  <Content />
+</ArticleLayout>

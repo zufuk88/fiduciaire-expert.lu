@@ -1,0 +1,199 @@
+---
+export interface Props {
+  title: string;
+  subtitle?: string;
+  expertiseAreas: Array<{
+    title: string;
+    items: Array<{
+      label: string;
+      description: string;
+    }>;
+  }>;
+}
+
+const { title, subtitle, expertiseAreas } = Astro.props;
+---
+
+<section class="expertise-section">
+  <div class="container">
+    <!-- Header -->
+    <div class="section-header">
+      <h2 class="section-title">{title}</h2>
+      {subtitle && <p class="section-subtitle">{subtitle}</p>}
+    </div>
+
+    <!-- Expertise Grid -->
+    <div class="expertise-grid">
+      {expertiseAreas.map(area => (
+        <div class="expertise-card">
+          <h3 class="card-title">{area.title}</h3>
+          <div class="card-items">
+            {area.items.map(item => (
+              <div class="expertise-item">
+                <span class="item-label">{item.label}</span>
+                <span class="item-description">{item.description}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .expertise-section {
+    padding: 5rem 0;
+    background: #ffffff;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Header */
+  .section-header {
+    text-align: left;
+    margin-bottom: 3.5rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #0f172a;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    position: relative;
+    padding-bottom: 1.5rem;
+  }
+  
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: #3b82f6;
+    margin: 1.5rem 0 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: none;
+  }
+
+  .section-subtitle {
+    font-size: 1.25rem;
+    color: #64748b;
+    max-width: 600px;
+    margin: 1rem 0 0 2.5rem;
+    line-height: 1.75;
+    font-weight: 400;
+    position: relative;
+  }
+
+  /* Grid */
+  .expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+
+  /* Cards */
+  .expertise-card {
+    background: #f8f9fa;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 2rem;
+    transition: all 0.2s ease;
+  }
+
+  .expertise-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-color: #cbd5e1;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #2c4157;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #3b82f6;
+  }
+
+  /* Items */
+  .card-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .expertise-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .item-label {
+    font-weight: 600;
+    color: #2c4157;
+    font-size: 0.9375rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .item-separator {
+    display: none;
+  }
+
+  .item-description {
+    color: #64748b;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .expertise-section {
+      padding: 3rem 0;
+    }
+
+    .section-header {
+      margin-bottom: 2.5rem;
+      padding-left: 1rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.125rem;
+      margin-left: 1.5rem;
+    }
+
+    .expertise-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .expertise-card {
+      padding: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+    }
+
+    .item-description {
+      font-size: 0.875rem;
+    }
+  }
+</style>

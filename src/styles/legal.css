@@ -1,0 +1,151 @@
+/* ========================================
+   Styles pour les pages légales
+   (Mentions légales & Politique de confidentialité)
+   Style épuré et statutaire
+   ======================================== */
+
+/* Layout principal */
+.mentions-legales,
+.politique-confidentialite {
+  padding: 4rem 0;
+  background: #ffffff;
+}
+
+.mentions-legales .container,
+.politique-confidentialite .container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.mentions-legales .content,
+.politique-confidentialite .content {
+  color: #334155;
+  line-height: 1.6;
+}
+
+/* Information de mise à jour */
+.update-info {
+  text-align: right;
+  font-style: italic;
+  color: #64748b;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Sections */
+.mentions-legales section,
+.politique-confidentialite section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.mentions-legales section:last-child,
+.politique-confidentialite section:last-child {
+  border-bottom: none;
+}
+
+/* Typographie */
+.mentions-legales h2,
+.politique-confidentialite h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 0.75rem;
+  margin-top: 0;
+}
+
+.mentions-legales p,
+.politique-confidentialite p {
+  margin-bottom: 0.5rem;
+}
+
+.mentions-legales p:last-child,
+.politique-confidentialite p:last-child {
+  margin-bottom: 0;
+}
+
+.mentions-legales strong,
+.politique-confidentialite strong {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+/* Listes */
+.mentions-legales ul,
+.politique-confidentialite ul {
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+}
+
+.mentions-legales li,
+.politique-confidentialite li {
+  margin-bottom: 0.5rem;
+  color: #334155;
+}
+
+/* Bloc d'adresse spécial (mentions légales) */
+.address-block {
+  background: #f8fafc;
+  padding: 1rem;
+  border-left: 3px solid #005fcc;
+  margin: 1rem 0;
+}
+
+.address-block p {
+  margin: 0;
+  font-style: normal;
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media (max-width: 768px) {
+  .mentions-legales,
+  .politique-confidentialite {
+    padding: 3rem 0;
+  }
+
+  .mentions-legales .container,
+  .politique-confidentialite .container {
+    padding: 0 1.5rem;
+  }
+
+  .mentions-legales h2,
+  .politique-confidentialite h2 {
+    font-size: 1.125rem;
+  }
+
+  .mentions-legales section,
+  .politique-confidentialite section {
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+  }
+}
+
+/* ========================================
+   Classes utiles conservées
+   ======================================== */
+
+/* Variables CSS */
+:root {
+  --color-primary: #005fcc;
+  --color-dark: #0f172a;
+  --color-text: #334155;
+  --color-text-secondary: #64748b;
+  --color-background: #ffffff;
+  --color-grey-light: #f8fafc;
+  --color-border: #e2e8f0;
+}
+
+/* Éléments potentiellement utiles */
+.note {
+  border-left: 3px solid var(--color-primary);
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: var(--color-text);
+}

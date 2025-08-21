@@ -1,0 +1,527 @@
+/* Styles partagés pour les pages articles du blog */
+
+/* Section Article à la Une - Design minimaliste et sophistiqué */
+.featured-section {
+  padding: 6rem 0 4rem;
+  background-color: #ffffff;
+  position: relative;
+}
+
+.featured-article {
+  background-color: #fafbfc;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.featured-article:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-color: #cbd5e1;
+}
+
+.featured-link {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  text-decoration: none !important;
+  color: inherit;
+  align-items: stretch; /* Permet au contenu de prendre toute la hauteur disponible */
+  gap: 0; /* Suppression du gap pour image bord à bord */
+  height: 420px; /* Hauteur fixe */
+}
+
+.featured-link:hover {
+  text-decoration: none !important;
+}
+
+@media (max-width: 968px) {
+  .featured-link {
+    grid-template-columns: 1fr;
+    gap: 0;
+    height: auto;
+  }
+  
+  .featured-image-wrapper {
+    height: 280px;
+    min-height: 280px;
+  }
+}
+
+.featured-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 100%; /* Prendre toute la hauteur du parent */
+  min-height: 420px; /* Hauteur minimale pour garantir la visibilité */
+  width: 100%;
+  background-color: #f1f5f9;
+}
+
+.featured-image-wrapper img,
+.featured-image-wrapper .featured-image,
+.featured-image-wrapper > img[data-astro-image] {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+  transition: transform 0.3s ease;
+  max-width: none !important;
+  max-height: none !important;
+}
+
+.featured-article:hover .featured-image-wrapper img {
+  transform: scale(1.03);
+}
+
+/* Les media queries pour featured-image-wrapper sont déjà gérées plus haut */
+
+.featured-content {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: auto; /* Permet le scroll si besoin */
+}
+
+@media (max-width: 968px) {
+  .featured-content {
+    padding: 2rem;
+  }
+}
+
+.featured-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.category-badge {
+  color: #3b82f6;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.75rem;
+}
+
+.featured-meta time {
+  color: #64748b;
+  font-weight: 400;
+}
+
+.featured-meta .reading-time {
+  color: #64748b;
+  font-weight: 400;
+}
+
+.featured-title {
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  font-weight: 300;
+  color: #0f172a;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.featured-excerpt {
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limite à 3 lignes */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #2c4157;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  transition: all 0.2s ease;
+}
+
+.featured-article:hover .read-more {
+  color: #0f172a;
+  gap: 0.75rem;
+}
+
+/* Section Principale du Blog */
+.blog-main-section {
+  padding: 4rem 0 6rem;
+  background-color: #ffffff;
+}
+
+.blog-layout {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+@media (max-width: 968px) {
+  .blog-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+.section-title {
+  font-size: 1.875rem;
+  font-weight: 300;
+  color: #0f172a;
+  margin-bottom: 2.5rem;
+  letter-spacing: -0.01em;
+}
+
+/* Grille des Articles - Design minimaliste */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.post-card {
+  background-color: #fafbfc;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-color: #cbd5e1;
+}
+
+@media (max-width: 968px) {
+  .posts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.post-link {
+  text-decoration: none !important;
+  color: inherit;
+  display: block;
+}
+
+.post-link:hover {
+  text-decoration: none !important;
+}
+
+.post-image-wrapper {
+  overflow: hidden;
+  background-color: #f1f5f9;
+  height: 200px;
+  position: relative;
+}
+
+.post-image-wrapper img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.post-card:hover .post-image-wrapper img {
+  transform: scale(1.03);
+}
+
+.post-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+.post-meta .category-badge {
+  color: #3b82f6;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.75rem;
+}
+
+.post-meta time,
+.post-meta .reading-time {
+  color: #64748b;
+  font-weight: 400;
+}
+
+.post-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+  transition: color 0.2s ease;
+}
+
+.post-card:hover .post-title {
+  color: #2c4157;
+}
+
+.post-excerpt {
+  color: #64748b;
+  line-height: 1.6;
+  font-size: 0.9375rem;
+}
+
+/* Sidebar - Design épuré */
+.sidebar-column {
+  position: sticky;
+  top: 140px; /* Descendu de 100px à 140px */
+  align-self: start;
+}
+
+@media (max-width: 968px) {
+  .sidebar-column {
+    position: static;
+  }
+}
+
+.sidebar-widget {
+  background-color: #fafbfc;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 2rem;
+}
+
+.widget-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Sidebar Search */
+.sidebar-search {
+  margin-top: 2rem;
+}
+
+.sidebar-search :global(.search-bar) {
+  max-width: 100%;
+}
+
+.sidebar-search :global(.search-bar input) {
+  font-size: 0.875rem;
+  padding: 0.625rem 1rem;
+}
+
+.sidebar-search :global(.search-bar button) {
+  padding: 0.625rem 1rem;
+}
+
+.sidebar-search :global(.search-bar svg) {
+  width: 16px;
+  height: 16px;
+}
+
+.category-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.category-link {
+  padding: 0.625rem 0.875rem;
+  text-decoration: none !important;
+  color: #64748b;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  border-radius: 4px;
+}
+
+.category-link:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+  text-decoration: none !important;
+}
+
+.category-link.is-active {
+  background-color: #e2e8f0;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid #e2e8f0;
+}
+
+.pagination-info {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.pagination-next,
+.pagination-prev {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #2c4157;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.pagination-next:hover,
+.pagination-prev:hover {
+  background: #0f172a;
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+/* Section Aucun Article */
+.no-posts-section {
+  padding: 6rem 0;
+  text-align: center;
+  color: #64748b;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-posts-section p {
+  font-size: 1.125rem;
+  font-weight: 300;
+}
+
+
+/* FAQ dans les articles - Style inspiré du composant FAQ.astro */
+.article-content div[itemtype="https://schema.org/FAQPage"] {
+  margin: 3rem 0;
+}
+
+.article-content details[itemtype="https://schema.org/Question"] {
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.article-content details[itemtype="https://schema.org/Question"]:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+  border-color: #cbd5e1;
+}
+
+.article-content details[itemtype="https://schema.org/Question"][open] {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+  border-color: #cbd5e1;
+}
+
+.article-content summary[itemprop="name"] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  cursor: pointer;
+  list-style: none;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: #0f172a;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.article-content summary[itemprop="name"]::-webkit-details-marker {
+  display: none;
+}
+
+.article-content summary[itemprop="name"]:hover {
+  color: #334155;
+}
+
+/* Icône + et - à droite */
+.article-content summary[itemprop="name"]::after {
+  content: '+';
+  position: absolute;
+  right: 1.5rem;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  font-size: 1.25rem;
+  font-weight: 300;
+  transition: all 0.3s ease;
+}
+
+.article-content details[open] summary[itemprop="name"]::after {
+  content: '−';
+  color: #3b82f6;
+}
+
+/* Contenu de la réponse */
+.article-content div[itemtype="https://schema.org/Answer"] {
+  padding: 0 1.5rem 1.5rem;
+  color: #64748b;
+  line-height: 1.75;
+  font-size: 0.875rem;
+}
+
+.article-content div[itemtype="https://schema.org/Answer"] div[itemprop="text"] {
+  margin: 0;
+}
+
+.article-content div[itemtype="https://schema.org/Answer"] ul,
+.article-content div[itemtype="https://schema.org/Answer"] ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.article-content div[itemtype="https://schema.org/Answer"] li {
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.75;
+}
+
+.article-content div[itemtype="https://schema.org/Answer"] strong {
+  color: #2c4157;
+  font-weight: 600;
+}
+

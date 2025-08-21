@@ -1,0 +1,222 @@
+---
+import LayoutI18n from '../../layouts/LayoutI18n.astro';
+import Button from '../../components/ui/Button.astro';
+import ServicesInfo from '../../components/ServicesInfo.astro';
+import FAQ from '../../components/FAQ.astro';
+import CTA from '../../components/CTA.astro';
+import StickyPageTop from '../../components/StickyPageTop.astro';
+
+// --- PAGE DATA ---
+const allServices = [
+  {
+    title: "Luxembourg Accounting BOB50 & Professional Software",
+    shortTitle: "Lux GAAP Accounting",
+    description: "Professional accounting services using BOB 50, Horus or Odoo. eCDF compliant balance sheets, CIT/MBT/NWT optimization. Chartered accountant for Luxembourg SMEs.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 3m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" /><path d="M8 7m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v1a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z" /><path d="M8 14l0 .01" /><path d="M12 14l0 .01" /><path d="M16 14l0 .01" /><path d="M8 17l0 .01" /><path d="M12 17l0 .01" /><path d="M16 17l0 .01" /></svg>`,
+    features: ["BOB50 & Sage certified", "eCDF compliant balance sheets", "VAT declarations", "Management dashboards"],
+    slug: "accounting-bob50-luxembourg",
+    href: "/en/accounting",
+    price: "From €150/month",
+    accent: "blue"
+  },
+  {
+    title: "Company Formation in Luxembourg (RCS)",
+    shortTitle: "Company Formation (RCS)",
+    description: "Complete company formation: SARL, SAS, SARL-S, SA or SCI. Includes drafting of articles of association, RCS registration and banking support.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M12 11l0 6" /><path d="M9 14l6 0" /></svg>`,
+    features: ["Notarized articles included", "Automatic RCS filing", "Guaranteed fast turnaround", "Banking support"],
+    slug: "company-formation-rcs-luxembourg",
+    href: "/en/company-formation-luxembourg",
+    price: "On request",
+    accent: "gray"
+  },
+  {
+    title: "Company Domiciliation in Luxembourg",
+    shortTitle: "Domiciliation",
+    description: "Prestigious domiciliation service with compliant registered office address, mail management and access to meeting rooms.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21h18" /><path d="M5 21v-14l8 -4v18" /><path d="M19 21v-10l-6 -4" /><path d="M9 9l0 .01" /><path d="M9 12l0 .01" /><path d="M9 15l0 .01" /></svg>`,
+    features: ["Prestigious address", "Mail reception", "Phone answering", "Legal compliance"],
+    slug: "domiciliation-luxembourg",
+    href: "/en/domiciliation",
+    price: "From €150/month",
+    accent: "blue"
+  },
+  {
+    title: "Payroll Management & CCSS Declarations",
+    shortTitle: "Payroll Management (CCSS)",
+    description: "Complete payroll management: CCSS compliant payslips, CNS declarations, leave management and digital HR portal for your employees.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" /><path d="M9 3h6a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2v0a2 2 0 0 1 2 -2z" /><path d="M14 11h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5" /><path d="M12 17v1m0 -8v1" /></svg>`,
+    features: ["CCSS payslips", "Digital employee portal", "Auto CNS declarations", "Leave management"],
+    slug: "payroll-management-ccss-luxembourg",
+    href: "/en/payroll",
+    price: "€15/payslip",
+    accent: "blue"
+  },
+  {
+    title: "Tax Advisory and Optimization",
+    shortTitle: "Tax Advisory",
+    description: "Personalized tax support: structure optimization, CIT/MBT/NWT and VAT declarations, tax planning and compliance with Luxembourg regulations.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 10m-1.5 0a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0" /><path d="M15 17m-1.5 0a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0 -3 0" /><path d="M9 17l6 -7" /></svg>`,
+    features: ["Tax optimization", "CIT/MBT/NWT/VAT declarations", "Tax planning", "Regulatory monitoring"],
+    slug: "tax-advisory-luxembourg",
+    href: "/en/tax",
+    price: "On request",
+    accent: "gray"
+  },
+  {
+    title: "Due Diligence & Business Plan",
+    shortTitle: "Due Diligence & Business Plan",
+    description: "Premium advisory services: acquisition due diligence, business plan development for investors and company valuation.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2" /><path d="M12 12l0 .01" /><path d="M3 13a20 20 0 0 0 18 0" /></svg>`,
+    features: ["M&A due diligence", "Complete business plans", "Company valuation", "Support"],
+    slug: "due-diligence-business-plan-luxembourg",
+    price: "On request",
+    accent: "blue"
+  },
+];
+
+const metaDescription = "Chartered accountant services in Luxembourg: BOB50 accounting, SARL formation, CCSS payroll management, CIT/MBT/NWT tax returns, due diligence. Free quote.";
+const pageKeywords = "chartered accountant Luxembourg, BOB50 accounting, SARL formation Luxembourg, payroll management CCSS, tax declarations IRC ICC IF, VAT Luxembourg, domiciliation Luxembourg, due diligence, business plan, tax advisory Luxembourg, fiduciary Luxembourg, RCS Luxembourg, licensed accounting firm";
+const pageUrl = "https://www.fiduciaire-expert.lu/en/services";
+
+const faqItems = [
+  {
+    question: "Do you also manage declarations for self-employed workers?",
+    answer: "Absolutely. We handle all your obligations: accounting, income tax declarations, VAT management and support with your CCSS procedures."
+  },
+  {
+    question: "What does a standard accounting package include?",
+    answer: "Our standard package includes complete bookkeeping, bank reconciliations, periodic VAT declarations, interim reports, preparation of annual accounts and RCS filing. Additional services are available as options: payroll management, management reporting, consolidation and personalized advice."
+  },
+  {
+    question: "Do you offer payroll management?",
+    answer: "Yes, we offer a complete service: issuing payslips, social declarations, leave management and processing of benefits in kind."
+  },
+  {
+    question: "Do you work 100% digitally?",
+    answer: "Absolutely. Our approach is fully dematerialized: automated document collection, integrated validation workflows and real-time dashboards. You and your teams benefit from secure access to all your data."
+  },
+  {
+    question: "What languages do you work in?",
+    answer: "We work in French, English, German and Luxembourgish."
+  },
+  {
+    question: "What are your specialties?",
+    answer: "We mainly support SMEs, the real estate sector, commercial companies, holdings/SOPARFI and professional services."
+  },
+  {
+    question: "Do you help choose the right VAT regime?",
+    answer: "Of course. We analyze your activity with regard to the VAT law to determine whether the VAT exemption or the normal regime is most suitable, then we implement the optimal regime for your situation."
+  },
+  {
+    question: "Can I change accountants during the year?",
+    answer: "Absolutely. We ensure a smooth transition with complete takeover of your data and continuity of all your declarations."
+  },
+  {
+    question: "Do you assist in case of tax audit?",
+    answer: "Yes, we support you at every stage: preliminary review of your file, preparation of necessary documents, response to administrations and management of exchanges."
+  },
+  {
+    question: "How can I get a quote?",
+    answer: "It's simple: provide us with your estimated monthly volume of accounting documents, your business sector, the services required (VAT, payroll, reporting) and your desired start date. We will analyze your needs and quickly send you a clear and detailed quote."
+  }
+];
+
+// --- STRUCTURED DATA 10/10 ---
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "AccountingService",
+      "@id": `${pageUrl}#service`,
+      "name": "Accounting and Tax Services for SMEs in Luxembourg",
+      "description": metaDescription,
+      "provider": {
+        "@type": "Organization",
+        "name": "Fiduciaire Expert"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Luxembourg"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Fiduciaire Expert Services Catalog",
+        "itemListElement": allServices.map(service => ({
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": service.title,
+            "description": service.description,
+            "url": `${pageUrl}/${service.slug}`
+          },
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "priceCurrency": "EUR",
+            "description": service.price
+          }
+        }))
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "47",
+        "bestRating": "5"
+      },
+      "priceRange": "€€"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.answer
+        }
+      }))
+    }
+  ]
+};
+---
+
+
+<LayoutI18n
+  title="Chartered Accountant Services Luxembourg | Fiduciaire Expert"
+  description={metaDescription}
+  keywords={pageKeywords}
+  canonical={pageUrl}
+  schema={structuredData}
+>
+  <StickyPageTop
+    breadcrumbItems={[
+      { text: "Home", href: "/en" },
+      { text: "Services" }
+    ]}
+    title="Our chartered accountant services"
+    subtitle="Complete and tailor-made solutions for entrepreneurs and SMEs in Luxembourg. We combine rigor, technology and strategic advice to ensure your compliance and optimize your growth."
+  />
+
+  <ServicesInfo
+    title="Our expertise at your service"
+    subtitle="Discover our complete range of accounting, tax and social services designed to support your growth in Luxembourg"
+    services={allServices}
+    lang="en"
+  />
+  
+  <CTA 
+    title="Ready to optimize your management?"
+    subtitle="Let's discuss your project. Contact us for a free initial consultation with no obligation."
+    buttonText="Schedule an appointment"
+    buttonHref="/en/contact"
+  />
+
+  <FAQ
+    title="Frequently Asked Questions"
+    subtitle="Clear answers to your questions about our services."
+    faqItems={faqItems}
+    showCTA={false}
+    backgroundColor="#f1f5f9"
+  />
+</LayoutI18n>
+

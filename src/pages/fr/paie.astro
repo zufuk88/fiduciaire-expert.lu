@@ -1,0 +1,581 @@
+---
+import LayoutI18n from '../../layouts/LayoutI18n.astro';
+import StickyPageTop from '../../components/StickyPageTop.astro';
+import CTA from '../../components/CTA.astro';
+import FAQ from '../../components/FAQ.astro';
+import ProcessTimeline from '../../components/ProcessTimeline.astro';
+
+const metaDescription = "Externalisation de la paie au Luxembourg. Service complet et conforme : bulletins de salaire, déclarations CCSS/CNS, gestion RH. Experts en droit social luxembourgeois.";
+
+const paieSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Externalisation de la Paie Luxembourg",
+  "serviceType": "Service de gestion de la paie",
+  "provider": {
+    "@type": "Organization",
+    "name": "Fiduciaire Expert",
+    "url": "https://www.fiduciaire-expert.lu"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Luxembourg"
+  },
+  "description": metaDescription
+};
+
+const faqItems = [
+  {
+    question: "Quel est le coût d'externalisation de la paie au Luxembourg ?",
+    answer: "Nos tarifs démarrent à 15€ HT par bulletin de salaire. Le prix peut varier selon la complexité (avantages en nature, stock options, etc.). Les déclarations CCSS/CNS et l'archivage légal sont inclus dans notre forfait."
+  },
+  {
+    question: "Comment transmettez-vous les variables de paie mensuelles ?",
+    answer: "Nous mettons à votre disposition un portail sécurisé pour transmettre les données variables (absences, heures supplémentaires, primes). Vous pouvez également nous les envoyer par email crypté ou via notre formulaire Excel standardisé."
+  },
+  {
+    question: "Gérez-vous les salariés frontaliers ?",
+    answer: "Oui, nous maîtrisons parfaitement la gestion des frontaliers (France, Belgique, Allemagne) : certificats A1, calculs d'imposition selon les conventions fiscales, particularités sociales de chaque pays."
+  },
+  {
+    question: "Que se passe-t-il en cas de contrôle ITM ou CCSS ?",
+    answer: "Nous vous accompagnons lors des contrôles : préparation des documents, présence lors des entretiens si nécessaire, et régularisation éventuelle. Notre expertise minimise les risques de redressement."
+  },
+  {
+    question: "Pouvez-vous reprendre un dossier en cours d'année ?",
+    answer: "Absolument. Nous assurons une reprise transparente à tout moment de l'année. Nous récupérons l'historique, vérifions la conformité et assurons la continuité sans interruption pour vos salariés."
+  }
+];
+---
+
+<LayoutI18n
+  title="Externalisation Paie Luxembourg | Gestion Bulletins Salaire & CCSS"
+  description={metaDescription}
+  canonical="https://www.fiduciaire-expert.lu/fr/paie"
+  ogImage="/images/paie-luxembourg.jpg"
+  keywords="externalisation paie luxembourg, gestion salaire, bulletin paie, déclaration CCSS, CNS luxembourg, droit social, contrat travail, convention collective"
+  schema={paieSchema}
+>
+  <StickyPageTop
+    breadcrumbItems={[
+      { text: "Accueil", href: "/fr" },
+      { text: "Services", href: "/fr/services" },
+      { text: "Gestion de la Paie" }
+    ]}
+    title="Externalisation de la paie au Luxembourg"
+    subtitle="Paie Luxembourg clé en main : bulletins conformes, déclarations CCSS via SECUline, fiches d'impôt MyGuichet, retenue à la source modèle 950, certificats annuels et gestion maladie/accidents, avec délais tenus."
+  />
+
+  <!-- Section Introduction -->
+  <section class="section-white">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Gestion intégrale de la paie et des obligations sociales</h2>
+        <p class="section-subtitle">Nous prenons en charge la paie de vos salariés dans le respect des lois, des règlements et des conventions collectives.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Services principaux -->
+  <section class="section-grey">
+    <div class="container">
+      <div class="services-grid">
+        <div class="service-block">
+          <div class="service-header">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </div>
+            <h3>Élaboration et suivi des bulletins de salaire</h3>
+          </div>
+          <ul class="service-list">
+            <li>Calcul précis des salaires fixes, variables, primes, <a href="/fr/articles/avantage-en-nature" style="color: #005fcc; text-decoration: underline;">avantages en nature</a> et indemnités</li>
+            <li>Établissement et remise mensuelle obligatoire des bulletins de salaire avec toutes les mentions légales</li>
+            <li>Émission du journal de paie et suivi des régularisations</li>
+            <li>Émission des certificats de rémunération annuels pour chaque salarié et dépôt des ECSP à l'ACD via MyGuichet avant le 1er mars</li>
+            <li>Consultation des fiches d'impôt électroniques sur MyGuichet (obligatoire depuis le 01/01/2022, plus de carte papier)</li>
+          </ul>
+        </div>
+
+        <div class="service-block">
+          <div class="service-header">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M20 8v6"/>
+                <path d="M23 11h-6"/>
+              </svg>
+            </div>
+            <h3>Déclarations sociales obligatoires (CCSS)</h3>
+          </div>
+          <ul class="service-list">
+            <li>Déclaration d'entrée sous 8 jours via SECUline (DECAFF) ; si pas de matricule : DEMMAT puis DECAFF</li>
+            <li>Déclaration de sortie sous 8 jours auprès du CCSS</li>
+            <li>Déclarations mensuelles des rémunérations et heures via SECUline</li>
+            <li>Vérification des factures mensuelles du CCSS</li>
+            <li>Gestion des incapacités : le salarié envoie l'IT à la CNS au plus tard le 3e jour ouvré ; l'employeur déclare les périodes au CCSS ; accidents à déclarer à l'AAA (via MyGuichet)</li>
+            <li>Déclaration de la retenue à la source (modèle 950 via MyGuichet) dans les 10 jours : mensuelle si ≥ 750€, trimestrielle 75-750€, annuelle < 75€</li>
+          </ul>
+        </div>
+
+        <div class="service-block">
+          <div class="service-header">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+              </svg>
+            </div>
+            <h3>Formalités RH et conformité légale</h3>
+          </div>
+          <ul class="service-list">
+            <li>Organisation de la visite médicale d'embauche obligatoire auprès d'un service de santé au travail (STM, ASTF, etc.)</li>
+            <li>Gestion complète des entrées et sorties (certificats de travail, attestations requises par les institutions compétentes, solde de tout compte)</li>
+            <li>Application des conventions collectives sectorielles en vigueur (Commerce, Banques, Horeca…)</li>
+          </ul>
+        </div>
+
+
+        <div class="service-block">
+          <div class="service-header">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <h3>Conseil social et assistance</h3>
+          </div>
+          <ul class="service-list">
+            <li>Accompagnement lors de contrôles fiscaux ou sociaux</li>
+            <li>Rédaction et mise à jour des contrats de travail (CDI, CDD, apprentis, étudiants)</li>
+            <li>Gestion des procédures disciplinaires et ruptures de contrat</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Méthodologie -->
+  <ProcessTimeline
+    title="Notre méthodologie en 4 étapes"
+    steps={[
+      {
+        number: "1",
+        title: "Onboarding et affiliation",
+        description: [
+          "Affiliation au service de santé au travail et organisation de la visite médicale d'embauche",
+          "Déclaration d'entrée au Centre Commun de la Sécurité Sociale dans les 8 jours via SECUline",
+          "Demande de matricule national si première affiliation",
+          "Consultation de la fiche d'impôt électronique sur MyGuichet"
+        ]
+      },
+      {
+        number: "2",
+        title: "Gestion mensuelle de la paie",
+        description: [
+          "Calcul des salaires et établissement des bulletins avec toutes les mentions légales obligatoires",
+          "Déclaration des rémunérations et heures travaillées au Centre Commun via SECUline",
+          "Vérification des factures mensuelles du Centre Commun"
+        ]
+      },
+      {
+        number: "3",
+        title: "Déclarations fiscales et sociales",
+        description: [
+          "Déclaration de la retenue à la source (modèle 950) dans les 10 jours suivant la période",
+          "Périodicité adaptée : mensuelle si supérieure à 750 euros, trimestrielle entre 75 et 750 euros, annuelle si inférieure à 75 euros",
+          "Gestion des arrêts maladie et accidents du travail"
+        ]
+      },
+      {
+        number: "4",
+        title: "Clôture annuelle",
+        description: [
+          "Émission des certificats de rémunération annuels pour chaque salarié",
+          "Dépôt des extraits de compte salaire et pension à l'Administration des Contributions Directes avant le 1er mars via MyGuichet",
+          "Archivage sécurisé des documents pendant 10 ans"
+        ]
+      }
+    ]}
+    variant="vertical"
+  />
+
+  <!-- Section Avantages -->
+  <section class="section-grey">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Pourquoi externaliser la paie avec notre fiduciaire ?</h2>
+      </div>
+      <div class="advantages-grid">
+        <div class="advantage-card">
+          <div class="advantage-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h3>Sécurité juridique</h3>
+          <p>Conformité avec le Code du travail et la sécurité sociale</p>
+        </div>
+        <div class="advantage-card">
+          <div class="advantage-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <h3>Gain de temps</h3>
+          <p>Gestion administrative allégée pour vous concentrer sur votre activité</p>
+        </div>
+        <div class="advantage-card">
+          <div class="advantage-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </div>
+          <h3>Confidentialité</h3>
+          <p>Traitement sécurisé des données RH</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FAQ
+    title="Questions fréquentes sur la gestion de paie"
+    subtitle="Tout ce que vous devez savoir sur l'externalisation de votre paie au Luxembourg"
+    faqItems={faqItems}
+    showCTA={false}
+    generateSchema={true}
+  />
+
+  <CTA
+    title="Prêt à simplifier votre gestion de paie ?"
+    subtitle="Contactez-nous pour un audit gratuit de votre situation sociale et découvrez comment nous pouvons optimiser votre gestion RH."
+    buttonText="Demander un devis gratuit"
+    buttonHref="/fr/contact?service=paie"
+    ]}
+  />
+</LayoutI18n>
+
+<style>
+  :root {
+    --color-primary: #005fcc;
+    --color-dark: #0f172a;
+    --color-text: #334155;
+    --color-text-secondary: #64748b;
+    --color-background: #ffffff;
+    --color-grey-light: #f8fafc;
+    --color-grey: #f1f5f9;
+    --color-border: #e2e8f0;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Sections */
+  .section-white {
+    background: var(--color-background);
+    padding: 5rem 0;
+    position: relative;
+  }
+
+  .section-grey {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 5rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-grey::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(0, 95, 204, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Typography */
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--color-dark);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .section-subtitle {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* Services Grid */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 2rem;
+  }
+
+  .service-block {
+    background: white;
+    border-radius: 4px;
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border);
+    transition: all 0.3s ease;
+  }
+
+  .service-block:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .service-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .service-icon {
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 4px;
+    color: var(--color-primary);
+  }
+
+  .service-header h3 {
+    font-size: 1.375rem;
+    font-weight: 300;
+    color: var(--color-dark);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .service-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .service-list li {
+    position: relative;
+    padding: 0.75rem 0;
+    padding-left: 1.75rem;
+    color: var(--color-text);
+    line-height: 1.6;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .service-list li:last-child {
+    border-bottom: none;
+  }
+
+  .service-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1.125rem;
+    width: 4px;
+    height: 4px;
+    background: var(--color-primary);
+    border-radius: 50%;
+  }
+
+  /* Methodology Timeline */
+  .methodology-timeline {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 0;
+  }
+
+  .methodology-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .methodology-step:last-child {
+    margin-bottom: 0;
+  }
+
+  .methodology-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 2rem;
+    top: 4.5rem;
+    bottom: -2.5rem;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--color-primary), transparent);
+    opacity: 0.2;
+  }
+
+  .step-number {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    background: white;
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+  }
+
+  .methodology-step:hover .step-number {
+    background: var(--color-primary);
+    color: white;
+    transform: scale(1.1);
+  }
+
+  .step-content {
+    flex: 1;
+    padding-top: 0.5rem;
+  }
+
+  .step-content h3 {
+    font-size: 1.375rem;
+    font-weight: 300;
+    color: var(--color-dark);
+    margin: 0 0 0.75rem 0;
+  }
+
+  .step-content p {
+    color: var(--color-text);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* Advantages Grid */
+  .advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .advantage-card {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+    transition: all 0.3s ease;
+  }
+
+  .advantage-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+  }
+
+  .advantage-icon {
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto 1.5rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-radius: 50%;
+    color: var(--color-primary);
+  }
+
+  .advantage-card h3 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--color-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  .advantage-card p {
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .section-title {
+      font-size: 1.875rem;
+    }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .methodology-step::after {
+      display: none;
+    }
+
+    .step-number {
+      width: 3rem;
+      height: 3rem;
+      font-size: 1.25rem;
+    }
+
+    .step-content h3 {
+      font-size: 1.125rem;
+    }
+
+    .advantages-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .section-white,
+    .section-grey {
+      padding: 3rem 0;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+    }
+
+    .service-header {
+      flex-direction: column;
+    }
+
+    .service-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+</style>

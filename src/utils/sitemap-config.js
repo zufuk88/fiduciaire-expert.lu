@@ -9,16 +9,27 @@ export function customSitemapTransform(page) {
   const pathname = url.replace('https://www.fiduciaire-expert.lu', '').replace(/\/$/, '') || '/';
 
   // Définir les priorités en fonction du type de page
+  // Gestion des URLs avec préfixes de langue /fr et /en
   const priorities = {
-    '/': 1.0, // Page d'accueil
-    '/services': 0.9,
-    '/creation-societe-luxembourg': 0.9,
-    '/comptabilite': 0.8,
-    '/paie': 0.8,
-    '/domiciliation': 0.7,
-    '/contact': 0.7,
-    '/a-propos': 0.7,
-    '/articles': 0.6,
+    '/': 1.0, // Redirection racine
+    '/fr': 1.0, // Page d'accueil française
+    '/en': 1.0, // Page d'accueil anglaise
+    '/fr/services': 0.9,
+    '/en/services': 0.9,
+    '/fr/creation-societe-luxembourg': 0.9,
+    '/en/company-formation-luxembourg': 0.9,
+    '/fr/comptabilite': 0.8,
+    '/en/accounting': 0.8,
+    '/fr/paie': 0.8,
+    '/en/payroll': 0.8,
+    '/fr/domiciliation': 0.7,
+    '/en/domiciliation': 0.7,
+    '/fr/contact': 0.7,
+    '/en/contact': 0.7,
+    '/fr/a-propos': 0.7,
+    '/en/about': 0.7,
+    '/fr/articles': 0.6,
+    '/en/articles': 0.6,
     'default': 0.5
   };
 
@@ -39,13 +50,21 @@ export function customSitemapTransform(page) {
   }
 
   // Articles de blog ont une priorité plus faible
-  if (pathname.includes('/articles/') && pathname !== '/articles') {
+  if (pathname.includes('/articles/') && !pathname.endsWith('/articles')) {
     priority = 0.4;
   }
 
   // Pages légales ont une priorité très faible
-  if (pathname.includes('/mentions-legales') || pathname.includes('/politique-confidentialite')) {
+  if (pathname.includes('/mentions-legales') || 
+      pathname.includes('/politique-confidentialite') ||
+      pathname.includes('/legal-notice') || 
+      pathname.includes('/privacy-policy')) {
     priority = 0.3;
+  }
+  
+  // Pages de remerciement
+  if (pathname.includes('/merci') || pathname.includes('/thank-you')) {
+    priority = 0.2;
   }
 
   return {

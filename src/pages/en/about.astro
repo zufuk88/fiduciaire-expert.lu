@@ -1,0 +1,248 @@
+---
+import LayoutI18n from '../../layouts/LayoutI18n.astro';
+import StickyPageTop from '../../components/StickyPageTop.astro';
+import StatsSection from '../../components/StatsSection.astro';
+import StorySection from '../../components/StorySection.astro';
+import ValuesGrid from '../../components/ValuesGrid.astro';
+import TeamGrid from '../../components/TeamGrid.astro';
+import TestimonialsGrid from '../../components/TestimonialsGrid.astro';
+import FAQ from '../../components/FAQ.astro';
+import bureauImage from '/src/assets/images/bureau-fiduciaire.jpg';
+import marcDuboisImage from '/src/assets/images/marc-dubois.jpg';
+import sophieBernardImage from '/src/assets/images/sophie-bernard.jpg';
+
+// Page data - Content preserved
+const teamMembers = [
+  {
+    name: "Marc Dubois",
+    role: "Chartered Accountant and Tax Advisor, Founder",
+    imageUrl: marcDuboisImage,
+    imageAlt: "Portrait of Marc Dubois, Chartered Accountant and founder of Fiduciaire Expert in Luxembourg.",
+    bio: "Founder and tax advisor of Fiduciaire Expert, Marc has an exceptionally broad background: Big Four, international law firms, investment funds and fiduciaries. This unique experience enables him to deliver high value-added tax advice and tailored optimization strategies.",
+    linkedin: "https://linkedin.com/in/marcdubois"
+  },
+  {
+    name: "Sophie Bernard",
+    role: "Co-Founder",
+    imageUrl: sophieBernardImage,
+    imageAlt: "Portrait of Sophie Bernard, co-founder and accounting expert at Fiduciaire Expert.",
+    bio: "Co-founder and Luxembourg GAAP and IFRS expert, Sophie brings over 20 years of experience gained in international companies, ensuring accounting compliance with both Luxembourg and international standards.",
+    linkedin: "https://linkedin.com/in/sophiebernard"
+  },
+];
+
+const stats = [
+  { number: "20+", label: "Years of expertise" },
+  { number: "50+", label: "Clients supported" },
+  { number: "100%", label: "Compliance guaranteed" }
+];
+
+const values = [
+  { 
+    title: "Local expertise", 
+    description: "Perfect mastery of Luxembourg's legal, social and tax framework (CIT/MBT/NWT, VAT and CCSS), ensured by constant legal monitoring.",
+    icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+    </svg>`
+  },
+  { 
+    title: "Transparency", 
+    description: "Our rates are clear and our quotes detailed. We believe in open communication and dialogue with our clients.",
+    icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
+    </svg>`
+  },
+  { 
+    title: "Personalized advice", 
+    description: "Each client benefits from a unique and dedicated contact person, guaranteeing availability and personalized advice.",
+    icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+    </svg>`
+  },
+];
+
+const testimonials = [
+  { content: "Fiduciaire Expert has been supporting us for a long time. Their expertise in the Luxembourg market is remarkable. Creation of our holding in a few weeks!", author: "M. Laurent", role: "CEO, TechLux Solutions" },
+  { content: "Exceptional tax advice and support: we had immediate results. The team is responsive and always provides good advice. I highly recommend.", author: "P. Schmitt", role: "CFO, Finance Partners" },
+];
+
+const faqItems = [
+  {
+    question: "What accounting services do you offer?",
+    answer: "We offer a complete range of services: bookkeeping, preparation of annual accounts, CIT/MBT/NWT and VAT tax returns, payroll and CCSS social charges management, company formation and domiciliation."
+  },
+  {
+    question: "What are your professional qualifications?",
+    answer: "Our experts hold degrees in chartered accounting and taxation. We are members of the Luxembourg Order of Chartered Accountants (OECL) and strictly adhere to the profession's ethical standards."
+  },
+  {
+    question: "What types of companies do you support?",
+    answer: "We mainly support SMEs, startups and individual entrepreneurs established in Luxembourg. Our expertise covers all business sectors, with a specialization in SARL, SA and SOPARFI structures."
+  },
+  {
+    question: "How does the first consultation work?",
+    answer: "The first consultation allows us to analyze your specific needs. We examine your accounting and tax situation, then establish a detailed and transparent quote for our services."
+  }
+];
+
+const metaDescription = "Chartered accounting firm in Luxembourg. Certified chartered accountants, qualified tax advisors. Accounting, tax, payroll, company formation. OECL member.";
+const pageUrl = "https://www.fiduciaire-expert.lu/en/about";
+
+// SEO Schema - Enhanced with FAQ and Breadcrumb
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}#breadcrumb`,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.fiduciaire-expert.lu/en"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "About",
+          "item": pageUrl
+        }
+      ]
+    },
+    {
+      "@type": "AboutPage",
+      "@id": pageUrl,
+      "name": "About Fiduciaire Expert | Accounting Firm in Luxembourg",
+      "description": metaDescription,
+      "mainEntity": {
+        "@id": `${pageUrl.split('/en/')[0]}/#organization`
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": `${pageUrl.split('/en/')[0]}/#organization`,
+      "name": "Fiduciaire Expert",
+      "description": "Certified chartered accounting firm in Luxembourg. Chartered accountant and qualified tax advisors. Luxembourg accounting, CIT/MBT/NWT and VAT tax returns, CCSS payroll, SARL/SA company formation.",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Luxembourg"
+      },
+      "knowsAbout": [
+        "Luxembourg accounting",
+        "CIT/MBT taxation",
+        "Luxembourg VAT",
+        "Tax returns",
+        "CCSS payroll",
+        "Luxembourg company formation"
+      ],
+      "memberOf": {
+        "@type": "Organization",
+        "name": "Ordre des Experts-Comptables Luxembourg",
+        "url": "https://www.oec.lu"
+      },
+      "url": pageUrl.split('/en/')[0],
+      "logo": `${pageUrl.split('/en/')[0]}/src/assets/images/Logo.webp`,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "15 Avenue de la Liberté",
+        "addressLocality": "Luxembourg",
+        "postalCode": "L-1931",
+        "addressCountry": "LU"
+      },
+      "founder": teamMembers.map(member => ({
+        "@type": "Person",
+        "name": member.name,
+        "jobTitle": member.role,
+        "description": member.bio,
+        "image": member.imageUrl.src,
+        "sameAs": member.linkedin
+      })),
+      "review": testimonials.map(testimonial => ({
+        "@type": "Review",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "reviewBody": testimonial.content,
+        "author": {
+          "@type": "Person",
+          "name": testimonial.author
+        }
+      }))
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${pageUrl}#faq`,
+      "mainEntity": faqItems.map(item => ({
+        "@type": "Question",
+        "name": item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.answer
+        }
+      }))
+    }
+  ]
+};
+---
+
+<LayoutI18n
+  title="Chartered Accountant Luxembourg | Fiduciaire Expert | About"
+  description={metaDescription}
+  canonical={pageUrl}
+  schema={aboutSchema}
+>
+  <StickyPageTop
+    breadcrumbItems={[
+      { text: "Home", href: "/en" },
+      { text: "About" }
+    ]}
+    title="Certified Chartered Accountant and Tax Advisor in Luxembourg"
+    subtitle="Chartered accounting firm. Accounting, tax, payroll and company formation for SMEs and entrepreneurs."
+  />
+
+  <StatsSection stats={stats} backgroundColor="#f1f5f9" />
+
+  <StorySection 
+    title="Our professional expertise"
+    paragraphs={[
+      "<strong>Fiduciaire Expert</strong> is a certified chartered accounting firm in Luxembourg. Our chartered accountants and qualified tax advisors support companies in their accounting, tax and social management in accordance with Luxembourg legislation.",
+      "Our approach combines <strong>technical rigor</strong>, <strong>technological innovation</strong> and <strong>privileged human relationships</strong>. We have perfect mastery of the Luxembourg regulatory environment and support our clients in their growth with personalized strategic advice.",
+      "Each mission is carried out with the same level of quality that has built our reputation: <strong>total transparency</strong>, <strong>respected deadlines</strong> and <strong>guaranteed compliance</strong>."
+    ]}
+    image={bureauImage}
+    imageAlt="Modern offices of Fiduciaire Expert in Luxembourg, illustrating our professionalism and contemporary approach"
+  />
+
+  <ValuesGrid 
+    title="Our values"
+    subtitle="The principles that guide our daily commitment to our clients"
+    values={values}
+    backgroundColor="#f1f5f9"
+  />
+
+  <TeamGrid 
+    title="Our team"
+    subtitle="Passionate experts, united by the requirement of excellence"
+    members={teamMembers}
+  />
+
+  <TestimonialsGrid 
+    title="They trust us"
+    subtitle="Our clients' testimonials reflect our commitment to quality"
+    testimonials={testimonials}
+    backgroundColor="#f1f5f9"
+  />
+
+  <FAQ 
+    title="Frequently asked questions"
+    subtitle="Answers to the most common questions about our firm"
+    faqItems={faqItems}
+    generateSchema={false}
+  />
+
+  <script type="application/ld+json" set:html={JSON.stringify(aboutSchema)} is:inline />
+</LayoutI18n>
+

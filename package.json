@@ -9,7 +9,12 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.4.1",
-    "astro": "^5.11.2"
+    "astro": "^5.11.2",
+    "libphonenumber-js": "^1.12.12"
+  },
+  "devDependencies": {
+    "gray-matter": "^4.0.3"
   }
 }

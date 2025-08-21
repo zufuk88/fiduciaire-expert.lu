@@ -1,0 +1,228 @@
+---
+// src/pages/en/articles/index.astro
+
+import { getCollection } from 'astro:content';
+import LayoutI18n from '../../../layouts/LayoutI18n.astro';
+// NEW: Import Image component for optimization
+import { Image } from 'astro:assets';
+import SearchBar from '../../../components/SearchBar.astro';
+import StickyPageTop from '../../../components/StickyPageTop.astro';
+import { calculateReadingTime } from '../../../utils/reading-time';
+import '../../../styles/blog-articles.css';
+
+// Pagination
+const POSTS_PER_PAGE = 9;
+const currentPage = 1; // Home page = page 1
+
+// Fetch all articles
+const allPosts = await getCollection('blog');
+
+// Filter only articles with English categories
+const englishCategories = ['Tax', 'Payroll', 'Accounting', 'Corporate Law'];
+const englishPosts = allPosts.filter(post => englishCategories.includes(post.data.category) && post.data.draft !== true);
+const sortedPosts = englishPosts.sort((a, b) => {
+  // Use modified if it exists, otherwise use date
+  const dateA = new Date(a.data.modified || a.data.date).getTime();
+  const dateB = new Date(b.data.modified || b.data.date).getTime();
+  return dateB - dateA;
+});
+
+// Get categories that have English articles
+const categories = [...new Set(englishPosts.map(post => post.data.category))].filter(Boolean);
+const featuredPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
+// Display 8 regular articles after the featured (total = 9 articles on page 1)
+const regularPosts = sortedPosts.length > 1 ? sortedPosts.slice(1, Math.min(POSTS_PER_PAGE, sortedPosts.length)) : [];
+const totalPages = Math.max(1, Math.ceil(sortedPosts.length / POSTS_PER_PAGE));
+const hasMorePosts = sortedPosts.length > POSTS_PER_PAGE;
+
+const formatDate = (date: Date) => date.toLocaleDateString('en-GB', {
+  year: 'numeric', month: 'long', day: 'numeric'
+});
+
+// Schema.org for articles page
+const articlesSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://www.fiduciaire-expert.lu/en/articles",
+      "name": "Chartered Accountant Luxembourg Articles | Fiduciaire Expert Blog",
+      "description": `Discover our ${sortedPosts.length} expert articles on accounting, CIT/MBT taxation, VAT and company formation in Luxembourg.`,
+      "url": "https://www.fiduciaire-expert.lu/en/articles",
+      "isPartOf": {
+        "@id": "https://www.fiduciaire-expert.lu/#website"
+      },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.fiduciaire-expert.lu/en"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Articles",
+            "item": "https://www.fiduciaire-expert.lu/en/articles"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Blog",
+      "@id": "https://www.fiduciaire-expert.lu/en/articles#blog",
+      "name": "Fiduciaire Expert Luxembourg Blog",
+      "description": "Advice and news on accounting, taxation, payroll and corporate law in Luxembourg",
+      "url": "https://www.fiduciaire-expert.lu/en/articles",
+      "inLanguage": "en-GB",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Fiduciaire Expert",
+        "url": "https://www.fiduciaire-expert.lu"
+      },
+      "blogPost": sortedPosts.slice(0, 10).map(post => ({
+        "@type": "BlogPosting",
+        "headline": post.data.title,
+        "description": post.data.description,
+        "datePublished": post.data.date.toISOString(),
+        "dateModified": (post.data.modified || post.data.date).toISOString(),
+        "url": `https://www.fiduciaire-expert.lu/en/articles/${post.slug.replace('en/', '')}`,
+        "image": post.data.image ? `https://www.fiduciaire-expert.lu${post.data.image.src}` : undefined,
+        "author": {
+          "@type": "Organization",
+          "name": "Fiduciaire Expert"
+        },
+        "articleSection": post.data.category,
+        "keywords": post.data.tags?.join(', ')
+      }))
+    }
+  ]
+};
+---
+
+<LayoutI18n
+  title="Chartered Accountant Luxembourg Articles | Accounting Tax Blog"
+  description={`${sortedPosts.length} chartered accounting articles: CIT/MBT, Luxembourg VAT, SARL/SA formation, CCSS payroll. Tax and accounting advice by certified experts.`}
+  canonical="https://www.fiduciaire-expert.lu/en/articles"
+  schema={articlesSchema}
+>
+  {/* Link tag for next page SEO */}
+  {hasMorePosts && (
+    <Fragment slot="head">
+      <link rel="next" href="/en/articles/page/2" />
+    </Fragment>
+  )}
+  <StickyPageTop
+    breadcrumbItems={[
+      { text: "Home", href: "/en" },
+      { text: "Blog" }
+    ]}
+    title="Chartered accounting and tax articles"
+    subtitle="Practical guides on Luxembourg accounting, CIT/MBT/NWT and VAT tax returns, CCSS payroll management and company formation."
+  />
+
+
+  {sortedPosts.length > 0 ? (
+    <>
+      {featuredPost && (
+        <section class="featured-section">
+          <div class="container">
+            <article class="featured-article">
+              <a href={`/en/articles/${featuredPost.slug.replace('en/', '')}`} class="featured-link">
+                {featuredPost.data.image && (
+                  <div class="featured-image-wrapper">
+                    {/* MODIFIÉ : Utilisation du composant Image optimisé */}
+                    <Image src={featuredPost.data.image} alt={`${featuredPost.data.title} - Luxembourg chartered accountant guide`} width={1200} height={600} loading="eager" fetchpriority="high" quality="mid"/>
+                  </div>
+                )}
+                <div class="featured-content">
+                  <p class="featured-meta">
+                    <span class="category-badge">{featuredPost.data.category}</span>
+                    <time datetime={(featuredPost.data.modified && new Date(featuredPost.data.modified) > new Date(featuredPost.data.date) ? new Date(featuredPost.data.modified) : featuredPost.data.date).toISOString()}>
+                      {formatDate(featuredPost.data.modified && new Date(featuredPost.data.modified) > new Date(featuredPost.data.date) ? new Date(featuredPost.data.modified) : featuredPost.data.date)}
+                    </time>
+                    <span class="reading-time">• {calculateReadingTime(featuredPost.body, 'en')} min</span>
+                  </p>
+                  <h2 class="featured-title">{featuredPost.data.title}</h2>
+                  <p class="featured-excerpt">{featuredPost.data.description}</p>
+                  <span class="read-more">Read article →</span>
+                </div>
+              </a>
+            </article>
+          </div>
+        </section>
+      )}
+
+      <section class="blog-main-section">
+        <div class="container blog-layout">
+          <div class="posts-column">
+            <h2 class="section-title">All articles</h2>
+            <div class="posts-grid">
+              {regularPosts.map(post => (
+                <article class="post-card">
+                  <a href={`/en/articles/${post.slug.replace('en/', '')}`} class="post-link">
+                    {post.data.image && (
+                      <div class="post-image-wrapper">
+                        {/* MODIFIÉ : Utilisation du composant Image optimisé */}
+                        <Image src={post.data.image} alt={`${post.data.title} - Luxembourg accounting taxation article`} width={400} height={200} loading="lazy" quality="mid" />
+                      </div>
+                    )}
+                    <div class="post-content">
+                      <p class="post-meta">
+                        <span class="category-badge">{post.data.category}</span>
+                        <time datetime={(post.data.modified && new Date(post.data.modified) > new Date(post.data.date) ? new Date(post.data.modified) : post.data.date).toISOString()}>{formatDate(post.data.modified && new Date(post.data.modified) > new Date(post.data.date) ? new Date(post.data.modified) : post.data.date)}</time>
+                    <span class="reading-time">• {calculateReadingTime(post.body, 'en')} min</span>
+                      </p>
+                      <h4 class="post-title">{post.data.title}</h4>
+                      <p class="post-excerpt">{post.data.description}</p>
+                    </div>
+                  </a>
+                </article>
+              ))}
+            </div>
+            
+            {/* Pagination */}
+            {hasMorePosts && (
+              <div class="pagination">
+                <span class="pagination-info">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <a href="/en/articles/page/2" rel="next" class="pagination-next">
+                  Next articles
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </a>
+              </div>
+            )}
+          </div>
+          <aside class="sidebar-column">
+            <div class="sidebar-widget">
+              <h3 class="widget-title">Expertise categories</h3>
+              <nav class="category-nav">
+                <a href="/en/articles" class="category-link is-active">All categories</a>
+                {categories.map(cat => {
+                  const slug = cat.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-');
+                  return <a href={`/en/articles/category/${slug}`} class="category-link">{cat}</a>;
+                })}
+              </nav>
+            </div>
+            
+            <div class="sidebar-widget sidebar-search">
+              <h3 class="widget-title">Search</h3>
+              <SearchBar placeholder="Search" lang="en" />
+            </div>
+          </aside>
+        </div>
+      </section>
+    </>
+  ) : (
+    <section class="no-posts-section">
+      <div class="container">
+        <p>No articles have been published yet. Come back soon!</p>
+      </div>
+    </section>
+  )}
+</LayoutI18n>

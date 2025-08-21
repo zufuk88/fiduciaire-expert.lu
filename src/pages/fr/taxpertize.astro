@@ -1,0 +1,272 @@
+---
+import LayoutI18n from '../../layouts/LayoutI18n.astro';
+import StickyPageTop from '../../components/StickyPageTop.astro';
+import ServicesInfo from '../../components/ServicesInfo.astro';
+import ProcessTimeline from '../../components/ProcessTimeline.astro';
+import CTA from '../../components/CTA.astro';
+import FAQ from '../../components/FAQ.astro';
+
+const pageTitle = "Conseil fiscal au Luxembourg — Taxpertize by Fiduciaire Expert";
+const pageDescription = "Cabinet d'expertise fiscale basé au Luxembourg. Intervention à haute intensité analytique pour sociétés, fonds, groupes internationaux, dirigeants et investisseurs privés.";
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://www.fiduciaire-expert.lu/fr/taxpertize/#service",
+      "name": "Taxpertize - Conseil fiscal au Luxembourg",
+      "description": "Cabinet d'expertise fiscale pour sociétés, fonds et groupes internationaux au Luxembourg",
+      "url": "https://www.fiduciaire-expert.lu/fr/taxpertize/",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Luxembourg"
+      }
+    }
+  ]
+};
+
+const faqItems = [
+  {
+    question: "Quelles sociétés sont concernées par Pillar Two / Pilier 2 au Luxembourg ?",
+    answer: "Les groupes multinationaux avec un chiffre d'affaires consolidé ≥ 750 M€ sur au moins 2 des 4 derniers exercices. Cela inclut le parent-ultime (UPE) luxembourgeois et les entités constitutives au Luxembourg. Les groupes nationaux purement luxembourgeois peuvent être concernés via le QDMTT (Qualified Domestic Minimum Top-up Tax). Exemptions possibles : entités gouvernementales, organisations internationales, entités sans but lucratif, fonds de pension, fonds d'investissement-UPE et leurs SPV sous conditions."
+  },
+  {
+    question: "Comment appliquer les règles ATAD de limitation des intérêts au Luxembourg ?",
+    answer: "La limitation s'applique aux charges d'intérêts excédentaires dépassant 30% de l'EBITDA fiscal ou 3 M€ (le plus élevé). L'EBITDA fiscal = revenu imposable + intérêts excédentaires + amortissements fiscaux + ajustements spécifiques. Exemptions : entités autonomes, prêts publics pré-17.06.2016, projets d'infrastructure long terme. Report possible des excédents non déduits sur 5 ans et des capacités non utilisées sur 5 ans (sous conditions)."
+  },
+  {
+    question: "Quel est le régime participation exemption SOPARFI au Luxembourg ?",
+    answer: "Exonération totale des dividendes et plus-values sur participations qualifiées. Conditions : détention ≥ 10% ou prix d'acquisition ≥ 1,2 M€ (dividendes) ou 6 M€ (plus-values). Durée minimale : 12 mois ininterrompus. La filiale doit être une société de capitaux résidente UE ou convention fiscale, ou société non-résidente soumise à impôt ≥ 8,5%. Recapture possible des dépréciations antérieures sur cession. Régime très attractif pour holdings et centres de décision européens."
+  },
+  {
+    question: "Comment optimiser la substance économique au Luxembourg ?",
+    answer: "La substance requiert : bureau physique au Luxembourg avec adresse dédiée, compte bancaire local actif, comptabilité tenue localement, réunions du conseil au Luxembourg documentées, au moins 1 administrateur résident qualifié, décisions stratégiques prises et documentées au Luxembourg. Pour holdings actives : personnel dédié, gestion effective des participations, documentation contemporaine des décisions. La substance protège l'accès aux conventions fiscales et directives UE, réduit les risques de remise en cause par administrations étrangères."
+  }
+];
+---
+
+<LayoutI18n 
+  title={pageTitle}
+  description={pageDescription}
+  canonical="https://www.fiduciaire-expert.lu/fr/taxpertize"
+  schema={schema}
+>
+  <StickyPageTop
+    breadcrumbItems={[
+      { text: "Accueil", href: "/fr/" },
+      { text: "Services", href: "/fr/services" },
+      { text: "Taxpertize" }
+    ]}
+    title="Conseil fiscal au Luxembourg — Taxpertize by Fiduciaire Expert"
+    subtitle="Cabinet d'expertise fiscale basé au Luxembourg. Intervention à haute intensité analytique pour sociétés, fonds, groupes internationaux, dirigeants et investisseurs privés. Couverture intégrale : structuration, diagnostic, modélisation, rescrits, contrôles et contentieux."
+  />
+  
+  <!-- Section Domaines d'expertise -->
+  <ServicesInfo
+    title="Domaines d'expertise"
+    subtitle="Cinq piliers d'intervention pour une couverture fiscale intégrale au Luxembourg"
+    sections={[
+      {
+        title: "1. Fiscalité des entreprises et groupes",
+        content: "",
+        items: [
+          "Structurations holding / SOPARFI : schémas dividendes-intérêts-plus-values, tests de participation exemption, remontées de trésorerie, substance, gouvernance.",
+          "ATAD : limitation d'intérêts (30 % EBITDA ou 3 M€), règles anti-hybrides, CFC, GAAR. Cartographie dettes/instruments, recalibrage EBITDA fiscal, safe harbors.",
+          "Pillar Two (minimum 15 %) : cadrage scope (≥ 750 M€ CA consolidé), diagnostics ETR juridictionnel, QDMTT/IIR/UTPR, données GloBE et contrôles qualité.",
+          "Déclarations CbCR : préparation et dépôt des Country-by-Country Reports, notifications CbC, coordination multi-juridictionnelle, revue des données financières par pays.",
+          "Prix de transfert : études comparables, analyses DEMPE, politiques intragroupe, master/local file, accords préalables (APA).",
+          "Réorganisations : fusions, apports, spin-offs, migrations, exit tax, continuité de valeurs fiscales."
+        ]
+      },
+      {
+        title: "2. Fiscalité immobilière",
+        content: "",
+        items: [
+          "Investissement direct/indirect : sociétés immobilières, SPV par actif, club-deals.",
+          "Allocation dette/équité : modélisation cash-tax, plafonds d'intérêts ATAD, tests d'imputation.",
+          "Cycle de vie : acquisition (fiscalité d'entrée), détention (régime courant, IF/NWT), arbitrage cession (share deal vs asset deal)."
+        ]
+      }
+    ]}
+    backgroundColor="#f8fafc"
+  />
+
+  <ServicesInfo
+    sections={[
+      {
+        title: "3. Secteur financier et fonds",
+        content: "",
+        items: [
+          "VEHICULES : fonds régulés/non régulés, RAIF, SIF, SCSp/SLP, SPV de titrisation.",
+          "Pillar Two & fonds : qualification entités exclues, analyse SPV de fonds/REIV, interactions QDMTT/IIR.",
+          "Taxes opérationnelles : retenues à la source, conventions, DAC6/MDR, CRS/FATCA."
+        ]
+      },
+      {
+        title: "4. Marchés financiers, bourse et crypto-actifs",
+        content: "",
+        items: [
+          "Portefeuilles titres : dividendes/ intérêts/ plus-values, conventions fiscales, retenues et crédits d'impôt.",
+          "Personnes physiques : régime des participations substantielles (> 10 %) et régime spéculatif, calculs et optimisation déclarative.",
+          "Crypto : application des principes généraux et de la circulaire ACD (26.07.2018), qualification des opérations (échange/cession/minage/staking), traitement entreprises/particuliers, impacts éventuels en IF/NWT."
+        ]
+      },
+      {
+        title: "5. International & institutionnel",
+        content: "",
+        items: [
+          "Traités fiscaux : analyse clauses distributives, LOB/PPT, crédits d'impôt, résidence et établissement stable.",
+          "Rulings : demandes d'advance tax clearance devant la Commission des Rulings, cadrage risques, documentation probatoire.",
+          "Contentieux et contrôles : assistance ACD/TVA/CSSF, réponses motivées, voies de recours."
+        ]
+      }
+    ]}
+  />
+
+  <!-- Section Méthode -->
+  <ProcessTimeline
+    title="Méthode Taxpertize"
+    subtitle="Un processus structuré en 5 étapes pour une expertise fiscale complète"
+    steps={[
+      {
+        number: "1",
+        title: "Scoping",
+        description: [
+          "Cartographie juridique-économique",
+          "Analyse des flux et contraintes",
+          "Revue comptable, prudentielle et TVA"
+        ]
+      },
+      {
+        number: "2",
+        title: "Hypothèses",
+        description: [
+          "Identification leviers fiscaux et verrous",
+          "Modélisation scénarios cash-tax/ETR",
+          "Analyse comparative des options"
+        ]
+      },
+      {
+        number: "3",
+        title: "Opinion",
+        description: [
+          "Note signée-datée avec références légales",
+          "Classification des risques",
+          "Actions recommandées et plan de mise en œuvre"
+        ]
+      },
+      {
+        number: "4",
+        title: "Mise en œuvre",
+        description: [
+          "Documents intragroupe",
+          "Pactes et term-sheets",
+          "Dossiers prix de transfert et rulings"
+        ]
+      },
+      {
+        number: "5",
+        title: "Data & reporting",
+        description: [
+          "Jeux de données Pillar Two (GloBE)",
+          "ATAD (EBITDA fiscal)",
+          "Trackers retenues et crédits d'impôt"
+        ]
+      }
+    ]}
+    variant="vertical"
+  />
+
+  <!-- Section Honoraires -->
+  <ServicesInfo
+    title="Structure d'honoraires transparente"
+    subtitle="Tarification adaptée à la complexité et aux enjeux de chaque mission"
+    sections={[
+      {
+        title: "Forfaits mission",
+        content: "Pour les missions définies et récurrentes",
+        items: [
+          "Diagnostic fiscal annuel : analyse complète de la situation fiscale, identification des optimisations, rapport détaillé avec recommandations chiffrées",
+          "Conformité Pillar Two : calcul ETR juridictionnel, préparation données GloBE, revue QDMTT/IIR/UTPR, assistance déclarative",
+          "Dossier prix de transfert : master file et local file, benchmark analyses, documentation défendable, mise à jour annuelle",
+          "Restructuration : analyse fiscale de l'opération, mémos techniques, assistance mise en œuvre, suivi post-opération"
+        ]
+      },
+      {
+        title: "Taux horaires",
+        content: "Pour les missions complexes et le conseil stratégique",
+        items: [
+          "Partner/Director : 450-550 EUR/h - Vision stratégique, opinions techniques, représentation institutionnelle",
+          "Senior Manager : 350-400 EUR/h - Gestion de projets complexes, expertise sectorielle approfondie",
+          "Manager : 250-300 EUR/h - Exécution technique avancée, coordination d'équipes",
+          "Senior/Analyst : 150-200 EUR/h - Recherches, analyses, support documentaire"
+        ]
+      }
+    ]}
+    highlight={{
+      title: "Success fees & économies fiscales",
+      content: "Pour certaines missions d'optimisation ou de contentieux, nous proposons des honoraires de résultat basés sur les économies fiscales générées ou les redressements évités. Cette approche aligne nos intérêts avec les vôtres et démontre notre confiance dans la valeur ajoutée de notre expertise. Conditions et pourcentages définis au cas par cas selon la complexité et les montants en jeu."
+    }}
+    backgroundColor="#f8fafc"
+  />
+
+  <!-- Section Références Sectorielles -->
+  <ServicesInfo
+    title="Références sectorielles"
+    subtitle="Une expertise reconnue dans les secteurs clés de l'économie luxembourgeoise"
+    sections={[
+      {
+        title: "Private Equity & Fonds",
+        content: "Structuration et suivi fiscal de véhicules d'investissement",
+        items: [
+          "Fonds régulés (SIF, RAIF) et non régulés",
+          "Carried interest et co-investissement",
+          "Exits et distributions"
+        ]
+      },
+      {
+        title: "Immobilier",
+        content: "Optimisation fiscale de projets immobiliers",
+        items: [
+          "Structures d'acquisition et de détention",
+          "Refinancements et restructurations de dette",
+          "Cessions d'actifs et de portefeuilles"
+        ]
+      },
+      {
+        title: "Corporate & Industrie",
+        content: "Accompagnement fiscal de groupes internationaux",
+        items: [
+          "Holdings et centres de décision",
+          "Propriété intellectuelle et R&D",
+          "Supply chain et flux commerciaux"
+        ]
+      },
+      {
+        title: "Services Financiers",
+        content: "Conseil fiscal pour institutions financières",
+        items: [
+          "Banques et PSF",
+          "Sociétés de gestion",
+          "Fintech et services de paiement"
+        ]
+      }
+    ]}
+  />
+
+  <CTA
+    title="Prêt à optimiser votre situation fiscale ?"
+    subtitle="Contactez Taxpertize pour une première consultation et découvrez comment notre expertise peut créer de la valeur pour votre organisation."
+    buttonText="Demander une consultation"
+    buttonHref="/fr/contact?service=taxpertize"
+  />
+
+  <FAQ
+    title="Questions fréquentes sur la fiscalité luxembourgeoise"
+    subtitle="Réponses d'experts aux questions fiscales complexes"
+    faqItems={faqItems}
+    showCTA={false}
+    generateSchema={true}
+  />
+</LayoutI18n>

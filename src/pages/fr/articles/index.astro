@@ -1,0 +1,234 @@
+---
+// src/pages/fr/articles/index.astro
+
+import { getCollection } from 'astro:content';
+import LayoutI18n from '../../../layouts/LayoutI18n.astro';
+// NOUVEAU : Importation du composant Image pour l'optimisation
+import { Image } from 'astro:assets';
+import SearchBar from '../../../components/SearchBar.astro';
+import StickyPageTop from '../../../components/StickyPageTop.astro';
+import { calculateReadingTime } from '../../../utils/reading-time';
+import '../../../styles/blog-articles.css';
+
+// Pagination
+const POSTS_PER_PAGE = 9;
+const currentPage = 1; // Page d'accueil = page 1
+
+// La logique de récupération des articles est inchangée
+const allPosts = await getCollection('blog');
+const frenchCategories = ['Fiscalité', 'Social', 'Comptabilité', 'Juridique'];
+const frenchPosts = allPosts.filter(post => frenchCategories.includes(post.data.category) && post.data.draft !== true);
+let sortedPosts = frenchPosts.sort((a, b) => {
+  // Utiliser modified s'il existe, sinon utiliser date
+  const dateA = new Date(a.data.modified || a.data.date).getTime();
+  const dateB = new Date(b.data.modified || b.data.date).getTime();
+  return dateB - dateA;
+});
+
+const categories = frenchCategories;
+const featuredPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
+// On affiche 8 articles réguliers après le featured (total = 9 articles sur la page 1)
+const regularPosts = sortedPosts.length > 1 ? sortedPosts.slice(1, Math.min(POSTS_PER_PAGE, sortedPosts.length)) : [];
+const totalPages = Math.max(1, Math.ceil(sortedPosts.length / POSTS_PER_PAGE));
+const hasMorePosts = sortedPosts.length > POSTS_PER_PAGE;
+
+const formatDate = (date) => date.toLocaleDateString('fr-FR', {
+  year: 'numeric', month: 'long', day: 'numeric'
+});
+
+// Schema.org pour la page d'articles
+const articlesSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://www.fiduciaire-expert.lu/fr/articles",
+      "name": "Articles Expert Comptable Luxembourg | Blog Fiduciaire Expert",
+      "description": `Découvrez nos ${sortedPosts.length} articles d'experts sur la comptabilité, fiscalité IRC/ICC/IF et TVA, création d'entreprise au Luxembourg.`,
+      "url": "https://www.fiduciaire-expert.lu/fr/articles",
+      "isPartOf": {
+        "@id": "https://www.fiduciaire-expert.lu/#website"
+      },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Accueil",
+            "item": "https://www.fiduciaire-expert.lu/fr"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Articles",
+            "item": "https://www.fiduciaire-expert.lu/fr/articles"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Blog",
+      "@id": "https://www.fiduciaire-expert.lu/fr/articles#blog",
+      "name": "Blog Fiduciaire Expert Luxembourg",
+      "description": "Conseils et actualités en comptabilité, fiscalité, paie et droit des sociétés au Luxembourg",
+      "url": "https://www.fiduciaire-expert.lu/fr/articles",
+      "inLanguage": "fr-FR",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Fiduciaire Expert",
+        "url": "https://www.fiduciaire-expert.lu"
+      },
+      "blogPost": sortedPosts.slice(0, 10).map(post => ({
+        "@type": "BlogPosting",
+        "headline": post.data.title,
+        "description": post.data.description,
+        "datePublished": post.data.date.toISOString(),
+        "dateModified": (post.data.modified || post.data.date).toISOString(),
+        "url": `https://www.fiduciaire-expert.lu/fr/articles/${post.slug.replace('fr/', '')}`,
+        "image": post.data.image ? `https://www.fiduciaire-expert.lu${post.data.image.src}` : undefined,
+        "author": {
+          "@type": "Organization",
+          "name": "Fiduciaire Expert"
+        },
+        "articleSection": post.data.category,
+        "keywords": post.data.tags?.join(', ')
+      }))
+    }
+  ]
+};
+---
+
+<LayoutI18n
+  title="Articles Expert Comptable Luxembourg | Blog Comptabilité Fiscalité"
+  description={`${sortedPosts.length} articles d'expertise comptable : IRC/ICC/IF et TVA Luxembourg, création SARL/SA, paie CCSS. Conseils fiscaux et comptables par experts agréés.`}
+  canonical="https://www.fiduciaire-expert.lu/fr/articles"
+  schema={articlesSchema}
+>
+  {/* Balise link pour next page SEO */}
+  {hasMorePosts && (
+    <Fragment slot="head">
+      <link rel="next" href="/fr/articles/page/2" />
+    </Fragment>
+  )}
+  <StickyPageTop
+    breadcrumbItems={[
+      { text: "Accueil", href: "/fr" },
+      { text: "Blog" }
+    ]}
+    title="Articles d'expertise comptable et fiscale"
+    subtitle="Guides pratiques sur la comptabilité luxembourgeoise, déclarations fiscales IRC/ICC/IF et TVA, gestion paie CCSS et création de sociétés."
+  />
+
+
+  {sortedPosts.length > 0 ? (
+    <>
+      {featuredPost && (
+        <section class="featured-section">
+          <div class="container">
+            <article class="featured-article">
+              <a href={`/fr/articles/${featuredPost.slug.replace('fr/', '')}`} class="featured-link">
+                {featuredPost.data.image && (
+                  <div class="featured-image-wrapper">
+                    {/* MODIFIÉ : Utilisation du composant Image optimisé */}
+                    <Image 
+                      src={featuredPost.data.image} 
+                      alt={`${featuredPost.data.title} - Guide expert comptable Luxembourg`} 
+                      width={1200} 
+                      height={420} 
+                      loading="eager" 
+                      fetchpriority="high" 
+                      quality="mid"
+                      class="featured-image"
+                    />
+                  </div>
+                )}
+                <div class="featured-content">
+                  <p class="featured-meta">
+                    <span class="category-badge">{featuredPost.data.category}</span>
+                    <time datetime={(featuredPost.data.modified && new Date(featuredPost.data.modified) > new Date(featuredPost.data.date) ? new Date(featuredPost.data.modified) : featuredPost.data.date).toISOString()}>
+                      {formatDate(featuredPost.data.modified && new Date(featuredPost.data.modified) > new Date(featuredPost.data.date) ? new Date(featuredPost.data.modified) : featuredPost.data.date)}
+                    </time>
+                    <span class="reading-time">• {calculateReadingTime(featuredPost.body, 'fr')} min</span>
+                  </p>
+                  <h2 class="featured-title">{featuredPost.data.title}</h2>
+                  <p class="featured-excerpt">{featuredPost.data.description}</p>
+                  <span class="read-more">Lire l'article →</span>
+                </div>
+              </a>
+            </article>
+          </div>
+        </section>
+      )}
+
+      <section class="blog-main-section">
+        <div class="container blog-layout">
+          <div class="posts-column">
+            <h2 class="section-title">Tous les articles</h2>
+            <div class="posts-grid">
+              {regularPosts.map(post => (
+                <article class="post-card">
+                  <a href={`/fr/articles/${post.slug.replace('fr/', '')}`} class="post-link">
+                    {post.data.image && (
+                      <div class="post-image-wrapper">
+                        {/* MODIFIÉ : Utilisation du composant Image optimisé */}
+                        <Image src={post.data.image} alt={`${post.data.title} - Article comptabilité fiscalité Luxembourg`} width={400} height={200} loading="lazy" quality="mid" />
+                      </div>
+                    )}
+                    <div class="post-content">
+                      <p class="post-meta">
+                        <span class="category-badge">{post.data.category}</span>
+                        <time datetime={(post.data.modified && new Date(post.data.modified) > new Date(post.data.date) ? new Date(post.data.modified) : post.data.date).toISOString()}>{formatDate(post.data.modified && new Date(post.data.modified) > new Date(post.data.date) ? new Date(post.data.modified) : post.data.date)}</time>
+                        <span class="reading-time">• {calculateReadingTime(post.body, 'fr')} min</span>
+                      </p>
+                      <h4 class="post-title">{post.data.title}</h4>
+                      <p class="post-excerpt">{post.data.description}</p>
+                    </div>
+                  </a>
+                </article>
+              ))}
+            </div>
+            
+            {/* Pagination */}
+            {hasMorePosts && (
+              <div class="pagination">
+                <span class="pagination-info">
+                  Page {currentPage} sur {totalPages}
+                </span>
+                <a href="/fr/articles/page/2" rel="next" class="pagination-next">
+                  Articles suivants
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </a>
+              </div>
+            )}
+          </div>
+          <aside class="sidebar-column">
+            <div class="sidebar-widget">
+              <h3 class="widget-title">Catégories d'expertise</h3>
+              <nav class="category-nav">
+                <a href="/fr/articles" class="category-link is-active">Toutes les catégories</a>
+                {categories.map(cat => {
+                  const slug = cat.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-');
+                  return <a href={`/fr/articles/category/${slug}`} class="category-link">{cat}</a>;
+                })}
+              </nav>
+            </div>
+            
+            <div class="sidebar-widget sidebar-search">
+              <h3 class="widget-title">Rechercher</h3>
+              <SearchBar placeholder="Rechercher" lang="fr" />
+            </div>
+          </aside>
+        </div>
+      </section>
+    </>
+  ) : (
+    <section class="no-posts-section">
+      <div class="container">
+        <p>Aucun article n'a été publié pour le moment. Revenez bientôt !</p>
+      </div>
+    </section>
+  )}
+</LayoutI18n>
