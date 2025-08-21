@@ -5,6 +5,7 @@ import { getCollection } from 'astro:content';
 import Button from '../components/ui/Button.astro';
 import ArticleHero from '../components/hero/ArticleHero.astro';
 import TableOfContents from '../components/TableOfContents.astro';
+import StickyPageTop from '../components/StickyPageTop.astro';
 import { calculateReadingTime } from '../utils/reading-time';
 import '../styles/blog-articles.css';
 
@@ -122,35 +123,23 @@ const combinedSchema = {
       image={image}
       imageAlt={imageAlt}
     />
+    
+    <StickyPageTop
+      breadcrumbItems={[
+        { text: 'Home', href: '/en' },
+        { text: 'Articles', href: '/en/articles' },
+        { text: category, href: `/en/articles/category/${category.toLowerCase().replace(/\s+/g, '-')}` }
+      ]}
+      title={title}
+      showSearch={true}
+      searchPlaceholder="Search articles..."
+      lang="en"
+      showProgress={true}
+    />
 
     <div class="article-body-wrapper">
       <div class="article-layout">
         <div class="article-main">
-          <div class="article-meta-bar">
-            <a href={`/en/articles/category/${category.toLowerCase().replace(/\s+/g, '-')}`} class="category-badge">{category}</a>
-            <span class="meta-separator">•</span>
-            <time datetime={modified || date} itemprop={modified ? "dateModified" : "datePublished"}>
-              {modified && new Date(modified) > new Date(date) ? 'Updated on' : 'Published on'} {new Date(modified || date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
-            </time>
-            <span class="meta-separator">•</span>
-            <span itemprop="author" itemscope itemtype="https://schema.org/Organization">
-              By <span itemprop="name">{author || 'Fiduciaire Expert'}</span>
-            </span>
-            {readingTime && (
-              <>
-                <span class="meta-separator">•</span>
-                <span class="reading-time">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="reading-time-icon">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                  </svg>
-                  {readingTime} min read
-                </span>
-              </>
-            )}
-          </div>
-          <h1 class="article-title" itemprop="headline">{title}</h1>
-          
           <div class="article-content" itemprop="articleBody">
             <slot />
             
@@ -343,69 +332,12 @@ const combinedSchema = {
   
   /* Wrapper avec espace de lecture optimal */
   .article-body-wrapper { 
-    padding: 4rem 0; 
+    padding: 2rem 0 4rem 0; /* Reduced padding-top because we have the sticky breadcrumb */
     background-color: #ffffff; 
     position: relative;
   }
   
-  /* Barre de métadonnées */
-  .article-meta-bar {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 4px;
-    padding: 1rem 1.5rem;
-    margin: -2rem -2rem 2rem -2rem;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    font-size: 0.875rem;
-    color: #334155; /* Darker color for better contrast */
-  }
-  
-  .category-badge {
-    color: #3b82f6;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 0.75rem;
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-  
-  .category-badge:hover {
-    color: #2563eb;
-  }
-  
-  .meta-separator {
-    color: #94a3b8; /* More visible separator */
-    margin: 0 0.25rem;
-  }
-  
-  .reading-time {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    color: #334155; /* Darker color */
-  }
-  
-  .reading-time-icon {
-    width: 16px;
-    height: 16px;
-    opacity: 0.8; /* More visible icon */
-  }
-  
-  /* Titre de l'article */
-  .article-title {
-    font-size: clamp(1.75rem, 3vw, 2.25rem);
-    font-weight: 700;
-    line-height: 1.2;
-    color: #0f172a;
-    margin: 0 0 2.5rem 0;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-  }
+  /* Plus besoin de la barre de métadonnées, on utilise StickyPageTop */
   
   /* Social share buttons - positioned at bottom */
   .social-share {

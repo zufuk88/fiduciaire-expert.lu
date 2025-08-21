@@ -123,12 +123,17 @@ const finalSchema = schema ? schema : websiteSchema;
         });
       }
       
-      // Forcer l'accélération GPU
+      // Forcer l'accélération GPU sur les éléments sticky SANS changer leur position
       const stickyElements = document.querySelectorAll('.site-header, .breadcrumbs, .article-sidebar');
       stickyElements.forEach(el => {
         if (el) {
           el.style.transform = 'translateZ(0)';
           el.style.willChange = 'transform';
+          // IMPORTANT: Garder la position sticky pour breadcrumbs
+          if (el.classList.contains('breadcrumbs')) {
+            el.style.position = 'sticky';
+            el.style.top = '72px'; // Sous le header
+          }
         }
       });
     }

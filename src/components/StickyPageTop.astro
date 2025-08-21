@@ -3,29 +3,70 @@ export interface Props {
   breadcrumbItems: Array<{ text: string; href?: string }>;
   title: string;
   subtitle?: string;
+  showSearch?: boolean;
+  searchPlaceholder?: string;
+  lang?: 'fr' | 'en';
+  showProgress?: boolean;
 }
 
-const { breadcrumbItems = [], title, subtitle } = Astro.props;
+const { 
+  breadcrumbItems = [], 
+  title, 
+  subtitle, 
+  showSearch = false,
+  searchPlaceholder = "Rechercher...",
+  lang = 'fr',
+  showProgress = false
+} = Astro.props;
+
 const items = [...breadcrumbItems, { text: title }];
 ---
 
 <nav class="breadcrumbs" aria-label="Fil d'Ariane">
   <div class="container">
-    <ol>
-      {items.map((item, i) => {
-        const last = i === items.length - 1;
-        return (
-          <li>
-            {last ? (
-              <h1 class="current" aria-current="page">{item.text}</h1>
-            ) : (
-              <a href={item.href} class="link">{item.text}</a>
-            )}
-          </li>
-        );
-      })}
-    </ol>
+    <div class="breadcrumb-content">
+      <ol>
+        {items.map((item, i) => {
+          const last = i === items.length - 1;
+          return (
+            <li>
+              {last ? (
+                <h1 class="current" aria-current="page">{item.text}</h1>
+              ) : (
+                <a href={item.href} class="link">{item.text}</a>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+      
+      {showSearch && (
+        <div class="breadcrumb-search">
+          <form action={`/${lang}/${lang === 'fr' ? 'recherche' : 'search'}`} method="get" class="search-form">
+            <input 
+              type="search" 
+              name="q" 
+              placeholder={searchPlaceholder}
+              class="search-input"
+              aria-label={searchPlaceholder}
+            />
+            <button type="submit" class="search-button" aria-label="Rechercher">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+              </svg>
+            </button>
+          </form>
+        </div>
+      )}
+    </div>
   </div>
+  
+  {showProgress && (
+    <div class="reading-progress-bar" aria-hidden="true">
+      <div class="reading-progress-fill" data-reading-progress></div>
+    </div>
+  )}
 </nav>
 
 {subtitle && (
@@ -85,9 +126,14 @@ const items = [...breadcrumbItems, { text: title }];
   }
 
   .breadcrumbs .container {
+    padding-block: var(--pad-y);
+  }
+  
+  .breadcrumb-content {
     display: flex;
     align-items: center;
-    padding-block: var(--pad-y);
+    justify-content: space-between;
+    gap: 2rem;
   }
 
   /* List */
@@ -154,11 +200,129 @@ const items = [...breadcrumbItems, { text: title }];
     font-weight: 300;
   }
 
+  /* Search Form Styles */
+  .breadcrumb-search {
+    flex-shrink: 0;
+  }
+  
+  .search-form {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .search-input {
+    padding: 0.375rem 2.5rem 0.375rem 0.875rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: var(--fg);
+    font-size: 0.875rem;
+    width: 200px;
+    transition: all 0.2s ease;
+  }
+  
+  .search-input::placeholder {
+    color: var(--fg-dim);
+  }
+  
+  .search-input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    width: 250px;
+  }
+  
+  .search-button {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--fg);
+    padding: 0.375rem;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+  
+  .search-button:hover {
+    opacity: 0.8;
+  }
+  
+  /* Reading Progress Bar */
+  .reading-progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+  }
+  
+  .reading-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
+    width: 0%;
+    transition: width 0.1s ease-out;
+    transform-origin: left;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  }
+  
   /* Mobile */
   @media (max-width: 768px) {
     ol { font-size: 0.75rem; }
     .link, .current { padding: 0.25rem 0.5rem; }
     .subtitle { padding-block: 2rem; }
     .subtitle p { font-size: 1.125rem; }
+    
+    /* Hide search on mobile */
+    .breadcrumb-search {
+      display: none;
+    }
   }
 </style>
+
+{showProgress && (
+  <script is:inline>
+    // Reading progress bar
+    function updateReadingProgress() {
+      const progressBar = document.querySelector('[data-reading-progress]');
+      if (!progressBar) return;
+      
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY;
+      
+      const scrollableHeight = documentHeight - windowHeight;
+      const scrollProgress = (scrollTop / scrollableHeight) * 100;
+      
+      progressBar.style.width = `${Math.min(scrollProgress, 100)}%`;
+    }
+    
+    // Throttle function for performance
+    function throttle(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+    
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      updateReadingProgress();
+      
+      // Update on scroll with throttling
+      window.addEventListener('scroll', throttle(updateReadingProgress, 10), { passive: true });
+      
+      // Update on resize
+      window.addEventListener('resize', throttle(updateReadingProgress, 100), { passive: true });
+    });
+  </script>
+)}
