@@ -532,15 +532,19 @@ const combinedSchema = {
     height: 18px;
   }
   
-  /* Sidebar */
-  .article-sidebar {
-    position: sticky;
-    top: var(--sidebar-top); /* Uses calculated variable */
+  /* Sidebar - Increased specificity to avoid conflicts */
+  .article-page .article-sidebar,
+  aside.article-sidebar {
+    position: sticky !important;
+    top: var(--sidebar-top) !important; /* Uses calculated variable */
     align-self: start;
     max-height: calc(100vh - var(--sidebar-top) - 20px);
     overflow-y: auto;
-    /* Fallback in case sidebar is too tall */
-    transition: top 0.2s ease;
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0); /* Force GPU acceleration */
+    -webkit-transform: translateZ(0);
+    contain: layout style; /* Render optimization */
   }
   
   .sidebar-widget {

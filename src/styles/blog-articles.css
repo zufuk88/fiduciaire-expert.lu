@@ -294,15 +294,17 @@
   font-size: 0.9375rem;
 }
 
-/* Sidebar - Design épuré */
-.sidebar-column {
+/* Sidebar - Design épuré - Sélecteur plus spécifique pour éviter les conflits */
+.blog-main-section .sidebar-column,
+.blog-layout .sidebar-column {
   position: sticky;
   top: 140px; /* Descendu de 100px à 140px */
   align-self: start;
 }
 
 @media (max-width: 968px) {
-  .sidebar-column {
+  .blog-main-section .sidebar-column,
+  .blog-layout .sidebar-column {
     position: static;
   }
 }

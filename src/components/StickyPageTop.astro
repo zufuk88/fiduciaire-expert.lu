@@ -62,9 +62,26 @@ const items = [...breadcrumbItems, { text: title }];
     position: sticky;
     top: var(--header-h); /* Se positionne exactement sous le header de 72px */
     z-index: 999; /* Juste en dessous du header qui a z-index: 1000 */
-    backdrop-filter: blur(12px);
     background: var(--bg);
     box-shadow: 0 2px 20px rgba(30, 41, 59, 0.15);
+    will-change: transform;
+    transform: translateZ(0); /* Accélération GPU */
+  }
+  
+  /* Backdrop-filter uniquement pour Safari */
+  @supports (backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px)) {
+    .breadcrumbs:not(.chrome) {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+  }
+  
+  /* Désactiver sur Chrome */
+  @media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
+    .breadcrumbs {
+      backdrop-filter: none !important;
+      background: rgba(30, 41, 59, 0.98);
+    }
   }
 
   .breadcrumbs .container {
