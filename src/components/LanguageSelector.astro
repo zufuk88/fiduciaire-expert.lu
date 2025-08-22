@@ -20,10 +20,11 @@ const alternateLinks = getAlternateLinks(Astro.url);
   
   <div class="lang-dropdown" aria-hidden="true">
     {Object.entries(languages).map(([code, name]) => {
-      const hasTranslation = alternateLinks[code as Language] && alternateLinks[code as Language] !== null;
+      const linkUrl = alternateLinks[code as Language];
+      const hasTranslation = linkUrl && linkUrl !== null && typeof linkUrl === 'string';
       return hasTranslation ? (
         <a 
-          href={alternateLinks[code as Language]} 
+          href={linkUrl} 
           class:list={['lang-option', { active: code === currentLang }]}
           lang={code}
         >
