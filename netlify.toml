@@ -32,7 +32,7 @@
 # Ces règles s'appliquent après que Netlify ait traité le formulaire
 [[redirects]]
   from = "/fr/contact"
-  to = "/fr/merci"
+  to = "/fr/contact/merci"
   status = 303
   conditions = {Role = ["netlify"]}
   force = false
@@ -45,3 +45,10 @@
   conditions = {Role = ["netlify"]}
   force = false
   query = {form = ["contact-fiduciaire"]}
+
+# Redirection de l'ancienne URL vers la nouvelle
+[[redirects]]
+  from = "/fr/merci"
+  to = "/fr/contact/merci"
+  status = 301
+  force = true
