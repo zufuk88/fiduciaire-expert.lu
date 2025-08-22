@@ -21,16 +21,21 @@ const alternateLinks = getAlternateLinks(Astro.url);
   <div class="lang-dropdown" aria-hidden="true">
     {Object.entries(languages).map(([code, name]) => {
       const linkUrl = alternateLinks[code as Language];
-      const hasTranslation = linkUrl && linkUrl !== null && typeof linkUrl === 'string';
-      return hasTranslation ? (
-        <a 
-          href={linkUrl} 
-          class:list={['lang-option', { active: code === currentLang }]}
-          lang={code}
-        >
-          {name}
-        </a>
-      ) : (
+      // Toujours afficher les deux langues comme des liens
+      // Si c'est la langue actuelle, on affiche quand même le lien mais avec une classe active
+      if (linkUrl && typeof linkUrl === 'string' && linkUrl.length > 0) {
+        return (
+          <a 
+            href={linkUrl} 
+            class:list={['lang-option', { active: code === currentLang }]}
+            lang={code}
+          >
+            {name}
+          </a>
+        );
+      }
+      // Si pas de lien valide (ne devrait jamais arriver avec notre configuration)
+      return (
         <span 
           class:list={['lang-option', 'disabled', { active: code === currentLang }]}
           lang={code}
