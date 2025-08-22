@@ -8,7 +8,7 @@ export const routeMappings: Record<string, Record<string, string>> = {
   'fiscalite': { en: 'tax' },
   'services': { en: 'services' },
   'contact': { en: 'contact' },
-  'contact/merci': { en: 'contact/thank-you' },
+  'merci': { en: 'contact/thank-you' },
   'articles': { en: 'articles' },
   'recherche': { en: 'search' },
   'mentions-legales': { en: 'legal-notice' },
@@ -23,7 +23,7 @@ export const routeMappings: Record<string, Record<string, string>> = {
   'tax': { fr: 'fiscalite' },
   // 'services': { fr: 'services' }, // Same in both languages
   // 'contact': { fr: 'contact' }, // Same in both languages
-  'contact/thank-you': { fr: 'contact/merci' },
+  'contact/thank-you': { fr: 'merci' },
   // 'articles': { fr: 'articles' }, // Same in both languages
   'search': { fr: 'recherche' },
   'legal-notice': { fr: 'mentions-legales' },

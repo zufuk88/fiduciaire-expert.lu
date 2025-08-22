@@ -38,7 +38,6 @@ export function getAlternateLinks(url: URL) {
   const currentLang = getLangFromUrl(url);
   const searchParams = url.searchParams.toString();
   
-  
   const links: Record<string, string> = {
     current: currentLang
   };
@@ -67,31 +66,18 @@ export function getAlternateLinks(url: URL) {
           }
         }
       } else {
-        // Enlever le trailing slash pour la comparaison
-        const cleanRoute = route.replace(/\/$/, '');
-        
         // Vérifier si la page a une traduction
-        const mapping = routeMappings[cleanRoute];
+        const mapping = routeMappings[route];
         
         if (mapping && mapping[lang]) {
           // La page a une traduction
           links[lang] = `/${lang}/${mapping[lang]}`;
-        } else if (untranslatedPages[currentLang]?.includes(cleanRoute)) {
+        } else if (untranslatedPages[currentLang]?.includes(route)) {
           // La page n'a pas de traduction, rediriger vers l'accueil
           links[lang] = `/${lang}`;
         } else {
-          // Pour les routes non mappées, vérifier si c'est une route inverse
-          // Par exemple, si on est sur /fr/contact/merci, chercher contact/merci dans les mappings
-          const reverseMapping = Object.entries(routeMappings).find(([key, value]) => {
-            return value[currentLang] === cleanRoute;
-          });
-          
-          if (reverseMapping && reverseMapping[1][lang]) {
-            links[lang] = `/${lang}/${reverseMapping[1][lang]}`;
-          } else {
-            // Essayer avec le même nom de route
-            links[lang] = `/${lang}/${route}`;
-          }
+          // Essayer avec le même nom de route
+          links[lang] = `/${lang}/${route}`;
         }
       }
     } else {
