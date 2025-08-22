@@ -1,5 +1,52 @@
 ---
-// Redirection automatique vers la version française
-// Avec prefixDefaultLocale: true, la route française est /fr/
-return Astro.redirect('/fr/', 301);
+// Page d'accueil racine qui sera réécrite par Netlify
+// Fallback avec détection côté client sans flash visible
 ---
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiduciaire Expert Luxembourg</title>
+    <style>
+        /* Masquer le contenu pendant la détection pour éviter tout flash */
+        html, body {
+            opacity: 0;
+            background-color: #fff;
+        }
+        body.loaded {
+            opacity: 1;
+            transition: opacity 0.2s ease-in-out;
+        }
+    </style>
+    <script>
+        // Détection immédiate de la langue
+        (function() {
+            const lang = (navigator.language || navigator.userLanguage || 'fr').toLowerCase();
+            const preferredLang = lang.startsWith('en') ? 'en' : 'fr';
+            
+            // Redirection immédiate sans flash
+            window.location.replace(`/${preferredLang}/`);
+            
+            // Si la redirection échoue, afficher le contenu après 100ms
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+            }, 100);
+        })();
+    </script>
+</head>
+<body>
+    <!-- Contenu minimal pour éviter une page blanche en cas d'échec -->
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=/fr/">
+        <style>
+            body { opacity: 1 !important; }
+        </style>
+        <div style="text-align: center; padding: 50px; font-family: system-ui, sans-serif;">
+            <p>Redirection vers la version française...</p>
+            <p><a href="/fr/">Cliquez ici si la redirection ne fonctionne pas</a></p>
+        </div>
+    </noscript>
+</body>
+</html>
