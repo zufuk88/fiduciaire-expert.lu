@@ -38,7 +38,7 @@ export function getAlternateLinks(url: URL) {
   const currentLang = getLangFromUrl(url);
   const searchParams = url.searchParams.toString();
   
-  const links: Record<string, string> = {
+  const links: Record<string, string | null> = {
     current: currentLang
   };
   
@@ -73,13 +73,24 @@ export function getAlternateLinks(url: URL) {
           }
         }
       } else {
-        // Vérifier si la page a une traduction
-        const mapping = routeMappings[route];
+        // Vérifier si la page a une traduction dans les deux sens
+        let mapping = routeMappings[route];
+        
+        // Si pas trouvé directement, chercher dans toutes les entrées
+        if (!mapping) {
+          // Parcourir toutes les entrées pour trouver une correspondance
+          for (const [, value] of Object.entries(routeMappings)) {
+            if (value[currentLang] === route) {
+              mapping = value;
+              break;
+            }
+          }
+        }
         
         if (mapping && mapping[lang]) {
           // La page a une traduction
           links[lang] = `/${lang}/${mapping[lang]}`;
-        } else if (untranslatedPages[currentLang]?.includes(route)) {
+        } else if (untranslatedPages[currentLang]?.includes(route as never)) {
           // La page n'a pas de traduction, rediriger vers l'accueil
           links[lang] = `/${lang}`;
         } else {
@@ -89,8 +100,8 @@ export function getAlternateLinks(url: URL) {
           if (sameNamePages.includes(route)) {
             links[lang] = `/${lang}/${route}`;
           } else {
-            // Fallback: essayer avec le même nom de route
-            links[lang] = `/${lang}/${route}`;
+            // Pas de fallback - retourner null si aucune traduction trouvée
+            links[lang] = null;
           }
         }
       }
