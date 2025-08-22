@@ -90,21 +90,7 @@
   status = 200
   force = false
 
-# 4. REWRITE GÉNÉRAL pour toutes les pages sans préfixe (catch-all)
-# Détection de langue pour toutes les autres pages
-[[redirects]]
-  from = "/*"
-  to = "/fr/:splat"
-  status = 200
-  force = false
-  conditions = {Language = ["fr", "fr-FR", "fr-LU", "fr-BE", "fr-CH", "fr-CA"]}
-
-[[redirects]]
-  from = "/*"
-  to = "/en/:splat"
-  status = 200
-  force = false
-  conditions = {Language = ["en", "en-US", "en-GB", "en-CA", "en-AU"]}
+# Note: Pas de catch-all /* car cela peut interférer avec les assets statiques
 
 [build.processing]
   skip_processing = false
