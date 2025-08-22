@@ -8,6 +8,7 @@ import TableOfContents from '../components/TableOfContents.astro';
 import StickyPageTop from '../components/StickyPageTop.astro';
 import { calculateReadingTime } from '../utils/reading-time';
 import '../styles/blog-articles.css';
+import '../styles/article-mobile-fix.css';
 
 const { frontmatter } = Astro.props;
 const { title, seoTitle, description, date, modified, category, image, imageAlt, author, rawContent, headings } = frontmatter;

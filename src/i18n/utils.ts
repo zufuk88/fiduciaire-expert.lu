@@ -53,6 +53,13 @@ export function getAlternateLinks(url: URL) {
           const categorySlug = decodeURIComponent(route.replace('articles/category/', '')).replace(/\/$/, '');
           const translatedSlug = translateCategorySlug(categorySlug, currentLang, lang);
           links[lang] = `/${lang}/articles/category/${translatedSlug}`;
+        } else if (route.startsWith('articles/page/')) {
+          // Gérer les pages de pagination
+          const pageNumber = route.replace('articles/page/', '');
+          links[lang] = `/${lang}/articles/page/${pageNumber}`;
+        } else if (route === 'articles') {
+          // Page principale des articles
+          links[lang] = `/${lang}/articles`;
         } else {
           // Pour les articles individuels
           const articleSlug = route.replace('articles/', '');
@@ -76,8 +83,15 @@ export function getAlternateLinks(url: URL) {
           // La page n'a pas de traduction, rediriger vers l'accueil
           links[lang] = `/${lang}`;
         } else {
-          // Essayer avec le même nom de route
-          links[lang] = `/${lang}/${route}`;
+          // Pour les pages avec le même nom dans les deux langues
+          // (domiciliation, services, contact, articles, taxpertize)
+          const sameNamePages = ['domiciliation', 'services', 'contact', 'articles', 'taxpertize'];
+          if (sameNamePages.includes(route)) {
+            links[lang] = `/${lang}/${route}`;
+          } else {
+            // Fallback: essayer avec le même nom de route
+            links[lang] = `/${lang}/${route}`;
+          }
         }
       }
     } else {
