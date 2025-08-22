@@ -92,7 +92,7 @@ const services = lang === 'fr'
     method="POST" 
     action={action}
     data-netlify="true" 
-    netlify-honeypot="bot-field"
+    data-netlify-honeypot="bot-field"
     class="contact-form"
   >
     <input type="hidden" name="form-name" value="contact-fiduciaire" />
@@ -495,51 +495,40 @@ const services = lang === 'fr'
 </style>
 
 <script>
-  // Import de libphonenumber-js - validation Google pure
-  import { parsePhoneNumberFromString } from 'libphonenumber-js/min';
-  
   document.addEventListener('DOMContentLoaded', () => {
-    const phoneInput = document.getElementById('phone') as HTMLInputElement;
     const form = document.querySelector('form[data-netlify="true"]') as HTMLFormElement;
     
-    if (phoneInput && form) {
-      const validatePhone = (value: string): boolean => {
-        if (!value) return false;
+    if (form) {
+      // Gestion de la soumission du formulaire
+      form.addEventListener('submit', async (e) => {
+        const submitBtn = form.querySelector('.form-submit') as HTMLButtonElement;
         
-        try {
-          const phoneNumber = parsePhoneNumberFromString(value);
-          return phoneNumber ? phoneNumber.isValid() : false;
-        } catch {
-          return false;
+        // Activer l'état de chargement
+        if (submitBtn) {
+          submitBtn.disabled = true;
         }
-      };
-      
-      // Validation à la saisie
+        
+        // Laisser Netlify gérer la soumission normalement
+        // Le formulaire sera soumis via POST standard
+      });
+    }
+    
+    // Validation simple du téléphone sans bloquer la soumission
+    const phoneInput = document.getElementById('phone') as HTMLInputElement;
+    if (phoneInput) {
       phoneInput.addEventListener('input', (e) => {
         const target = e.target as HTMLInputElement;
-        const isValid = validatePhone(target.value);
-        const lang = document.documentElement.lang || 'fr';
+        const value = target.value;
         
-        if (!isValid && target.value !== '') {
+        // Validation basique du format international
+        if (value && !value.startsWith('+')) {
+          const lang = document.documentElement.lang || 'fr';
           const message = lang === 'fr' 
-            ? 'Format international requis (ex: +33 6 60 27 87 47)'
-            : 'International format required (ex: +33 6 60 27 87 47)';
+            ? 'Format international recommandé (ex: +352 20 60 58 57)'
+            : 'International format recommended (ex: +352 20 60 58 57)';
           phoneInput.setCustomValidity(message);
         } else {
           phoneInput.setCustomValidity('');
-        }
-      });
-      
-      // Validation à la soumission
-      form.addEventListener('submit', (e) => {
-        if (!validatePhone(phoneInput.value)) {
-          e.preventDefault();
-          const lang = document.documentElement.lang || 'fr';
-          const message = lang === 'fr'
-            ? 'Veuillez utiliser le format international (+33...)'
-            : 'Please use international format (+33...)';
-          phoneInput.setCustomValidity(message);
-          phoneInput.reportValidity();
         }
       });
     }

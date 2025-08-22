@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Netlify Forms Detection</title>
+</head>
+<body style="display: none;">
+  <!-- Ce fichier permet à Netlify de détecter et traiter le formulaire pendant le build -->
+  <!-- Ne pas supprimer ce fichier - requis pour Netlify Forms -->
+  
+  <form name="contact-fiduciaire" netlify netlify-honeypot="bot-field" hidden>
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <input type="tel" name="phone" />
+    <input type="text" name="company" />
+    <input type="text" name="service" />
+    <textarea name="message"></textarea>
+    <input type="hidden" name="language" />
+    <input type="text" name="bot-field" />
+  </form>
+</body>
+</html>
