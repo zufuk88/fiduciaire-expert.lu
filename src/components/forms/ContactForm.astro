@@ -9,9 +9,12 @@ export interface Props {
 
 const { 
   lang = 'fr', 
-  action = lang === 'fr' ? '/fr/merci' : '/en/contact/thank-you',
+  action,
   service = ''
 } = Astro.props;
+
+// Déterminer l'URL de redirection en fonction de la langue
+const redirectUrl = action || (lang === 'fr' ? '/fr/merci' : '/en/contact/thank-you');
 
 // Traductions
 const translations = {
@@ -90,13 +93,14 @@ const services = lang === 'fr'
   <form 
     name="contact-fiduciaire"
     method="POST" 
-    action={action}
+    action={redirectUrl}
     data-netlify="true" 
     data-netlify-honeypot="bot-field"
     class="contact-form"
   >
     <input type="hidden" name="form-name" value="contact-fiduciaire" />
     <input type="hidden" name="language" value={lang} />
+    <input type="hidden" name="redirect" value={redirectUrl} />
     
     <!-- Honeypot anti-spam -->
     <div class="visually-hidden">

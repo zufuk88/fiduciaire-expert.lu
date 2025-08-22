@@ -7,8 +7,9 @@
 <body style="display: none;">
   <!-- Ce fichier permet à Netlify de détecter et traiter le formulaire pendant le build -->
   <!-- Ne pas supprimer ce fichier - requis pour Netlify Forms -->
+  <!-- IMPORTANT: Un seul formulaire avec le même nom pour toutes les langues -->
   
-  <form name="contact-fiduciaire" netlify netlify-honeypot="bot-field" hidden>
+  <form name="contact-fiduciaire" netlify netlify-honeypot="bot-field" action="/fr/merci" hidden>
     <input type="text" name="name" />
     <input type="email" name="email" />
     <input type="tel" name="phone" />

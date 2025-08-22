@@ -27,3 +27,21 @@
 # Configuration pour les formulaires
 [forms]
   enabled = true
+
+# Redirections après soumission de formulaire
+# Ces règles s'appliquent après que Netlify ait traité le formulaire
+[[redirects]]
+  from = "/fr/contact"
+  to = "/fr/merci"
+  status = 303
+  conditions = {Role = ["netlify"]}
+  force = false
+  query = {form = ["contact-fiduciaire"]}
+
+[[redirects]]
+  from = "/en/contact"
+  to = "/en/contact/thank-you"
+  status = 303
+  conditions = {Role = ["netlify"]}
+  force = false
+  query = {form = ["contact-fiduciaire"]}
