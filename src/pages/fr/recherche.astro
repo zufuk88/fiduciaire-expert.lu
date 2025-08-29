@@ -2,22 +2,18 @@
 import { getCollection } from 'astro:content';
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import SearchBar from '../../components/SearchBar.astro';
-
 // Configuration pour le sélecteur de langue
 const currentPath = Astro.url.pathname;
 const searchParams = Astro.url.searchParams.toString();
 const translations = {
   en: "/en/search" + (searchParams ? `?${searchParams}` : "")
 };
-
 // Récupérer tous les articles
 const allArticles = await getCollection('blog');
-
 // Filtrer pour les articles français non draft
 const allPosts = allArticles.filter(post => {
   return post.id.startsWith('fr/') && post.data.draft !== true;
 });
-
 // Préparer les données pour le client
 const articlesData = allPosts.map(post => ({
   id: post.id,
@@ -30,7 +26,6 @@ const articlesData = allPosts.map(post => ({
   body: post.body || ''
 }));
 ---
-
 <LayoutI18n
   title="Recherche | Fiduciaire Expert"
   description="Recherchez dans nos articles sur la comptabilité, la fiscalité et le droit des sociétés au Luxembourg"
@@ -43,14 +38,12 @@ const articlesData = allPosts.map(post => ({
         <SearchBar placeholder="Que recherchez-vous ?" lang="fr" />
       </div>
     </section>
-    
     <!-- Sticky Search Bar -->
     <div class="sticky-search-bar" id="sticky-search" style="display: none;">
       <div class="container">
         <SearchBar placeholder="Nouvelle recherche..." lang="fr" />
       </div>
     </div>
-
     <section class="search-results-section" id="search-section" style="display: none;">
       <div class="container">
         <div class="results-layout">
@@ -71,7 +64,6 @@ const articlesData = allPosts.map(post => ({
     </section>
   </div>
 </LayoutI18n>
-
 <script define:vars={{ articlesData }}>
   // Fonction pour mettre en surbrillance
   function highlightText(text, query) {
@@ -80,7 +72,6 @@ const articlesData = allPosts.map(post => ({
     const regex = new RegExp(`(${escapedQuery})`, 'gi');
     return text.replace(regex, '<mark>$1</mark>');
   }
-
   // Fonction pour formater la date
   function formatDate(dateString) {
     const date = new Date(dateString);
@@ -88,7 +79,6 @@ const articlesData = allPosts.map(post => ({
       year: 'numeric', month: 'long', day: 'numeric'
     });
   }
-
   // Fonction pour vérifier si un mot complet existe dans le texte
   function containsWord(text, word) {
     if (!text || !word) return false;
@@ -97,12 +87,10 @@ const articlesData = allPosts.map(post => ({
     const regex = new RegExp(`\\b${escapedWord}|${escapedWord}\\b`, 'gi');
     return regex.test(text);
   }
-
   // Fonction pour calculer un score de pertinence
   function calculateRelevanceScore(post, query) {
     let score = 0;
     const lowerQuery = query.toLowerCase();
-    
     // Titre - priorité maximale
     if (post.title.toLowerCase().includes(lowerQuery)) {
       score += 100;
@@ -111,7 +99,6 @@ const articlesData = allPosts.map(post => ({
         score += 50;
       }
     }
-    
     // Description - priorité haute
     if (post.description.toLowerCase().includes(lowerQuery)) {
       score += 50;
@@ -119,12 +106,10 @@ const articlesData = allPosts.map(post => ({
         score += 25;
       }
     }
-    
     // Catégorie - priorité moyenne
     if (post.category.toLowerCase().includes(lowerQuery)) {
       score += 30;
     }
-    
     // Body - priorité basse, mais on vérifie les mots complets
     if (containsWord(post.body, query)) {
       score += 10;
@@ -134,10 +119,8 @@ const articlesData = allPosts.map(post => ({
         score += Math.min(matches.length * 2, 20); // Max 20 points bonus
       }
     }
-    
     return score;
   }
-
   // Fonction de recherche
   function performSearch() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -145,9 +128,7 @@ const articlesData = allPosts.map(post => ({
     const resultsContainer = document.getElementById('search-results');
     const searchSection = document.getElementById('search-section');
     const stickySearch = document.getElementById('sticky-search');
-    
     const searchHero = document.getElementById('search-hero');
-    
     if (!searchQuery) {
       resultsContainer.innerHTML = '';
       searchSection.style.display = 'none';
@@ -155,16 +136,12 @@ const articlesData = allPosts.map(post => ({
       searchHero.classList.remove('has-results');
       return;
     }
-    
     searchSection.style.display = 'block';
     stickySearch.style.display = 'block';
     searchHero.classList.add('has-results');
-    
     // Scroll vers le haut pour afficher les résultats
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
     const query = searchQuery.trim();
-    
     // Filtrer et scorer les articles
     const searchResults = articlesData
       .map(post => ({
@@ -173,7 +150,6 @@ const articlesData = allPosts.map(post => ({
       }))
       .filter(post => post.relevanceScore > 0)
       .sort((a, b) => b.relevanceScore - a.relevanceScore);
-
     // Afficher les résultats
     if (searchResults.length > 0) {
       let html = `
@@ -185,11 +161,9 @@ const articlesData = allPosts.map(post => ({
         </div>
         <div class="results-grid">
       `;
-
       searchResults.forEach(post => {
         const articleUrl = `/fr/articles/${post.id.replace('fr/', '').replace('.md', '')}`;
         const imageUrl = post.image ? (typeof post.image === 'string' ? post.image : post.image.src) : null;
-        
         html += `
           <article class="result-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 4px; overflow: hidden;  margin-bottom: 1rem;">
             <a href="${articleUrl}" class="result-link" style="display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem; text-decoration: none !important; color: inherit;" onmouseover="this.style.textDecoration='none'" onmouseout="this.style.textDecoration='none'">
@@ -219,10 +193,8 @@ const articlesData = allPosts.map(post => ({
           </article>
         `;
       });
-
       html += '</div>';
       resultsContainer.innerHTML = html;
-      
       // Ajouter les effets hover après injection du HTML
       const cards = resultsContainer.querySelectorAll('.result-card');
       cards.forEach(card => {
@@ -243,34 +215,27 @@ const articlesData = allPosts.map(post => ({
       `;
     }
   }
-
   // Exécuter la recherche au chargement
   performSearch();
-
   // Ré-exécuter si l'URL change
   window.addEventListener('popstate', performSearch);
-  
   // Gérer la position de la barre sticky
   document.addEventListener('DOMContentLoaded', () => {
     const stickyBar = document.getElementById('sticky-search');
     const header = document.querySelector('.site-header, header');
-    
     if (stickyBar && header) {
       // Ajuster la position en fonction de la hauteur du header
       const updatePosition = () => {
         const headerHeight = header.offsetHeight;
         stickyBar.style.top = headerHeight + 'px';
       };
-      
       // Mise à jour initiale
       updatePosition();
-      
       // Mise à jour lors du resize
       window.addEventListener('resize', updatePosition);
     }
   });
 </script>
-
 <style>
   /* Container plein écran */
   .search-page-container {
@@ -278,7 +243,6 @@ const articlesData = allPosts.map(post => ({
     display: flex;
     flex-direction: column;
   }
-
   /* Hero de recherche - Centré */
   .search-hero {
     flex: 1;
@@ -287,20 +251,16 @@ const articlesData = allPosts.map(post => ({
     justify-content: center;
     background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
     padding: 2rem;
-    
   }
-
   /* Quand les résultats sont affichés - Cacher complètement */
   .search-hero.has-results {
     display: none;
   }
-
   .search-wrapper {
     width: 100%;
     max-width: 700px;
     margin: 0 auto;
   }
-
   /* Sticky Search Bar */
   .sticky-search-bar {
     position: fixed;
@@ -309,21 +269,15 @@ const articlesData = allPosts.map(post => ({
     right: 0;
     z-index: 100;
     background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(12px);
     border-bottom: 1px solid #e2e8f0;
     padding: 1rem 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease;
   }
-  
   .sticky-search-bar .container {
     max-width: 800px;
   }
-  
   .sticky-search-bar :global(.search-container) {
     margin: 0;
   }
-
   /* Section résultats */
   .search-results-section {
     padding: 6rem 0 4rem; /* Top padding increased to account for fixed search bar */
@@ -331,7 +285,6 @@ const articlesData = allPosts.map(post => ({
     flex: 1;
     min-height: calc(100vh - 200px);
   }
-  
   /* Layout avec sidebar */
   .results-layout {
     display: grid;
@@ -339,14 +292,12 @@ const articlesData = allPosts.map(post => ({
     gap: 3rem;
     align-items: start;
   }
-  
   /* Sidebar Categories */
   .sidebar-categories {
     position: sticky;
     top: 180px; /* Increased spacing below sticky search bar */
     align-self: start;
   }
-  
   .sidebar-widget {
     background-color: #fafbfc;
     border: 1px solid #e2e8f0;
@@ -354,7 +305,6 @@ const articlesData = allPosts.map(post => ({
     padding: 2rem;
     margin-bottom: 2rem;
   }
-  
   .widget-title {
     font-size: 1.125rem;
     font-weight: 600;
@@ -363,39 +313,32 @@ const articlesData = allPosts.map(post => ({
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-  
   /* Category Navigation */
   .category-nav {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
-  
   .category-link {
     padding: 0.625rem 0.875rem;
     text-decoration: none;
     color: #64748b;
     font-size: 0.875rem;
     font-weight: 500;
-    
     border-radius: 4px;
   }
-  
   .category-link:hover {
     background-color: #f1f5f9;
     color: #0f172a;
   }
-  
   @media (max-width: 1024px) {
     .results-layout {
       grid-template-columns: 1fr;
     }
-    
     .sidebar-categories {
       display: none;
     }
   }
-
   @media (max-width: 968px) {
     /* Sur mobile, garder la barre en haut */
     .search-hero.has-results {
@@ -404,26 +347,21 @@ const articlesData = allPosts.map(post => ({
       padding: 2rem 0 1rem;
       align-items: flex-start;
     }
-    
     .sticky-search-bar {
       display: none !important;
     }
   }
-
   .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
   }
-  
   #search-results {
     width: 100%;
   }
-
   /* Animation pour la transition */
   @keyframes slideUp {
     from {
-      
       opacity: 0;
     }
     to {
@@ -431,11 +369,9 @@ const articlesData = allPosts.map(post => ({
       opacity: 1;
     }
   }
-
   .search-results-section {
     animation: slideUp 0.4s ease-out;
   }
-
   /* En-tête des résultats - Épuré */
   .results-header {
     display: flex;
@@ -445,31 +381,25 @@ const articlesData = allPosts.map(post => ({
     padding-bottom: 1rem;
     border-bottom: 1px solid #f1f5f9;
   }
-
   .results-count {
     font-size: 0.875rem;
     color: #94a3b8;
     font-weight: 300;
   }
-
   .results-count strong {
     color: #2c4157;
     font-weight: 400;
   }
-
   .clear-search {
     color: #64748b;
     text-decoration: none;
     font-weight: 400;
     font-size: 0.8125rem;
-    transition: color 0.15s ease;
   }
-
   .clear-search:hover {
     color: #2c4157;
     text-decoration: none;
   }
-
   /* Grille de résultats */
   .results-grid {
     display: flex;
@@ -477,14 +407,9 @@ const articlesData = allPosts.map(post => ({
     gap: 0;
     margin-top: 2rem;
   }
-
   /* Hover effects via JavaScript */
   .result-card:hover {
-    
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   }
-
-
   /* Mise en surbrillance - Surlignage subtil */
   :global(mark) {
     background: linear-gradient(to bottom, transparent 40%, #fbbf24 40%, #fbbf24 90%, transparent 90%);
@@ -493,7 +418,6 @@ const articlesData = allPosts.map(post => ({
     font-weight: 500;
     text-decoration: none;
   }
-
   /* États vides */
   .no-results,
   .initial-state {
@@ -502,20 +426,17 @@ const articlesData = allPosts.map(post => ({
     max-width: 600px;
     margin: 0 auto;
   }
-
   .no-results p,
   .initial-state p {
     font-size: 1.125rem;
     color: #64748b;
     margin-bottom: 1.5rem;
   }
-
   .suggestions {
     font-weight: 600;
     color: #0f172a;
     margin-top: 2rem;
   }
-
   .no-results ul,
   .initial-state ul {
     list-style: none;
@@ -523,7 +444,6 @@ const articlesData = allPosts.map(post => ({
     max-width: 400px;
     margin: 0 auto 2rem;
   }
-
   .no-results li,
   .initial-state li {
     position: relative;
@@ -531,7 +451,6 @@ const articlesData = allPosts.map(post => ({
     margin-bottom: 0.75rem;
     color: #64748b;
   }
-
   .no-results li::before,
   .initial-state li::before {
     content: '•';
@@ -540,7 +459,6 @@ const articlesData = allPosts.map(post => ({
     color: #3b82f6;
     font-weight: bold;
   }
-
   .btn-secondary {
     display: inline-block;
     padding: 0.75rem 1.5rem;
@@ -550,16 +468,12 @@ const articlesData = allPosts.map(post => ({
     border-radius: 4px;
     text-decoration: none;
     font-weight: 500;
-    
     margin-top: 1rem;
   }
-
   .btn-secondary:hover {
     background: #f8fafc;
     border-color: #cbd5e1;
-    
   }
-
   /* Responsive */
   @media (max-width: 768px) {
     .results-header {

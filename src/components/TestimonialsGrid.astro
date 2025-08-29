@@ -10,17 +10,14 @@ export interface Props {
   }>;
   backgroundColor?: string;
 }
-
 const { title, subtitle, testimonials, backgroundColor } = Astro.props;
 ---
-
 <section class="testimonials-section" aria-labelledby="testimonials-title" style={backgroundColor ? `background-color: ${backgroundColor};` : ''}>
   <div class="container">
     <div class="section-header">
       <h2 id="testimonials-title">{title}</h2>
       {subtitle && <p class="section-subtitle">{subtitle}</p>}
     </div>
-    
     <div class="testimonials-grid">
       {testimonials.map(testimonial => (
         <div class="testimonial-card">
@@ -52,18 +49,15 @@ const { title, subtitle, testimonials, backgroundColor } = Astro.props;
     </div>
   </div>
 </section>
-
 <style>
   .testimonials-section {
     padding: 5rem 0;
   }
-
   .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
   }
-
   .section-header {
     text-align: left;
     margin-bottom: 3.5rem;
@@ -72,7 +66,6 @@ const { title, subtitle, testimonials, backgroundColor } = Astro.props;
     margin-right: auto;
     padding-left: 2rem;
   }
-
   .section-header h2 {
     font-size: 2.5rem;
     font-weight: 300;
@@ -83,7 +76,6 @@ const { title, subtitle, testimonials, backgroundColor } = Astro.props;
     position: relative;
     padding-bottom: 1.5rem;
   }
-
   .section-header h2::after {
     content: '';
     display: block;
@@ -96,7 +88,6 @@ const { title, subtitle, testimonials, backgroundColor } = Astro.props;
     left: 0;
     transform: none;
   }
-
   .section-subtitle {
     font-size: 1.25rem;
     color: #64748b;
@@ -106,22 +97,18 @@ const { title, subtitle, testimonials, backgroundColor } = Astro.props;
     font-weight: 400;
     position: relative;
   }
-
   .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 2rem;
   }
-
   .testimonial-card {
     background: #ffffff;
     border: 1px solid #2c4157;
     border-radius: 4px;
     padding: 2.5rem 2rem;
     position: relative;
-    
   }
-
   .testimonial-card::before {
     content: '"';
     position: absolute;
@@ -133,30 +120,23 @@ const { title, subtitle, testimonials, backgroundColor } = Astro.props;
     opacity: 0.2;
     font-family: Georgia, serif;
   }
-
   .testimonial-card:hover {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    
     border-color: #3b82f6;
   }
-
   .testimonial-rating {
     display: flex;
     gap: 0.25rem;
     margin-bottom: 1.25rem;
     padding-left: 2.5rem;
   }
-
   .testimonial-rating svg {
     width: 14px;
     height: 14px;
   }
-
   .testimonial-content {
     margin-bottom: 1.75rem;
     padding-left: 2.5rem;
   }
-
   .testimonial-content p {
     color: #64748b;
     line-height: 1.65;
@@ -164,13 +144,11 @@ const { title, subtitle, testimonials, backgroundColor } = Astro.props;
     font-style: normal;
     font-weight: 400;
   }
-
   .testimonial-author {
     padding-left: 2.5rem;
     padding-top: 1.25rem;
     border-top: 1px solid #e2e8f0;
   }
-
   .testimonial-author strong {
     display: block;
     color: #2c4157;
@@ -179,7 +157,6 @@ const { title, subtitle, testimonials, backgroundColor } = Astro.props;
     margin-bottom: 0.25rem;
     letter-spacing: -0.01em;
   }
-
   .testimonial-author span {
     color: #3b82f6;
     font-size: 0.875rem;
@@ -187,42 +164,34 @@ const { title, subtitle, testimonials, backgroundColor } = Astro.props;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-
   /* Responsive */
   @media (max-width: 768px) {
     .testimonials-section {
       padding: 3.5rem 0;
     }
-
     .section-header {
       margin-bottom: 2.5rem;
       padding-left: 1rem;
     }
-
     .section-header h2 {
       font-size: 2rem;
     }
-    
     .section-subtitle {
       font-size: 1.125rem;
       margin-left: 1.5rem;
     }
-
     .testimonials-grid {
       grid-template-columns: 1fr;
       gap: 1.5rem;
     }
-
     .testimonial-card {
       padding: 2rem 1.5rem;
     }
-
     .testimonial-card::before {
       top: 1.25rem;
       left: 1.5rem;
       font-size: 2.5rem;
     }
-
     .testimonial-rating,
     .testimonial-content,
     .testimonial-author {

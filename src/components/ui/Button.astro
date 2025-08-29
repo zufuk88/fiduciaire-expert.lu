@@ -14,7 +14,6 @@ export interface Props {
   target?: string;
   rel?: string;
 }
-
 const { 
   variant = 'primary', 
   size = 'medium', 
@@ -30,7 +29,6 @@ const {
   rel,
   ...rest
 } = Astro.props;
-
 const classes = [
   'btn',
   `btn-${variant}`,
@@ -38,10 +36,8 @@ const classes = [
   fullWidth ? 'btn-full' : '',
   className
 ].filter(Boolean).join(' ');
-
 const relValue = rel || (target === '_blank' ? 'noopener noreferrer' : undefined);
 ---
-
 {/* La logique du composant reste identique et robuste. */}
 {href ? (
   <a 
@@ -69,10 +65,8 @@ const relValue = rel || (target === '_blank' ? 'noopener noreferrer' : undefined
     <slot />
   </button>
 )}
-
 <style>
   /* ===== BOUTONS - VERSION SOBRE ET INTEMPORELLE ===== */
-
   /* --- Base --- */
   .btn {
     display: inline-flex;
@@ -93,107 +87,79 @@ const relValue = rel || (target === '_blank' ? 'noopener noreferrer' : undefined
     position: relative;
     overflow: hidden;
   }
-
   /* --- États --- */
   .btn:hover:not(:disabled) {
     text-decoration: none;
   }
-
   .btn:active:not(:disabled) {
     transform: none;
   }
-
   .btn:focus-visible {
     outline: 2px solid rgba(0, 95, 204, 0.4);
     outline-offset: 2px;
   }
-
   .btn:disabled {
     opacity: 0.6;
     cursor: not-allowed;
   }
-
   /* --- Variante Principale (simple et efficace) --- */
   .btn-primary {
     background: #3b82f6;
     color: white;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     border: none;
   }
-
   .btn-primary:hover:not(:disabled) {
     background: #2563eb;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
   }
-
   .btn-primary:active:not(:disabled) {
     background: #1d4ed8;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
-
   /* --- Variante Secondaire (simple et épurée) --- */
   .btn-secondary {
     background: rgba(255, 255, 255, 0.95);
     color: #1e293b;
     border: 1px solid rgba(226, 232, 240, 0.6);
     font-weight: 500;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   }
-
   .btn-secondary:hover:not(:disabled) {
     background: #ffffff;
     border-color: rgba(203, 213, 225, 0.8);
     color: #0f172a;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   }
-
   .btn-secondary:active:not(:disabled) {
     background: #f8fafc;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   }
-  
   /* --- Variante "Outline" (simple et moderne) --- */
   .btn-outline {
     background: rgba(255, 255, 255, 0.1);
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
-
   .btn-outline:hover:not(:disabled) {
     background: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.4);
-    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
   }
-
   .btn-outline:active:not(:disabled) {
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.35);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
-
   /* --- Tailles --- */
   .btn-small {
     padding: 0.625rem 1.25rem;
     font-size: 0.9375rem;
   }
-
   .btn-medium {
     /* Utilise le padding de base */
   }
-
   .btn-large {
     padding: 0.875rem 2rem;
     font-size: 0.9375rem;
     letter-spacing: 0.025em;
   }
-
   /* --- Largeur Pleine --- */
   .btn-full {
     width: 100%;
   }
-
   /* --- Responsive --- */
   @media (max-width: 768px) {
     /* Le style de base est déjà bien adapté au mobile */

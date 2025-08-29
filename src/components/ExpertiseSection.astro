@@ -10,10 +10,8 @@ export interface Props {
     }>;
   }>;
 }
-
 const { title, subtitle, expertiseAreas } = Astro.props;
 ---
-
 <section class="expertise-section">
   <div class="container">
     <!-- Header -->
@@ -21,7 +19,6 @@ const { title, subtitle, expertiseAreas } = Astro.props;
       <h2 class="section-title">{title}</h2>
       {subtitle && <p class="section-subtitle">{subtitle}</p>}
     </div>
-
     <!-- Expertise Grid -->
     <div class="expertise-grid">
       {expertiseAreas.map(area => (
@@ -40,19 +37,16 @@ const { title, subtitle, expertiseAreas } = Astro.props;
     </div>
   </div>
 </section>
-
 <style>
   .expertise-section {
     padding: 5rem 0;
     background: #ffffff;
   }
-
   .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
   }
-
   /* Header */
   .section-header {
     text-align: left;
@@ -62,7 +56,6 @@ const { title, subtitle, expertiseAreas } = Astro.props;
     margin-right: auto;
     padding-left: 2rem;
   }
-
   .section-title {
     font-size: 2.5rem;
     font-weight: 300;
@@ -73,7 +66,6 @@ const { title, subtitle, expertiseAreas } = Astro.props;
     position: relative;
     padding-bottom: 1.5rem;
   }
-  
   .section-title::after {
     content: '';
     display: block;
@@ -86,7 +78,6 @@ const { title, subtitle, expertiseAreas } = Astro.props;
     left: 0;
     transform: none;
   }
-
   .section-subtitle {
     font-size: 1.25rem;
     color: #64748b;
@@ -96,29 +87,22 @@ const { title, subtitle, expertiseAreas } = Astro.props;
     font-weight: 400;
     position: relative;
   }
-
   /* Grid */
   .expertise-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 2rem;
   }
-
   /* Cards */
   .expertise-card {
     background: #f8f9fa;
     border: 1px solid #e2e8f0;
     border-radius: 4px;
     padding: 2rem;
-    
   }
-
   .expertise-card:hover {
-    
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     border-color: #cbd5e1;
   }
-
   .card-title {
     font-size: 1.25rem;
     font-weight: 500;
@@ -127,20 +111,17 @@ const { title, subtitle, expertiseAreas } = Astro.props;
     padding-bottom: 0.75rem;
     border-bottom: 2px solid #3b82f6;
   }
-
   /* Items */
   .card-items {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
   }
-
   .expertise-item {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
   }
-
   .item-label {
     font-weight: 600;
     color: #2c4157;
@@ -148,50 +129,40 @@ const { title, subtitle, expertiseAreas } = Astro.props;
     text-transform: uppercase;
     letter-spacing: 0.02em;
   }
-
   .item-separator {
     display: none;
   }
-
   .item-description {
     color: #64748b;
     font-size: 0.875rem;
     line-height: 1.5;
   }
-
   /* Responsive */
   @media (max-width: 768px) {
     .expertise-section {
       padding: 3rem 0;
     }
-
     .section-header {
       margin-bottom: 2.5rem;
       padding-left: 1rem;
     }
-
     .section-title {
       font-size: 2rem;
     }
-
     .section-subtitle {
       font-size: 1.125rem;
       margin-left: 1.5rem;
     }
-
     .expertise-grid {
       grid-template-columns: 1fr;
       gap: 1.5rem;
     }
-
     .expertise-card {
       padding: 1.5rem;
     }
-
     .card-title {
       font-size: 1.25rem;
     }
-
     .item-description {
       font-size: 0.875rem;
     }

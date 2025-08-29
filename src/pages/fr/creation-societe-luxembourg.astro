@@ -7,7 +7,6 @@ import BlogCarousel from '../../components/BlogCarousel.astro';
 import CTA from '../../components/CTA.astro';
 import ServicesHighlight from '../../components/ServicesHighlight.astro';
 import FAQ from '../../components/FAQ.astro';
-
 // --- DONNÉES & SEO (INCHANGÉS) ---
 const societyTypes = [
   { type: "SARL-S (Simplifiée)", capital: "1€ à 12 000€", notaire: false, description: "Réservée aux personnes physiques, idéale pour tester un projet. Autorisation d'établissement requise avant immatriculation RCS.", avantages: ["Sans notaire", "Création rapide", "Capital flexible 1-12k€"], cout: "2 000€ HT", link: "/fr/articles/sarl-s" },
@@ -17,7 +16,6 @@ const societyTypes = [
   { type: "SCI (Société Civile)", capital: "Variable", notaire: false, description: "Exclusivement pour la gestion de patrimoine immobilier, sans activité commerciale. Attention : apport ou cession d'immeuble nécessite un acte notarié.", avantages: ["Gestion immobilière", "Transmission familiale", "Fiscalité adaptée"], cout: "1 000€ HT", link: "/fr/articles/sci-luxembourg" },
   { type: "SCSp", capital: "Variable", notaire: false, description: "Société en commandite spéciale, idéale pour les fonds d'investissement et le private equity. Peut être créée par acte sous seing privé.", avantages: ["Structure transparente", "Flexibilité fiscale", "Idéale pour fonds"], cout: "Sur devis", link: null }
 ];
-
 const legalServices = [
   {
     title: "Gouvernance et vie sociale",
@@ -50,7 +48,6 @@ const legalServices = [
     href: "/fr/services"
   }
 ];
-
 const processSteps = [
   {
     number: "1",
@@ -92,9 +89,7 @@ const processSteps = [
     ]
   }
 ];
-
 const metaDescription = "Service expert pour la création de votre société au Luxembourg : SARL, SARL-S, SA, SCI. Nous gérons toutes les formalités de constitution et le suivi juridique.";
-
 const constitutionSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
@@ -124,7 +119,6 @@ const constitutionSchema = {
   }
 };
 ---
-
 <LayoutI18n
   title="Création de Société au Luxembourg | SARL, SARL-S, SA"
   description={metaDescription}
@@ -139,28 +133,24 @@ const constitutionSchema = {
     title="Création de société au Luxembourg"
     subtitle="Nous vous accompagnons de A à Z dans la constitution de votre entreprise (SARL, SARL-S, SA, SCI). Profitez de notre expertise pour un lancement rapide, conforme et optimisé."
   />
-
   <ProcessTimeline
     title="Création d'entreprise – processus simplifié et conforme"
     subtitle="Nous gérons l'ensemble des formalités pour constituer votre société rapidement et dans le respect du droit luxembourgeois."
     steps={processSteps}
     variant="vertical"
   />
-
   <CTA
     title="Prêt à créer votre société au Luxembourg ?"
     subtitle="Bénéficiez d'un accompagnement expert pour choisir la structure juridique adaptée et lancer votre activité en toute sérénité. Nous gérons toutes les formalités pour vous."
     buttonText="Demander un devis gratuit"
     buttonHref="/fr/contact"
   />
-
   <LegalFormInfo
     title="Quelle forme juridique choisir ?"
     subtitle="Chaque structure a ses spécificités. Voici un comparatif pour vous aider à décider."
     societyTypes={societyTypes}
     lang="fr"
   />
-
   <BlogCarousel
     title="Articles sur la création de société"
     subtitle="Découvrez nos guides détaillés pour chaque forme juridique"
@@ -169,13 +159,11 @@ const constitutionSchema = {
     lang="fr"
     backgroundColor="#f1f5f9"
   />
-
   <ServicesHighlight
     title="Secrétariat juridique – accompagnement complet"
     subtitle="Nous assurons la gestion juridique et administrative de votre société tout au long de sa vie."
     services={legalServices}
   />
-
   <FAQ
     title="Questions fréquentes sur la création de société"
     backgroundColor="#f1f5f9"
@@ -198,5 +186,4 @@ const constitutionSchema = {
       }
     ]}
   />
-
 </LayoutI18n>

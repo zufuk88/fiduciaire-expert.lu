@@ -5,7 +5,6 @@ import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
 import ServicePresentation from '../../components/ServicePresentation.astro';
 import ServicesInfo from '../../components/ServicesInfo.astro';
-
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -22,7 +21,6 @@ const serviceSchema = {
   },
   "description": "Expert corporate accounting tailored to Luxembourg legal requirements. PCN 2020, eCDF compliance, IFRS reporting."
 };
-
 const faqItems = [
   {
     question: "What are the mandatory accounting deadlines for Luxembourg companies?",
@@ -50,7 +48,6 @@ const faqItems = [
   }
 ];
 ---
-
 <LayoutI18n
   title="Expert Corporate Accounting Luxembourg | PCN 2020 & Compliance"
   description="Expert corporate accounting tailored to Luxembourg legal requirements. Complete PCN 2020 compliance, eCDF filing, and strategic financial management."
@@ -68,7 +65,6 @@ const faqItems = [
     title="Chartered Accountant services in Luxembourg"
     subtitle="Entrust your accounting to certified experts who master Luxembourg regulations (PCN 2020, eCDF, RCS). We ensure complete compliance while optimizing your tax situation and financial performance."
   />
-
   <!-- Legal Accounting Obligations Section -->
   <ServicePresentation
     title="Legal accounting obligations for Luxembourg companies"
@@ -83,7 +79,6 @@ const faqItems = [
       "These requirements form the foundation of Luxembourg's accounting regulatory framework and apply universally to all registered entities."
     ]}
   />
-
   <!-- PCN Requirements Section -->
   <ServicesInfo
     title="Plan Comptable Normalisé (PCN): Understanding your obligations"
@@ -118,7 +113,6 @@ const faqItems = [
       content: "The PCN 2020 introduces enhanced digital requirements through the electronic Common Data Format (eCDF), which standardizes financial reporting across Luxembourg. This system requires companies to file their annual accounts electronically through the dedicated eCDF platform. Except for companies authorized to use IFRS standards, eCDF validation in PCN format is mandatory before any RCS filing."
     }}
   />
-
   <!-- Company Size Categories Section -->
   <ServicesInfo
     title="Company size categories and their impact on obligations"
@@ -175,7 +169,6 @@ const faqItems = [
     ]}
     note="Important: Companies must not exceed 2 of 3 criteria for two consecutive years to maintain their classification."
   />
-
   <!-- eCDF Technical Requirements Section -->
   <section class="section-white">
     <div class="container">
@@ -183,7 +176,6 @@ const faqItems = [
         <h2 class="section-title">PCN 2020 and eCDF electronic filing requirements</h2>
         <p class="section-subtitle">The implementation of PCN 2020 represents a significant modernization of Luxembourg's accounting framework.</p>
       </div>
-
       <div class="requirements-grid">
         <div class="info-box">
           <h3>Technical requirements for eCDF filing</h3>
@@ -195,7 +187,6 @@ const faqItems = [
             <li>Including structured data about legal form, registered office, and financial year</li>
           </ul>
         </div>
-
         <div class="info-box">
           <h3>Preparation and validation process</h3>
           <p>Before submission, companies must validate their eCDF files through the eCDF platform of CTIE (Centre des Technologies de l'Information de l'État) or via XML transfer according to the official schema. This validation checks for:</p>
@@ -209,14 +200,12 @@ const faqItems = [
       </div>
     </div>
   </section>
-
   <!-- Critical Deadlines Section -->
   <section class="section-grey">
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">Critical deadlines and administrative sanctions</h2>
       </div>
-
       <div class="deadline-grid">
         <div class="deadline-card">
           <h3>Filing deadlines for annual accounts</h3>
@@ -251,7 +240,6 @@ const faqItems = [
             </div>
           </div>
         </div>
-
         <div class="deadline-card">
           <h3>Administrative and financial sanctions</h3>
           <div class="penalty-table">
@@ -276,7 +264,6 @@ const faqItems = [
           </ul>
         </div>
       </div>
-
       <div class="info-box">
         <h3>Tax-related deadlines and penalties</h3>
         <p>Corporate income tax (IRC) and municipal business tax (ICC) returns for a fiscal year must be filed by 31 December of the following year. Electronic filing via MyGuichet.lu is mandatory. Late filing may result in an administrative fine and, if tax remains unpaid, late-payment interest.</p>
@@ -286,7 +273,6 @@ const faqItems = [
       </div>
     </div>
   </section>
-
   <!-- Comprehensive Services Section -->
   <section class="section-white">
     <div class="container">
@@ -294,7 +280,6 @@ const faqItems = [
         <h2 class="section-title">Comprehensive accounting services we provide</h2>
         <p class="section-subtitle">Transform your accounting function from a compliance burden into a strategic asset that drives business growth.</p>
       </div>
-
       <div class="services-grid">
         <div class="service-category">
           <h3>Day-to-day accounting management</h3>
@@ -309,7 +294,6 @@ const faqItems = [
             </div>
           </div>
         </div>
-
         <div class="service-category">
           <h3>Financial reporting and compliance</h3>
           <div class="service-items">
@@ -323,7 +307,6 @@ const faqItems = [
             </div>
           </div>
         </div>
-
         <div class="service-category">
           <h3>Tax compliance</h3>
           <div class="service-items">
@@ -337,7 +320,6 @@ const faqItems = [
             </div>
           </div>
         </div>
-
         <div class="service-category">
           <h3>Advisory and strategic support</h3>
           <div class="service-items">
@@ -354,7 +336,6 @@ const faqItems = [
       </div>
     </div>
   </section>
-
   <CTA
     title="Start with a comprehensive accounting assessment"
     subtitle="Every business has unique accounting needs. Start with a thorough assessment of your current situation: identify your compliance gaps, and find a tailored solution for your business."
@@ -362,7 +343,6 @@ const faqItems = [
     buttonHref="/en/contact?service=accounting"
     ]}
   />
-
   <!-- Industry Expertise Section -->
   <section class="section-grey">
     <div class="container">
@@ -370,23 +350,19 @@ const faqItems = [
         <h2 class="section-title">Specialized expertise across industries</h2>
         <p class="section-subtitle">Different industries face unique accounting challenges and regulatory requirements in Luxembourg.</p>
       </div>
-
       <div class="industry-grid">
         <div class="industry-card">
           <h3>Investment funds and financial services</h3>
           <p>Navigate complex regulatory landscapes including CSSF reporting requirements, NAV calculations, and investor reporting. Expertise in UCITS, AIFs, and management companies. Discover how <a href="/en/articles/soparfi-luxembourg-holding-company-guide">SOPARFI holding structures</a> optimize investment operations.</p>
         </div>
-
         <div class="industry-card">
           <h3>Real estate and construction</h3>
           <p>Property valuation methods, construction contract accounting, VAT optimization for property transactions, and SPV structuring for real estate assets. Learn more about <a href="/en/articles/sci-luxembourg-real-estate-holding-company">SCI structures for real estate holdings</a>.</p>
         </div>
-
         <div class="industry-card">
           <h3>Manufacturing and trading</h3>
           <p>Inventory valuation, cost accounting, transfer pricing documentation, and customs duties optimization for complex supply chains.</p>
         </div>
-
         <div class="industry-card">
           <h3>Professional services</h3>
           <p>Accounting for engineering firms, consulting companies, and business service providers. Project-based accounting, revenue recognition, and professional expense management.</p>
@@ -394,7 +370,6 @@ const faqItems = [
       </div>
     </div>
   </section>
-
   <!-- Software Solutions Section -->
   <section class="section-white">
     <div class="container">
@@ -402,7 +377,6 @@ const faqItems = [
         <h2 class="section-title">Professional accounting software</h2>
         <p class="section-subtitle">Effective accounting management requires robust, reliable software that complies with Luxembourg's specific regulatory requirements.</p>
       </div>
-
       <div class="info-box">
         <h3>Enterprise-grade solutions</h3>
         <p>Luxembourg's accounting professionals work with established software platforms that meet regulatory requirements:</p>
@@ -415,7 +389,6 @@ const faqItems = [
       </div>
     </div>
   </section>
-
   <FAQ
     title="Frequently asked questions about accounting in Luxembourg"
     subtitle="Essential information for managing your company's accounting obligations"
@@ -425,7 +398,6 @@ const faqItems = [
     backgroundColor="#f1f5f9"
   />
 </LayoutI18n>
-
 <style>
   :root {
     --color-primary: #005fcc;
@@ -443,14 +415,12 @@ const faqItems = [
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
-
   /* Section Styles */
   .section-white {
     padding: 5rem 0;
     position: relative;
     isolation: isolate;
   }
-
   .section-white::before {
     content: '';
     position: absolute;
@@ -463,7 +433,6 @@ const faqItems = [
     pointer-events: none;
     z-index: 1;
   }
-
   .section-grey {
     background: #f1f5f9;
     padding: 5rem 0;
@@ -471,7 +440,6 @@ const faqItems = [
     isolation: isolate;
     overflow: hidden;
   }
-
   .section-grey::before {
     content: '';
     position: absolute;
@@ -489,7 +457,6 @@ const faqItems = [
     pointer-events: none;
     z-index: 1;
   }
-
   .section-grey::after {
     content: '';
     position: absolute;
@@ -501,7 +468,6 @@ const faqItems = [
     pointer-events: none;
     z-index: 0;
   }
-
   .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -509,13 +475,11 @@ const faqItems = [
     position: relative;
     z-index: 2;
   }
-
   /* Typography */
   .section-header {
     text-align: center;
     margin-bottom: 3rem;
   }
-
   .section-title {
     font-size: 2.5rem;
     font-weight: 300;
@@ -523,7 +487,6 @@ const faqItems = [
     margin-bottom: 1rem;
     line-height: 1.2;
   }
-
   .section-subtitle {
     font-size: 1.125rem;
     color: var(--color-text-secondary);
@@ -531,7 +494,6 @@ const faqItems = [
     margin: 0 auto;
     line-height: 1.7;
   }
-
   /* Info Boxes */
   .info-box {
     background: var(--color-grey);
@@ -539,31 +501,25 @@ const faqItems = [
     padding: 2rem;
     margin-bottom: 2rem;
   }
-
   .info-box h3 {
     color: var(--color-dark);
     font-size: 1.375rem;
     font-weight: 300;
     margin-bottom: 1rem;
   }
-
   .info-box p {
     color: var(--color-text);
     line-height: 1.7;
     margin-bottom: 1rem;
   }
-
   .info-box p:last-child {
     margin-bottom: 0;
   }
-
   .text-muted {
     color: var(--color-text-secondary) !important;
     font-size: 0.95rem;
     font-style: italic;
   }
-
-
   /* Note Box */
   .note-box {
     background: #fef3c7;
@@ -572,26 +528,22 @@ const faqItems = [
     padding: 1.5rem;
     margin-top: 2rem;
   }
-
   .note-box p {
     color: #92400e;
     margin: 0;
   }
-
   /* Lists */
   .requirements-list {
     list-style: none;
     padding: 0;
     margin: 1rem 0;
   }
-
   .requirements-list li {
     position: relative;
     padding-left: 1.75rem;
     margin-bottom: 0.75rem;
     color: var(--color-text);
   }
-
   .requirements-list li::before {
     content: "✓";
     position: absolute;
@@ -599,8 +551,6 @@ const faqItems = [
     color: var(--color-success);
     font-weight: bold;
   }
-
-
   /* Company Size Categories */
   .size-categories-grid {
     display: grid;
@@ -608,25 +558,17 @@ const faqItems = [
     gap: 2rem;
     margin-bottom: 2rem;
   }
-
   .category-card {
     border-radius: 4px;
     overflow: hidden;
-    box-shadow: var(--shadow-md);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-
   .category-card:hover {
-    
-    box-shadow: var(--shadow-lg);
   }
-
   .category-header {
     padding: 1.5rem;
     background: var(--color-grey-light);
     border-bottom: 2px solid var(--color-border);
   }
-
   .category-badge {
     display: inline-block;
     padding: 0.25rem 0.75rem;
@@ -636,72 +578,59 @@ const faqItems = [
     text-transform: uppercase;
     margin-bottom: 0.5rem;
   }
-
   .category-card.small .category-badge {
     background: #dcfce7;
     color: #166534;
   }
-
   .category-card.medium .category-badge {
     background: #fed7aa;
     color: #9a3412;
   }
-
   .category-card.large .category-badge {
     background: #fecaca;
     color: #991b1b;
   }
-
   .category-header h3 {
     margin: 0;
     color: var(--color-dark);
     font-size: 1.25rem;
     font-weight: 300;
   }
-
   .thresholds {
     padding: 1.5rem;
     background: var(--color-grey-light);
   }
-
   .threshold-item {
     display: flex;
     justify-content: space-between;
     padding: 0.75rem 0;
     border-bottom: 1px solid var(--color-border);
   }
-
   .threshold-item:last-child {
     border-bottom: none;
   }
-
   .threshold-item .label {
     color: var(--color-text-secondary);
     font-size: 0.875rem;
   }
-
   .threshold-item .value {
     color: var(--color-dark);
     font-weight: 300;
   }
-
   .requirements {
     padding: 1.5rem;
   }
-
   .requirements h4 {
     color: var(--color-dark);
     font-size: 1rem;
     margin-bottom: 1rem;
     font-weight: 300;
   }
-
   .requirements ul {
     list-style: none;
     padding: 0;
     margin: 0;
   }
-
   .requirements li {
     padding: 0.5rem 0;
     padding-left: 1.5rem;
@@ -709,14 +638,12 @@ const faqItems = [
     color: var(--color-text);
     font-size: 0.875rem;
   }
-
   .requirements li::before {
     content: "•";
     position: absolute;
     left: 0;
     color: var(--color-primary);
   }
-
   /* Deadline Section */
   .deadline-grid {
     display: grid;
@@ -724,26 +651,21 @@ const faqItems = [
     gap: 2rem;
     margin-bottom: 2rem;
   }
-
   .deadline-card {
     border-radius: 4px;
     padding: 2rem;
-    box-shadow: var(--shadow-md);
     display: flex;
     flex-direction: column;
   }
-
   .deadline-card h3 {
     color: var(--color-dark);
     font-size: 1.375rem;
     margin-bottom: 1.5rem;
     font-weight: 300;
   }
-  
   .deadline-card:first-child {
     min-height: 400px;
   }
-
   .timeline {
     position: relative;
     padding-left: 2rem;
@@ -751,7 +673,6 @@ const faqItems = [
     flex-direction: column;
     height: 100%;
   }
-
   .timeline::before {
     content: '';
     position: absolute;
@@ -761,17 +682,14 @@ const faqItems = [
     width: 2px;
     background: var(--color-border);
   }
-
   .timeline-item {
     position: relative;
     padding-bottom: 2.5rem;
     flex: 1;
   }
-
   .timeline-item:last-child {
     padding-bottom: 1rem;
   }
-
   .timeline-marker {
     position: absolute;
     left: -1.5rem;
@@ -781,31 +699,25 @@ const faqItems = [
     border-radius: 50%;
     background: var(--color-primary);
     border: 3px solid white;
-    box-shadow: var(--shadow-md);
   }
-
   .timeline-item.critical .timeline-marker {
     background: var(--color-danger);
   }
-
   .timeline-content strong {
     color: var(--color-dark);
     display: block;
     margin-bottom: 0.5rem;
     font-size: 1rem;
   }
-
   .timeline-content p {
     color: var(--color-text-secondary);
     font-size: 0.9rem;
     line-height: 1.5;
   }
-
   /* Penalty Table */
   .penalty-table {
     margin-bottom: 1.5rem;
   }
-
   .penalty-row {
     display: flex;
     justify-content: space-between;
@@ -814,32 +726,26 @@ const faqItems = [
     border-radius: 4px;
     margin-bottom: 0.5rem;
   }
-
   .penalty-row.critical {
     background: #fee2e2;
   }
-
   .penalty-row .delay {
     color: var(--color-text);
     font-size: 0.875rem;
   }
-
   .penalty-row .amount {
     color: var(--color-danger);
     font-weight: 300;
   }
-
   .warning-text {
     color: var(--color-danger);
     font-weight: 300;
     margin: 1rem 0;
   }
-
   .consequences-list {
     list-style: none;
     padding: 0;
   }
-
   .consequences-list li {
     padding: 0.5rem 0;
     padding-left: 1.5rem;
@@ -847,26 +753,22 @@ const faqItems = [
     color: var(--color-text);
     font-size: 0.875rem;
   }
-
   .consequences-list li::before {
     content: "⚠";
     position: absolute;
     left: 0;
     color: var(--color-warning);
   }
-
   /* Services Grid */
   .services-grid {
     display: grid;
     gap: 2rem;
   }
-
   .service-category {
     background: var(--color-grey-light);
     border-radius: 4px;
     padding: 2rem;
   }
-
   .service-category h3 {
     color: var(--color-dark);
     font-size: 1.5rem;
@@ -875,149 +777,116 @@ const faqItems = [
     border-bottom: 2px solid var(--color-primary);
     font-weight: 300;
   }
-
   .service-items {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
   }
-
   .service-item {
     padding: 1.5rem;
     border-radius: 4px;
-    box-shadow: var(--shadow-sm);
   }
-
   .service-item h4 {
     color: var(--color-primary);
     font-size: 1.125rem;
     margin-bottom: 0.75rem;
     font-weight: 300;
   }
-
   .service-item p {
     color: var(--color-text);
     font-size: 0.875rem;
     line-height: 1.6;
   }
-
   /* Industry Grid */
   .industry-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
   }
-
   .industry-card {
     padding: 2rem;
     border-radius: 4px;
-    box-shadow: var(--shadow-md);
-    transition: transform 0.3s ease;
   }
-
   .industry-card:hover {
-    
-    box-shadow: var(--shadow-lg);
   }
-
   .industry-card h3 {
     color: var(--color-primary);
     font-size: 1.25rem;
     margin-bottom: 1rem;
     font-weight: 300;
   }
-
   .industry-card p {
     color: var(--color-text);
     line-height: 1.6;
   }
-
   /* Software List */
   .software-list {
     list-style: none;
     padding: 0;
     margin: 1.5rem 0;
   }
-
   .software-list li {
     padding: 1rem 0;
     border-bottom: 1px solid var(--color-border);
     color: var(--color-text);
     line-height: 1.6;
   }
-
   .software-list li:last-child {
     border-bottom: none;
   }
-
   /* Introduction Section */
   .intro-content.info-box {
     max-width: 1000px;
     margin: 0 auto;
   }
-
   .intro-content p {
     color: var(--color-text);
     line-height: 1.8;
     margin-bottom: 1.5rem;
     text-align: justify;
   }
-
   .intro-content p.lead {
     font-size: 1.125rem;
     font-weight: 300;
     color: var(--color-dark);
     margin-bottom: 2rem;
   }
-
   .info-box a {
     color: var(--color-primary);
     text-decoration: none;
     font-weight: 300;
-    
   }
-
   .info-box a:hover {
     text-decoration: underline;
   }
-
-
   /* Responsive */
   @media (max-width: 768px) {
     .section-title {
       font-size: 1.875rem;
     }
-
     .pcn-grid,
     .requirements-grid,
     .deadline-grid,
     .industry-grid {
       grid-template-columns: 1fr;
     }
-
     .size-categories-grid {
       grid-template-columns: 1fr;
     }
-
     .service-items {
       grid-template-columns: 1fr;
     }
-    
     .deadline-card:first-child {
       min-height: auto;
     }
-    
     .timeline-item {
       padding-bottom: 1.5rem;
     }
-    
     .timeline-content strong {
       font-size: 0.9rem;
     }
-    
     .timeline-content p {
       font-size: 0.85rem;
     }
-    
   }
 </style>

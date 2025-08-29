@@ -8,12 +8,10 @@ import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
 import { Image } from 'astro:assets';
 import logoImage from '../../assets/images/Logo.webp';
-
 // SEO Metadata - Optimized for 10/10
 const pageTitle = "Chartered Accountant Luxembourg | Fiduciaire Expert - OEC Licensed";
 const pageDescription = "Luxembourg's leading chartered accounting firm. Expert tax advisory, company formation (SARL, SA), and payroll services for SMEs. Licensed OEC member.";
 const pageKeywords = "chartered accountant Luxembourg, tax advisor Luxembourg, company formation Luxembourg, SARL formation, payroll services Luxembourg, accounting firm, expert-comptable, fiduciary services, OEC Luxembourg";
-
 // FAQ Data - Used for both component and schema
 const faqItems = [
   {
@@ -37,7 +35,6 @@ const faqItems = [
     answer: "Every company must maintain accounting compliant with Luxembourg law, file annual accounts with RCS, and meet VAT, corporate income tax (CIT) and municipal business tax (MBT) or net wealth tax (NWT) deadlines. Penalties apply for delays. A chartered accountant secures your processes and filings."
   }
 ];
-
 // Structured Data JSON-LD - Enhanced semantic structure
 const schema = {
   "@context": "https://schema.org",
@@ -176,9 +173,7 @@ const schema = {
     }
   ]
 };
-
 ---
-
 <LayoutI18n 
   title={pageTitle}
   description={pageDescription}
@@ -188,7 +183,6 @@ const schema = {
 >
   <!-- Preload critical resources -->
   <link slot="head" rel="preload" as="image" href={logoImage.src} fetchpriority="high" />
-  
   <Hero 
     badge="Fiduciaire Expert"
     title="Luxembourg Chartered Accountant & Tax Advisor"
@@ -202,7 +196,6 @@ const schema = {
       href: "tel:+35220605857"
     }}
   />
-
   <ServicesHighlight 
     title="Complete accounting solutions: from incorporation to daily management"
     subtitle="As a licensed accounting firm, we offer a complete range of services designed to meet all accounting and tax needs of businesses in Luxembourg."
@@ -224,7 +217,6 @@ const schema = {
       }
     ]}
   />
-
   <BlogCarousel 
     title="Chartered Accountant blog: tax and accounting advice"
     subtitle="Our chartered accountant articles to optimize your business management in Luxembourg"
@@ -232,7 +224,6 @@ const schema = {
     maxPosts={4}
     backgroundColor="#f1f5f9"
   />
-
   <WhyUs 
     title="Chartered Accountant in Luxembourg"
     subtitle="Chartered accounting firm specialized in CIT/MBT/NWT and VAT taxation and CCSS social management for Luxembourg SMEs and companies"
@@ -265,14 +256,12 @@ const schema = {
       }
     ]}
   />
-
   <CTA 
     title="Your free expert quote within 48 hours"
     subtitle="Accounting, compliance in direct and inderect taxes and SARL company formation. Free consultation with our OEC-certified experts."
     buttonText="Get my free quote"
     buttonHref="/en/contact#get-quote"
   />
-
   <FAQ 
     title="Frequently Asked Questions about Chartered Accountants in Luxembourg"
     subtitle="Everything you need to know about accounting and tax services for your Luxembourg company."
@@ -280,6 +269,5 @@ const schema = {
     faqItems={faqItems}
     showCTA={false}
   />
-
   <!-- Additional Schema.org script handled by layout -->
 </LayoutI18n>

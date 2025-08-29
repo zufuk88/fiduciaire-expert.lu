@@ -5,10 +5,8 @@ import ServicesInfo from '../../components/ServicesInfo.astro';
 import ProcessTimeline from '../../components/ProcessTimeline.astro';
 import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
-
 const pageTitle = "Conseil fiscal au Luxembourg — Taxpertize by Fiduciaire Expert";
 const pageDescription = "Cabinet d'expertise fiscale basé au Luxembourg. Intervention à haute intensité analytique pour sociétés, fonds, groupes internationaux, dirigeants et investisseurs privés.";
-
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -25,7 +23,6 @@ const schema = {
     }
   ]
 };
-
 const faqItems = [
   {
     question: "Quelles sociétés sont concernées par Pillar Two / Pilier 2 au Luxembourg ?",
@@ -45,7 +42,6 @@ const faqItems = [
   }
 ];
 ---
-
 <LayoutI18n 
   title={pageTitle}
   description={pageDescription}
@@ -61,7 +57,6 @@ const faqItems = [
     title="Conseil fiscal au Luxembourg — Taxpertize by Fiduciaire Expert"
     subtitle="Cabinet d'expertise fiscale basé au Luxembourg. Intervention à haute intensité analytique pour sociétés, fonds, groupes internationaux, dirigeants et investisseurs privés. Couverture intégrale : structuration, diagnostic, modélisation, rescrits, contrôles et contentieux."
   />
-  
   <!-- Section Domaines d'expertise -->
   <ServicesInfo
     title="Domaines d'expertise"
@@ -91,7 +86,6 @@ const faqItems = [
     ]}
     backgroundColor="#f8fafc"
   />
-
   <ServicesInfo
     sections={[
       {
@@ -123,7 +117,6 @@ const faqItems = [
       }
     ]}
   />
-
   <!-- Section Méthode -->
   <ProcessTimeline
     title="Méthode Taxpertize"
@@ -177,7 +170,6 @@ const faqItems = [
     ]}
     variant="vertical"
   />
-
   <!-- Section Honoraires -->
   <ServicesInfo
     title="Structure d'honoraires transparente"
@@ -210,7 +202,6 @@ const faqItems = [
     }}
     backgroundColor="#f8fafc"
   />
-
   <!-- Section Références Sectorielles -->
   <ServicesInfo
     title="Références sectorielles"
@@ -254,14 +245,12 @@ const faqItems = [
       }
     ]}
   />
-
   <CTA
     title="Prêt à optimiser votre situation fiscale ?"
     subtitle="Contactez Taxpertize pour une première consultation et découvrez comment notre expertise peut créer de la valeur pour votre organisation."
     buttonText="Demander une consultation"
     buttonHref="/fr/contact?service=taxpertize"
   />
-
   <FAQ
     title="Questions fréquentes sur la fiscalité luxembourgeoise"
     subtitle="Réponses d'experts aux questions fiscales complexes"

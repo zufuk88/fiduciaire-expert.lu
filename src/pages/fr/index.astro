@@ -7,12 +7,10 @@ import WhyUs from '../../components/WhyUs.astro';
 import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
 import logoImage from '../../assets/images/Logo.webp';
-
 // SEO Metadonnées - Optimisées pour le 10/10
 const pageTitle = "Fiduciaire Expert | Expert-Comptable Agréé au Luxembourg pour PME";
 const pageDescription = "Fiduciaire Expert, votre cabinet d'expert-comptable agréé au Luxembourg. Services complets pour PME : comptabilité, fiscalité, création de SARL et gestion sociale.";
 const pageKeywords = "expert-comptable Luxembourg, cabinet comptable Luxembourg, création SARL Luxembourg, fiscalité Luxembourg, expert-comptable agréé, OEC Luxembourg, comptabilité PME, déclaration TVA Luxembourg, IRC ICC IF, CCSS Luxembourg, fiduciaire Luxembourg, bilan annuel, gestion paie Luxembourg";
-
 // Données FAQ - Utilisées pour le composant et le schema
 const faqItems = [
   {
@@ -36,7 +34,6 @@ const faqItems = [
     answer: "Toute société doit tenir une comptabilité conforme à la loi luxembourgeoise, déposer ses comptes annuels au RCS, et respecter les échéances TVA, impôt sur le revenu des collectivités (IRC) et impôt commercial communal (ICC) ou impôt sur la fortune (IF). Des pénalités s'appliquent en cas de retard. Un expert-comptable fiabilise vos process et vos dépôts."
   }
 ];
-
 // Données Structurées JSON-LD - Réarchitecturées pour une sémantique parfaite
 const schema = {
   "@context": "https://schema.org",
@@ -100,7 +97,6 @@ const schema = {
   ]
 };
 ---
-
 <LayoutI18n 
   title={pageTitle}
   description={pageDescription}
@@ -119,7 +115,6 @@ const schema = {
       href: "tel:+35220605857"
     }}
   />
-
   <ServicesHighlight
     title="Solutions comptables complètes : de la création à la gestion quotidienne"
     subtitle="En tant que cabinet d'expertise comptable, nous offrons une gamme de services conçus pour répondre à tous les besoins comptables et fiscaux des entreprises au Luxembourg."
@@ -141,7 +136,6 @@ const schema = {
       }
     ]}
   />
-
   <BlogCarousel 
     title="Blog expert-comptable : conseils fiscaux et comptables"
     subtitle="Nos articles d'expert-comptable pour optimiser votre gestion d'entreprise au Luxembourg"
@@ -149,7 +143,6 @@ const schema = {
     maxPosts={4}
     backgroundColor="#f1f5f9"
   />
-
   <WhyUs
     title="Expert-comptable au Luxembourg"
     subtitle="Cabinet d'expertise comptable spécialisé en fiscalité IRC/ICC/IF et TVA, gestion sociale CCSS pour PME et sociétés luxembourgeoises"
@@ -182,16 +175,13 @@ const schema = {
       }
     ]}
   />
-
   <CTA 
     title="Votre devis expert gratuit sous 48h"
     subtitle="Comptabilité, fiscalité directe et indirecte, et création de société SARL. Consultation sans engagement avec nos experts agréés OEC."
     buttonText="Obtenir mon devis gratuit"
     buttonHref="/fr/contact#devis-express"
   />
-
   <script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />
-
   <FAQ 
     title="Questions fréquentes sur l'expert-comptable au Luxembourg"
     subtitle="Tout ce que vous devez savoir sur les services comptables et fiscaux pour votre entreprise luxembourgeoise."
@@ -200,4 +190,3 @@ const schema = {
     backgroundColor="#f1f5f9"
   />
 </LayoutI18n>
-

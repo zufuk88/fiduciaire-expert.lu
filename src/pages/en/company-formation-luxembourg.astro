@@ -7,7 +7,6 @@ import BlogCarousel from '../../components/BlogCarousel.astro';
 import CTA from '../../components/CTA.astro';
 import ServicesHighlight from '../../components/ServicesHighlight.astro';
 import FAQ from '../../components/FAQ.astro';
-
 // --- DATA & SEO ---
 const societyTypes = [
   { type: "SARL-S (Simplified)", capital: "€1 to €12,000", notaire: false, description: "Reserved for natural persons, ideal for testing a project. Business license required before RCS registration.", avantages: ["No notary required", "Quick creation", "Flexible capital €1-12k"], cout: "€2,000 excl. VAT", link: "/en/articles/sarl-s-luxembourg-simplified-limited-liability-company" },
@@ -17,7 +16,6 @@ const societyTypes = [
   { type: "SCI (Civil Company)", capital: "Variable", notaire: false, description: "Exclusively for real estate asset management, without commercial activity. Note: property contribution or transfer requires notarial deed.", avantages: ["Real estate management", "Family transmission", "Adapted taxation"], cout: "€1,000 excl. VAT", link: "/en/articles/sci-luxembourg-real-estate-holding-company" },
   { type: "SCSp", capital: "Variable", notaire: false, description: "Special limited partnership, ideal for investment funds and private equity. Can be created by private deed.", avantages: ["Transparent structure", "Tax flexibility", "Ideal for funds"], cout: "On request", link: null }
 ];
-
 const legalServices = [
   {
     title: "Governance and corporate life",
@@ -50,7 +48,6 @@ const legalServices = [
     href: "/en/services"
   }
 ];
-
 const processSteps = [
   {
     number: "1",
@@ -92,9 +89,7 @@ const processSteps = [
     ]
   }
 ];
-
 const metaDescription = "Expert service for company formation in Luxembourg: SARL, SARL-S, SA, SCI. We handle all incorporation formalities and legal follow-up.";
-
 const constitutionSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
@@ -124,7 +119,6 @@ const constitutionSchema = {
   }
 };
 ---
-
 <LayoutI18n
   title="Company Formation in Luxembourg | SARL, SARL-S, SA"
   description={metaDescription}
@@ -139,28 +133,24 @@ const constitutionSchema = {
     title="Company formation in Luxembourg"
     subtitle="We support you from A to Z in the formation of your company (SARL, SARL-S, SA, SCI). Benefit from our expertise for a fast, compliant and optimized launch."
   />
-
   <ProcessTimeline
     title="Company formation – simplified and compliant process"
     subtitle="We manage all formalities to establish your company quickly and in compliance with Luxembourg law."
     steps={processSteps}
     variant="vertical"
   />
-
   <CTA
     title="Ready to create your company in Luxembourg?"
     subtitle="Benefit from expert support to choose the right legal structure and launch your business with peace of mind. We handle all the formalities for you."
     buttonText="Request a free quote"
     buttonHref="/en/contact"
   />
-
   <LegalFormInfo
     title="Which legal form to choose?"
     subtitle="Each structure has its specificities. Here's a comparison to help you decide."
     societyTypes={societyTypes}
     lang="en"
   />
-
   <BlogCarousel
     title="Articles on company formation"
     subtitle="Discover our detailed guides for each legal form"
@@ -169,13 +159,11 @@ const constitutionSchema = {
     lang="en"
     backgroundColor="#f1f5f9"
   />
-
   <ServicesHighlight
     title="Corporate secretarial – complete support"
     subtitle="We ensure the legal and administrative management of your company throughout its life."
     services={legalServices}
   />
-
   <FAQ
     title="Frequently Asked Questions about Company Formation"
     backgroundColor="#f1f5f9"
@@ -198,5 +186,4 @@ const constitutionSchema = {
       }
     ]}
   />
-
 </LayoutI18n>

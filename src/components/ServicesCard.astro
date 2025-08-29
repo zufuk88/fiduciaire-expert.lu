@@ -10,7 +10,6 @@ export interface Props {
   href?: string;
   accent?: 'blue' | 'gray' | 'gold';
 }
-
 const { 
   title,
   shortTitle,
@@ -22,7 +21,6 @@ const {
   href,
   accent = 'blue'
 } = Astro.props;
-
 const displayTitle = shortTitle || title;
 const isEnglish = Astro.url.pathname.includes('/en/');
 const ctaHref = slug ? `/${isEnglish ? 'en' : 'fr'}/contact?service=${slug}` : `/${isEnglish ? 'en' : 'fr'}/contact`;
@@ -31,12 +29,10 @@ const ctaAriaLabel = isEnglish ? `Get a quote for ${displayTitle}` : `Obtenir un
 const iconAriaLabel = isEnglish ? `${displayTitle} service icon` : `Icône du service ${displayTitle}`;
 const titleHref = href ? (isEnglish ? href.replace('/fr/', '/en/') : href) : null;
 ---
-
 <article class={`service-card accent-${accent}`} itemscope itemtype="https://schema.org/Service">
   {icon && (
     <div class="card-icon" role="img" aria-label={iconAriaLabel} set:html={icon} />
   )}
-  
   <div class="card-content">
     <h3 class="card-title" itemprop="name">
       {titleHref ? (
@@ -46,7 +42,6 @@ const titleHref = href ? (isEnglish ? href.replace('/fr/', '/en/') : href) : nul
       )}
     </h3>
     <p class="card-description" itemprop="description">{description}</p>
-    
     {features.length > 0 && (
       <ul class="card-features">
         {features.map((feature: string) => (
@@ -54,20 +49,17 @@ const titleHref = href ? (isEnglish ? href.replace('/fr/', '/en/') : href) : nul
         ))}
       </ul>
     )}
-    
     {price && (
       <div class="card-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
         <span itemprop="price">{price}</span>
         <meta itemprop="priceCurrency" content="EUR" />
       </div>
     )}
-    
     <a href={ctaHref} class="card-cta" aria-label={ctaAriaLabel} itemprop="url">
       {ctaText}
     </a>
   </div>
 </article>
-
 <style>
   .service-card {
     background: #ffffff;
@@ -77,43 +69,32 @@ const titleHref = href ? (isEnglish ? href.replace('/fr/', '/en/') : href) : nul
     height: 100%;
     display: flex;
     flex-direction: column;
-    
     position: relative;
     overflow: hidden;
   }
-  
   .service-card:hover {
-    
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     border-color: #cbd5e1;
   }
-  
-  
   /* Icon */
   .card-icon {
     width: 48px;
     height: 48px;
     margin-bottom: 1.5rem;
     color: #64748b;
-    transition: color 0.3s ease;
   }
-  
   .service-card:hover .card-icon {
     color: #2c4157;
   }
-  
   .card-icon :global(svg) {
     width: 32px;
     height: 32px;
   }
-  
   /* Content */
   .card-content {
     flex: 1;
     display: flex;
     flex-direction: column;
   }
-  
   .card-title {
     font-size: 1.25rem;
     font-weight: 500;
@@ -122,17 +103,13 @@ const titleHref = href ? (isEnglish ? href.replace('/fr/', '/en/') : href) : nul
     line-height: 1.3;
     letter-spacing: -0.01em;
   }
-  
   .title-link {
     color: inherit;
     text-decoration: none;
-    transition: color 0.2s ease;
   }
-  
   .title-link:hover {
     color: #3b82f6;
   }
-  
   .card-description {
     color: #64748b;
     line-height: 1.75;
@@ -140,7 +117,6 @@ const titleHref = href ? (isEnglish ? href.replace('/fr/', '/en/') : href) : nul
     font-size: 1rem;
     font-weight: 400;
   }
-  
   /* Features */
   .card-features {
     list-style: none;
@@ -150,7 +126,6 @@ const titleHref = href ? (isEnglish ? href.replace('/fr/', '/en/') : href) : nul
     flex-direction: column;
     gap: 0.75rem;
   }
-  
   .card-features li {
     position: relative;
     padding-left: 1.75rem;
@@ -158,7 +133,6 @@ const titleHref = href ? (isEnglish ? href.replace('/fr/', '/en/') : href) : nul
     color: #475569;
     line-height: 1.5;
   }
-  
   .card-features li::before {
     content: '✓';
     position: absolute;
@@ -175,7 +149,6 @@ const titleHref = href ? (isEnglish ? href.replace('/fr/', '/en/') : href) : nul
     font-size: 0.75rem;
     font-weight: bold;
   }
-  
   /* Price */
   .card-price {
     font-size: 1rem;
@@ -185,7 +158,6 @@ const titleHref = href ? (isEnglish ? href.replace('/fr/', '/en/') : href) : nul
     padding-top: 1rem;
     border-top: 1px solid #e2e8f0;
   }
-  
   /* CTA */
   .card-cta {
     display: inline-flex;
@@ -197,30 +169,23 @@ const titleHref = href ? (isEnglish ? href.replace('/fr/', '/en/') : href) : nul
     border-radius: 4px;
     font-weight: 500;
     text-decoration: none;
-    
     align-self: flex-start;
   }
-  
   .card-cta:hover {
     background: #2c4157;
     color: white;
-    
   }
-  
   /* Responsive */
   @media (max-width: 768px) {
     .service-card {
       padding: 1.5rem;
     }
-    
     .card-title {
       font-size: 1.25rem;
     }
-    
     .card-description {
       font-size: 0.9375rem;
     }
-    
     .card-features li {
       font-size: 0.875rem;
     }

@@ -1,6 +1,5 @@
 ---
 import ServicesCard from './ServicesCard.astro';
-
 export interface Props {
   title: string;
   subtitle: string;
@@ -10,7 +9,6 @@ export interface Props {
   }>;
   backgroundColor?: string;
 }
-
 const { 
   title,
   subtitle,
@@ -18,7 +16,6 @@ const {
   backgroundColor = 'white'
 } = Astro.props;
 ---
-
 <section class="services-simple" style={`background: ${backgroundColor};`}>
   <div class="container">
     <div class="section-header">
@@ -27,7 +24,6 @@ const {
         {subtitle}
       </p>
     </div>
-    
     <div class="services-grid">
       {services.map((service) => (
         <ServicesCard
@@ -38,18 +34,15 @@ const {
     </div>
   </div>
 </section>
-
 <style>
   .services-simple {
     padding: 5rem 0;
   }
-
   .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1.5rem;
   }
-
   .section-header {
     text-align: left;
     max-width: 800px;
@@ -57,7 +50,6 @@ const {
     position: relative;
     padding-left: 2rem;
   }
-
   .section-title {
     font-size: 2.5rem;
     margin-bottom: 1rem;
@@ -68,7 +60,6 @@ const {
     position: relative;
     padding-bottom: 1.5rem;
   }
-
   .section-title::after {
     content: '';
     display: block;
@@ -81,7 +72,6 @@ const {
     left: 0;
     transform: none;
   }
-
   .section-description {
     font-size: 1.25rem;
     color: var(--color-text-secondary, #64748b);
@@ -91,34 +81,28 @@ const {
     font-weight: 400;
     position: relative;
   }
-
   .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 1.5rem;
     margin-top: 2rem;
   }
-
   /* Responsive */
   @media (max-width: 768px) {
     .services-simple {
       padding: 3rem 0;
     }
-
     .section-header {
       margin-bottom: 3rem;
       padding-left: 1rem;
     }
-
     .section-title {
       font-size: 2rem;
     }
-    
     .section-description {
       font-size: 1.125rem;
       margin-left: 1.5rem;
     }
-
     .services-grid {
       grid-template-columns: 1fr;
     }

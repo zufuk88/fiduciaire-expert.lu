@@ -3,7 +3,6 @@ import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
 import ContactForm from '../../components/forms/ContactForm.astro';
 import ContactInfo from '../../components/ContactInfo.astro';
-
 // SEO Schema - Enhanced with BreadcrumbList and ContactPoint
 const contactSchema = {
   "@context": "https://schema.org",
@@ -82,10 +81,8 @@ const contactSchema = {
     }
   ]
 };
-
 const metaDescription = "Contact Chartered Accountant Luxembourg +352 20 60 58 57. Fiduciaire Expert OEC licensed firm. Free consultation, personalized quote within 48h. 15 Avenue Liberty L-1931.";
 ---
-
 <LayoutI18n
   title="Contact Chartered Accountant Luxembourg | Fiduciaire Expert | +352 20 60 58 57"
   description={metaDescription}
@@ -100,44 +97,36 @@ const metaDescription = "Contact Chartered Accountant Luxembourg +352 20 60 58 5
     title="Contact your chartered accountant in Luxembourg"
     subtitle="Free consultation with our OEC licensed chartered accountants. Personalized quote within 48h for all your accounting and tax projects."
   />
-
   <section class="contact-content">
     <div class="container">
       <div class="contact-grid">
-        
         <div class="form-section">
           <ContactForm lang="en" service={Astro.url.searchParams.get('service') || ''} />
         </div>
-        
         <aside class="side-info">
           <ContactInfo lang="en" />
         </aside>
       </div>
     </div>
   </section>
-
   <script type="application/ld+json" set:html={JSON.stringify(contactSchema)} is:inline />
 </LayoutI18n>
-
 <style>
   .contact-content {
     padding: 5rem 0;
     background: linear-gradient(180deg, #fafbfc 0%, #ffffff 100%);
   }
-
   .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1.5rem;
   }
-
   .contact-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 3rem;
     align-items: start;
   }
-
   @media (max-width: 768px) {
     .contact-grid {
       grid-template-columns: 1fr;

@@ -6,31 +6,25 @@ import SearchBar from '../../../../components/SearchBar.astro';
 import StickyPageTop from '../../../../components/StickyPageTop.astro';
 import { calculateReadingTime } from '../../../../utils/reading-time';
 import '../../../../styles/blog-articles.css';
-
 export async function getStaticPaths() {
   const POSTS_PER_PAGE = 9;
-  
   const allPosts = await getCollection('blog');
   const englishCategories = ['Tax', 'Payroll', 'Accounting', 'Corporate Law'];
   const englishPosts = allPosts.filter(post => englishCategories.includes(post.data.category) && post.data.draft !== true);
-  
   const sortedPosts = englishPosts.sort((a, b) => {
     const dateA = new Date(a.data.modified || a.data.date).getTime();
     const dateB = new Date(b.data.modified || b.data.date).getTime();
     return dateB - dateA;
   });
-
   // Calculate total number of pages
   // Each page displays POSTS_PER_PAGE articles
   const totalPages = Math.max(1, Math.ceil(sortedPosts.length / POSTS_PER_PAGE));
-  
   // Generate paths for each additional page
   const paths = [];
   for (let page = 2; page <= totalPages; page++) {
     const startIndex = (page - 1) * POSTS_PER_PAGE; // Page 2 starts at index 9
     const endIndex = startIndex + POSTS_PER_PAGE;
     const pagePosts = sortedPosts.slice(startIndex, endIndex);
-    
     // Generate only if there are articles for this page
     if (pagePosts.length > 0) {
       paths.push({
@@ -44,26 +38,20 @@ export async function getStaticPaths() {
       });
     }
   }
-  
   return paths;
 }
-
 const { posts, currentPage, totalPages, allPostsCount } = Astro.props;
-
 // Get categories
 const englishCategories = ['Tax', 'Payroll', 'Accounting', 'Corporate Law'];
 const categories = englishCategories;
-
 const formatDate = (date: Date) => date.toLocaleDateString('en-GB', {
   year: 'numeric', month: 'long', day: 'numeric'
 });
-
 // URLs for rel prev/next
 const siteUrl = Astro.site ? Astro.site.origin : "https://www.fiduciaire-expert.lu";
 const prevUrl = currentPage === 2 ? '/en/articles' : `/en/articles/page/${currentPage - 1}`;
 const nextUrl = currentPage < totalPages ? `/en/articles/page/${currentPage + 1}` : null;
 const canonicalUrl = `${siteUrl}/en/articles/page/${currentPage}`;
-
 // Schema for SEO
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -89,7 +77,6 @@ const breadcrumbSchema = {
   ]
 };
 ---
-
 <LayoutI18n
   title={`Blog - Page ${currentPage} | Accounting & Tax Advice | Fiduciaire Expert Luxembourg`}
   description={`Page ${currentPage} - Find our ${allPostsCount} expert articles on accounting, taxation and business creation in Luxembourg.`}
@@ -101,7 +88,6 @@ const breadcrumbSchema = {
     <link rel="prev" href={prevUrl} />
     {nextUrl && <link rel="next" href={nextUrl} />}
   </Fragment>
-
   <StickyPageTop
     breadcrumbItems={[
       { text: "Home", href: "/en" },
@@ -111,7 +97,6 @@ const breadcrumbSchema = {
     title="Our latest blog articles"
     subtitle={`Page ${currentPage} of ${totalPages} - Check out our expert analysis and advice to stay informed on accounting, taxation, payroll and corporate law in Luxembourg.`}
   />
-
   <section class="blog-main-section">
     <div class="container blog-layout">
       <div class="posts-column">
@@ -146,7 +131,6 @@ const breadcrumbSchema = {
             </article>
           ))}
         </div>
-        
         {/* Pagination with rel prev/next */}
         <div class="pagination">
           {currentPage === 2 ? (
@@ -164,11 +148,9 @@ const breadcrumbSchema = {
               Previous articles
             </a>
           )}
-          
           <span class="pagination-info">
             Page {currentPage} of {totalPages}
           </span>
-          
           {nextUrl && (
             <a href={nextUrl} rel="next" class="pagination-next">
               Next articles
@@ -190,7 +172,6 @@ const breadcrumbSchema = {
             })}
           </nav>
         </div>
-        
         <div class="sidebar-widget sidebar-search">
           <h3 class="widget-title">Search</h3>
           <SearchBar placeholder="Search" lang="en" />

@@ -8,7 +8,6 @@ export interface Props {
   lang?: 'fr' | 'en';
   showProgress?: boolean;
 }
-
 const { 
   breadcrumbItems = [], 
   title, 
@@ -18,10 +17,8 @@ const {
   lang = 'fr',
   showProgress = false
 } = Astro.props;
-
 const items = [...breadcrumbItems, { text: title }];
 ---
-
 <nav class="breadcrumbs" aria-label="Fil d'Ariane">
   <div class="container">
     <div class="breadcrumb-content">
@@ -39,7 +36,6 @@ const items = [...breadcrumbItems, { text: title }];
           );
         })}
       </ol>
-      
       {showSearch && (
         <div class="breadcrumb-search">
           <form action={`/${lang}/${lang === 'fr' ? 'recherche' : 'search'}`} method="get" class="search-form">
@@ -61,14 +57,12 @@ const items = [...breadcrumbItems, { text: title }];
       )}
     </div>
   </div>
-  
   {showProgress && (
     <div class="reading-progress-bar" aria-hidden="true">
       <div class="reading-progress-fill" data-reading-progress></div>
     </div>
   )}
 </nav>
-
 {subtitle && (
   <section class="subtitle">
     <div class="container">
@@ -76,7 +70,6 @@ const items = [...breadcrumbItems, { text: title }];
     </div>
   </section>
 )}
-
 <style>
   :root {
     --header-h: 72px; /* CORRIGÉ: hauteur réelle du header (72px au lieu de 64px) */
@@ -87,55 +80,36 @@ const items = [...breadcrumbItems, { text: title }];
     --pad-x: 2rem;
     --pad-y: 0.5rem;
   }
-
   @media (max-width: 768px) {
     :root { --header-h: 72px; --pad-x: 1rem; --pad-y: 0.375rem; }
   }
-
   .container {
     max-width: var(--container);
     margin-inline: auto;
     padding-inline: var(--pad-x);
   }
-
   /* Sticky bar - avec z-index inférieur au header pour éviter le chevauchement */
   .breadcrumbs {
     position: sticky;
     top: var(--header-h); /* Se positionne exactement sous le header de 72px */
     z-index: 999; /* Juste en dessous du header qui a z-index: 1000 */
     background: var(--bg);
-    box-shadow: 0 2px 20px rgba(30, 41, 59, 0.15);
-    will-change: transform;
-    transform: translateZ(0); /* Accélération GPU */
   }
-  
-  /* Backdrop-filter uniquement pour Safari */
-  @supports (backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px)) {
-    .breadcrumbs:not(.chrome) {
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-  }
-  
   /* Désactiver sur Chrome */
   @media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
     .breadcrumbs {
-      backdrop-filter: none !important;
       background: rgba(30, 41, 59, 0.98);
     }
   }
-
   .breadcrumbs .container {
     padding-block: var(--pad-y);
   }
-  
   .breadcrumb-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
   }
-
   /* List */
   ol {
     display: flex;
@@ -147,16 +121,13 @@ const items = [...breadcrumbItems, { text: title }];
     font-size: 0.875rem;
     line-height: 1;
   }
-
   li { display: flex; align-items: center; }
-
   /* Separator */
   li + li::before {
     content: "›";
     margin: 0 0.25rem;
     color: var(--fg-dim);
   }
-
   /* Links */
   .link {
     display: inline-block;
@@ -168,14 +139,11 @@ const items = [...breadcrumbItems, { text: title }];
     position: relative;
     z-index: 1;
     cursor: pointer;
-    
   }
   .link:hover { 
     background: rgba(255, 255, 255, 0.95); 
     color: #2c4157; 
-    
   }
-
   /* Current */
   .current {
     margin: 0;
@@ -184,25 +152,20 @@ const items = [...breadcrumbItems, { text: title }];
     font-weight: 600;
     color: var(--fg);
   }
-
   /* Subtitle */
   .subtitle {
     padding-block: 3rem;
     background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
     border-top: 2px solid #93c5fd;
   }
-  
   .subtitle .container {
     max-width: 700px;
     background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 12px;
     padding: 2rem 2.5rem;
     text-align: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
   }
-  
   .subtitle p {
     margin: 0;
     font-size: 1.375rem;
@@ -211,18 +174,15 @@ const items = [...breadcrumbItems, { text: title }];
     font-weight: 400;
     letter-spacing: -0.01em;
   }
-
   /* Search Form Styles */
   .breadcrumb-search {
     flex-shrink: 0;
   }
-  
   .search-form {
     display: flex;
     align-items: center;
     position: relative;
   }
-  
   .search-input {
     padding: 0.375rem 2.5rem 0.375rem 0.875rem;
     background: rgba(255, 255, 255, 0.1);
@@ -231,20 +191,15 @@ const items = [...breadcrumbItems, { text: title }];
     color: var(--fg);
     font-size: 0.875rem;
     width: 200px;
-    
   }
-  
   .search-input::placeholder {
     color: var(--fg-dim);
   }
-  
   .search-input:focus {
     outline: none;
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.3);
-    width: 250px;
   }
-  
   .search-button {
     position: absolute;
     right: 0;
@@ -255,13 +210,10 @@ const items = [...breadcrumbItems, { text: title }];
     color: var(--fg);
     padding: 0.375rem;
     cursor: pointer;
-    transition: opacity 0.2s ease;
   }
-  
   .search-button:hover {
     opacity: 0.8;
   }
-  
   /* Reading Progress Bar */
   .reading-progress-bar {
     position: absolute;
@@ -272,47 +224,36 @@ const items = [...breadcrumbItems, { text: title }];
     background: rgba(255, 255, 255, 0.1);
     overflow: hidden;
   }
-  
   .reading-progress-fill {
     height: 100%;
     background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
     width: 0%;
-    transition: width 0.1s ease-out;
-    transform-origin: left;
-    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
   }
-  
   /* Mobile */
   @media (max-width: 768px) {
     ol { font-size: 0.75rem; }
     .link, .current { padding: 0.25rem 0.5rem; }
     .subtitle { padding-block: 2rem; }
     .subtitle p { font-size: 1.125rem; }
-    
     /* Hide search on mobile */
     .breadcrumb-search {
       display: none;
     }
   }
 </style>
-
 {showProgress && (
   <script is:inline>
     // Reading progress bar
     function updateReadingProgress() {
       const progressBar = document.querySelector('[data-reading-progress]');
       if (!progressBar) return;
-      
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.scrollY;
-      
       const scrollableHeight = documentHeight - windowHeight;
       const scrollProgress = (scrollTop / scrollableHeight) * 100;
-      
       progressBar.style.width = `${Math.min(scrollProgress, 100)}%`;
     }
-    
     // Throttle function for performance
     function throttle(func, wait) {
       let timeout;
@@ -325,14 +266,11 @@ const items = [...breadcrumbItems, { text: title }];
         timeout = setTimeout(later, wait);
       };
     }
-    
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', () => {
       updateReadingProgress();
-      
       // Update on scroll with throttling
       window.addEventListener('scroll', throttle(updateReadingProgress, 10), { passive: true });
-      
       // Update on resize
       window.addEventListener('resize', throttle(updateReadingProgress, 100), { passive: true });
     });

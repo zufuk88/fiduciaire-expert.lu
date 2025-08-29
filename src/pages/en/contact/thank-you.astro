@@ -1,9 +1,7 @@
 ---
 // src/pages/contact/thank-you.astro
-
 import LayoutI18n from '../../../layouts/LayoutI18n.astro';
 import Button from '../../../components/ui/Button.astro';
-
 // --- SEO & METADATA ---
 const pageMeta = {
   title: "Message Sent | Fiduciaire Expert Luxembourg",
@@ -11,7 +9,6 @@ const pageMeta = {
   noindex: true // Important for SEO: do not index this page
 };
 ---
-
 <LayoutI18n {...pageMeta}>
   <main class="thank-you-page">
     <div class="confirmation-box">
@@ -35,7 +32,6 @@ const pageMeta = {
     </div>
   </main>
 </LayoutI18n>
-
 <style>
   .thank-you-page {
     display: flex;
@@ -45,7 +41,6 @@ const pageMeta = {
     padding: var(--spacing-xl) 1rem;
     background-color: var(--color-background-alt);
   }
-
   .confirmation-box {
     max-width: 600px;
     width: 100%;
@@ -54,7 +49,6 @@ const pageMeta = {
     border: 1px solid var(--color-border);
     text-align: center;
   }
-
   .confirmation-icon {
     display: inline-flex;
     align-items: center;
@@ -66,29 +60,24 @@ const pageMeta = {
     margin-bottom: 1.5rem;
     color: var(--success, #10b981); /* Uses 'success' variable if it exists */
   }
-
   h1 {
     font-size: 2rem;
     margin-bottom: 1rem;
   }
-
   p {
     color: var(--color-text-secondary);
     line-height: 1.7;
     margin-bottom: 2rem;
   }
-  
   .next-steps {
     margin-top: 2rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--color-border);
   }
-
   .next-steps p {
     margin-bottom: 1.5rem;
     font-weight: 600;
   }
-  
   .button-group {
     display: flex;
     justify-content: center;

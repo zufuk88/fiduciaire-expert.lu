@@ -11,7 +11,6 @@ export interface Props {
     description: string;
   }>;
 }
-
 const { 
   title,
   subtitle,
@@ -19,14 +18,12 @@ const {
   advantages
 } = Astro.props;
 ---
-
 <section id="why-us" class="why-us-section" aria-labelledby="why-us-title">
   <div class="container">
     <div class="section-header">
       <h2 id="why-us-title">{title}</h2>
       <p class="subtitle">{subtitle}</p>
     </div>
-    
     <div class="trust-metrics">
       {metrics.map((metric) => (
         <div class="metric-badge">
@@ -35,7 +32,6 @@ const {
         </div>
       ))}
     </div>
-    
     <!-- Advantages list -->
     <div class="advantages-timeline">
       {advantages.map((advantage) => (
@@ -49,16 +45,13 @@ const {
     </div>
   </div>
 </section>
-
 <style>
-  
   .why-us-section {
     padding: 6rem 0;
     background: linear-gradient(to bottom, #ffffff, #f8fafc);
     position: relative;
     overflow: hidden;
   }
-  
   .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -66,7 +59,6 @@ const {
     position: relative;
     z-index: 2;
   }
-  
   /* Section Header */
   .section-header {
     text-align: left;
@@ -76,8 +68,6 @@ const {
     margin-right: auto;
     padding-left: 2rem;
   }
-  
-  
   h2 {
     font-size: 2.5rem;
     font-weight: 300;
@@ -90,7 +80,6 @@ const {
     position: relative;
     padding-bottom: 1.5rem;
   }
-  
   h2::after {
     content: '';
     display: block;
@@ -103,7 +92,6 @@ const {
     left: 0;
     transform: none;
   }
-  
   h2 strong {
     font-weight: 600;
     background: linear-gradient(135deg, #0f172a 0%, #3b82f6 100%);
@@ -111,7 +99,6 @@ const {
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
   .subtitle {
     font-size: 1.25rem;
     color: #64748b;
@@ -121,7 +108,6 @@ const {
     font-weight: 400;
     position: relative;
   }
-  
   /* Trust Metrics - Elegant card design */
   .trust-metrics {
     display: grid;
@@ -130,8 +116,6 @@ const {
     margin: 4rem auto;
     max-width: 900px;
   }
-  
-  
   /* Metric badges - Premium design */
   .metric-badge {
     background: white;
@@ -139,17 +123,12 @@ const {
     border-radius: 4px;
     padding: 1.75rem 1.5rem;
     text-align: center;
-    
     position: relative;
     overflow: hidden;
   }
-  
   .metric-badge:hover {
-    
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     border-color: #cbd5e1;
   }
-  
   .metric-number {
     display: block;
     font-size: 2.25rem;
@@ -159,7 +138,6 @@ const {
     margin-bottom: 0.5rem;
     letter-spacing: -0.02em;
   }
-  
   .metric-label {
     display: block;
     font-size: 0.875rem;
@@ -168,7 +146,6 @@ const {
     letter-spacing: 0.025em;
     text-transform: uppercase;
   }
-  
   /* Advantages - Clean list */
   .advantages-timeline {
     max-width: 800px;
@@ -176,28 +153,22 @@ const {
     display: grid;
     gap: 1rem;
   }
-  
   .timeline-item {
     display: flex;
     align-items: flex-start;
     gap: 1.5rem;
     position: relative;
   }
-  
-  
   .timeline-content {
     flex: 1;
     background: #ffffff;
     border-left: 3px solid #e2e8f0;
     padding: 1.25rem 1.5rem;
-    
     position: relative;
   }
-  
   .timeline-item:hover .timeline-content {
     border-left-color: #3b82f6;
   }
-  
   .timeline-content h3 {
     font-size: 1.125rem;
     font-weight: 600;
@@ -206,7 +177,6 @@ const {
     letter-spacing: -0.01em;
     line-height: 1.3;
   }
-  
   .timeline-content p {
     font-size: 0.9375rem;
     color: #64748b;
@@ -214,62 +184,49 @@ const {
     margin: 0;
     font-weight: 400;
   }
-  
   /* Responsive */
   @media (max-width: 768px) {
     .why-us-section {
       padding: 4rem 0;
     }
-    
     .section-header {
       margin-bottom: 3rem;
     }
-    
     .trust-metrics {
       grid-template-columns: 1fr;
       gap: 1rem;
       margin: 3rem auto;
     }
-    
     .metric-badge {
       padding: 1.5rem;
     }
-    
     .metric-number {
       font-size: 2rem;
     }
-    
     .metric-label {
       font-size: 0.875rem;
     }
-    
     .advantages-timeline {
       gap: 0.75rem;
       margin: 3rem auto;
     }
-    
     .timeline-content {
       padding: 1rem 1.25rem;
       border-left-width: 2px;
     }
-    
     .timeline-content h3 {
       font-size: 1rem;
     }
-    
     .timeline-content p {
       font-size: 0.9375rem;
       line-height: 1.6;
     }
-    
     .section-header {
       padding-left: 1rem;
     }
-    
     h2 {
       font-size: 2rem;
     }
-    
     .subtitle {
       font-size: 1.125rem;
       margin-left: 1.5rem;

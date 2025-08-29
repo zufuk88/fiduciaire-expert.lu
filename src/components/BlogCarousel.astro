@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
-
 export interface Props {
   title: string;
   subtitle?: string;
@@ -10,7 +9,6 @@ export interface Props {
   category?: string;
   backgroundColor?: string;
 }
-
 const {
   title,
   subtitle,
@@ -19,10 +17,8 @@ const {
   category,
   backgroundColor
 } = Astro.props;
-
 const ctaHref = lang === 'fr' ? '/fr/articles' : '/en/articles';
 const ctaText = lang === 'fr' ? 'Voir tous les articles' : 'View all articles';
-
 // Récupérer les articles publiés et triés par date
 const allPosts = await getCollection('blog', ({ data, slug }) => {
   // Filtrer par langue et exclure les brouillons
@@ -30,7 +26,6 @@ const allPosts = await getCollection('blog', ({ data, slug }) => {
   const isCategoryMatch = category ? data.category === category : true;
   return data.draft !== true && isCorrectLang && isCategoryMatch;
 });
-
 const sortedPosts = allPosts
   .sort((a, b) => {
     // Utiliser modified s'il existe, sinon utiliser date
@@ -39,7 +34,6 @@ const sortedPosts = allPosts
     return dateB - dateA;
   })
   .slice(0, maxPosts);
-
 // Fonction pour formater la date
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat(lang === 'fr' ? 'fr-FR' : 'en-GB', {
@@ -48,7 +42,6 @@ const formatDate = (date: Date) => {
     day: 'numeric'
   }).format(date);
 };
-
 // Fonction pour extraire un extrait du contenu
 const getExcerpt = (content: string, maxLength: number = 120) => {
   const plainText = content
@@ -57,20 +50,17 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove markdown links
     .replace(/[#*_`~]/g, '') // Remove markdown formatting
     .trim();
-  
   return plainText.length > maxLength 
     ? plainText.substring(0, maxLength) + '...' 
     : plainText;
 };
 ---
-
 <section class="blog-carousel-section" aria-labelledby="blog-carousel-title" style={backgroundColor ? `background-color: ${backgroundColor};` : ''}>
   <div class="container">
     <div class="section-header">
       <h2 id="blog-carousel-title">{title}</h2>
       {subtitle && <p class="subtitle">{subtitle}</p>}
     </div>
-    
     <div class="carousel-wrapper">
       <div class="carousel-track" id="blog-carousel">
         {sortedPosts.map((post) => (
@@ -89,7 +79,6 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
                 </a>
               </div>
             )}
-            
             <div class="blog-card-content">
               <div class="blog-card-header">
                 <span class="blog-category">{post.data.category}</span>
@@ -97,17 +86,14 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
                   {formatDate(post.data.modified && new Date(post.data.modified) > new Date(post.data.date) ? new Date(post.data.modified) : post.data.date)}
                 </time>
               </div>
-              
               <h3 class="blog-title">
                 <a href={`/${lang}/articles/${post.slug.replace(`${lang}/`, '')}`}>
                   {post.data.title}
                 </a>
               </h3>
-              
               <p class="blog-excerpt">
                 {post.data.description || getExcerpt(post.body)}
               </p>
-              
               <div class="blog-footer">
                 <a href={`/${lang}/articles/${post.slug.replace(`${lang}/`, '')}`} class="read-more">
                   {lang === 'fr' ? 'Lire la suite' : 'Read more'}
@@ -121,7 +107,6 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
           </article>
         ))}
       </div>
-      
       <!-- Navigation buttons -->
       <button class="carousel-nav carousel-nav-prev" aria-label="Previous articles" data-direction="prev">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -134,7 +119,6 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
         </svg>
       </button>
     </div>
-    
     <div class="section-footer">
       <a href={ctaHref} class="cta-button">
         {ctaText}
@@ -142,14 +126,12 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     </div>
   </div>
 </section>
-
 <style>
   .blog-carousel-section {
     padding: 6rem 0;
     position: relative;
     overflow: hidden;
   }
-  
   .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -157,7 +139,6 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     position: relative;
     z-index: 1;
   }
-  
   /* Header */
   .section-header {
     text-align: left;
@@ -167,7 +148,6 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     margin-right: auto;
     padding-left: 2rem;
   }
-  
   h2 {
     font-size: 2.5rem;
     font-weight: 300;
@@ -178,7 +158,6 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     position: relative;
     padding-bottom: 1.5rem;
   }
-  
   h2::after {
     content: '';
     display: block;
@@ -191,7 +170,6 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     left: 0;
     transform: none;
   }
-  
   .subtitle {
     font-size: 1.25rem;
     color: #64748b;
@@ -201,14 +179,12 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     font-weight: 400;
     position: relative;
   }
-  
   /* Carousel */
   .carousel-wrapper {
     position: relative;
     margin: 0 -1rem;
     padding: 0 3rem;
   }
-  
   .carousel-track {
     display: flex;
     gap: 1.5rem;
@@ -217,11 +193,9 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     -ms-overflow-style: none;
     padding: 1rem;
   }
-  
   .carousel-track::-webkit-scrollbar {
     display: none;
   }
-  
   /* Blog Card - Calculé pour afficher exactement 3 cartes */
   .blog-card {
     flex: 0 0 calc((100% - 3rem) / 3);
@@ -234,12 +208,9 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     flex-direction: column;
     background: #ffffff;
   }
-  
   .blog-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     border-color: #94a3b8;
   }
-  
   /* Blog Card Image */
   .blog-card-image {
     position: relative;
@@ -247,13 +218,11 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     height: 180px;
     background: #f1f5f9;
   }
-  
   .blog-card-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  
   /* Blog Card Content */
   .blog-card-content {
     padding: 1.5rem;
@@ -261,7 +230,6 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     flex-direction: column;
     flex-grow: 1;
   }
-  
   .blog-card-header {
     display: flex;
     justify-content: space-between;
@@ -269,7 +237,6 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     margin-bottom: 1rem;
     font-size: 0.875rem;
   }
-  
   .blog-category {
     color: #3b82f6;
     font-weight: 500;
@@ -277,12 +244,10 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     letter-spacing: 0.05em;
     font-size: 0.75rem;
   }
-  
   time {
     color: #94a3b8;
     font-weight: 400;
   }
-  
   .blog-title {
     font-size: 1.25rem;
     font-weight: 600;
@@ -290,16 +255,13 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     margin-bottom: 1rem;
     line-height: 1.4;
   }
-  
   .blog-title a {
     color: inherit;
     text-decoration: none;
   }
-  
   .blog-title a:hover {
     color: #2c4157;
   }
-  
   .blog-excerpt {
     color: #64748b;
     line-height: 1.6;
@@ -307,11 +269,9 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     margin-bottom: 1.5rem;
     flex-grow: 1;
   }
-  
   .blog-footer {
     margin-top: auto;
   }
-  
   .read-more {
     display: inline-flex;
     align-items: center;
@@ -321,11 +281,9 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     font-size: 0.875rem;
     text-decoration: none;
   }
-  
   .read-more:hover {
     color: #0f172a;
   }
-  
   /* Navigation */
   .carousel-nav {
     position: absolute;
@@ -343,32 +301,26 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     z-index: 2;
     color: #64748b;
   }
-  
   .carousel-nav:hover {
     background: #f8fafc;
     border-color: #cbd5e1;
     color: #0f172a;
   }
-  
   .carousel-nav-prev {
     left: 0;
   }
-  
   .carousel-nav-next {
     right: 0;
   }
-  
   .carousel-nav:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
-  
   /* Footer */
   .section-footer {
     text-align: center;
     margin-top: 3rem;
   }
-  
   /* CTA Button - Style pilule moderne et simple */
   .cta-button {
     display: inline-flex;
@@ -381,14 +333,10 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     text-decoration: none;
     font-size: 0.9375rem;
     letter-spacing: 0.025em;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
-  
   .cta-button:hover {
     background: #2563eb;
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
   }
-  
   /* Responsive */
   @media (max-width: 1024px) {
     /* 2 cartes sur tablette */
@@ -397,76 +345,60 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
       min-width: 280px;
     }
   }
-
   @media (max-width: 768px) {
     .blog-carousel-section {
       padding: 4rem 0;
     }
-    
     .carousel-wrapper {
       margin: 0;
       padding: 0;
     }
-    
     .carousel-track {
       padding: 1rem 1rem 1rem 2rem;
       gap: 1rem;
     }
-    
     /* 1 carte complète sur mobile avec un peu de la suivante visible */
     .blog-card {
       flex: 0 0 85%;
       min-width: 260px;
       max-width: none;
     }
-    
     .carousel-nav {
       display: none;
     }
-    
     .section-header {
       padding-left: 1rem;
     }
-    
     h2 {
       font-size: 2rem;
     }
-    
     .subtitle {
       font-size: 1.125rem;
       margin-left: 1.5rem;
     }
   }
 </style>
-
 <script>
   // Carousel navigation
   document.addEventListener('DOMContentLoaded', () => {
     const track = document.getElementById('blog-carousel');
     const prevBtn = document.querySelector('.carousel-nav-prev');
     const nextBtn = document.querySelector('.carousel-nav-next');
-    
     if (!track || !prevBtn || !nextBtn) return;
-    
     const cardWidth = 320 + 24; // card width + gap
-    
     prevBtn.addEventListener('click', () => {
       track.scrollBy({ left: -cardWidth, behavior: 'smooth' });
     });
-    
     nextBtn.addEventListener('click', () => {
       track.scrollBy({ left: cardWidth, behavior: 'smooth' });
     });
-    
     // Update button states
     const updateButtons = () => {
       const isAtStart = track.scrollLeft <= 0;
       const isAtEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 10;
-      
       prevBtn.disabled = isAtStart;
       nextBtn.disabled = isAtEnd;
     };
-    
     track.addEventListener('scroll', updateButtons);
     updateButtons();
   });

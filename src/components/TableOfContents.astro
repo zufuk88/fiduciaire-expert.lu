@@ -7,15 +7,11 @@ export interface Props {
   }>;
   lang?: 'fr' | 'en';
 }
-
 const { headings, lang = 'fr' } = Astro.props;
-
 // Filtrer seulement les h2 et h3 pour la table des matières
 const tocHeadings = headings.filter(heading => heading.depth === 2 || heading.depth === 3);
-
 const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
 ---
-
 {tocHeadings.length > 2 && (
   <nav class="table-of-contents" aria-label={title}>
     <h3 class="toc-title">{title}</h3>
@@ -30,7 +26,6 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
     </ul>
   </nav>
 )}
-
 <style>
   .table-of-contents {
     background: #f8fafc;
@@ -42,7 +37,6 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
     display: flex;
     flex-direction: column;
   }
-
   .toc-title {
     font-size: 1rem;
     font-weight: 600;
@@ -52,7 +46,6 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
     letter-spacing: 0.05em;
     flex-shrink: 0;
   }
-
   .toc-list {
     list-style: none;
     margin: 0;
@@ -61,16 +54,13 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
     overflow-x: hidden;
     padding-right: 0.5rem; /* Space for scrollbar */
   }
-
   .toc-item {
     margin: 0;
     padding: 0;
   }
-
   .toc-level-3 {
     margin-left: 1.75rem;
   }
-
   .toc-link {
     display: block;
     padding: 0.5rem 0;
@@ -78,52 +68,42 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
     text-decoration: none;
     font-size: 0.875rem;
     line-height: 1.4;
-    
     border-left: 3px solid transparent;
     padding-left: 1rem;
     margin-left: -1rem;
     white-space: normal;
     word-wrap: break-word;
   }
-
   .toc-link:hover {
     color: #3b82f6;
     border-left-color: #dbeafe;
   }
-
   .toc-link.active {
     color: #3b82f6;
     font-weight: 600;
     border-left-color: #3b82f6;
     background: linear-gradient(90deg, rgba(59, 130, 246, 0.05) 0%, transparent 100%);
   }
-
   /* Scrollbar styles */
   .toc-list::-webkit-scrollbar {
     width: 6px;
   }
-
   .toc-list::-webkit-scrollbar-track {
     background: transparent;
     border-radius: 3px;
   }
-
   .toc-list::-webkit-scrollbar-thumb {
     background: #cbd5e1;
     border-radius: 3px;
-    transition: background 0.2s ease;
   }
-
   .toc-list::-webkit-scrollbar-thumb:hover {
     background: #94a3b8;
   }
-  
   /* Firefox scrollbar */
   .toc-list {
     scrollbar-width: thin;
     scrollbar-color: #cbd5e1 transparent;
   }
-  
   /* Fade effect at bottom when scrollable */
   .table-of-contents::after {
     content: '';
@@ -135,13 +115,10 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
     background: linear-gradient(to top, #f8fafc, transparent);
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.3s ease;
   }
-  
   .table-of-contents.has-scroll::after {
     opacity: 1;
   }
-
   /* Mobile styles */
   @media (max-width: 1200px) {
     .table-of-contents {
@@ -150,32 +127,26 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
       max-height: none;
     }
   }
-
   @media (max-width: 768px) {
     .table-of-contents {
       padding: 1rem;
     }
-
     .toc-title {
       font-size: 0.875rem;
     }
-
     .toc-link {
       font-size: 0.875rem;
       padding: 0.375rem 0;
     }
   }
 </style>
-
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const tocLinks = document.querySelectorAll('[data-toc-link]');
     const headings = document.querySelectorAll('.article-content h2, .article-content h3');
     const tocElement = document.querySelector('.table-of-contents');
     const tocList = document.querySelector('.toc-list');
-    
     if (tocLinks.length === 0 || headings.length === 0) return;
-    
     // Check if scrollbar is needed and add fade effect
     if (tocList && tocElement) {
       const checkScroll = () => {
@@ -185,40 +156,32 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
           tocElement.classList.remove('has-scroll');
         }
       };
-      
       checkScroll();
       window.addEventListener('resize', checkScroll);
     }
-
     // Intersection Observer pour mettre en évidence le heading actuel
     const observerOptions = {
       rootMargin: '-20% 0px -70% 0px',
       threshold: 0
     };
-
     let activeLink: Element | null = null;
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           // Retirer la classe active de tous les liens
           tocLinks.forEach(link => link.classList.remove('active'));
-          
           // Trouver et activer le lien correspondant
           const targetId = entry.target.getAttribute('id');
           const correspondingLink = document.querySelector(`[href="#${targetId}"]`);
-          
           if (correspondingLink) {
             correspondingLink.classList.add('active');
             activeLink = correspondingLink;
-            
             // Auto-scroll ToC to show active item
             if (tocList) {
               const linkRect = correspondingLink.getBoundingClientRect();
               const listRect = tocList.getBoundingClientRect();
               const linkTop = linkRect.top - listRect.top + tocList.scrollTop;
               const linkBottom = linkTop + linkRect.height;
-              
               if (linkTop < tocList.scrollTop) {
                 tocList.scrollTo({
                   top: linkTop - 20,
@@ -235,26 +198,22 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
         }
       });
     }, observerOptions);
-
     // Observer tous les headings
     headings.forEach(heading => {
       if (heading.id) {
         observer.observe(heading);
       }
     });
-
     // Smooth scroll pour les liens
     tocLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const targetId = link.getAttribute('href')?.substring(1);
         const targetElement = document.getElementById(targetId || '');
-        
         if (targetElement) {
           const headerOffset = 100; // Hauteur du header sticky
           const elementPosition = targetElement.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
           window.scrollTo({
             top: offsetPosition,
             behavior: 'smooth'

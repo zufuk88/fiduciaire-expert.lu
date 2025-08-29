@@ -4,9 +4,7 @@ import StickyPageTop from '../../components/StickyPageTop.astro';
 import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
 import ProcessTimeline from '../../components/ProcessTimeline.astro';
-
 const metaDescription = "Externalisation de la paie au Luxembourg. Service complet et conforme : bulletins de salaire, déclarations CCSS/CNS, gestion RH. Experts en droit social luxembourgeois.";
-
 const paieSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -23,7 +21,6 @@ const paieSchema = {
   },
   "description": metaDescription
 };
-
 const faqItems = [
   {
     question: "Quel est le coût d'externalisation de la paie au Luxembourg ?",
@@ -47,7 +44,6 @@ const faqItems = [
   }
 ];
 ---
-
 <LayoutI18n
   title="Externalisation Paie Luxembourg | Gestion Bulletins Salaire & CCSS"
   description={metaDescription}
@@ -65,7 +61,6 @@ const faqItems = [
     title="Externalisation de la paie au Luxembourg"
     subtitle="Paie Luxembourg clé en main : bulletins conformes, déclarations CCSS via SECUline, fiches d'impôt MyGuichet, retenue à la source modèle 950, certificats annuels et gestion maladie/accidents, avec délais tenus."
   />
-
   <!-- Section Introduction -->
   <section class="section-white">
     <div class="container">
@@ -75,7 +70,6 @@ const faqItems = [
       </div>
     </div>
   </section>
-
   <!-- Section Services principaux -->
   <section class="section-grey">
     <div class="container">
@@ -100,7 +94,6 @@ const faqItems = [
             <li>Consultation des fiches d'impôt électroniques sur MyGuichet (obligatoire depuis le 01/01/2022, plus de carte papier)</li>
           </ul>
         </div>
-
         <div class="service-block">
           <div class="service-header">
             <div class="service-icon">
@@ -122,7 +115,6 @@ const faqItems = [
             <li>Déclaration de la retenue à la source (modèle 950 via MyGuichet) dans les 10 jours : mensuelle si ≥ 750€, trimestrielle 75-750€, annuelle < 75€</li>
           </ul>
         </div>
-
         <div class="service-block">
           <div class="service-header">
             <div class="service-icon">
@@ -141,8 +133,6 @@ const faqItems = [
             <li>Application des conventions collectives sectorielles en vigueur (Commerce, Banques, Horeca…)</li>
           </ul>
         </div>
-
-
         <div class="service-block">
           <div class="service-header">
             <div class="service-icon">
@@ -162,7 +152,6 @@ const faqItems = [
       </div>
     </div>
   </section>
-
   <!-- Section Méthodologie -->
   <ProcessTimeline
     title="Notre méthodologie en 4 étapes"
@@ -207,7 +196,6 @@ const faqItems = [
     ]}
     variant="vertical"
   />
-
   <!-- Section Avantages -->
   <section class="section-grey">
     <div class="container">
@@ -247,7 +235,6 @@ const faqItems = [
       </div>
     </div>
   </section>
-
   <FAQ
     title="Questions fréquentes sur la gestion de paie"
     subtitle="Tout ce que vous devez savoir sur l'externalisation de votre paie au Luxembourg"
@@ -255,7 +242,6 @@ const faqItems = [
     showCTA={false}
     generateSchema={true}
   />
-
   <CTA
     title="Prêt à simplifier votre gestion de paie ?"
     subtitle="Contactez-nous pour un audit gratuit de votre situation sociale et découvrez comment nous pouvons optimiser votre gestion RH."
@@ -264,7 +250,6 @@ const faqItems = [
     ]}
   />
 </LayoutI18n>
-
 <style>
   :root {
     --color-primary: #005fcc;
@@ -279,21 +264,18 @@ const faqItems = [
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   }
-
   /* Sections */
   .section-white {
     background: var(--color-background);
     padding: 5rem 0;
     position: relative;
   }
-
   .section-grey {
     background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
     padding: 5rem 0;
     position: relative;
     overflow: hidden;
   }
-
   .section-grey::before {
     content: '';
     position: absolute;
@@ -305,7 +287,6 @@ const faqItems = [
     background-size: 50px 50px;
     pointer-events: none;
   }
-
   .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -313,13 +294,11 @@ const faqItems = [
     position: relative;
     z-index: 1;
   }
-
   /* Typography */
   .section-header {
     text-align: center;
     margin-bottom: 3rem;
   }
-
   .section-title {
     font-size: 2.5rem;
     font-weight: 300;
@@ -327,7 +306,6 @@ const faqItems = [
     margin-bottom: 1rem;
     line-height: 1.2;
   }
-
   .section-subtitle {
     font-size: 1.125rem;
     color: var(--color-text-secondary);
@@ -335,35 +313,26 @@ const faqItems = [
     margin: 0 auto;
     line-height: 1.7;
   }
-
   /* Services Grid */
   .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     gap: 2rem;
   }
-
   .service-block {
     background: white;
     border-radius: 4px;
     padding: 2rem;
-    box-shadow: var(--shadow-sm);
     border: 1px solid var(--color-border);
-    
   }
-
   .service-block:hover {
-    
-    box-shadow: var(--shadow-lg);
   }
-
   .service-header {
     display: flex;
     align-items: flex-start;
     gap: 1rem;
     margin-bottom: 1.5rem;
   }
-
   .service-icon {
     flex-shrink: 0;
     width: 3rem;
@@ -373,7 +342,6 @@ const faqItems = [
     border-radius: 4px;
     color: var(--color-primary);
   }
-
   .service-header h3 {
     font-size: 1.375rem;
     font-weight: 300;
@@ -381,13 +349,11 @@ const faqItems = [
     margin: 0;
     line-height: 1.3;
   }
-
   .service-list {
     list-style: none;
     padding: 0;
     margin: 0;
   }
-
   .service-list li {
     position: relative;
     padding: 0.75rem 0;
@@ -396,11 +362,9 @@ const faqItems = [
     line-height: 1.6;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   }
-
   .service-list li:last-child {
     border-bottom: none;
   }
-
   .service-list li::before {
     content: '';
     position: absolute;
@@ -411,14 +375,12 @@ const faqItems = [
     background: var(--color-primary);
     border-radius: 50%;
   }
-
   /* Methodology Timeline */
   .methodology-timeline {
     max-width: 900px;
     margin: 0 auto;
     padding: 2rem 0;
   }
-
   .methodology-step {
     display: flex;
     align-items: flex-start;
@@ -426,11 +388,9 @@ const faqItems = [
     margin-bottom: 3rem;
     position: relative;
   }
-
   .methodology-step:last-child {
     margin-bottom: 0;
   }
-
   .methodology-step:not(:last-child)::after {
     content: '';
     position: absolute;
@@ -441,7 +401,6 @@ const faqItems = [
     background: linear-gradient(to bottom, var(--color-primary), transparent);
     opacity: 0.2;
   }
-
   .step-number {
     flex-shrink: 0;
     display: flex;
@@ -455,34 +414,27 @@ const faqItems = [
     font-weight: 600;
     font-size: 1.5rem;
     color: var(--color-primary);
-    box-shadow: var(--shadow-md);
-    
   }
-
   .methodology-step:hover .step-number {
     background: var(--color-primary);
     color: white;
     transform: scale(1.1);
   }
-
   .step-content {
     flex: 1;
     padding-top: 0.5rem;
   }
-
   .step-content h3 {
     font-size: 1.375rem;
     font-weight: 300;
     color: var(--color-dark);
     margin: 0 0 0.75rem 0;
   }
-
   .step-content p {
     color: var(--color-text);
     line-height: 1.7;
     margin: 0;
   }
-
   /* Advantages Grid */
   .advantages-grid {
     display: grid;
@@ -491,22 +443,16 @@ const faqItems = [
     max-width: 1000px;
     margin: 0 auto;
   }
-
   .advantage-card {
     text-align: center;
     padding: 2rem;
     background: white;
     border-radius: 4px;
     border: 1px solid var(--color-border);
-    
   }
-
   .advantage-card:hover {
-    
-    box-shadow: var(--shadow-lg);
     border-color: var(--color-primary);
   }
-
   .advantage-icon {
     width: 4rem;
     height: 4rem;
@@ -516,63 +462,51 @@ const faqItems = [
     border-radius: 50%;
     color: var(--color-primary);
   }
-
   .advantage-card h3 {
     font-size: 1.25rem;
     font-weight: 400;
     color: var(--color-dark);
     margin-bottom: 0.75rem;
   }
-
   .advantage-card p {
     color: var(--color-text-secondary);
     line-height: 1.6;
     margin: 0;
   }
-
   /* Responsive */
   @media (max-width: 768px) {
     .section-title {
       font-size: 1.875rem;
     }
-
     .services-grid {
       grid-template-columns: 1fr;
     }
-
     .methodology-step::after {
       display: none;
     }
-
     .step-number {
       width: 3rem;
       height: 3rem;
       font-size: 1.25rem;
     }
-
     .step-content h3 {
       font-size: 1.125rem;
     }
-
     .advantages-grid {
       grid-template-columns: 1fr;
     }
   }
-
   @media (max-width: 480px) {
     .section-white,
     .section-grey {
       padding: 3rem 0;
     }
-
     .section-title {
       font-size: 1.5rem;
     }
-
     .service-header {
       flex-direction: column;
     }
-
     .service-icon {
       width: 2.5rem;
       height: 2.5rem;

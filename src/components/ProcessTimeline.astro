@@ -11,10 +11,8 @@ export interface Props {
   backgroundColor?: string;
   variant?: 'vertical' | 'horizontal';
 }
-
 const { title, subtitle, steps, backgroundColor, variant = 'vertical' } = Astro.props;
 ---
-
 <section class="timeline-section" style={backgroundColor ? `background-color: ${backgroundColor};` : ''}>
   <div class="container">
     <!-- Header -->
@@ -22,7 +20,6 @@ const { title, subtitle, steps, backgroundColor, variant = 'vertical' } = Astro.
       <h2 class="section-title">{title}</h2>
       {subtitle && <p class="section-subtitle">{subtitle}</p>}
     </div>
-
     <!-- Timeline -->
     <div class={`timeline timeline-${variant}`}>
       {steps.map((step, index) => (
@@ -46,19 +43,16 @@ const { title, subtitle, steps, backgroundColor, variant = 'vertical' } = Astro.
     </div>
   </div>
 </section>
-
 <style>
   .timeline-section {
     padding: 5rem 0;
     background: #ffffff;
   }
-
   .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
   }
-
   /* Header */
   .section-header {
     text-align: left;
@@ -67,7 +61,6 @@ const { title, subtitle, steps, backgroundColor, variant = 'vertical' } = Astro.
     position: relative;
     padding-left: 2rem;
   }
-
   .section-title {
     font-size: 2.5rem;
     margin-bottom: 1rem;
@@ -78,7 +71,6 @@ const { title, subtitle, steps, backgroundColor, variant = 'vertical' } = Astro.
     position: relative;
     padding-bottom: 1.5rem;
   }
-  
   .section-title::after {
     content: '';
     display: block;
@@ -91,7 +83,6 @@ const { title, subtitle, steps, backgroundColor, variant = 'vertical' } = Astro.
     left: 0;
     transform: none;
   }
-
   .section-subtitle {
     font-size: 1.25rem;
     color: #64748b;
@@ -101,7 +92,6 @@ const { title, subtitle, steps, backgroundColor, variant = 'vertical' } = Astro.
     font-weight: 400;
     position: relative;
   }
-
   /* Timeline Vertical */
   .timeline-vertical {
     display: flex;
@@ -110,18 +100,15 @@ const { title, subtitle, steps, backgroundColor, variant = 'vertical' } = Astro.
     margin: 0 auto;
     position: relative;
   }
-
   .timeline-step {
     display: flex;
     gap: 2.5rem;
     position: relative;
     padding-bottom: 3.5rem;
   }
-
   .timeline-step:last-child {
     padding-bottom: 0;
   }
-
   /* Connector */
   .step-connector {
     position: relative;
@@ -130,7 +117,6 @@ const { title, subtitle, steps, backgroundColor, variant = 'vertical' } = Astro.
     align-items: center;
     flex-shrink: 0;
   }
-
   .step-number {
     width: 2.5rem;
     height: 2.5rem;
@@ -145,22 +131,18 @@ const { title, subtitle, steps, backgroundColor, variant = 'vertical' } = Astro.
     font-size: 0.9375rem;
     position: relative;
     z-index: 2;
-    
   }
-
   .timeline-step:hover .step-number {
     background: #f8f9fa;
     border-color: #3b82f6;
     color: #3b82f6;
     transform: scale(1.05);
   }
-
   .timeline-step.highlight .step-number {
     background: #3b82f6;
     border-color: #3b82f6;
     color: #ffffff;
   }
-
   .step-line {
     position: absolute;
     top: 2.5rem;
@@ -171,7 +153,6 @@ const { title, subtitle, steps, backgroundColor, variant = 'vertical' } = Astro.
     background: #e2e8f0;
     z-index: 1;
   }
-
   /* Content */
   .step-content {
     flex: 1;
@@ -180,20 +161,14 @@ const { title, subtitle, steps, backgroundColor, variant = 'vertical' } = Astro.
     border-radius: 4px;
     padding: 2rem;
     text-align: left;
-    
   }
-
   .timeline-step:hover .step-content {
     border-color: #3b82f6;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    
   }
-  
   .timeline-step.highlight .step-content {
     background: #f0f9ff;
     border-color: #3b82f6;
   }
-
   .step-title {
     font-size: 1.125rem;
     font-weight: 600;
@@ -201,7 +176,6 @@ const { title, subtitle, steps, backgroundColor, variant = 'vertical' } = Astro.
     margin-bottom: 0.75rem;
     line-height: 1.3;
   }
-
   .step-description {
     color: #475569;
     line-height: 1.9;
@@ -211,17 +185,14 @@ const { title, subtitle, steps, backgroundColor, variant = 'vertical' } = Astro.
     padding: 0;
     margin: 1rem 0 0 1rem;
   }
-  
   .step-description li {
     position: relative;
     padding-left: 2rem;
     margin-bottom: 1rem;
   }
-  
   .step-description li:last-child {
     margin-bottom: 0;
   }
-  
   .step-description li::before {
     content: '';
     position: absolute;
@@ -232,7 +203,6 @@ const { title, subtitle, steps, backgroundColor, variant = 'vertical' } = Astro.
     background: #3b82f6;
     border-radius: 50%;
   }
-
   /* Horizontal variant */
   .timeline-horizontal {
     display: grid;
@@ -241,28 +211,23 @@ const { title, subtitle, steps, backgroundColor, variant = 'vertical' } = Astro.
     position: relative;
     padding: 2rem 0;
   }
-
   .timeline-horizontal .timeline-step {
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
     padding-bottom: 0;
   }
-
   .timeline-horizontal .step-connector {
     margin-bottom: 1.5rem;
     align-self: center;
   }
-  
   .timeline-horizontal .step-content {
     width: 100%;
     margin-top: 0;
   }
-
   .timeline-horizontal .step-line {
     display: none;
   }
-
   /* Horizontal line connector */
   .timeline-horizontal::before {
     content: '';
@@ -274,53 +239,42 @@ const { title, subtitle, steps, backgroundColor, variant = 'vertical' } = Astro.
     background: linear-gradient(90deg, transparent 0%, #e2e8f0 20%, #e2e8f0 80%, transparent 100%);
     z-index: 0;
   }
-
   /* Responsive */
   @media (max-width: 768px) {
     .timeline-section {
       padding: 3rem 0;
     }
-
     .section-header {
       margin-bottom: 2.5rem;
       padding-left: 1rem;
     }
-
     .section-title {
       font-size: 2rem;
     }
-
     .section-subtitle {
       font-size: 1.125rem;
       margin-left: 1.5rem;
     }
-
     .timeline-step {
       gap: 1.5rem;
       padding-bottom: 2.5rem;
     }
-
     .step-number {
       width: 2.5rem;
       height: 2.5rem;
       font-size: 1rem;
     }
-
     .step-title {
       font-size: 1rem;
     }
-
     .step-description {
       font-size: 0.875rem;
     }
-
     .timeline-horizontal {
       grid-template-columns: 1fr;
     }
-
     .timeline-horizontal::before {
       display: none;
     }
   }
-
 </style>

@@ -1,18 +1,15 @@
 ---
 import { languages, type Language } from '../i18n/translations';
 import { getLangFromUrl, getAlternateLinks, getRouteFromUrl } from '../i18n/utils';
-
 const currentLang = getLangFromUrl(Astro.url) as Language;
 const alternateLinks = getAlternateLinks(Astro.url);
 const route = getRouteFromUrl(Astro.url);
-
 // Détecter si on est sur un article de blog individuel
 const isArticlePage = route && route.startsWith('articles/') && 
                       !route.startsWith('articles/category/') && 
                       !route.startsWith('articles/page/') &&
                       route !== 'articles';
 ---
-
 <div class="language-selector">
   <button 
     class="lang-button" 
@@ -24,12 +21,10 @@ const isArticlePage = route && route.startsWith('articles/') &&
       <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
     </svg>
   </button>
-  
   <div class="lang-dropdown" aria-hidden="true">
     {Object.entries(languages).map(([code, name]) => {
       const linkUrl = alternateLinks[code as Language];
       const hasTranslation = linkUrl && typeof linkUrl === 'string' && linkUrl.length > 0;
-      
       // Pour les articles de blog sans traduction, on désactive le lien
       if (isArticlePage && !hasTranslation) {
         return (
@@ -42,11 +37,9 @@ const isArticlePage = route && route.startsWith('articles/') &&
           </span>
         );
       }
-      
       // Pour toutes les autres pages ou articles avec traduction
       // La fonction getAlternateLinks devrait toujours retourner un lien valide maintenant
       const finalUrl = linkUrl || `/${code}`;
-      
       return (
         <a 
           href={finalUrl} 
@@ -59,12 +52,10 @@ const isArticlePage = route && route.startsWith('articles/') &&
     })}
   </div>
 </div>
-
 <style>
   .language-selector {
     position: relative;
   }
-
   .lang-button {
     display: flex;
     align-items: center;
@@ -77,22 +68,16 @@ const isArticlePage = route && route.startsWith('articles/') &&
     font-size: 0.875rem;
     color: var(--color-text, #333);
     font-weight: 500;
-    
   }
-
   .lang-button:hover {
     border-color: var(--color-primary, #005FCC);
     color: var(--color-primary, #005FCC);
   }
-
   .chevron {
-    transition: transform 0.3s ease;
   }
-
   .lang-button[aria-expanded="true"] .chevron {
     transform: rotate(180deg);
   }
-
   .lang-dropdown {
     position: absolute;
     top: calc(100% + 8px);
@@ -100,31 +85,24 @@ const isArticlePage = route && route.startsWith('articles/') &&
     background: white;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     min-width: 150px;
     opacity: 0;
     visibility: hidden;
-    
-    
     z-index: 100;
   }
-
   .language-selector:hover .lang-dropdown,
   .language-selector:focus-within .lang-dropdown {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
   }
-
   .lang-option {
     display: block;
     padding: 12px 16px;
     color: var(--color-text, #333);
     text-decoration: none;
     font-size: 0.875rem;
-    
   }
-  
   .lang-option.disabled {
     color: #999;
     cursor: not-allowed;
@@ -132,56 +110,46 @@ const isArticlePage = route && route.startsWith('articles/') &&
     pointer-events: none;
     position: relative;
   }
-  
   .lang-option.disabled::after {
     content: '(Non disponible)';
     font-size: 0.75rem;
     opacity: 0.7;
     margin-left: 0.5rem;
   }
-
   .lang-option:not(.disabled):hover {
     background: #f5f5f5;
     color: var(--color-primary, #005FCC);
   }
-
   .lang-option.active {
     background: rgba(0, 95, 204, 0.05);
     color: var(--color-primary, #005FCC);
     font-weight: 600;
   }
-
   .lang-option:first-child {
     border-radius: 4px 4px 0 0;
   }
-
   .lang-option:last-child {
     border-radius: 0 0 4px 4px;
   }
-
   @media (max-width: 768px) {
     .lang-button {
       padding: 6px 12px;
       font-size: 0.875rem;
     }
-    
     .lang-dropdown {
       min-width: 120px;
     }
   }
 </style>
-
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const button = document.querySelector('.lang-button') as HTMLButtonElement;
     const dropdown = document.querySelector('.lang-dropdown') as HTMLElement;
-    
     button?.addEventListener('click', () => {
       const isExpanded = button.getAttribute('aria-expanded') === 'true';
       button.setAttribute('aria-expanded', (!isExpanded).toString());
       dropdown?.setAttribute('aria-hidden', isExpanded.toString());
     });
-    
     document.addEventListener('click', (e) => {
       if (!e.target || !(e.target as Element).closest('.language-selector')) {
         button?.setAttribute('aria-expanded', 'false');

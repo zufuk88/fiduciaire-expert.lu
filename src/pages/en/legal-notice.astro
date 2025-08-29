@@ -1,13 +1,11 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
-
 const breadcrumbItems = [
   { text: "Home", href: "/en" },
   { text: "Legal Notice" }
 ];
 ---
-
 <LayoutI18n 
   title="Legal Notice | Fiduciaire Expert Luxembourg" 
   description="Legal notice of Fiduciaire Expert S.à r.l., accounting and tax consulting firm in Luxembourg."
@@ -18,12 +16,10 @@ const breadcrumbItems = [
     title="Legal Notice"
     subtitle="Legal information and terms of use"
   />
-
   <main class="mentions-legales">
     <div class="container">
       <div class="content">
         <p class="update-info">Last updated: January 2025</p>
-
         <section>
           <h2>1) Website Publisher</h2>
           <p><strong>Website:</strong> www.fiduciaire-expert.lu</p>
@@ -34,55 +30,44 @@ const breadcrumbItems = [
           <p><strong>VAT:</strong> LU 12345678</p>
           <p><strong>Tel.:</strong> +352 20 60 58 57 – <strong>Email:</strong> contact@fiduciaire-expert.lu</p>
         </section>
-
         <section>
           <h2>2) Website Host</h2>
           <p><strong>Netlify, Inc.</strong></p>
           <p>2325 3rd Street, Suite 296, San Francisco, CA 94107, United States</p>
           <p><strong>Website:</strong> www.netlify.com</p>
         </section>
-
         <section>
           <h2>3) Editorial Director</h2>
           <p>Marc Dubois, Managing Director, Editorial Director.</p>
           <p><strong>Contact:</strong> contact@fiduciaire-expert.lu</p>
         </section>
-
         <section>
           <h2>4) Personal Data Protection</h2>
           <p><strong>Data Controller:</strong> Fiduciaire Expert S.à r.l.</p>
           <p><strong>DPO Contact:</strong> dpo@fiduciaire-expert.lu</p>
-          
           <p><strong>Why we collect your data:</strong></p>
           <p>We process your data to provide our accounting and tax services, comply with our legal obligations (tax and social declarations, anti-money laundering), and manage our business relationship.</p>
-          
           <p><strong>Who can access your data:</strong></p>
           <p>Your data is only shared with competent Luxembourg authorities (tax office, social security), banks for payments, and legal professionals when mandated by you. All our subcontractors are contractually bound by professional secrecy.</p>
-          
           <p><strong>Retention period:</strong></p>
           <p>We retain your accounting and tax documents for 10 years in accordance with Luxembourg law. Commercial data is kept for 3 years after our last contact.</p>
-          
           <p><strong>Your rights:</strong></p>
           <p>You may request access, rectification or deletion of your data, object to their processing or request portability. To exercise these rights, contact us by email or mail. In case of disagreement, you may file a complaint with the CNPD (National Commission for Data Protection) in Belvaux.</p>
         </section>
-
         <section>
           <h2>5) Security</h2>
           <p>We implement all necessary technical and organizational measures to protect your data against unauthorized access, loss or disclosure.</p>
         </section>
-
         <section>
           <h2>6) Intellectual Property</h2>
           <p>All content on this website (texts, images, logos, structure) is our exclusive property and is protected by copyright.</p>
           <p>Any reproduction, even partial, or use of our content without our prior written authorization is strictly prohibited and may result in legal action.</p>
         </section>
-
         <section>
           <h2>7) Liability</h2>
           <p>The information on this website is provided for general informational purposes and does not constitute personalized advice.</p>
           <p>For any important decision regarding your accounting or tax situation, we recommend that you contact us directly for professional advice tailored to your specific case. We cannot be held liable for the use of general information published on this website.</p>
         </section>
-
         <section>
           <h2>8) Applicable Law and Jurisdiction</h2>
           <p>These legal notices are governed by Luxembourg law.</p>
@@ -92,7 +77,6 @@ const breadcrumbItems = [
     </div>
   </main>
 </LayoutI18n>
-
 <style>
   @import '/src/styles/legal.css';
 </style>

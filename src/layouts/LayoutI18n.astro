@@ -3,7 +3,6 @@ import HeaderI18n from '../components/HeaderI18n.astro';
 import Footer from '../components/Footer.astro';
 import { getLangFromUrl, getAlternateLinks } from '../i18n/utils';
 import { useTranslation, type Language } from '../i18n/translations';
-
 export interface Props {
   title?: string;
   description?: string;
@@ -13,11 +12,9 @@ export interface Props {
   noindex?: boolean;
   schema?: object;
 }
-
 const lang = getLangFromUrl(Astro.url) as Language;
 const t = useTranslation(lang);
 const alternateLinks = getAlternateLinks(Astro.url);
-
 const {
   title = t('meta.title'),
   description = t('meta.description'),
@@ -29,10 +26,8 @@ const {
   noindex = false,
   schema
 } = Astro.props;
-
 const siteUrl = "https://www.fiduciaire-expert.lu";
 const canonicalURL = canonical || new URL(Astro.url.pathname, siteUrl).href;
-
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -43,33 +38,26 @@ const websiteSchema = {
   "publisher": { "@id": `${siteUrl}/#organization` },
   "inLanguage": lang === 'fr' ? "fr-LU" : "en-US"
 };
-
 const finalSchema = schema ? schema : websiteSchema;
 ---
-
 <!doctype html>
 <html lang={lang === 'fr' ? 'fr-LU' : 'en-US'}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, user-scalable=yes" />
-  
   <title>{title}</title>
   <meta name="description" content={description} />
   <meta name="keywords" content={keywords} />
   {noindex && <meta name="robots" content="noindex, nofollow" />}
-  
   <!-- Canonical -->
   <link rel="canonical" href={canonicalURL} />
-  
   <!-- Hreflang tags for SEO -->
   {alternateLinks.fr && <link rel="alternate" hreflang="fr-LU" href={`${siteUrl}${alternateLinks.fr}`} />}
   {alternateLinks.en && <link rel="alternate" hreflang="en-US" href={`${siteUrl}${alternateLinks.en}`} />}
   <link rel="alternate" hreflang="x-default" href={`${siteUrl}/fr`} />
-  
   <!-- RSS Feeds -->
   <link rel="alternate" type="application/rss+xml" title="Fiduciaire Expert - Blog (FR)" href={`${siteUrl}/fr/rss.xml`} />
   <link rel="alternate" type="application/rss+xml" title="Fiduciaire Expert - Blog (EN)" href={`${siteUrl}/en/rss.xml`} />
-  
   <!-- Open Graph -->
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
@@ -78,33 +66,26 @@ const finalSchema = schema ? schema : websiteSchema;
   <meta property="og:type" content="website" />
   <meta property="og:locale" content={lang === 'fr' ? 'fr_LU' : 'en_US'} />
   <meta property="og:locale:alternate" content={lang === 'fr' ? 'en_US' : 'fr_LU'} />
-  
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={new URL(ogImage, siteUrl).href} />
-  
   <!-- Schema.org -->
   <script type="application/ld+json" set:html={JSON.stringify(finalSchema)} />
-  
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#ffffff" />
-  
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  
-  
   <!-- Critical CSS -->
   <style is:inline>
     /* ===== SYSTÈME DE DESIGN GLOBAL PREMIUM ===== */
@@ -121,7 +102,6 @@ const finalSchema = schema ? schema : websiteSchema;
       --color-border-light: #f1f5f9;
       --color-dark: #0f172a;
       --color-accent: #f8fafc;
-
       /* Typographie premium et élégante */
       --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
       --font-size-base: 0.9375rem;
@@ -131,7 +111,6 @@ const finalSchema = schema ? schema : websiteSchema;
       --font-size-h1: clamp(2.5rem, 5vw, 3.75rem);
       --font-size-h2: clamp(2rem, 4vw, 2.75rem);
       --font-size-h3: clamp(1.25rem, 3vw, 1.5rem);
-
       /* Espacements harmonieux */
       --spacing-xs: 0.5rem;
       --spacing-sm: 1rem;
@@ -139,18 +118,15 @@ const finalSchema = schema ? schema : websiteSchema;
       --spacing-lg: 4rem;
       --spacing-xl: 6rem;
       --spacing-2xl: 8rem;
-
       /* Transitions simplifiées */
-      --transition: none;
+      --
       --transition-fast: none;
-      
       /* Ombres ultra-subtiles */
       --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
       --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
       --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
       --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
     }
-
     /* --- Reset et styles de base --- */
     *,
     *::before,
@@ -159,12 +135,10 @@ const finalSchema = schema ? schema : websiteSchema;
       margin: 0;
       padding: 0;
     }
-
     html {
       font-size: 100%;
       -webkit-text-size-adjust: 100%;
     }
-
     body {
       font-family: var(--font-family);
       font-size: var(--font-size-base);
@@ -177,12 +151,10 @@ const finalSchema = schema ? schema : websiteSchema;
       font-weight: 400;
       text-rendering: optimizeLegibility;
     }
-
     main {
       display: block;
       width: 100%;
     }
-
     /* --- Typographie élégante et sobre --- */
     h1, h2, h3, h4, h5, h6 {
       font-weight: 300;
@@ -193,37 +165,31 @@ const finalSchema = schema ? schema : websiteSchema;
       letter-spacing: -0.02em;
       font-feature-settings: "kern" 1;
     }
-    
     h1 { 
       font-size: var(--font-size-h1);
       font-weight: 300;
       margin-bottom: 1.75rem;
     }
-    
     h2 { 
       font-size: var(--font-size-h2);
       margin-bottom: 1.5rem;
       font-weight: 300;
     }
-    
     h3 { 
       font-size: var(--font-size-h3);
       margin-bottom: 1rem;
       font-weight: 600;
     }
-
     p { 
       margin-bottom: 1.5rem;
       line-height: 1.75;
       color: var(--color-text-secondary);
       font-weight: 400;
     }
-    
     strong { 
       font-weight: 600;
       color: var(--color-text);
     }
-    
     /* Override pour la section hero - force le texte en blanc */
     .hero-section strong,
     .hero-section .hero-subtitle strong,
@@ -231,13 +197,11 @@ const finalSchema = schema ? schema : websiteSchema;
     .hero-section p strong {
       color: #ffffff !important;
     }
-
     a {
       color: var(--color-primary);
       text-decoration: none;
     }
     a:hover { text-decoration: underline; }
-
     /* --- Structure & Conteneurs premium --- */
     .container {
       width: 100%;
@@ -247,12 +211,10 @@ const finalSchema = schema ? schema : websiteSchema;
       padding-left: 2rem;
       padding-right: 2rem;
     }
-
     section {
       padding-top: var(--spacing-2xl);
       padding-bottom: var(--spacing-2xl);
     }
-    
     .section-header {
       max-width: 800px;
       margin: 0 auto var(--spacing-xl) auto;
@@ -268,7 +230,6 @@ const finalSchema = schema ? schema : websiteSchema;
       font-weight: 400;
       letter-spacing: -0.01em;
     }
-
     /* --- Boutons premium --- */
     .btn {
       display: inline-flex;
@@ -286,19 +247,15 @@ const finalSchema = schema ? schema : websiteSchema;
       white-space: nowrap;
       letter-spacing: 0.025em;
     }
-    
     .btn:hover { 
       text-decoration: none;
     }
-
     .btn-primary {
       background: var(--color-primary);
       color: white;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
       position: relative;
       overflow: hidden;
     }
-    
     .btn-primary::before {
       content: '';
       position: absolute;
@@ -309,28 +266,21 @@ const finalSchema = schema ? schema : websiteSchema;
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%);
       opacity: 0;
     }
-    
     .btn-primary:hover {
       background: var(--color-dark);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
     }
-    
     .btn-primary:hover::before {
       opacity: 1;
     }
-
     .btn-secondary {
       background-color: white;
       color: var(--color-text);
       border: 1px solid var(--color-border);
     }
-    
     .btn-secondary:hover {
       background-color: var(--color-accent);
       border-color: var(--color-border);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
-
     /* --- Accessibilité --- */
     .skip-link {
       position: absolute;

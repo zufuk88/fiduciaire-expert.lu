@@ -6,31 +6,25 @@ import SearchBar from '../../../../components/SearchBar.astro';
 import StickyPageTop from '../../../../components/StickyPageTop.astro';
 import { calculateReadingTime } from '../../../../utils/reading-time';
 import '../../../../styles/blog-articles.css';
-
 export async function getStaticPaths() {
   const POSTS_PER_PAGE = 9;
-  
   const allPosts = await getCollection('blog');
   const frenchCategories = ['Fiscalité', 'Social', 'Comptabilité', 'Juridique'];
   const frenchPosts = allPosts.filter(post => frenchCategories.includes(post.data.category) && post.data.draft !== true);
-  
   const sortedPosts = frenchPosts.sort((a, b) => {
     const dateA = new Date(a.data.modified || a.data.date).getTime();
     const dateB = new Date(b.data.modified || b.data.date).getTime();
     return dateB - dateA;
   });
-
   // Calcul du nombre total de pages
   // Chaque page affiche POSTS_PER_PAGE articles
   const totalPages = Math.max(1, Math.ceil(sortedPosts.length / POSTS_PER_PAGE));
-  
   // Générer les paths pour chaque page additionnelle
   const paths = [];
   for (let page = 2; page <= totalPages; page++) {
     const startIndex = (page - 1) * POSTS_PER_PAGE; // Page 2 commence à l'index 9
     const endIndex = startIndex + POSTS_PER_PAGE;
     const pagePosts = sortedPosts.slice(startIndex, endIndex);
-    
     // Générer seulement si il y a des articles pour cette page
     if (pagePosts.length > 0) {
       paths.push({
@@ -44,25 +38,19 @@ export async function getStaticPaths() {
       });
     }
   }
-  
   return paths;
 }
-
 const { posts, currentPage, totalPages, allPostsCount } = Astro.props;
-
 const frenchCategories = ['Fiscalité', 'Social', 'Comptabilité', 'Juridique'];
 const categories = frenchCategories;
-
 const formatDate = (date) => date.toLocaleDateString('fr-FR', {
   year: 'numeric', month: 'long', day: 'numeric'
 });
-
 // URLs pour rel prev/next
 const siteUrl = Astro.site ? Astro.site.origin : "https://www.fiduciaire-expert.lu";
 const prevUrl = currentPage === 2 ? '/fr/articles' : `/fr/articles/page/${currentPage - 1}`;
 const nextUrl = currentPage < totalPages ? `/fr/articles/page/${currentPage + 1}` : null;
 const canonicalUrl = `${siteUrl}/fr/articles/page/${currentPage}`;
-
 // Schema pour le SEO
 const breadcrumbSchema = {
   "@context": "https://schema.org",
@@ -88,7 +76,6 @@ const breadcrumbSchema = {
   ]
 };
 ---
-
 <LayoutI18n
   title={`Blog - Page ${currentPage} | Conseils en Comptabilité & Fiscalité | Fiduciaire Expert Luxembourg`}
   description={`Page ${currentPage} - Retrouvez nos ${allPostsCount} articles d'experts sur la comptabilité, la fiscalité et la création d'entreprise au Luxembourg.`}
@@ -100,7 +87,6 @@ const breadcrumbSchema = {
     <link rel="prev" href={prevUrl} />
     {nextUrl && <link rel="next" href={nextUrl} />}
   </Fragment>
-
   <StickyPageTop
     breadcrumbItems={[
       { text: "Accueil", href: "/fr" },
@@ -110,7 +96,6 @@ const breadcrumbSchema = {
     title="Nos derniers articles de blog"
     subtitle={`Page ${currentPage} sur ${totalPages} - Consultez nos analyses et conseils d'experts pour rester informé sur la comptabilité, la fiscalité, le payroll et le droit des sociétés au Luxembourg.`}
   />
-
   <section class="blog-main-section">
     <div class="container blog-layout">
       <div class="posts-column">
@@ -145,7 +130,6 @@ const breadcrumbSchema = {
             </article>
           ))}
         </div>
-        
         {/* Pagination avec rel prev/next */}
         <div class="pagination">
           {currentPage === 2 ? (
@@ -163,11 +147,9 @@ const breadcrumbSchema = {
               Articles précédents
             </a>
           )}
-          
           <span class="pagination-info">
             Page {currentPage} sur {totalPages}
           </span>
-          
           {nextUrl ? (
             <a href={nextUrl} rel="next" class="pagination-next">
               Articles suivants
@@ -180,7 +162,6 @@ const breadcrumbSchema = {
           )}
         </div>
       </div>
-      
       <aside class="sidebar-column">
         <div class="sidebar-widget">
           <h3 class="widget-title">Catégories</h3>
@@ -192,7 +173,6 @@ const breadcrumbSchema = {
             })}
           </nav>
         </div>
-        
         <div class="sidebar-widget sidebar-search">
           <h3 class="widget-title">Rechercher</h3>
           <SearchBar placeholder="Rechercher" lang="fr" />
@@ -201,7 +181,6 @@ const breadcrumbSchema = {
     </div>
   </section>
 </LayoutI18n>
-
 <style>
   /* Styles supplémentaires pour pagination disabled */
   .pagination-disabled {

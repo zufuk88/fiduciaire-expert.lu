@@ -2,15 +2,12 @@
 import { Image } from 'astro:assets';
 import logoImage from '/src/assets/images/Logo.webp';
 import { useTranslation, type Language } from '../i18n/translations';
-
 export interface Props {
   lang: Language;
 }
-
 const { lang } = Astro.props;
 const t = useTranslation(lang);
 const currentYear = new Date().getFullYear();
-
 const footerColumns = [
   [
     { href: `/${lang}`, text: t('nav.home') },
@@ -30,13 +27,11 @@ const footerColumns = [
     { href: `/${lang}/articles`, text: t('nav.articles') }
   ]
 ];
-
 const contactInfo = {
   phone: "+352 20 60 58 57",
   email: "contact@fiduciaire-expert.lu",
   address: "15 Avenue de la Liberté, L-1931 Luxembourg"
 };
-
 const footerSchema = {
   "@context": "https://schema.org",
   "@type": "WPFooter",
@@ -48,7 +43,6 @@ const footerSchema = {
   }
 };
 ---
-
 <footer class="site-footer" role="contentinfo" itemscope itemtype="https://schema.org/WPFooter">
   <div class="container">
     <!-- Main Footer Content -->
@@ -70,7 +64,6 @@ const footerSchema = {
           {t('footer.description')}
         </p>
       </div>
-
       <!-- Navigation Links - 4 columns including contact -->
       <nav class="footer-nav" aria-label="Footer navigation">
         {footerColumns.map((column, colIndex) => (
@@ -80,7 +73,6 @@ const footerSchema = {
             ))}
           </div>
         ))}
-        
         <!-- Contact as 4th column -->
         <div class="footer-nav-column footer-contact-column">
           <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`} class="contact-link" itemprop="telephone">
@@ -104,7 +96,6 @@ const footerSchema = {
         </div>
       </nav>
     </div>
-
     <!-- Bottom Bar -->
     <div class="footer-bottom">
       <p class="copyright">&copy; {currentYear} Fiduciaire Expert. {t('footer.rights-reserved')}</p>
@@ -115,13 +106,10 @@ const footerSchema = {
       </div>
     </div>
   </div>
-
   <!-- Background decoration -->
   <div class="footer-decoration"></div>
-  
   <script type="application/ld+json" set:html={JSON.stringify(footerSchema)} is:inline />
 </footer>
-
 <style>
   .site-footer {
     background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
@@ -130,7 +118,6 @@ const footerSchema = {
     position: relative;
     overflow: hidden;
   }
-  
   /* Background decoration */
   .footer-decoration {
     position: absolute;
@@ -144,7 +131,6 @@ const footerSchema = {
     background-size: 40px 40px;
     z-index: 0;
   }
-  
   /* Container */
   .container {
     max-width: 1200px;
@@ -154,7 +140,6 @@ const footerSchema = {
     z-index: 1;
     overflow-x: hidden;
   }
-  
   /* Main Footer - Horizontal Layout */
   .footer-main {
     display: grid;
@@ -164,7 +149,6 @@ const footerSchema = {
     margin-bottom: 0.5rem;
     border-bottom: 1px solid rgba(0, 95, 204, 0.08);
   }
-  
   /* Brand Section */
   .footer-brand {
     display: flex;
@@ -173,7 +157,6 @@ const footerSchema = {
     position: relative;
     padding-right: 3rem;
   }
-  
   /* Barre verticale élégante après la section brand */
   .footer-brand::after {
     content: '';
@@ -189,21 +172,15 @@ const footerSchema = {
       transparent 100%
     );
   }
-  
   .logo-link {
     display: inline-block;
-    transition: transform 0.3s ease;
   }
-  
   .logo-link:hover {
-    
   }
-  
   .footer-brand img {
     height: 42px;
     width: auto;
   }
-  
   .brand-tagline {
     font-size: 0.9375rem;
     color: #475569;
@@ -211,7 +188,6 @@ const footerSchema = {
     line-height: 1.6;
     letter-spacing: 0.01em;
   }
-  
   /* Navigation - 4 Columns avec colonne contact plus large */
   .footer-nav {
     display: grid;
@@ -219,31 +195,26 @@ const footerSchema = {
     gap: 2rem;
     padding: 0 1rem;
   }
-  
   .footer-nav-column {
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
-  
   /* Suppression de la bordure qui crée un décalage */
   /* .footer-nav-column:first-child {
     padding-left: 2rem;
     border-left: 2px solid rgba(0, 95, 204, 0.1);
   } */
-  
   .footer-nav a {
     color: #64748b;
     text-decoration: none;
     font-size: 0.9375rem;
     font-weight: 400;
-    
     white-space: normal;
     word-break: break-word;
     position: relative;
     padding-left: 0;
   }
-  
   .footer-nav a::before {
     content: '';
     position: absolute;
@@ -255,53 +226,43 @@ const footerSchema = {
     background: #005fcc;
     border-radius: 50%;
     opacity: 0;
-    transition: opacity 0.2s ease;
   }
-  
   .footer-nav a:hover {
     color: #3b82f6;
     padding-left: 8px;
   }
-  
   .footer-nav a:hover::before {
     opacity: 1;
     background: #3b82f6;
   }
-  
   /* Taxpertize - Style spécial */
   .footer-nav a.taxpertize-link {
     position: relative;
     font-weight: 500;
     letter-spacing: 0.02em;
   }
-  
   /* Taxpertize - couleur verte vif au hover */
   .footer-nav a.taxpertize-link:hover {
     color: #4ade80 !important;
     padding-left: 8px;
   }
-  
   .footer-nav a.taxpertize-link:hover::before {
     background: #4ade80 !important;
     opacity: 1;
   }
-  
   /* Contact Column - Style harmonisé avec les autres colonnes */
   .footer-contact-column {
     align-items: flex-start;
   }
-  
   .footer-contact-column .contact-link {
     color: #64748b;
     text-decoration: none;
     font-size: 0.9375rem;
     font-weight: 400;
-    
     white-space: nowrap;
     position: relative;
     padding-left: 0;
   }
-  
   .footer-contact-column .contact-link::before {
     content: '';
     position: absolute;
@@ -312,37 +273,29 @@ const footerSchema = {
     height: 4px;
     background: rgba(0, 95, 204, 0.3);
     border-radius: 50%;
-    
     opacity: 0;
   }
-  
   .footer-contact-column .contact-link:hover {
     color: #3b82f6;
     padding-left: 8px;
   }
-  
   .footer-contact-column .contact-link:hover::before {
     opacity: 1;
     background: #3b82f6;
   }
-  
   /* LinkedIn link dans la colonne contact */
   .linkedin-footer-link {
     display: inline-flex;
     align-items: center;
     text-decoration: none;
-    
     position: relative;
     padding-left: 0;
     margin-top: 0.25rem;
   }
-  
   .linkedin-footer-link svg {
     width: 24px;
     height: 24px;
-    
   }
-  
   .linkedin-footer-link::before {
     content: '';
     position: absolute;
@@ -353,24 +306,19 @@ const footerSchema = {
     height: 4px;
     background: rgba(0, 119, 181, 0.3);
     border-radius: 50%;
-    
     opacity: 0;
   }
-  
   .linkedin-footer-link:hover {
     padding-left: 8px;
   }
-  
   .linkedin-footer-link:hover svg {
     transform: scale(1.1);
     filter: brightness(1.2);
   }
-  
   .linkedin-footer-link:hover::before {
     opacity: 1;
     background: #0077b5;
   }
-  
   /* Bottom Bar */
   .footer-bottom {
     display: flex;
@@ -380,37 +328,30 @@ const footerSchema = {
     font-size: 0.875rem;
     color: #64748b;
   }
-  
   .copyright {
     margin: 0;
     font-weight: 300;
     letter-spacing: 0.02em;
   }
-  
   .legal-links {
     display: flex;
     align-items: center;
     gap: 1rem;
   }
-  
   .legal-links a {
     color: #64748b;
     text-decoration: none;
-    
     padding: 0.25rem 0.5rem;
     position: relative;
   }
-  
   .legal-links a:hover {
     color: #3b82f6;
   }
-  
   .separator {
     color: rgba(0, 95, 204, 0.2);
     font-size: 0.75rem;
     user-select: none;
   }
-  
   /* Responsive - Tablettes larges */
   @media (max-width: 1024px) {
     .footer-nav {
@@ -418,21 +359,17 @@ const footerSchema = {
       gap: 2.5rem;
       row-gap: 2rem;
     }
-    
     .footer-nav-column {
       min-width: 180px;
     }
-    
     /* Colonnes 3 et 4 sur la deuxième ligne avec plus d'espace pour contact */
     .footer-nav-column:nth-child(3) {
       grid-column: 1;
     }
-    
     .footer-nav-column:nth-child(4) {
       grid-column: 2;
     }
   }
-  
   /* Responsive - Tablettes et petits écrans */
   @media (max-width: 968px) {
     .footer-main {
@@ -440,101 +377,82 @@ const footerSchema = {
       gap: 3rem;
       text-align: center;
     }
-    
     .footer-brand {
       align-items: center;
       padding-right: 0;
     }
-    
     .footer-brand::after {
       display: none;  /* Masquer la barre verticale sur mobile */
     }
-    
     .footer-nav {
       grid-template-columns: repeat(2, 1fr);
       padding: 0;
       gap: 2rem;
       row-gap: 2.5rem;
     }
-    
     .footer-nav-column {
       align-items: center;
     }
-    
     .footer-nav-column:first-child {
       padding-left: 0;
       border-left: none;
     }
-    
     .footer-nav a::before,
     .footer-contact-column .contact-link::before,
     .linkedin-footer-link::before {
       display: none;
     }
-    
     .footer-nav a:hover,
     .footer-contact-column .contact-link:hover,
     .linkedin-footer-link:hover {
       padding-left: 0;
     }
   }
-  
   @media (max-width: 768px) {
     .container {
       padding: 0 1.5rem;
     }
-    
     .footer-nav {
       gap: 1.5rem;
     }
-    
     .footer-nav-column {
       min-width: 120px;
     }
-    
     .footer-main {
       gap: 1.5rem;
     }
-    
     /* Augmenter la taille de police sur mobile pour une meilleure lisibilité */
     .footer-nav a,
     .footer-contact-column .contact-link {
       font-size: 1rem;  /* 16px - taille confortable sur mobile */
     }
   }
-  
   @media (max-width: 640px) {
     .site-footer {
       padding: 2rem 0 1rem;
     }
-    
     .container {
       padding: 0 1rem;
     }
-    
     .footer-nav {
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
     }
-    
     .footer-nav-column {
       width: 100%;
       align-items: center;
       gap: 0.5rem;
     }
-    
     .footer-nav a,
     .footer-contact-column .contact-link {
       font-size: 1rem;  /* 16px - taille confortable et cohérente sur mobile */
     }
-    
     .footer-bottom {
       flex-direction: column;
       gap: 1rem;
       text-align: center;
     }
-    
     .contact-item {
       justify-content: center;
     }

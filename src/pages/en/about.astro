@@ -10,7 +10,6 @@ import FAQ from '../../components/FAQ.astro';
 import bureauImage from '/src/assets/images/bureau-fiduciaire.jpg';
 import marcDuboisImage from '/src/assets/images/marc-dubois.jpg';
 import sophieBernardImage from '/src/assets/images/sophie-bernard.jpg';
-
 // Page data - Content preserved
 const teamMembers = [
   {
@@ -30,13 +29,11 @@ const teamMembers = [
     linkedin: "https://linkedin.com/in/sophiebernard"
   },
 ];
-
 const stats = [
   { number: "20+", label: "Years of expertise" },
   { number: "50+", label: "Clients supported" },
   { number: "100%", label: "Compliance guaranteed" }
 ];
-
 const values = [
   { 
     title: "Local expertise", 
@@ -60,12 +57,10 @@ const values = [
     </svg>`
   },
 ];
-
 const testimonials = [
   { content: "Fiduciaire Expert has been supporting us for a long time. Their expertise in the Luxembourg market is remarkable. Creation of our holding in a few weeks!", author: "M. Laurent", role: "CEO, TechLux Solutions" },
   { content: "Exceptional tax advice and support: we had immediate results. The team is responsive and always provides good advice. I highly recommend.", author: "P. Schmitt", role: "CFO, Finance Partners" },
 ];
-
 const faqItems = [
   {
     question: "What accounting services do you offer?",
@@ -84,10 +79,8 @@ const faqItems = [
     answer: "The first consultation allows us to analyze your specific needs. We examine your accounting and tax situation, then establish a detailed and transparent quote for our services."
   }
 ];
-
 const metaDescription = "Chartered accounting firm in Luxembourg. Certified chartered accountants, qualified tax advisors. Accounting, tax, payroll, company formation. OECL member.";
 const pageUrl = "https://www.fiduciaire-expert.lu/en/about";
-
 // SEO Schema - Enhanced with FAQ and Breadcrumb
 const aboutSchema = {
   "@context": "https://schema.org",
@@ -187,7 +180,6 @@ const aboutSchema = {
   ]
 };
 ---
-
 <LayoutI18n
   title="Chartered Accountant Luxembourg | Fiduciaire Expert | About"
   description={metaDescription}
@@ -202,9 +194,7 @@ const aboutSchema = {
     title="Certified Chartered Accountant and Tax Advisor in Luxembourg"
     subtitle="Chartered accounting firm. Accounting, tax, payroll and company formation for SMEs and entrepreneurs."
   />
-
   <StatsSection stats={stats} backgroundColor="#f1f5f9" />
-
   <StorySection 
     title="Our professional expertise"
     paragraphs={[
@@ -215,34 +205,28 @@ const aboutSchema = {
     image={bureauImage}
     imageAlt="Modern offices of Fiduciaire Expert in Luxembourg, illustrating our professionalism and contemporary approach"
   />
-
   <ValuesGrid 
     title="Our values"
     subtitle="The principles that guide our daily commitment to our clients"
     values={values}
     backgroundColor="#f1f5f9"
   />
-
   <TeamGrid 
     title="Our team"
     subtitle="Passionate experts, united by the requirement of excellence"
     members={teamMembers}
   />
-
   <TestimonialsGrid 
     title="They trust us"
     subtitle="Our clients' testimonials reflect our commitment to quality"
     testimonials={testimonials}
     backgroundColor="#f1f5f9"
   />
-
   <FAQ 
     title="Frequently asked questions"
     subtitle="Answers to the most common questions about our firm"
     faqItems={faqItems}
     generateSchema={false}
   />
-
   <script type="application/ld+json" set:html={JSON.stringify(aboutSchema)} is:inline />
 </LayoutI18n>
-

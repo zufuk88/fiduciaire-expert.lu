@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-
 export interface Props {
   title: string;
   paragraphs: string[];
@@ -9,7 +8,6 @@ export interface Props {
   imagePosition?: 'left' | 'right';
   backgroundColor?: string;
 }
-
 const { 
   title, 
   paragraphs, 
@@ -19,7 +17,6 @@ const {
   backgroundColor 
 } = Astro.props;
 ---
-
 <section class="story-section" aria-labelledby="story-title" style={backgroundColor ? `background-color: ${backgroundColor};` : ''}>
   <div class="container">
     <div class={`story-grid ${imagePosition === 'left' ? 'image-left' : ''}`}>
@@ -31,7 +28,6 @@ const {
           ))}
         </div>
       </div>
-      
       <div class="story-image">
         <Image 
           src={image}
@@ -45,33 +41,27 @@ const {
     </div>
   </div>
 </section>
-
 <style>
   .story-section {
     padding: 5rem 0;
   }
-
   .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
   }
-
   .story-grid {
     display: grid;
     grid-template-columns: 1.1fr 1fr;
     gap: 5rem;
     align-items: center;
   }
-
   .story-grid.image-left {
     grid-template-columns: 1fr 1.1fr;
   }
-
   .story-grid.image-left .story-image {
     order: -1;
   }
-
   .story-content h2 {
     font-size: 2.25rem;
     font-weight: 300;
@@ -80,7 +70,6 @@ const {
     letter-spacing: -0.01em;
     line-height: 1.2;
   }
-
   .story-content h2::after {
     content: '';
     display: block;
@@ -89,7 +78,6 @@ const {
     background: #3b82f6;
     margin-top: 1.5rem;
   }
-
   .story-text p {
     color: #64748b;
     line-height: 1.75;
@@ -97,20 +85,16 @@ const {
     font-size: 0.9375rem;
     font-weight: 400;
   }
-
   .story-text p:last-child {
     margin-bottom: 0;
   }
-
   .story-text :global(strong) {
     color: #2c4157;
     font-weight: 600;
   }
-
   .story-image {
     position: relative;
   }
-
   .story-image::before {
     content: '';
     position: absolute;
@@ -122,14 +106,11 @@ const {
     border-radius: 4px;
     z-index: -1;
   }
-
   .story-image img {
     width: 100%;
     height: auto;
     border-radius: 4px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   }
-
   /* Responsive */
   @media (max-width: 1024px) {
     .story-grid,
@@ -137,30 +118,24 @@ const {
       grid-template-columns: 1fr;
       gap: 3rem;
     }
-
     .story-grid.image-left .story-image {
       order: 0;
     }
-
     .story-image::before {
       display: none;
     }
   }
-
   @media (max-width: 768px) {
     .story-section {
       padding: 3.5rem 0;
     }
-
     .story-content h2 {
       font-size: 1.875rem;
       margin-bottom: 2rem;
     }
-
     .story-content h2::after {
       margin-top: 1.25rem;
     }
-
     .story-text p {
       font-size: 0.875rem;
     }

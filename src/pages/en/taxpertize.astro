@@ -5,10 +5,8 @@ import ServicesInfo from '../../components/ServicesInfo.astro';
 import ProcessTimeline from '../../components/ProcessTimeline.astro';
 import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
-
 const pageTitle = "Tax Advisory in Luxembourg — Taxpertize by Fiduciaire Expert";
 const pageDescription = "Luxembourg-based tax expertise firm. High-intensity analytical intervention for companies, funds, international groups, executives and private investors.";
-
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -25,7 +23,6 @@ const schema = {
     }
   ]
 };
-
 const faqItems = [
   {
     question: "Which companies are affected by Pillar Two in Luxembourg?",
@@ -45,7 +42,6 @@ const faqItems = [
   }
 ];
 ---
-
 <LayoutI18n 
   title={pageTitle}
   description={pageDescription}
@@ -61,7 +57,6 @@ const faqItems = [
     title="Tax Advisory in Luxembourg — Taxpertize by Fiduciaire Expert"
     subtitle="Luxembourg-based tax expertise firm. High-intensity analytical intervention for companies, funds, international groups, executives and private investors. Comprehensive coverage: structuring, diagnostics, modeling, rulings, audits and litigation."
   />
-  
   <!-- Expertise Areas Section -->
   <ServicesInfo
     title="Areas of Expertise"
@@ -91,7 +86,6 @@ const faqItems = [
     ]}
     backgroundColor="#f8fafc"
   />
-
   <ServicesInfo
     sections={[
       {
@@ -123,7 +117,6 @@ const faqItems = [
       }
     ]}
   />
-
   <!-- Method Section -->
   <ProcessTimeline
     title="Taxpertize Method"
@@ -177,7 +170,6 @@ const faqItems = [
     ]}
     variant="vertical"
   />
-
   <!-- Fee Structure Section -->
   <ServicesInfo
     title="Transparent Fee Structure"
@@ -210,7 +202,6 @@ const faqItems = [
     }}
     backgroundColor="#f8fafc"
   />
-
   <!-- Sector References Section -->
   <ServicesInfo
     title="Sector References"
@@ -254,14 +245,12 @@ const faqItems = [
       }
     ]}
   />
-
   <CTA
     title="Ready to optimize your tax situation?"
     subtitle="Contact Taxpertize for an initial consultation and discover how our expertise can create value for your organization."
     buttonText="Request a consultation"
     buttonHref="/en/contact?service=taxpertize"
   />
-
   <FAQ
     title="Frequently Asked Questions about Luxembourg Taxation"
     subtitle="Expert answers to complex tax questions"

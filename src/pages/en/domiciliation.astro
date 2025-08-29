@@ -3,9 +3,7 @@ import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
 import FAQ from '../../components/FAQ.astro';
 import CTA from '../../components/CTA.astro';
-
 const metaDescription = "Company domiciliation service in Luxembourg strictly compliant, reserved for asset management companies (SOPARFI, holdings, SPV). Licensed chartered accountant, complete AML/KYC compliance.";
-
 const domiciliationSchema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -35,7 +33,6 @@ const domiciliationSchema = {
     }
   ]
 };
-
 const faqItems = [
   {
     question: "Can an active commercial company be domiciled?",
@@ -55,7 +52,6 @@ const faqItems = [
   }
 ];
 ---
-
 <LayoutI18n
   title="Company Domiciliation Luxembourg | AML/KYC Compliant Service"
   description={metaDescription}
@@ -71,21 +67,18 @@ const faqItems = [
     title="Company domiciliation in Luxembourg"
     subtitle="Strictly compliant service reserved for asset management companies"
   />
-
   <!-- Section: What we offer -->
   <section class="legal-section">
     <div class="container">
       <div class="legal-content">
         <h2>What we offer</h2>
         <p class="lead">Strictly compliant domiciliation service reserved for asset management companies (SOPARFI/holdings, investment SPVs, intellectual property companies, SPFs). We require an effective management link to Luxembourg and apply comprehensive KYC/AML controls.</p>
-        
         <div class="alert-box">
           <strong>Important:</strong> operational commercial activities (trade, e-commerce, daily services) require an establishment authorization and appropriate premises. Simple domiciliation is not sufficient to operate these activities.
         </div>
       </div>
     </div>
   </section>
-
   <!-- Section: Legal basis -->
   <section class="legal-framework">
     <div class="container">
@@ -106,7 +99,6 @@ const faqItems = [
       </div>
     </div>
   </section>
-
   <!-- Section: Who can provide domiciliation -->
   <section class="professionals-section">
     <div class="container">
@@ -121,7 +113,6 @@ const faqItems = [
       <p class="highlight-text">We are licensed chartered accountants and operate within this framework, following strict internal procedures.</p>
     </div>
   </section>
-
   <!-- Section: Eligibility conditions -->
   <section class="eligibility-section">
     <div class="container">
@@ -147,7 +138,6 @@ const faqItems = [
       <p class="note-text"><strong>Note:</strong> these criteria are standard substance and tax requirements. They are assessed on a case-by-case basis according to activity and value chain.</p>
     </div>
   </section>
-
   <!-- Section: Included services -->
   <section class="services-section">
     <div class="container">
@@ -198,7 +188,6 @@ const faqItems = [
       </div>
     </div>
   </section>
-
   <!-- Section: Process -->
   <section class="process-section">
     <div class="container">
@@ -235,7 +224,6 @@ const faqItems = [
       </div>
     </div>
   </section>
-
   <!-- Section: Obligations -->
   <section class="obligations-section">
     <div class="container">
@@ -248,7 +236,6 @@ const faqItems = [
       </ul>
     </div>
   </section>
-
   <!-- Section: Sanctions -->
   <section class="sanctions-section">
     <div class="container">
@@ -273,7 +260,6 @@ const faqItems = [
       </div>
     </div>
   </section>
-
   <!-- Section: Pricing -->
   <section class="pricing-section">
     <div class="container">
@@ -288,7 +274,6 @@ const faqItems = [
       </div>
     </div>
   </section>
-
   <FAQ
     title="Quick FAQ"
     subtitle=""
@@ -296,7 +281,6 @@ const faqItems = [
     showCTA={false}
     generateSchema={true}
   />
-
   <CTA
     title="Let's analyze your eligibility"
     subtitle="Contact us for a preliminary assessment of your domiciliation file"
@@ -304,7 +288,6 @@ const faqItems = [
     buttonHref="/en/contact?service=domiciliation"
   />
 </LayoutI18n>
-
 <style>
   :root {
     --color-primary: #005fcc;
@@ -317,7 +300,6 @@ const faqItems = [
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
-
   /* Sections */
   .legal-section,
   .legal-framework,
@@ -331,20 +313,17 @@ const faqItems = [
     padding: 4rem 0;
     background: var(--color-background);
   }
-
   .legal-framework,
   .eligibility-section,
   .process-section,
   .sanctions-section {
     background: var(--color-grey-light);
   }
-
   .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1.5rem;
   }
-
   h2 {
     font-size: 2rem;
     font-weight: 300;
@@ -352,14 +331,12 @@ const faqItems = [
     margin-bottom: 2rem;
     text-align: center;
   }
-
   .lead {
     font-size: 1.125rem;
     line-height: 1.7;
     color: var(--color-text);
     margin-bottom: 2rem;
   }
-
   /* Alert Box */
   .alert-box {
     background: #fef3c7;
@@ -368,42 +345,36 @@ const faqItems = [
     margin: 2rem 0;
     border-radius: 4px;
   }
-
   /* Legal Grid */
   .legal-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
   }
-
   .legal-item {
     background: white;
     padding: 1.5rem;
     border-radius: 4px;
     border: 1px solid var(--color-border);
   }
-
   .legal-item h3 {
     font-size: 1.125rem;
     font-weight: 500;
     color: var(--color-primary);
     margin-bottom: 0.5rem;
   }
-
   /* Regulated List */
   .section-intro {
     text-align: center;
     color: var(--color-text);
     margin-bottom: 2rem;
   }
-
   .regulated-list {
     list-style: none;
     padding: 0;
     max-width: 800px;
     margin: 0 auto 2rem;
   }
-
   .regulated-list li {
     padding: 1rem;
     margin-bottom: 0.5rem;
@@ -411,7 +382,6 @@ const faqItems = [
     border-left: 3px solid var(--color-primary);
     border-radius: 4px;
   }
-
   .highlight-text {
     text-align: center;
     font-weight: 500;
@@ -420,7 +390,6 @@ const faqItems = [
     background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
     border-radius: 4px;
   }
-
   /* Conditions Grid */
   .conditions-grid {
     display: grid;
@@ -428,46 +397,39 @@ const faqItems = [
     gap: 1.5rem;
     margin-bottom: 2rem;
   }
-
   .condition-card {
     background: white;
     padding: 1.5rem;
     border-radius: 4px;
     border: 1px solid var(--color-border);
   }
-
   .condition-card h3 {
     font-size: 1.125rem;
     font-weight: 500;
     color: var(--color-dark);
     margin-bottom: 0.75rem;
   }
-
   .condition-card p {
     color: var(--color-text);
     line-height: 1.6;
   }
-
   .note-text {
     color: var(--color-text-secondary);
     font-style: italic;
     text-align: center;
     padding: 1rem;
   }
-
   /* Services List */
   .services-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 1.5rem;
   }
-
   .service-item {
     display: flex;
     gap: 1rem;
     padding: 1rem;
   }
-
   .service-icon {
     flex-shrink: 0;
     width: 2rem;
@@ -480,26 +442,22 @@ const faqItems = [
     justify-content: center;
     font-weight: bold;
   }
-
   .service-content h3 {
     font-size: 1rem;
     font-weight: 500;
     color: var(--color-dark);
     margin-bottom: 0.25rem;
   }
-
   .service-content p {
     color: var(--color-text-secondary);
     font-size: 0.9rem;
   }
-
   /* Process Timeline */
   .process-timeline {
     max-width: 800px;
     margin: 0 auto;
     position: relative;
   }
-
   .process-timeline::before {
     content: '';
     position: absolute;
@@ -509,14 +467,12 @@ const faqItems = [
     width: 2px;
     background: var(--color-border);
   }
-
   .process-step {
     display: flex;
     gap: 2rem;
     margin-bottom: 3rem;
     position: relative;
   }
-
   .step-number {
     flex-shrink: 0;
     width: 4rem;
@@ -532,24 +488,20 @@ const faqItems = [
     color: var(--color-primary);
     z-index: 1;
   }
-
   .step-content {
     flex: 1;
     padding-top: 0.5rem;
   }
-
   .step-content h3 {
     font-size: 1.25rem;
     font-weight: 500;
     color: var(--color-dark);
     margin-bottom: 0.5rem;
   }
-
   .step-content p {
     color: var(--color-text);
     line-height: 1.6;
   }
-
   /* Obligations List */
   .obligations-list {
     list-style: none;
@@ -557,7 +509,6 @@ const faqItems = [
     max-width: 900px;
     margin: 0 auto;
   }
-
   .obligations-list li {
     padding: 1rem 1rem 1rem 3rem;
     margin-bottom: 1rem;
@@ -566,7 +517,6 @@ const faqItems = [
     border: 1px solid var(--color-border);
     position: relative;
   }
-
   .obligations-list li::before {
     content: "•";
     position: absolute;
@@ -574,14 +524,12 @@ const faqItems = [
     color: var(--color-primary);
     font-size: 1.5rem;
   }
-
   /* Sanctions Grid */
   .sanctions-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
   }
-
   .sanction-item {
     background: white;
     padding: 1.5rem;
@@ -589,27 +537,23 @@ const faqItems = [
     border: 1px solid #ef4444;
     border-left-width: 4px;
   }
-
   .sanction-item h3 {
     font-size: 1rem;
     font-weight: 500;
     color: #dc2626;
     margin-bottom: 0.5rem;
   }
-
   .sanction-item p {
     color: var(--color-text);
     font-size: 0.9rem;
     line-height: 1.5;
   }
-
   /* Pricing */
   .pricing-content {
     text-align: center;
     max-width: 600px;
     margin: 0 auto;
   }
-
   .price-box {
     display: inline-block;
     padding: 2rem;
@@ -617,52 +561,43 @@ const faqItems = [
     border-radius: 4px;
     margin-bottom: 2rem;
   }
-
   .price {
     font-size: 2rem;
     font-weight: 500;
     color: var(--color-primary);
   }
-
   .period {
     font-size: 1rem;
     color: var(--color-text-secondary);
   }
-
   .pricing-content p {
     color: var(--color-text);
     line-height: 1.6;
     margin-bottom: 1rem;
   }
-
   .pricing-content .note {
     font-style: italic;
     color: var(--color-text-secondary);
   }
-
   /* Responsive */
   @media (max-width: 768px) {
     h2 {
       font-size: 1.5rem;
     }
-
     .legal-grid,
     .conditions-grid,
     .services-list,
     .sanctions-grid {
       grid-template-columns: 1fr;
     }
-
     .process-timeline::before {
       left: 1.5rem;
     }
-
     .step-number {
       width: 3rem;
       height: 3rem;
       font-size: 1.25rem;
     }
-
     .process-step {
       gap: 1.5rem;
     }

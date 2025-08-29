@@ -6,10 +6,8 @@ export interface Props {
   }>;
   backgroundColor?: string;
 }
-
 const { stats, backgroundColor } = Astro.props;
 ---
-
 <section class="stats-section" aria-label="Nos chiffres clés" style={backgroundColor ? `background-color: ${backgroundColor};` : ''}>
   <div class="container">
     <div class="stats-grid">
@@ -22,39 +20,30 @@ const { stats, backgroundColor } = Astro.props;
     </div>
   </div>
 </section>
-
 <style>
   .stats-section {
     padding: 4rem 0;
   }
-
   .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
   }
-
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 2rem;
   }
-
   .stat-item {
     text-align: center;
     padding: 2rem 1.5rem;
     background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 4px;
-    
   }
-
   .stat-item:hover {
-    
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     border-color: #cbd5e1;
   }
-
   .stat-number {
     display: block;
     font-size: 3rem;
@@ -64,7 +53,6 @@ const { stats, backgroundColor } = Astro.props;
     margin-bottom: 0.75rem;
     letter-spacing: -0.02em;
   }
-
   .stat-label {
     color: #64748b;
     font-size: 0.875rem;
@@ -72,42 +60,34 @@ const { stats, backgroundColor } = Astro.props;
     letter-spacing: 0.05em;
     font-weight: 500;
   }
-
   /* Responsive - Tablette */
   @media (max-width: 768px) {
     .stats-section {
       padding: 3rem 0;
     }
-
     .stats-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
     }
-
     .stat-item {
       padding: 1.5rem 1rem;
     }
-
     .stat-number {
       font-size: 2.5rem;
     }
   }
-  
   /* Responsive - Mobile */
   @media (max-width: 480px) {
     .stats-grid {
       grid-template-columns: 1fr;
       gap: 1rem;
     }
-
     .stat-item {
       padding: 1.25rem 1rem;
     }
-
     .stat-number {
       font-size: 2rem;
     }
-    
     .stat-label {
       font-size: 0.875rem;
     }

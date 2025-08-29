@@ -1,6 +1,5 @@
 ---
 // src/pages/en/articles/index.astro
-
 import { getCollection } from 'astro:content';
 import LayoutI18n from '../../../layouts/LayoutI18n.astro';
 // NEW: Import Image component for optimization
@@ -9,14 +8,11 @@ import SearchBar from '../../../components/SearchBar.astro';
 import StickyPageTop from '../../../components/StickyPageTop.astro';
 import { calculateReadingTime } from '../../../utils/reading-time';
 import '../../../styles/blog-articles.css';
-
 // Pagination
 const POSTS_PER_PAGE = 9;
 const currentPage = 1; // Home page = page 1
-
 // Fetch all articles
 const allPosts = await getCollection('blog');
-
 // Filter only articles with English categories
 const englishCategories = ['Tax', 'Payroll', 'Accounting', 'Corporate Law'];
 const englishPosts = allPosts.filter(post => englishCategories.includes(post.data.category) && post.data.draft !== true);
@@ -26,7 +22,6 @@ const sortedPosts = englishPosts.sort((a, b) => {
   const dateB = new Date(b.data.modified || b.data.date).getTime();
   return dateB - dateA;
 });
-
 // Get categories that have English articles
 const categories = [...new Set(englishPosts.map(post => post.data.category))].filter(Boolean);
 const featuredPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
@@ -34,11 +29,9 @@ const featuredPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
 const regularPosts = sortedPosts.length > 1 ? sortedPosts.slice(1, Math.min(POSTS_PER_PAGE, sortedPosts.length)) : [];
 const totalPages = Math.max(1, Math.ceil(sortedPosts.length / POSTS_PER_PAGE));
 const hasMorePosts = sortedPosts.length > POSTS_PER_PAGE;
-
 const formatDate = (date: Date) => date.toLocaleDateString('en-GB', {
   year: 'numeric', month: 'long', day: 'numeric'
 });
-
 // Schema.org for articles page
 const articlesSchema = {
   "@context": "https://schema.org",
@@ -101,7 +94,6 @@ const articlesSchema = {
   ]
 };
 ---
-
 <LayoutI18n
   title="Chartered Accountant Luxembourg Articles | Accounting Tax Blog"
   description={`${sortedPosts.length} chartered accounting articles: CIT/MBT, Luxembourg VAT, SARL/SA formation, CCSS payroll. Tax and accounting advice by certified experts.`}
@@ -122,8 +114,6 @@ const articlesSchema = {
     title="Chartered accounting and tax articles"
     subtitle="Practical guides on Luxembourg accounting, CIT/MBT/NWT and VAT tax returns, CCSS payroll management and company formation."
   />
-
-
   {sortedPosts.length > 0 ? (
     <>
       {featuredPost && (
@@ -154,7 +144,6 @@ const articlesSchema = {
           </div>
         </section>
       )}
-
       <section class="blog-main-section">
         <div class="container blog-layout">
           <div class="posts-column">
@@ -182,7 +171,6 @@ const articlesSchema = {
                 </article>
               ))}
             </div>
-            
             {/* Pagination */}
             {hasMorePosts && (
               <div class="pagination">
@@ -209,7 +197,6 @@ const articlesSchema = {
                 })}
               </nav>
             </div>
-            
             <div class="sidebar-widget sidebar-search">
               <h3 class="widget-title">Search</h3>
               <SearchBar placeholder="Search" lang="en" />

@@ -8,9 +8,7 @@ import StatsSection from '../../components/StatsSection.astro';
 import ExpertiseSection from '../../components/ExpertiseSection.astro';
 import ServicesSimple from '../../components/ServicesSimple.astro';
 import ProcessTimeline from '../../components/ProcessTimeline.astro';
-
 const metaDescription = "Luxembourg tax expert specializing in corporate compliance: CIT/MBT/NWT returns (form 500), VAT eCDF, withholding tax 950. SOPARFI optimization, IP Box, tax consolidation. OECD transfer pricing, tax authority support. Free quote.";
-
 const taxSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -62,7 +60,6 @@ const taxSchema = {
     ]
   }
 };
-
 const faqItems = [
   {
     question: "Which form and deadline for corporate tax returns in Luxembourg?",
@@ -82,7 +79,6 @@ const faqItems = [
   }
 ];
 ---
-
 <LayoutI18n
   title="Tax Compliance Services Luxembourg | CIT MBT VAT Returns"
   description={metaDescription}
@@ -100,7 +96,6 @@ const faqItems = [
     title="Tax compliance services in Luxembourg"
     subtitle="Tax compliance in Luxembourg: corporate income tax, municipal business tax, net wealth tax and value added tax fully managed. Accurate and timely filings, 100% digital."
   />
-
   <!-- Key Metrics Section -->
   <StatsSection
     stats={[
@@ -111,7 +106,6 @@ const faqItems = [
     ]}
     backgroundColor="#f1f5f9"
   />
-
   <!-- Services Section -->
   <ExpertiseSection
     title="Tax expertise areas"
@@ -147,7 +141,6 @@ const faqItems = [
       }
     ]}
   />
-
   <!-- Optimization Section -->
   <ServicesSimple
     title="Tax Optimization Strategies"
@@ -180,7 +173,6 @@ const faqItems = [
       }
     ]}
   />
-
   <!-- Calendar Section -->
   <ProcessTimeline
     title="Tax Calendar"
@@ -230,7 +222,6 @@ const faqItems = [
     ]}
     variant="vertical"
   />
-
   <div class="blog-carousel-wrapper">
     <BlogCarousel
       title="Tax Articles in Luxembourg"
@@ -242,14 +233,12 @@ const faqItems = [
       ctaHref="/en/articles/category/tax"
     />
   </div>
-
   <CTA
     title="Ready to optimize your tax situation?"
     subtitle="Contact us for a free tax audit and discover how we can reduce your tax burden while ensuring compliance."
     buttonText="Contact us"
     buttonHref="/en/contact?service=tax"
   />
-
   <FAQ
     title="Frequently Asked Questions about Taxation in Luxembourg"
     subtitle="Everything you need to know about your tax obligations"
@@ -258,7 +247,6 @@ const faqItems = [
     generateSchema={true}
   />
 </LayoutI18n>
-
 <style>
   :root {
     --color-primary: #005fcc;
@@ -272,7 +260,6 @@ const faqItems = [
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
-
   .blog-carousel-wrapper {
     background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
     padding: 5rem 0;

@@ -10,7 +10,6 @@ import FAQ from '../../components/FAQ.astro';
 import bureauImage from '/src/assets/images/bureau-fiduciaire.jpg';
 import marcDuboisImage from '/src/assets/images/marc-dubois.jpg';
 import sophieBernardImage from '/src/assets/images/sophie-bernard.jpg';
-
 // Données de la page - Contenu préservé
 const teamMembers = [
   {
@@ -30,13 +29,11 @@ const teamMembers = [
     linkedin: "https://linkedin.com/in/sophiebernard"
   },
 ];
-
 const stats = [
   { number: "20+", label: "Années d'expertise" },
   { number: "50+", label: "Clients accompagnés" },
   { number: "100%", label: "Conformité garantie" }
 ];
-
 const values = [
   { 
     title: "Expertise locale", 
@@ -60,12 +57,10 @@ const values = [
     </svg>`
   },
 ];
-
 const testimonials = [
   { content: "Fiduciaire Expert nous accompagne depuis longtemps. Leur expertise du marché luxembourgeois est remarquable. Création de notre holding en quelques semaines !", author: "M. Laurent", role: "CEO, TechLux Solutions" },
   { content: "Conseil fiscal et accompagnement exceptionnels : nous avons eu des résultats immédiats. L'équipe est réactive et toujours de bon conseil. Je recommande vivement.", author: "P. Schmitt", role: "CFO, Finance Partners" },
 ];
-
 const faqItems = [
   {
     question: "Quels services comptables proposez-vous ?",
@@ -84,10 +79,8 @@ const faqItems = [
     answer: "La première consultation permet d'analyser vos besoins spécifiques. Nous examinons votre situation comptable et fiscale, puis établissons un devis détaillé et transparent pour nos services."
   }
 ];
-
 const metaDescription = "Cabinet d'expertise comptable à Luxembourg. Experts-comptables agréés, fiscalistes diplômés. Comptabilité, fiscalité, paie, création société. Membre OECL.";
 const pageUrl = "https://www.fiduciaire-expert.lu/fr/a-propos";
-
 // SEO Schema - Enrichi avec FAQ et Breadcrumb
 const aboutSchema = {
   "@context": "https://schema.org",
@@ -187,7 +180,6 @@ const aboutSchema = {
   ]
 };
 ---
-
 <LayoutI18n
   title="Cabinet Expert-Comptable Luxembourg | Fiduciaire Expert | À Propos"
   description={metaDescription}
@@ -202,9 +194,7 @@ const aboutSchema = {
     title="Expert-Comptable et Fiscaliste agréés à Luxembourg"
     subtitle="Cabinet d'expertise comptable. Comptabilité, fiscalité, paie et création de sociétés pour PME et entrepreneurs."
   />
-
   <StatsSection stats={stats} backgroundColor="#f1f5f9" />
-
   <StorySection 
     title="Notre expertise professionnelle"
     paragraphs={[
@@ -215,34 +205,28 @@ const aboutSchema = {
     image={bureauImage}
     imageAlt="Bureau moderne de Fiduciaire Expert à Luxembourg, illustrant notre professionnalisme et notre approche contemporaine"
   />
-
   <ValuesGrid 
     title="Nos valeurs"
     subtitle="Les principes qui guident notre engagement quotidien envers nos clients"
     values={values}
     backgroundColor="#f1f5f9"
   />
-
   <TeamGrid 
     title="Notre équipe"
     subtitle="Des experts passionnés, unis par l'exigence d'excellence"
     members={teamMembers}
   />
-
   <TestimonialsGrid 
     title="Ils nous font confiance"
     subtitle="Les témoignages de nos clients reflètent notre engagement qualité"
     testimonials={testimonials}
     backgroundColor="#f1f5f9"
   />
-
   <FAQ 
     title="Questions fréquentes"
     subtitle="Réponses aux questions les plus courantes sur notre cabinet"
     faqItems={faqItems}
     generateSchema={false}
   />
-
   <script type="application/ld+json" set:html={JSON.stringify(aboutSchema)} is:inline />
 </LayoutI18n>
-

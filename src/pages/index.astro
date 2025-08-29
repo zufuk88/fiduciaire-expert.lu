@@ -2,7 +2,6 @@
 // Page d'accueil racine qui sera réécrite par Netlify
 // Fallback avec détection côté client sans flash visible
 ---
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -17,7 +16,6 @@
         }
         body.loaded {
             opacity: 1;
-            transition: opacity 0.2s ease-in-out;
         }
     </style>
     <script>
@@ -25,10 +23,8 @@
         (function() {
             const lang = (navigator.language || navigator.userLanguage || 'fr').toLowerCase();
             const preferredLang = lang.startsWith('en') ? 'en' : 'fr';
-            
             // Redirection immédiate sans flash
             window.location.replace(`/${preferredLang}/`);
-            
             // Si la redirection échoue, afficher le contenu après 100ms
             setTimeout(() => {
                 document.body.classList.add('loaded');

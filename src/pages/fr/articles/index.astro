@@ -1,6 +1,5 @@
 ---
 // src/pages/fr/articles/index.astro
-
 import { getCollection } from 'astro:content';
 import LayoutI18n from '../../../layouts/LayoutI18n.astro';
 // NOUVEAU : Importation du composant Image pour l'optimisation
@@ -9,11 +8,9 @@ import SearchBar from '../../../components/SearchBar.astro';
 import StickyPageTop from '../../../components/StickyPageTop.astro';
 import { calculateReadingTime } from '../../../utils/reading-time';
 import '../../../styles/blog-articles.css';
-
 // Pagination
 const POSTS_PER_PAGE = 9;
 const currentPage = 1; // Page d'accueil = page 1
-
 // La logique de récupération des articles est inchangée
 const allPosts = await getCollection('blog');
 const frenchCategories = ['Fiscalité', 'Social', 'Comptabilité', 'Juridique'];
@@ -24,18 +21,15 @@ let sortedPosts = frenchPosts.sort((a, b) => {
   const dateB = new Date(b.data.modified || b.data.date).getTime();
   return dateB - dateA;
 });
-
 const categories = frenchCategories;
 const featuredPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
 // On affiche 8 articles réguliers après le featured (total = 9 articles sur la page 1)
 const regularPosts = sortedPosts.length > 1 ? sortedPosts.slice(1, Math.min(POSTS_PER_PAGE, sortedPosts.length)) : [];
 const totalPages = Math.max(1, Math.ceil(sortedPosts.length / POSTS_PER_PAGE));
 const hasMorePosts = sortedPosts.length > POSTS_PER_PAGE;
-
 const formatDate = (date) => date.toLocaleDateString('fr-FR', {
   year: 'numeric', month: 'long', day: 'numeric'
 });
-
 // Schema.org pour la page d'articles
 const articlesSchema = {
   "@context": "https://schema.org",
@@ -98,7 +92,6 @@ const articlesSchema = {
   ]
 };
 ---
-
 <LayoutI18n
   title="Articles Expert Comptable Luxembourg | Blog Comptabilité Fiscalité"
   description={`${sortedPosts.length} articles d'expertise comptable : IRC/ICC/IF et TVA Luxembourg, création SARL/SA, paie CCSS. Conseils fiscaux et comptables par experts agréés.`}
@@ -119,8 +112,6 @@ const articlesSchema = {
     title="Articles d'expertise comptable et fiscale"
     subtitle="Guides pratiques sur la comptabilité luxembourgeoise, déclarations fiscales IRC/ICC/IF et TVA, gestion paie CCSS et création de sociétés."
   />
-
-
   {sortedPosts.length > 0 ? (
     <>
       {featuredPost && (
@@ -160,7 +151,6 @@ const articlesSchema = {
           </div>
         </section>
       )}
-
       <section class="blog-main-section">
         <div class="container blog-layout">
           <div class="posts-column">
@@ -188,7 +178,6 @@ const articlesSchema = {
                 </article>
               ))}
             </div>
-            
             {/* Pagination */}
             {hasMorePosts && (
               <div class="pagination">
@@ -215,7 +204,6 @@ const articlesSchema = {
                 })}
               </nav>
             </div>
-            
             <div class="sidebar-widget sidebar-search">
               <h3 class="widget-title">Rechercher</h3>
               <SearchBar placeholder="Rechercher" lang="fr" />
