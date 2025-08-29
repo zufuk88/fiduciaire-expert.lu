@@ -8,7 +8,6 @@ import TableOfContents from '../components/TableOfContents.astro';
 import StickyPageTop from '../components/StickyPageTop.astro';
 import { calculateReadingTime } from '../utils/reading-time';
 import '../styles/blog-articles.css';
-import '../styles/article-mobile-fix.css';
 
 const { frontmatter } = Astro.props;
 const { title, seoTitle, description, date, modified, category, image, imageAlt, author, rawContent, headings } = frontmatter;
@@ -478,6 +477,16 @@ const combinedSchema = {
     transform: translateZ(0); /* Force accélération GPU */
     -webkit-transform: translateZ(0);
     contain: layout style; /* Optimisation du rendu */
+  }
+  
+  /* Désactiver sticky sur mobile */
+  @media (max-width: 1200px) {
+    .article-page .article-sidebar,
+    aside.article-sidebar {
+      position: static !important;
+      top: auto !important;
+      max-height: none;
+    }
   }
   
   .sidebar-widget {

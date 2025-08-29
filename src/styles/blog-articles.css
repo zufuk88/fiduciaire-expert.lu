@@ -527,3 +527,226 @@
   font-weight: 600;
 }
 
+/* ===== STYLES MOBILES POUR ÉVITER LES DÉBORDEMENTS ===== */
+
+/* 1. Empêcher tout débordement horizontal sur mobile uniquement */
+/* Note: on n'applique overflow-x: hidden que sur article-content pour permettre au sticky de fonctionner */
+@media (max-width: 768px) {
+  .article-page {
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  .article-body-wrapper {
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  .article-layout {
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  .article-main {
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  /* overflow-x uniquement sur le contenu pour permettre le sticky */
+  .article-content {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+/* 2. Gérer les éléments qui pourraient déborder */
+.article-content img,
+.article-content video,
+.article-content iframe,
+.article-content table,
+.article-content pre,
+.article-content code {
+  max-width: 100% !important;
+  height: auto;
+}
+
+/* 3. Tables responsives */
+.article-content table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 4. Code blocks responsifs */
+.article-content pre {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.article-content code {
+  word-break: break-word;
+}
+
+/* 5. Styles mobile spécifiques */
+@media (max-width: 768px) {
+  /* Conteneur principal */
+  .article-page {
+    padding: 0;
+    margin: 0;
+  }
+
+  .article-body-wrapper {
+    padding: 0;
+    margin: 0;
+  }
+
+  .article-layout {
+    padding: 0 1rem;
+    margin: 0;
+  }
+
+  .article-content {
+    padding: 1rem;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* Headers dans le contenu */
+  .article-content h1 {
+    font-size: 1.75rem;
+    word-wrap: break-word;
+  }
+
+  .article-content h2 {
+    font-size: 1.5rem;
+    word-wrap: break-word;
+  }
+
+  .article-content h3 {
+    font-size: 1.25rem;
+    word-wrap: break-word;
+  }
+
+  /* Listes */
+  .article-content ul,
+  .article-content ol {
+    padding-left: 1.5rem;
+  }
+
+  /* Boutons de partage social sur mobile */
+  .social-share {
+    justify-content: center;
+    padding: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .share-button {
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  /* CTA sur mobile */
+  .article-cta-simple {
+    padding: 1rem;
+    text-align: center;
+  }
+
+  /* Table des matières sur mobile */
+  .table-of-contents {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Sidebar sur mobile - Position static pour éviter les problèmes */
+  .article-sidebar,
+  .blog-main-section .sidebar-column,
+  .blog-layout .sidebar-column {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    position: static !important;
+  }
+
+  /* FAQ sur mobile */
+  .article-content details[itemtype="https://schema.org/Question"] {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .article-content summary[itemprop="name"] {
+    font-size: 1rem;
+    padding: 1rem;
+    overflow-wrap: break-word;
+  }
+
+  /* Liens longs */
+  .article-content a {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+/* 6. Container global - on évite overflow-x:hidden sur body/html pour permettre le sticky */
+/* Le débordement est géré au niveau des contenus spécifiques */
+
+/* 7. Fix pour les éléments avec position absolute/fixed */
+.article-content [style*="position: absolute"],
+.article-content [style*="position: fixed"] {
+  max-width: 100% !important;
+  right: auto !important;
+}
+
+/* 8. Gestion des embeds (YouTube, etc.) */
+.article-content .embed-container,
+.article-content .video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.article-content .embed-container iframe,
+.article-content .video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 9. Solution alternative pour les débordements mobiles sans casser le sticky */
+@media (max-width: 768px) {
+  /* Conteneur wrapper pour contrôler les débordements */
+  .article-content > * {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+  
+  /* Images et médias */
+  .article-content img,
+  .article-content video,
+  .article-content iframe {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  
+  /* Empêcher les longs mots de déborder */
+  .article-content p,
+  .article-content li,
+  .article-content h1,
+  .article-content h2,
+  .article-content h3,
+  .article-content h4 {
+    word-break: break-word;
+    hyphens: auto;
+  }
+}
+
