@@ -44,7 +44,8 @@ const isArticlePage = route && route.startsWith('articles/') &&
       }
       
       // Pour toutes les autres pages ou articles avec traduction
-      const finalUrl = hasTranslation ? linkUrl : `/${code}`;
+      // La fonction getAlternateLinks devrait toujours retourner un lien valide maintenant
+      const finalUrl = linkUrl || `/${code}`;
       
       return (
         <a 

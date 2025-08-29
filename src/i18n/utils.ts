@@ -12,7 +12,9 @@ export function getLangFromUrl(url: URL): Language {
 export function getRouteFromUrl(url: URL): string | undefined {
   const segments = url.pathname.split('/');
   const route = segments.slice(2).join('/');
-  return route.length > 0 ? route : undefined;
+  // Supprimer le trailing slash pour éviter les problèmes de matching
+  const cleanRoute = route.replace(/\/$/, '');
+  return cleanRoute.length > 0 ? cleanRoute : undefined;
 }
 
 export function getLocalizedUrl(url: URL, lang: Language): string {
@@ -100,30 +102,29 @@ export function getAlternateLinks(url: URL) {
           // La page a une traduction
           links[lang] = `/${lang}/${translatedRoute}`;
         } else {
-          // Pour les pages avec le même nom dans les deux langues
-          // (domiciliation, services, contact, articles, taxpertize)
-          const sameNamePages = ['domiciliation', 'services', 'contact', 'articles', 'taxpertize'];
-          if (sameNamePages.includes(route)) {
+          // Pour les pages avec exactement le même nom dans les deux langues
+          const identicalPages = ['domiciliation', 'services', 'contact', 'articles', 'taxpertize'];
+          if (identicalPages.includes(route)) {
             links[lang] = `/${lang}/${route}`;
           } else if (untranslatedPages[currentLang]?.includes(route as never)) {
             // La page n'a pas de traduction, rediriger vers l'accueil
             links[lang] = `/${lang}`;
           } else {
-            // Si on n'a toujours pas trouvé, essayer de voir si c'est une page valide
-            // en vérifiant si elle existe dans notre mapping global
-            const allRoutes = new Set<string>();
+            // Dernier recours - vérifier si la page existe dans toutes les routes connues
+            const allKnownRoutes = new Set<string>();
             Object.entries(routeMappings).forEach(([key, mapping]) => {
-              allRoutes.add(key);
-              Object.values(mapping).forEach(r => allRoutes.add(r));
+              allKnownRoutes.add(key);
+              Object.values(mapping).forEach(r => allKnownRoutes.add(r));
             });
             
-            if (allRoutes.has(route)) {
-              // C'est une route valide, on va utiliser la même route pour l'autre langue
-              // comme fallback (au cas où c'est la même dans les deux langues)
+            if (allKnownRoutes.has(route)) {
+              // On a trouvé la route dans nos mappings mais pas sa traduction
+              // Cela signifie qu'il y a peut-être un problème dans notre mapping
               links[lang] = `/${lang}/${route}`;
             } else {
-              // Vraiment aucune correspondance trouvée
-              links[lang] = null;
+              // Dernière chance : essayer d'utiliser la même route pour l'autre langue
+              // Cela couvre les cas où une page existe dans les deux langues mais n'est pas dans les mappings
+              links[lang] = `/${lang}/${route}`;
             }
           }
         }
