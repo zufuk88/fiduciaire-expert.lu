@@ -191,7 +191,7 @@ const articlesData = allPosts.map(post => ({
         const imageUrl = post.image ? (typeof post.image === 'string' ? post.image : post.image.src) : null;
         
         html += `
-          <article class="result-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 4px; overflow: hidden; transition: all 0.2s ease; margin-bottom: 1rem;">
+          <article class="result-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 4px; overflow: hidden;  margin-bottom: 1rem;">
             <a href="${articleUrl}" class="result-link" style="display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem; text-decoration: none !important; color: inherit;" onmouseover="this.style.textDecoration='none'" onmouseout="this.style.textDecoration='none'">
               ${imageUrl ? `
                 <div class="result-image" style="flex-shrink: 0; width: 120px; height: 120px; overflow: hidden; border-radius: 4px; background: #f8fafc;">
@@ -287,7 +287,7 @@ const articlesData = allPosts.map(post => ({
     justify-content: center;
     background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
     padding: 2rem;
-    transition: all 0.3s ease;
+    
   }
 
   /* Quand les résultats sont affichés - Cacher complètement */
@@ -377,7 +377,7 @@ const articlesData = allPosts.map(post => ({
     color: #64748b;
     font-size: 0.875rem;
     font-weight: 500;
-    transition: all 0.15s ease;
+    
     border-radius: 4px;
   }
   
@@ -423,7 +423,7 @@ const articlesData = allPosts.map(post => ({
   /* Animation pour la transition */
   @keyframes slideUp {
     from {
-      transform: translateY(20px);
+      
       opacity: 0;
     }
     to {
@@ -480,7 +480,7 @@ const articlesData = allPosts.map(post => ({
 
   /* Hover effects via JavaScript */
   .result-card:hover {
-    transform: translateY(-2px);
+    
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   }
 
@@ -550,14 +550,14 @@ const articlesData = allPosts.map(post => ({
     border-radius: 4px;
     text-decoration: none;
     font-weight: 500;
-    transition: all 0.2s ease;
+    
     margin-top: 1rem;
   }
 
   .btn-secondary:hover {
     background: #f8fafc;
     border-color: #cbd5e1;
-    transform: translateY(-1px);
+    
   }
 
   /* Responsive */

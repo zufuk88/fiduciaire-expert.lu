@@ -213,7 +213,6 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     display: flex;
     gap: 1.5rem;
     overflow-x: auto;
-    scroll-behavior: smooth;
     scrollbar-width: none;
     -ms-overflow-style: none;
     padding: 1rem;
@@ -231,15 +230,13 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     border: 1px solid #cbd5e1;
     border-radius: 4px;
     overflow: hidden;
-    transition: all 0.2s ease;
     display: flex;
     flex-direction: column;
     background: #ffffff;
   }
   
   .blog-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     border-color: #94a3b8;
   }
   
@@ -255,11 +252,6 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-  
-  .blog-card:hover .blog-card-image img {
-    transform: scale(1.05);
   }
   
   /* Blog Card Content */
@@ -302,7 +294,6 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
   .blog-title a {
     color: inherit;
     text-decoration: none;
-    transition: color 0.2s ease;
   }
   
   .blog-title a:hover {
@@ -329,20 +320,10 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     font-weight: 500;
     font-size: 0.875rem;
     text-decoration: none;
-    transition: all 0.2s ease;
   }
   
   .read-more:hover {
     color: #0f172a;
-    gap: 0.75rem;
-  }
-  
-  .read-more svg {
-    transition: transform 0.2s ease;
-  }
-  
-  .read-more:hover svg {
-    transform: translateX(2px);
   }
   
   /* Navigation */
@@ -359,7 +340,6 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.2s ease;
     z-index: 2;
     color: #64748b;
   }
@@ -368,11 +348,6 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     background: #f8fafc;
     border-color: #cbd5e1;
     color: #0f172a;
-    transform: translateY(-50%) scale(1.05);
-  }
-  
-  .carousel-nav:active {
-    transform: translateY(-50%) scale(0.95);
   }
   
   .carousel-nav-prev {
@@ -394,25 +369,24 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     margin-top: 3rem;
   }
   
-  /* CTA Button */
+  /* CTA Button - Style pilule moderne et simple */
   .cta-button {
     display: inline-flex;
     align-items: center;
     padding: 0.875rem 2rem;
-    background: #2c4157;
+    background: #3b82f6;
     color: white;
-    border-radius: 4px;
+    border-radius: 9999px;
     font-weight: 500;
     text-decoration: none;
-    transition: all 0.2s ease;
     font-size: 0.9375rem;
     letter-spacing: 0.025em;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
   
   .cta-button:hover {
-    background: #0f172a;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: #2563eb;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
   }
   
   /* Responsive */

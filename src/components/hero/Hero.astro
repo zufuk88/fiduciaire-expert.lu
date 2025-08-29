@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import heroImage from '../../assets/images/Fiduciaire-expert-Hero.jpg';
 import Button from '../ui/Button.astro';
 
@@ -26,9 +27,17 @@ const {
   <div 
     class="hero-background" 
     class:list={[{ 'hide-mobile': !showImageOnMobile }]}
-    style={`background-image: url(${heroImage.src})`}
     role="presentation"
-  />
+  >
+    <Image 
+      src={heroImage} 
+      alt=""
+      width={1920}
+      height={1080}
+      quality="mid"
+      class="hero-bg-image"
+    />
+  </div>
   
   <div class="container">
     <div class="hero-content">
@@ -72,7 +81,7 @@ const {
     min-height: 80vh;
     display: flex;
     align-items: center;
-    background: #0f172a;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     position: relative;
     overflow: hidden;
     padding: 4rem 0;
@@ -82,23 +91,27 @@ const {
   .hero-background {
     position: absolute;
     inset: 0;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    opacity: 0.08;
+    opacity: 0.12;
     z-index: 1;
   }
+  
+  .hero-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
 
-  /* Overlay gradient subtil pour améliorer la lisibilité */
+  /* Overlay gradient moderne et épuré */
   .hero-background::after {
     content: '';
     position: absolute;
     inset: 0;
     background: linear-gradient(
-      90deg,
-      #0f172a 0%,
-      rgba(15, 23, 42, 0.7) 50%,
-      rgba(15, 23, 42, 0.3) 100%
+      135deg,
+      rgba(15, 23, 42, 0.9) 0%,
+      rgba(30, 41, 59, 0.8) 50%,
+      rgba(51, 65, 85, 0.7) 100%
     );
   }
 
@@ -115,24 +128,30 @@ const {
     max-width: 720px;
   }
 
-  /* Badge minimaliste */
+  /* Badge moderne et épuré */
   .hero-badge {
     font-size: 0.875rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.7);
+    color: #3b82f6;
     letter-spacing: 0.025em;
     display: inline-block;
     margin-bottom: 1.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 9999px;
+    backdrop-filter: blur(10px);
   }
 
-  /* Titre principal */
+  /* Titre principal moderne */
   .hero-section h1 {
     font-size: clamp(2.5rem, 4vw, 3.5rem);
-    font-weight: 200;
-    line-height: 1.15;
+    font-weight: 300;
+    line-height: 1.2;
     color: #ffffff;
     margin-bottom: 1.5rem;
     letter-spacing: -0.02em;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   /* Sous-titre optimisé */

@@ -88,8 +88,7 @@ const relValue = rel || (target === '_blank' ? 'noopener noreferrer' : undefined
     letter-spacing: 0.025em;
     cursor: pointer;
     border: 1px solid transparent;
-    border-radius: 4px;
-    transition: all 0.15s ease;
+    border-radius: 9999px;
     white-space: nowrap;
     position: relative;
     overflow: hidden;
@@ -98,11 +97,10 @@ const relValue = rel || (target === '_blank' ? 'noopener noreferrer' : undefined
   /* --- États --- */
   .btn:hover:not(:disabled) {
     text-decoration: none;
-    transform: translateY(-0.5px);
   }
 
   .btn:active:not(:disabled) {
-    transform: translateY(0);
+    transform: none;
   }
 
   .btn:focus-visible {
@@ -115,58 +113,64 @@ const relValue = rel || (target === '_blank' ? 'noopener noreferrer' : undefined
     cursor: not-allowed;
   }
 
-  /* --- Variante Principale (pour les actions les plus importantes) --- */
+  /* --- Variante Principale (simple et efficace) --- */
   .btn-primary {
-    background-color: #2c4157;
+    background: #3b82f6;
     color: white;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: none;
   }
 
   .btn-primary:hover:not(:disabled) {
-    background-color: #1f3042;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+    background: #2563eb;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
   }
 
   .btn-primary:active:not(:disabled) {
-    background-color: #1a2838;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    background: #1d4ed8;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
-  /* --- Variante Secondaire (pour les actions moins prioritaires sur fond clair) --- */
+  /* --- Variante Secondaire (simple et épurée) --- */
   .btn-secondary {
-    background-color: #ffffff;
-    color: #334155;
-    border-color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1e293b;
+    border: 1px solid rgba(226, 232, 240, 0.6);
     font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   }
 
   .btn-secondary:hover:not(:disabled) {
-    background-color: #f8fafc;
-    border-color: #cbd5e1;
-    color: #2c4157;
+    background: #ffffff;
+    border-color: rgba(203, 213, 225, 0.8);
+    color: #0f172a;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   }
 
   .btn-secondary:active:not(:disabled) {
-    background-color: #f1f5f9;
+    background: #f8fafc;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   }
   
-  /* --- Variante "Outline" (parfaite pour le hero sur fond sombre) --- */
+  /* --- Variante "Outline" (simple et moderne) --- */
   .btn-outline {
-    background-color: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.1);
     color: white;
-    border-color: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   .btn-outline:hover:not(:disabled) {
-    background-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.4);
-    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
   }
 
   .btn-outline:active:not(:disabled) {
-    background-color: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   /* --- Tailles --- */
@@ -180,9 +184,9 @@ const relValue = rel || (target === '_blank' ? 'noopener noreferrer' : undefined
   }
 
   .btn-large {
-    padding: 1rem 2.5rem;
-    font-size: 1rem;
-    letter-spacing: 0.03em;
+    padding: 0.875rem 2rem;
+    font-size: 0.9375rem;
+    letter-spacing: 0.025em;
   }
 
   /* --- Largeur Pleine --- */

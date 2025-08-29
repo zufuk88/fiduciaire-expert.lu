@@ -104,40 +104,6 @@ const finalSchema = schema ? schema : websiteSchema;
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   
-  <!-- Chrome Performance Optimizations -->
-  <link rel="stylesheet" href="/src/styles/chrome-optimizations.css" />
-  
-  <!-- Chrome Detection and Optimization Script -->
-  <script is:inline>
-    // Détecter Chrome et appliquer des optimisations
-    if (/Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)) {
-      document.documentElement.classList.add('is-chrome');
-      
-      // Désactiver smooth scroll sur Chrome
-      document.documentElement.style.scrollBehavior = 'auto';
-      
-      // Optimiser le rendu
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => {
-          document.body.style.contain = 'layout style';
-        });
-      }
-      
-      // Forcer l'accélération GPU sur les éléments sticky SANS changer leur position
-      const stickyElements = document.querySelectorAll('.site-header, .breadcrumbs, .article-sidebar');
-      stickyElements.forEach(el => {
-        if (el) {
-          el.style.transform = 'translateZ(0)';
-          el.style.willChange = 'transform';
-          // IMPORTANT: Garder la position sticky pour breadcrumbs
-          if (el.classList.contains('breadcrumbs')) {
-            el.style.position = 'sticky';
-            el.style.top = '72px'; // Sous le header
-          }
-        }
-      });
-    }
-  </script>
   
   <!-- Critical CSS -->
   <style is:inline>
@@ -174,9 +140,9 @@ const finalSchema = schema ? schema : websiteSchema;
       --spacing-xl: 6rem;
       --spacing-2xl: 8rem;
 
-      /* Transitions fluides */
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      /* Transitions simplifiées */
+      --transition: none;
+      --transition-fast: none;
       
       /* Ombres ultra-subtiles */
       --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -196,17 +162,7 @@ const finalSchema = schema ? schema : websiteSchema;
 
     html {
       font-size: 100%;
-      scroll-behavior: smooth;
       -webkit-text-size-adjust: 100%;
-    }
-    
-    /* Override pour Chrome - Performance */
-    .is-chrome html {
-      scroll-behavior: auto !important;
-    }
-    
-    @media screen and (-webkit-min-device-pixel-ratio:0) {
-      html { scroll-behavior: auto !important; }
     }
 
     body {
@@ -279,7 +235,6 @@ const finalSchema = schema ? schema : websiteSchema;
     a {
       color: var(--color-primary);
       text-decoration: none;
-      transition: var(--transition);
     }
     a:hover { text-decoration: underline; }
 
@@ -327,15 +282,13 @@ const finalSchema = schema ? schema : websiteSchema;
       cursor: pointer;
       border: 1px solid transparent;
       border-radius: 4px;
-      transition: all 0.15s ease;
       position: relative;
       white-space: nowrap;
       letter-spacing: 0.025em;
     }
     
     .btn:hover { 
-      text-decoration: none; 
-      transform: translateY(-0.5px); 
+      text-decoration: none;
     }
 
     .btn-primary {
@@ -355,13 +308,11 @@ const finalSchema = schema ? schema : websiteSchema;
       bottom: 0;
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%);
       opacity: 0;
-      transition: opacity 0.3s ease;
     }
     
     .btn-primary:hover {
       background: var(--color-dark);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
-      transform: translateY(-0.5px);
     }
     
     .btn-primary:hover::before {
