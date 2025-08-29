@@ -1,9 +1,16 @@
 ---
 import { languages, type Language } from '../i18n/translations';
-import { getLangFromUrl, getAlternateLinks } from '../i18n/utils';
+import { getLangFromUrl, getAlternateLinks, getRouteFromUrl } from '../i18n/utils';
 
 const currentLang = getLangFromUrl(Astro.url) as Language;
 const alternateLinks = getAlternateLinks(Astro.url);
+const route = getRouteFromUrl(Astro.url);
+
+// Détecter si on est sur un article de blog individuel
+const isArticlePage = route && route.startsWith('articles/') && 
+                      !route.startsWith('articles/category/') && 
+                      !route.startsWith('articles/page/') &&
+                      route !== 'articles';
 ---
 
 <div class="language-selector">
@@ -21,27 +28,32 @@ const alternateLinks = getAlternateLinks(Astro.url);
   <div class="lang-dropdown" aria-hidden="true">
     {Object.entries(languages).map(([code, name]) => {
       const linkUrl = alternateLinks[code as Language];
-      // Toujours afficher les deux langues comme des liens
-      // Si c'est la langue actuelle, on affiche quand même le lien mais avec une classe active
-      if (linkUrl && typeof linkUrl === 'string' && linkUrl.length > 0) {
+      const hasTranslation = linkUrl && typeof linkUrl === 'string' && linkUrl.length > 0;
+      
+      // Pour les articles de blog sans traduction, on désactive le lien
+      if (isArticlePage && !hasTranslation) {
         return (
-          <a 
-            href={linkUrl} 
-            class:list={['lang-option', { active: code === currentLang }]}
+          <span 
+            class:list={['lang-option', 'disabled', { active: code === currentLang }]}
             lang={code}
+            title={`Cet article n'est pas disponible en ${name}`}
           >
             {name}
-          </a>
+          </span>
         );
       }
-      // Si pas de lien valide (ne devrait jamais arriver avec notre configuration)
+      
+      // Pour toutes les autres pages ou articles avec traduction
+      const finalUrl = hasTranslation ? linkUrl : `/${code}`;
+      
       return (
-        <span 
-          class:list={['lang-option', 'disabled', { active: code === currentLang }]}
+        <a 
+          href={finalUrl} 
+          class:list={['lang-option', { active: code === currentLang }]}
           lang={code}
         >
           {name}
-        </span>
+        </a>
       );
     })}
   </div>
@@ -113,10 +125,18 @@ const alternateLinks = getAlternateLinks(Astro.url);
   }
   
   .lang-option.disabled {
-    color: #ccc;
+    color: #999;
     cursor: not-allowed;
-    opacity: 0.5;
+    opacity: 0.6;
     pointer-events: none;
+    position: relative;
+  }
+  
+  .lang-option.disabled::after {
+    content: '(Non disponible)';
+    font-size: 0.75rem;
+    opacity: 0.7;
+    margin-left: 0.5rem;
   }
 
   .lang-option:not(.disabled):hover {

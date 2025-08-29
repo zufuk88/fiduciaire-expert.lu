@@ -25,10 +25,8 @@ const translations = {
     namePlaceholder: "Jean Dupont",
     email: "Adresse e-mail",
     emailPlaceholder: "jean.dupont@exemple.com",
-    phone: "Téléphone (format international)",
+    phone: "Téléphone",
     phonePlaceholder: "+352 20 60 58 57",
-    company: "Société",
-    companyPlaceholder: "Nom de votre société",
     service: "Service souhaité",
     selectService: "Sélectionnez un service...",
     services: {
@@ -54,10 +52,8 @@ const translations = {
     namePlaceholder: "John Doe",
     email: "Email address",
     emailPlaceholder: "john.doe@example.com",
-    phone: "Phone (international format)",
+    phone: "Phone",
     phonePlaceholder: "+352 20 60 58 57",
-    company: "Company",
-    companyPlaceholder: "Your company name",
     service: "Desired service",
     selectService: "Select a service...",
     services: {
@@ -150,7 +146,7 @@ const services = lang === 'fr'
       </div>
     </div>
 
-    <!-- Téléphone et Société -->
+    <!-- Téléphone et Service -->
     <div class="form-row">
       <div class="form-group">
         <label for="phone" class="form-label">
@@ -166,53 +162,37 @@ const services = lang === 'fr'
             autocomplete="tel" 
             placeholder={t.phonePlaceholder}
             aria-required="true"
+            pattern="[+0-9\s\-\.\(\)]*"
+            title={lang === 'fr' ? "Numéro de téléphone (chiffres, +, espaces, tirets autorisés)" : "Phone number (digits, +, spaces, dashes allowed)"}
             class="form-input"
           />
         </div>
       </div>
       
       <div class="form-group">
-        <label for="company" class="form-label">
-          <span>{t.company}</span>
-          <span class="optional-indicator">({t.optional})</span>
+        <label for="service" class="form-label">
+          <span>{t.service}</span>
+          <span class="required-indicator" aria-label={t.required}>*</span>
         </label>
         <div class="input-wrapper">
-          <input 
-            type="text" 
-            id="company" 
-            name="company" 
-            autocomplete="organization" 
-            placeholder={t.companyPlaceholder}
-            class="form-input"
-          />
-        </div>
-      </div>
-    </div>
-
-    <!-- Service -->
-    <div class="form-group">
-      <label for="service" class="form-label">
-        <span>{t.service}</span>
-        <span class="required-indicator" aria-label={t.required}>*</span>
-      </label>
-      <div class="input-wrapper">
-        <select 
-          id="service" 
-          name="service"
-          class="form-input form-select"
-          required
-          aria-required="true"
-          value={service}
-        >
-          <option value="">{t.selectService}</option>
-          {services.map(([value, label]) => (
-            <option value={value} selected={service === value}>{label}</option>
-          ))}
-        </select>
-        <div class="select-arrow">
-          <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-            <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <select 
+            id="service" 
+            name="service"
+            class="form-input form-select"
+            required
+            aria-required="true"
+            value={service}
+          >
+            <option value="">{t.selectService}</option>
+            {services.map(([value, label]) => (
+              <option value={value} selected={service === value}>{label}</option>
+            ))}
+          </select>
+          <div class="select-arrow">
+            <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+              <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
         </div>
       </div>
     </div>
@@ -517,23 +497,22 @@ const services = lang === 'fr'
       });
     }
     
-    // Validation simple du téléphone sans bloquer la soumission
+    // Validation simplifiée du téléphone - seulement chiffres et symboles autorisés
     const phoneInput = document.getElementById('phone') as HTMLInputElement;
     if (phoneInput) {
       phoneInput.addEventListener('input', (e) => {
         const target = e.target as HTMLInputElement;
-        const value = target.value;
+        let value = target.value;
         
-        // Validation basique du format international
-        if (value && !value.startsWith('+')) {
-          const lang = document.documentElement.lang || 'fr';
-          const message = lang === 'fr' 
-            ? 'Format international recommandé (ex: +352 20 60 58 57)'
-            : 'International format recommended (ex: +352 20 60 58 57)';
-          phoneInput.setCustomValidity(message);
-        } else {
-          phoneInput.setCustomValidity('');
+        // Retirer tous les caractères non autorisés
+        const cleaned = value.replace(/[^+0-9\s\-\.\(\)]/g, '');
+        
+        if (cleaned !== value) {
+          target.value = cleaned;
         }
+        
+        // Réinitialiser la validation custom
+        phoneInput.setCustomValidity('');
       });
     }
   });

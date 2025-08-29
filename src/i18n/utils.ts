@@ -73,35 +73,58 @@ export function getAlternateLinks(url: URL) {
           }
         }
       } else {
-        // Vérifier si la page a une traduction dans les deux sens
-        let mapping = routeMappings[route];
+        // Chercher la correspondance dans les mappings
+        let translatedRoute = null;
         
-        // Si pas trouvé directement, chercher dans toutes les entrées
-        if (!mapping) {
-          // Parcourir toutes les entrées pour trouver une correspondance
-          for (const [, value] of Object.entries(routeMappings)) {
-            if (value[currentLang] === route) {
-              mapping = value;
+        // D'abord, vérifier si la route existe directement dans les mappings
+        if (routeMappings[route] && routeMappings[route][lang]) {
+          translatedRoute = routeMappings[route][lang];
+        } else {
+          // Sinon, chercher la route dans toutes les valeurs pour trouver la bonne correspondance
+          for (const [key, mapping] of Object.entries(routeMappings)) {
+            // Si on trouve notre route actuelle dans les valeurs
+            if (mapping[currentLang] === route) {
+              // Prendre la traduction pour la langue cible
+              translatedRoute = mapping[lang];
+              break;
+            }
+            // Vérifier aussi si la clé correspond à notre route
+            if (key === route && mapping[lang]) {
+              translatedRoute = mapping[lang];
               break;
             }
           }
         }
         
-        if (mapping && mapping[lang]) {
+        if (translatedRoute) {
           // La page a une traduction
-          links[lang] = `/${lang}/${mapping[lang]}`;
-        } else if (untranslatedPages[currentLang]?.includes(route as never)) {
-          // La page n'a pas de traduction, rediriger vers l'accueil
-          links[lang] = `/${lang}`;
+          links[lang] = `/${lang}/${translatedRoute}`;
         } else {
           // Pour les pages avec le même nom dans les deux langues
           // (domiciliation, services, contact, articles, taxpertize)
           const sameNamePages = ['domiciliation', 'services', 'contact', 'articles', 'taxpertize'];
           if (sameNamePages.includes(route)) {
             links[lang] = `/${lang}/${route}`;
+          } else if (untranslatedPages[currentLang]?.includes(route as never)) {
+            // La page n'a pas de traduction, rediriger vers l'accueil
+            links[lang] = `/${lang}`;
           } else {
-            // Pas de fallback - retourner null si aucune traduction trouvée
-            links[lang] = null;
+            // Si on n'a toujours pas trouvé, essayer de voir si c'est une page valide
+            // en vérifiant si elle existe dans notre mapping global
+            const allRoutes = new Set<string>();
+            Object.entries(routeMappings).forEach(([key, mapping]) => {
+              allRoutes.add(key);
+              Object.values(mapping).forEach(r => allRoutes.add(r));
+            });
+            
+            if (allRoutes.has(route)) {
+              // C'est une route valide, on va utiliser la même route pour l'autre langue
+              // comme fallback (au cas où c'est la même dans les deux langues)
+              links[lang] = `/${lang}/${route}`;
+            } else {
+              // Vraiment aucune correspondance trouvée
+              links[lang] = null;
+            }
           }
         }
       }
