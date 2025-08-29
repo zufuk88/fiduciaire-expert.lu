@@ -14,7 +14,8 @@ const {
 } = Astro.props;
 
 // Déterminer l'URL de redirection en fonction de la langue
-const redirectUrl = action || (lang === 'fr' ? '/fr/merci' : '/en/contact/thank-you');
+// Pour Netlify Forms, on utilise des URLs absolues
+const redirectUrl = action || (lang === 'fr' ? `${Astro.site}/fr/merci` : `${Astro.site}/en/contact/thank-you`);
 
 // Traductions
 const translations = {
