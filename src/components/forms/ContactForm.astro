@@ -89,14 +89,13 @@ const services = lang === 'fr'
   <form 
     name="contact-fiduciaire"
     method="POST" 
-    action={redirectUrl}
     data-netlify="true" 
     data-netlify-honeypot="bot-field"
     class="contact-form"
   >
     <input type="hidden" name="form-name" value="contact-fiduciaire" />
     <input type="hidden" name="language" value={lang} />
-    <input type="hidden" name="redirect" value={redirectUrl} />
+    <input type="hidden" name="action" value={redirectUrl} />
     
     <!-- Honeypot anti-spam -->
     <div class="visually-hidden">
