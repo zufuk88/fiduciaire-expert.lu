@@ -1,12 +1,11 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
-import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
 import BlogCarousel from '../../components/BlogCarousel.astro';
 import StatsSection from '../../components/StatsSection.astro';
 import ExpertiseSection from '../../components/ExpertiseSection.astro';
-import ServicesSimple from '../../components/ServicesSimple.astro';
+import Services from '../../components/Services.astro';
 import ProcessTimeline from '../../components/ProcessTimeline.astro';
 const metaDescription = "Expert-comptable Luxembourg spécialisé en fiscalité : déclarations IRC/ICC/IF (formulaire 500), TVA eCDF, retenue source 950. Optimisation SOPARFI, IP Box, intégration fiscale. Accompagnement ACD, prix transfert OCDE. Devis gratuit.";
 const fiscaliteSchema = {
@@ -142,7 +141,8 @@ const faqItems = [
     ]}
   />
   <!-- Section Optimisation -->
-  <ServicesSimple
+  <Services
+    variant="cards"
     title="Stratégies d'optimisation fiscale"
     subtitle="L'optimisation fiscale légale est un levier essentiel de compétitivité. Le Luxembourg offre un environnement fiscal attractif avec de nombreux régimes avantageux reconnus au niveau européen et international. Notre rôle est de vous guider dans l'utilisation optimale de ces dispositifs tout en garantissant une parfaite sécurité juridique."
     backgroundColor="#f1f5f9"
@@ -233,17 +233,11 @@ const faqItems = [
       ctaHref="/fr/articles/category/fiscalite"
     />
   </div>
-  <CTA
-    title="Simplifiez votre gestion fiscale"
-    subtitle="Confiez vos déclarations fiscales à nos experts et concentrez-vous sur votre activité. Audit gratuit de votre situation fiscale."
-    buttonText="Nous contacter"
-    buttonHref="/fr/contact?service=fiscalite"
-  />
   <FAQ
     title="Questions fréquentes sur la fiscalité au Luxembourg"
     subtitle="Tout ce que vous devez savoir sur vos obligations fiscales"
     faqItems={faqItems}
-    showCTA={false}
+    
     generateSchema={true}
   />
 </LayoutI18n>

@@ -1,9 +1,8 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import Button from '../../components/ui/Button.astro';
-import ServicesInfo from '../../components/ServicesInfo.astro';
+import Services from '../../components/Services.astro';
 import FAQ from '../../components/FAQ.astro';
-import CTA from '../../components/CTA.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
 // --- PAGE DATA ---
 const allServices = [
@@ -190,23 +189,17 @@ const structuredData = {
     title="Our chartered accountant services"
     subtitle="Complete and tailor-made solutions for entrepreneurs and SMEs in Luxembourg. We combine rigor, technology and strategic advice to ensure your compliance and optimize your growth."
   />
-  <ServicesInfo
+  <Services
+    variant="cards"
     title="Our expertise at your service"
     subtitle="Discover our complete range of accounting, tax and social services designed to support your growth in Luxembourg"
     services={allServices}
-    lang="en"
-  />
-  <CTA 
-    title="Ready to optimize your management?"
-    subtitle="Let's discuss your project. Contact us for a free initial consultation with no obligation."
-    buttonText="Schedule an appointment"
-    buttonHref="/en/contact"
   />
   <FAQ
     title="Frequently Asked Questions"
     subtitle="Clear answers to your questions about our services."
     faqItems={faqItems}
-    showCTA={false}
+    
     backgroundColor="#f1f5f9"
   />
 </LayoutI18n>

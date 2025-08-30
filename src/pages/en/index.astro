@@ -1,10 +1,9 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import Hero from '../../components/hero/Hero.astro';
-import ServicesHighlight from '../../components/ServicesHighlight.astro';
+import Services from '../../components/Services.astro';
 import BlogCarousel from '../../components/BlogCarousel.astro';
 import WhyUs from '../../components/WhyUs.astro';
-import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
 import { Image } from 'astro:assets';
 import logoImage from '../../assets/images/Logo.webp';
@@ -191,12 +190,9 @@ const schema = {
       text: "Contact us",
       href: "/en/contact#get-quote"
     }}
-    ctaSecondary={{
-      text: "Call: +352 20 60 58 57",
-      href: "tel:+35220605857"
-    }}
   />
-  <ServicesHighlight 
+  <Services 
+    variant="grid"
     title="Complete accounting solutions: from incorporation to daily management"
     subtitle="As a licensed accounting firm, we offer a complete range of services designed to meet all accounting and tax needs of businesses in Luxembourg."
     services={[
@@ -222,7 +218,6 @@ const schema = {
     subtitle="Our chartered accountant articles to optimize your business management in Luxembourg"
     lang="en"
     maxPosts={4}
-    backgroundColor="#f1f5f9"
   />
   <WhyUs 
     title="Chartered Accountant in Luxembourg"
@@ -256,18 +251,11 @@ const schema = {
       }
     ]}
   />
-  <CTA 
-    title="Your free expert quote within 48 hours"
-    subtitle="Accounting, compliance in direct and inderect taxes and SARL company formation. Free consultation with our OEC-certified experts."
-    buttonText="Get my free quote"
-    buttonHref="/en/contact#get-quote"
-  />
   <FAQ 
     title="Frequently Asked Questions about Chartered Accountants in Luxembourg"
     subtitle="Everything you need to know about accounting and tax services for your Luxembourg company."
-    backgroundColor="#f1f5f9"
     faqItems={faqItems}
-    showCTA={false}
+    
   />
   <!-- Additional Schema.org script handled by layout -->
 </LayoutI18n>

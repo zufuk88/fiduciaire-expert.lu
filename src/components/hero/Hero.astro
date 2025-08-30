@@ -23,7 +23,6 @@ const {
   <!-- Image de fond optimisée -->
   <div 
     class="hero-background" 
-    class:list={[{ 'hide-mobile': !showImageOnMobile }]}
     role="presentation"
   >
     <Image 
@@ -47,9 +46,8 @@ const {
           {ctaPrimary && (
             <Button 
               href={ctaPrimary.href} 
-              variant="secondary" 
+              variant="primary" 
               size="large"
-              aria-label={`Action principale: ${ctaPrimary.text}`}
             >
               {ctaPrimary.text}
             </Button>
@@ -59,7 +57,6 @@ const {
               href={ctaSecondary.href} 
               variant="outline" 
               size="large"
-              aria-label={`Action secondaire: ${ctaSecondary.text}`}
             >
               {ctaSecondary.text}
             </Button>
@@ -71,38 +68,36 @@ const {
 </header>
 <style>
   .hero-section {
-    min-height: 80vh;
+    min-height: 85vh;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    background: #ffffff;
     position: relative;
     overflow: hidden;
-    padding: 4rem 0;
+    padding: 8rem 0 6rem;
   }
-  /* Image de fond avec traitement professionnel */
+  /* Image de fond subtile avec overlay */
   .hero-background {
     position: absolute;
     inset: 0;
-    opacity: 0.12;
     z-index: 1;
+    opacity: 0.06; /* Subtile mais visible pour ajouter de la texture */
+  }
+  .hero-background::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(147, 197, 253, 0.03) 0%, transparent 50%);
+    pointer-events: none;
   }
   .hero-bg-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
-  }
-  /* Overlay gradient moderne et épuré */
-  .hero-background::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      135deg,
-      rgba(15, 23, 42, 0.9) 0%,
-      rgba(30, 41, 59, 0.8) 50%,
-      rgba(51, 65, 85, 0.7) 100%
-    );
+    filter: grayscale(100%) contrast(1.1);
   }
   .container {
     position: relative;
@@ -113,54 +108,85 @@ const {
     width: 100%;
   }
   .hero-content {
-    max-width: 720px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
   }
-  /* Badge moderne et épuré */
+  /* Badge moderne avec accent */
   .hero-badge {
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: 600;
     color: #3b82f6;
-    letter-spacing: 0.025em;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(96, 165, 250, 0.05));
     display: inline-block;
-    margin-bottom: 1.5rem;
-    padding: 0.5rem 1rem;
-    background: rgba(59, 130, 246, 0.1);
-    border: 1px solid rgba(59, 130, 246, 0.2);
+    padding: 0.5rem 1.25rem;
     border-radius: 9999px;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: 1px solid rgba(59, 130, 246, 0.2);
   }
-  /* Titre principal moderne */
+  /* Titre principal avec impact */
   .hero-section h1 {
-    font-size: clamp(2.5rem, 4vw, 3.5rem);
-    font-weight: 300;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
     line-height: 1.2;
-    color: #ffffff;
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #0f172a;
+    margin-bottom: 2rem;
+    padding-bottom: 0.25rem;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
-  /* Sous-titre optimisé */
+  /* Sous-titre élégant */
   .hero-subtitle {
-    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
-    line-height: 1.65;
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0 0 2.5rem;
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: #64748b;
+    margin: 0 auto 3.5rem;
     font-weight: 400;
-    max-width: 600px;
+    max-width: 680px;
+    position: relative;
   }
-  /* Actions CTA */
+  
+  /* Accent visuel sous le titre */
+  .hero-content::before {
+    content: '';
+    position: absolute;
+    top: -3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    border-radius: 2px;
+  }
+  /* Actions CTA avec espace moderne */
   .hero-actions {
     display: flex;
-    gap: 1.25rem;
+    gap: 1.5rem;
     align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
+    position: relative;
   }
   /* Tablet */
   @media (max-width: 1024px) {
     .hero-section {
       min-height: 70vh;
+      padding: 6rem 0 4rem;
     }
     .hero-content {
-      max-width: 600px;
+      max-width: 700px;
+    }
+    .hero-section h1 {
+      font-size: 2.5rem;
+    }
+    .hero-subtitle {
+      font-size: 1.125rem;
     }
   }
   /* Mobile */
@@ -169,23 +195,21 @@ const {
       min-height: auto;
       padding: 3rem 0;
     }
-    .hero-background.hide-mobile {
-      display: none;
-    }
     .container {
       padding: 0 1.5rem;
     }
     .hero-badge {
-      font-size: 0.8125rem;
-      margin-bottom: 1rem;
+      font-size: 0.75rem;
+      padding: 0.375rem 1rem;
+      margin-bottom: 2rem;
     }
     .hero-section h1 {
       font-size: 2rem;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
     }
     .hero-subtitle {
-      font-size: 1.125rem;
-      margin-bottom: 2rem;
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
     }
     .hero-actions {
       gap: 1rem;
@@ -198,12 +222,6 @@ const {
     }
     .container {
       padding: 0 1rem;
-    }
-    .hero-section h1 {
-      font-size: 1.75rem;
-    }
-    .hero-subtitle {
-      font-size: 1rem;
     }
     .hero-actions {
       flex-direction: column;
@@ -219,36 +237,8 @@ const {
     .container {
       max-width: 1400px;
     }
-    .hero-content {
-      max-width: 800px;
-    }
-  }
-  /* Amélioration pour les écrans très larges */
-  @media (min-width: 1920px) {
     .hero-section {
-      min-height: 60vh;
-    }
-  }
-  /* Support du mode sombre préféré */
-  @media (prefers-color-scheme: light) {
-    .hero-section {
-      background: #0f172a;
-    }
-  }
-  /* Optimisation pour l'impression */
-  @media print {
-    .hero-background {
-      display: none;
-    }
-    .hero-section {
-      min-height: auto;
-      background: white;
-      color: black;
-    }
-    .hero-section h1,
-    .hero-subtitle,
-    .hero-badge {
-      color: black;
+      min-height: 90vh;
     }
   }
 </style>

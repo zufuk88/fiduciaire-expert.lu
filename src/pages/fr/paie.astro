@@ -1,7 +1,6 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
-import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
 import ProcessTimeline from '../../components/ProcessTimeline.astro';
 const metaDescription = "Externalisation de la paie au Luxembourg. Service complet et conforme : bulletins de salaire, déclarations CCSS/CNS, gestion RH. Experts en droit social luxembourgeois.";
@@ -239,15 +238,8 @@ const faqItems = [
     title="Questions fréquentes sur la gestion de paie"
     subtitle="Tout ce que vous devez savoir sur l'externalisation de votre paie au Luxembourg"
     faqItems={faqItems}
-    showCTA={false}
+    
     generateSchema={true}
-  />
-  <CTA
-    title="Prêt à simplifier votre gestion de paie ?"
-    subtitle="Contactez-nous pour un audit gratuit de votre situation sociale et découvrez comment nous pouvons optimiser votre gestion RH."
-    buttonText="Demander un devis gratuit"
-    buttonHref="/fr/contact?service=paie"
-    ]}
   />
 </LayoutI18n>
 <style>

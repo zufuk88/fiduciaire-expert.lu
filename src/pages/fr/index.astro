@@ -1,10 +1,9 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import Hero from '../../components/hero/Hero.astro';
-import ServicesHighlight from '../../components/ServicesHighlight.astro';
+import Services from '../../components/Services.astro';
 import BlogCarousel from '../../components/BlogCarousel.astro';
 import WhyUs from '../../components/WhyUs.astro';
-import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
 import logoImage from '../../assets/images/Logo.webp';
 // SEO Metadonnées - Optimisées pour le 10/10
@@ -110,12 +109,9 @@ const schema = {
       text: "Contactez-nous",
       href: "/fr/contact#devis-express"
     }}
-    ctaSecondary={{
-      text: "Appeler : +352 20 60 58 57",
-      href: "tel:+35220605857"
-    }}
   />
-  <ServicesHighlight
+  <Services
+    variant="grid"
     title="Solutions comptables complètes : de la création à la gestion quotidienne"
     subtitle="En tant que cabinet d'expertise comptable, nous offrons une gamme de services conçus pour répondre à tous les besoins comptables et fiscaux des entreprises au Luxembourg."
     services={[
@@ -141,7 +137,6 @@ const schema = {
     subtitle="Nos articles d'expert-comptable pour optimiser votre gestion d'entreprise au Luxembourg"
     lang="fr"
     maxPosts={4}
-    backgroundColor="#f1f5f9"
   />
   <WhyUs
     title="Expert-comptable au Luxembourg"
@@ -175,18 +170,11 @@ const schema = {
       }
     ]}
   />
-  <CTA 
-    title="Votre devis expert gratuit sous 48h"
-    subtitle="Comptabilité, fiscalité directe et indirecte, et création de société SARL. Consultation sans engagement avec nos experts agréés OEC."
-    buttonText="Obtenir mon devis gratuit"
-    buttonHref="/fr/contact#devis-express"
-  />
   <script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />
   <FAQ 
     title="Questions fréquentes sur l'expert-comptable au Luxembourg"
     subtitle="Tout ce que vous devez savoir sur les services comptables et fiscaux pour votre entreprise luxembourgeoise."
     faqItems={faqItems}
-    showCTA={false}
-    backgroundColor="#f1f5f9"
+    
   />
 </LayoutI18n>

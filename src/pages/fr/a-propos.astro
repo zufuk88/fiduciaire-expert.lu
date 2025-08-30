@@ -1,13 +1,11 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
-import StatsSection from '../../components/StatsSection.astro';
-import StorySection from '../../components/StorySection.astro';
 import ValuesGrid from '../../components/ValuesGrid.astro';
 import TeamGrid from '../../components/TeamGrid.astro';
+import WhyUs from '../../components/WhyUs.astro';
 import TestimonialsGrid from '../../components/TestimonialsGrid.astro';
 import FAQ from '../../components/FAQ.astro';
-import bureauImage from '/src/assets/images/bureau-fiduciaire.jpg';
 import marcDuboisImage from '/src/assets/images/marc-dubois.jpg';
 import sophieBernardImage from '/src/assets/images/sophie-bernard.jpg';
 // Données de la page - Contenu préservé
@@ -28,11 +26,6 @@ const teamMembers = [
     bio: "Co-fondatrice et experte en Luxembourg GAAP et IFRS, Sophie apporte plus de 20 ans d'expérience acquise dans des sociétés internationales, garantissant une comptabilité conforme aux normes luxembourgeoises et internationales.",
     linkedin: "https://linkedin.com/in/sophiebernard"
   },
-];
-const stats = [
-  { number: "20+", label: "Années d'expertise" },
-  { number: "50+", label: "Clients accompagnés" },
-  { number: "100%", label: "Conformité garantie" }
 ];
 const values = [
   { 
@@ -194,16 +187,28 @@ const aboutSchema = {
     title="Expert-Comptable et Fiscaliste agréés à Luxembourg"
     subtitle="Cabinet d'expertise comptable. Comptabilité, fiscalité, paie et création de sociétés pour PME et entrepreneurs."
   />
-  <StatsSection stats={stats} backgroundColor="#f1f5f9" />
-  <StorySection 
-    title="Notre expertise professionnelle"
-    paragraphs={[
-      "<strong>Fiduciaire Expert</strong> est un cabinet d'expertise comptable agréé à Luxembourg. Nos experts-comptables et fiscalistes diplômés accompagnent les entreprises dans leur gestion comptable, fiscale et sociale conformément à la législation luxembourgeoise.",
-      "Notre approche combine <strong>rigueur technique</strong>, <strong>innovation technologique</strong> et <strong>relation humaine privilégiée</strong>. Nous maîtrisons parfaitement l'environnement réglementaire luxembourgeois et accompagnons nos clients dans leur croissance avec des conseils stratégiques personnalisés.",
-      "Chaque mission est menée avec la même exigence de qualité qui a fait notre réputation : <strong>transparence totale</strong>, <strong>délais respectés</strong> et <strong>conformité garantie</strong>."
+  <WhyUs
+    title="Pourquoi nous choisir ?"
+    subtitle="Les raisons de nous faire confiance pour votre comptabilité"
+    metrics={[
+      { value: "20+", label: "Années d'expertise" },
+      { value: "50+", label: "Clients satisfaits" },
+      { value: "100%", label: "Conformité garantie" }
     ]}
-    image={bureauImage}
-    imageAlt="Bureau moderne de Fiduciaire Expert à Luxembourg, illustrant notre professionnalisme et notre approche contemporaine"
+    advantages={[
+      { 
+        title: "Services personnalisés",
+        description: "Fiduciaire Expert est un cabinet d'expertise comptable agréé à Luxembourg. Nos experts-comptables et fiscalistes diplômés accompagnent les entreprises dans leur gestion comptable, fiscale et sociale conformément à la législation luxembourgeoise."
+      },
+      { 
+        title: "Équipe disponible",
+        description: "Notre approche combine rigueur technique, innovation technologique et relation humaine privilégiée. Nous maîtrisons parfaitement l'environnement réglementaire luxembourgeois et accompagnons nos clients dans leur croissance avec des conseils stratégiques personnalisés."
+      },
+      {
+        title: "Technologie avancée",
+        description: "Nous utilisons des outils technologiques avancés pour optimiser la gestion de votre comptabilité et de vos déclarations fiscales."
+      }
+    ]}
   />
   <ValuesGrid 
     title="Nos valeurs"

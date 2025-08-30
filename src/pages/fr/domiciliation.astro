@@ -2,7 +2,6 @@
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
 import FAQ from '../../components/FAQ.astro';
-import CTA from '../../components/CTA.astro';
 const metaDescription = "Service de domiciliation d'entreprise au Luxembourg strictement conforme, réservé aux sociétés patrimoniales (SOPARFI, holdings, SPV). Expert-comptable agréé, conformité AML/KYC complète.";
 const domiciliationSchema = {
   "@context": "https://schema.org",
@@ -278,14 +277,8 @@ const faqItems = [
     title="FAQ express"
     subtitle=""
     faqItems={faqItems}
-    showCTA={false}
+    
     generateSchema={true}
-  />
-  <CTA
-    title="Analysons votre éligibilité"
-    subtitle="Contactez-nous pour une évaluation préliminaire de votre dossier de domiciliation"
-    buttonText="Demander une analyse"
-    buttonHref="/fr/contact?service=domiciliation"
   />
 </LayoutI18n>
 <style>

@@ -2,10 +2,10 @@
 // src/pages/en/articles/index.astro
 import { getCollection } from 'astro:content';
 import LayoutI18n from '../../../layouts/LayoutI18n.astro';
-// NEW: Import Image component for optimization
 import { Image } from 'astro:assets';
 import SearchBar from '../../../components/SearchBar.astro';
 import StickyPageTop from '../../../components/StickyPageTop.astro';
+import BlogCarousel from '../../../components/BlogCarousel.astro';
 import { calculateReadingTime } from '../../../utils/reading-time';
 import '../../../styles/blog-articles.css';
 // Pagination
@@ -148,29 +148,17 @@ const articlesSchema = {
         <div class="container blog-layout">
           <div class="posts-column">
             <h2 class="section-title">All articles</h2>
-            <div class="posts-grid">
-              {regularPosts.map(post => (
-                <article class="post-card">
-                  <a href={`/en/articles/${post.slug.replace('en/', '')}`} class="post-link">
-                    {post.data.image && (
-                      <div class="post-image-wrapper">
-                        {/* MODIFIÉ : Utilisation du composant Image optimisé */}
-                        <Image src={post.data.image} alt={`${post.data.title} - Luxembourg accounting taxation article`} width={400} height={200} loading="lazy" quality="mid" />
-                      </div>
-                    )}
-                    <div class="post-content">
-                      <p class="post-meta">
-                        <span class="category-badge">{post.data.category}</span>
-                        <time datetime={(post.data.modified && new Date(post.data.modified) > new Date(post.data.date) ? new Date(post.data.modified) : post.data.date).toISOString()}>{formatDate(post.data.modified && new Date(post.data.modified) > new Date(post.data.date) ? new Date(post.data.modified) : post.data.date)}</time>
-                    <span class="reading-time">• {calculateReadingTime(post.body, 'en')} min</span>
-                      </p>
-                      <h4 class="post-title">{post.data.title}</h4>
-                      <p class="post-excerpt">{post.data.description}</p>
-                    </div>
-                  </a>
-                </article>
-              ))}
-            </div>
+            <BlogCarousel 
+              title="" 
+              variant="grid" 
+              showAll={false}
+              showTitle={false}
+              showCTA={false}
+              columns={2}
+              maxPosts={8}
+              skipFirst={1}
+              lang="en"
+            />
             {/* Pagination */}
             {hasMorePosts && (
               <div class="pagination">

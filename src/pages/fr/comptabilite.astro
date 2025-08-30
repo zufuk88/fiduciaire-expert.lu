@@ -1,10 +1,8 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
-import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
-import ServicePresentation from '../../components/ServicePresentation.astro';
-import ServicesInfo from '../../components/ServicesInfo.astro';
+import Services from '../../components/Services.astro';
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -66,32 +64,44 @@ const faqItems = [
     subtitle="Confiez votre comptabilité à des experts agréés qui maîtrisent les réglementations luxembourgeoises (PCN 2020, eCDF, RCS). Nous assurons une conformité totale tout en optimisant votre situation fiscale."
   />
   <!-- Section Obligations Comptables Légales -->
-  <ServicePresentation
+  <Services
+    variant="presentation"
     title="Obligations comptables légales pour les sociétés luxembourgeoises"
     subtitle="Toute société constituée au Luxembourg doit tenir une comptabilité conforme à la loi du 19 décembre 2002. Comprendre ces exigences est crucial pour éviter les pénalités et assurer le bon fonctionnement de vos opérations."
-    contentType="paragraph"
-    content={[
-      "L'environnement réglementaire complexe du Luxembourg exige une expertise comptable spécialisée qui va au-delà de la simple tenue de livres. Avec plus de 20 ans au service de la communauté d'affaires du Grand-Duché, nos experts-comptables combinent une connaissance technique approfondie avec une expérience pratique dans divers secteurs.",
-      "Le paysage comptable luxembourgeois a considérablement évolué avec l'introduction du PCN 2020 et le dépôt électronique eCDF obligatoire. Ces changements, associés aux exigences existantes de la loi du 19 décembre 2002, créent un cadre complet qui affecte chaque entité commerciale opérant au Luxembourg. Des petites entreprises familiales aux grandes multinationales, chaque société doit naviguer dans des obligations spécifiques basées sur sa taille, sa structure et ses activités.",
-      "Notre approche intègre la gestion de la conformité avec le conseil financier stratégique, garantissant que votre fonction comptable soutient la croissance de l'entreprise tout en maintenant l'excellence réglementaire. Que vous établissiez une nouvelle entité via nos services de création de société (incluant SARL, SARL-S, ou structures SAS), gériez une opération existante ou planifiez une expansion, les services comptables professionnels constituent la base d'un succès durable sur le marché compétitif luxembourgeois.",
-      "<strong>Exigences comptables fondamentales</strong>",
-      "Toutes les sociétés luxembourgeoises, quelle que soit leur taille, doivent tenir une comptabilité chronologique enregistrant tous les mouvements économiques affectant le patrimoine de la société. Cela inclut la conservation des pièces justificatives pour toutes les transactions, l'établissement de comptes annuels comprenant au minimum un bilan et un compte de profits et pertes, et la conservation de tous les documents comptables pendant une période de dix ans.",
-      "Ces exigences constituent le fondement du cadre réglementaire comptable luxembourgeois et s'appliquent universellement à toutes les entités enregistrées."
+    services={[
+      {
+        title: "Cadre réglementaire complexe",
+        content: [
+          "L'environnement réglementaire complexe du Luxembourg exige une expertise comptable spécialisée qui va au-delà de la simple tenue de livres. Avec plus de 20 ans au service de la communauté d'affaires du Grand-Duché, nos experts-comptables combinent une connaissance technique approfondie avec une expérience pratique dans divers secteurs.",
+          "Le paysage comptable luxembourgeois a considérablement évolué avec l'introduction du PCN 2020 et le dépôt électronique eCDF obligatoire. Ces changements, associés aux exigences existantes de la loi du 19 décembre 2002, créent un cadre complet qui affecte chaque entité commerciale opérant au Luxembourg. Des petites entreprises familiales aux grandes multinationales, chaque société doit naviguer dans des obligations spécifiques basées sur sa taille, sa structure et ses activités.",
+          "Notre approche intègre la gestion de la conformité avec le conseil financier stratégique, garantissant que votre fonction comptable soutient la croissance de l'entreprise tout en maintenant l'excellence réglementaire. Que vous établissiez une nouvelle entité via nos services de création de société (incluant SARL, SARL-S, ou structures SAS), gériez une opération existante ou planifiez une expansion, les services comptables professionnels constituent la base d'un succès durable sur le marché compétitif luxembourgeois."
+        ],
+        bulletStyle: "none"
+      },
+      {
+        title: "Exigences comptables fondamentales",
+        content: [
+          "Toutes les sociétés luxembourgeoises, quelle que soit leur taille, doivent tenir une comptabilité chronologique enregistrant tous les mouvements économiques affectant le patrimoine de la société. Cela inclut la conservation des pièces justificatives pour toutes les transactions, l'établissement de comptes annuels comprenant au minimum un bilan et un compte de profits et pertes, et la conservation de tous les documents comptables pendant une période de dix ans.",
+          "Ces exigences constituent le fondement du cadre réglementaire comptable luxembourgeois et s'appliquent universellement à toutes les entités enregistrées."
+        ],
+        bulletStyle: "none"
+      }
     ]}
   />
   <!-- Section Exigences PCN -->
-  <ServicesInfo
-    title="Plan Comptable Normalisé (PCN) : comprendre vos obligations"'
+  <Services
+    variant="list"
+    title="Plan Comptable Normalisé (PCN) : comprendre vos obligations"
     backgroundColor="#f1f5f9"
     sections={[
       {
         title: "Sociétés soumises aux exigences PCN",
         content: "Le Plan Comptable Normalisé, mis à jour en 2020 avec l'introduction du dépôt électronique eCDF, s'applique à la plupart des sociétés commerciales au Luxembourg. Les sociétés tenues de suivre le PCN incluent :",
         items: [
-          "Sociétés Anonymes (SA)",
-          "Sociétés à responsabilité limitée (SARL)",
-          "Sociétés en commandite par actions (SCA)",
-          "Sociétés par actions simplifiées (SAS)"
+          { label: "Sociétés Anonymes (SA)" },
+          { label: "Sociétés à responsabilité limitée (SARL)" },
+          { label: "Sociétés en commandite par actions (SCA)" },
+          { label: "Sociétés par actions simplifiées (SAS)" }
         ],
         footer: "Ces entités doivent préparer leurs comptes selon le plan comptable normalisé et les présenter dans le format prescrit."
       },
@@ -99,22 +109,24 @@ const faqItems = [
         title: "Entités non soumises aux exigences PCN",
         content: "Certaines entités ne sont pas soumises au PCN ou bénéficient d'obligations comptables simplifiées :",
         items: [
-          "Commerçants personnes physiques avec un chiffre d'affaires annuel inférieur à 100 000 € HT",
-          "Sociétés en nom collectif (SNC) avec un chiffre d'affaires annuel inférieur à 100 000 € HT",
-          "Sociétés en commandite spéciale (SCSp) avec un chiffre d'affaires annuel inférieur à 100 000 € HT",
-          "Sociétés civiles non engagées dans des activités commerciales",
-          "Succursales de sociétés étrangères (exigences modifiées)"
+          { label: "Commerçants personnes physiques avec un chiffre d'affaires annuel inférieur à 100 000 € HT" },
+          { label: "Sociétés en nom collectif (SNC) avec un chiffre d'affaires annuel inférieur à 100 000 € HT" },
+          { label: "Sociétés en commandite spéciale (SCSp) avec un chiffre d'affaires annuel inférieur à 100 000 € HT" },
+          { label: "Sociétés civiles non engagées dans des activités commerciales" },
+          { label: "Succursales de sociétés étrangères (exigences modifiées)" }
         ],
         footer: "Cependant, même les entités non soumises aux exigences PCN doivent tenir des registres comptables suffisants pour établir leurs obligations fiscales et se conformer aux réglementations TVA le cas échéant. Le seuil de 100 000 € HT s'applique pour déterminer l'exemption du PCN pour ces formes juridiques spécifiques."
       }
     ]}
-    highlight={{
-      title: "PCN 2020 et dépôt électronique eCDF",
-      content: "Le PCN 2020 introduit des exigences numériques renforcées via le format électronique commun de données (eCDF), qui standardise le reporting financier au Luxembourg. Ce système exige que les sociétés déposent leurs comptes annuels électroniquement via la plateforme eCDF dédiée. Sauf pour les sociétés autorisées à utiliser les normes IFRS, la validation eCDF au format PCN est obligatoire avant tout dépôt au RCS."
-    }}
   />
+  <!-- PCN 2020 et dépôt électronique eCDF -->
+  <div style="background: #f1f5f9; padding: 2rem; margin: 2rem 0; border-radius: 12px; border: 1px solid #e2e8f0;">
+    <h3 style="margin: 0 0 1rem 0; font-size: 1.25rem; color: #0f172a; font-weight: 600;">PCN 2020 et dépôt électronique eCDF</h3>
+    <p style="margin: 0; color: #475569; line-height: 1.7;">Le PCN 2020 introduit des exigences numériques renforcées via le format électronique commun de données (eCDF), qui standardise le reporting financier au Luxembourg. Ce système exige que les sociétés déposent leurs comptes annuels électroniquement via la plateforme eCDF dédiée. Sauf pour les sociétés autorisées à utiliser les normes IFRS, la validation eCDF au format PCN est obligatoire avant tout dépôt au RCS.</p>
+  </div>
   <!-- Section Catégories de taille d'entreprise -->
-  <ServicesInfo
+  <Services
+    variant="categories"
     title="Catégories de taille d'entreprise et leur impact sur les obligations"
     subtitle="La loi luxembourgeoise classe les sociétés en catégories basées sur des critères de taille, chacune avec des exigences comptables et d'audit spécifiques."
     categories={[
@@ -336,13 +348,6 @@ const faqItems = [
       </div>
     </div>
   </section>
-  <CTA
-    title="Commencez par une évaluation comptable complète"
-    subtitle="Chaque entreprise a des besoins comptables uniques. Commencez par une évaluation approfondie de votre situation actuelle : identifiez vos lacunes de conformité et trouvez une solution sur mesure pour votre entreprise."
-    buttonText="Contactez-nous"
-    buttonHref="/fr/contact?service=comptabilite"
-    ]}
-  />
   <!-- Section Expertise sectorielle -->
   <section class="section-grey">
     <div class="container">
@@ -393,7 +398,7 @@ const faqItems = [
     title="Questions fréquentes sur la comptabilité au Luxembourg"
     subtitle="Informations essentielles pour gérer les obligations comptables de votre société"
     faqItems={faqItems}
-    showCTA={false}
+    
     generateSchema={true}
     backgroundColor="#f1f5f9"
   />

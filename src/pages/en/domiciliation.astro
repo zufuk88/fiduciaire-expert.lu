@@ -2,7 +2,6 @@
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
 import FAQ from '../../components/FAQ.astro';
-import CTA from '../../components/CTA.astro';
 const metaDescription = "Company domiciliation service in Luxembourg strictly compliant, reserved for asset management companies (SOPARFI, holdings, SPV). Licensed chartered accountant, complete AML/KYC compliance.";
 const domiciliationSchema = {
   "@context": "https://schema.org",
@@ -278,14 +277,8 @@ const faqItems = [
     title="Quick FAQ"
     subtitle=""
     faqItems={faqItems}
-    showCTA={false}
+    
     generateSchema={true}
-  />
-  <CTA
-    title="Let's analyze your eligibility"
-    subtitle="Contact us for a preliminary assessment of your domiciliation file"
-    buttonText="Request an analysis"
-    buttonHref="/en/contact?service=domiciliation"
   />
 </LayoutI18n>
 <style>

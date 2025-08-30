@@ -56,6 +56,20 @@ const isArticlePage = route && route.startsWith('articles/') &&
   .language-selector {
     position: relative;
   }
+  /* Pont invisible pour maintenir le hover */
+  .language-selector::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 10px;
+    z-index: 99;
+    pointer-events: none;
+  }
+  .language-selector:hover::before {
+    pointer-events: auto;
+  }
   .lang-button {
     display: flex;
     align-items: center;
@@ -80,7 +94,7 @@ const isArticlePage = route && route.startsWith('articles/') &&
   }
   .lang-dropdown {
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 4px);
     right: 0;
     background: white;
     border: 1px solid #e0e0e0;
@@ -89,9 +103,11 @@ const isArticlePage = route && route.startsWith('articles/') &&
     opacity: 0;
     visibility: hidden;
     z-index: 100;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
   }
   .language-selector:hover .lang-dropdown,
-  .language-selector:focus-within .lang-dropdown {
+  .language-selector:focus-within .lang-dropdown,
+  .lang-dropdown:hover {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);

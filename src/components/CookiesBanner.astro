@@ -1,0 +1,293 @@
+---
+export interface Props {
+  lang?: 'fr' | 'en';
+}
+
+const { lang = 'fr' } = Astro.props;
+
+const translations = {
+  fr: {
+    message: "Nous utilisons des cookies pour améliorer votre expérience et analyser le trafic du site.",
+    accept: "Accepter",
+    decline: "Refuser",
+    learnMore: "En savoir plus"
+  },
+  en: {
+    message: "We use cookies to improve your experience and analyze site traffic.",
+    accept: "Accept",
+    decline: "Decline",
+    learnMore: "Learn more"
+  }
+};
+
+const t = translations[lang];
+const privacyLink = lang === 'fr' ? '/fr/politique-confidentialite' : '/en/privacy-policy';
+---
+
+<div id="cookies-banner" class="cookies-banner" aria-live="polite" aria-label="Cookie consent">
+  <div class="cookies-container">
+    <div class="cookies-content">
+      <div class="cookies-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 16v-4"></path>
+          <path d="M12 8h.01"></path>
+        </svg>
+      </div>
+      <p class="cookies-message">
+        {t.message}
+        <a href={privacyLink} class="cookies-link">{t.learnMore}</a>
+      </p>
+    </div>
+    <div class="cookies-actions">
+      <button 
+        type="button" 
+        class="cookies-btn cookies-btn-decline" 
+        id="cookies-decline"
+        aria-label={t.decline}
+      >
+        {t.decline}
+      </button>
+      <button 
+        type="button" 
+        class="cookies-btn cookies-btn-accept" 
+        id="cookies-accept"
+        aria-label={t.accept}
+      >
+        {t.accept}
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cookies-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
+    border-top: 1px solid #e2e8f0;
+    box-shadow: 0 -4px 20px -4px rgba(0, 0, 0, 0.08);
+    padding: 1rem 0;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .cookies-banner.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .cookies-banner.hide {
+    opacity: 0;
+    transform: translateY(100%);
+    pointer-events: none;
+  }
+  
+  .cookies-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  
+  .cookies-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+  }
+  
+  .cookies-icon {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(96, 165, 250, 0.05));
+    border-radius: 8px;
+    color: #3b82f6;
+  }
+  
+  .cookies-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .cookies-message {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #475569;
+    line-height: 1.5;
+  }
+  
+  .cookies-link {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 0.25rem;
+    transition: opacity 0.2s ease;
+  }
+  
+  .cookies-link:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
+  
+  .cookies-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+  
+  .cookies-btn {
+    padding: 0.5rem 1.25rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
+  }
+  
+  .cookies-btn-decline {
+    background: transparent;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+  }
+  
+  .cookies-btn-decline:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+  }
+  
+  .cookies-btn-accept {
+    background: #3b82f6;
+    color: white;
+    border: 1px solid #3b82f6;
+  }
+  
+  .cookies-btn-accept:hover {
+    background: #2563eb;
+    border-color: #2563eb;
+    box-shadow: 0 4px 12px -4px rgba(59, 130, 246, 0.3);
+  }
+  
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .cookies-banner {
+      padding: 1rem 0;
+    }
+    
+    .cookies-container {
+      flex-direction: column;
+      gap: 1rem;
+      padding: 0 1rem;
+    }
+    
+    .cookies-content {
+      width: 100%;
+    }
+    
+    .cookies-actions {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+    
+    .cookies-btn {
+      padding: 0.625rem 1rem;
+      font-size: 0.8125rem;
+    }
+    
+    .cookies-message {
+      font-size: 0.8125rem;
+    }
+    
+    .cookies-icon {
+      width: 32px;
+      height: 32px;
+    }
+  }
+  
+  /* Very small screens */
+  @media (max-width: 480px) {
+    .cookies-content {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    
+    .cookies-message {
+      font-size: 0.75rem;
+    }
+  }
+</style>
+
+<script>
+  // Cookie banner logic
+  document.addEventListener('DOMContentLoaded', () => {
+    const banner = document.getElementById('cookies-banner');
+    const acceptBtn = document.getElementById('cookies-accept');
+    const declineBtn = document.getElementById('cookies-decline');
+    
+    // Check if user has already made a choice
+    const cookieChoice = localStorage.getItem('cookieConsent');
+    
+    // Show banner if no choice has been made
+    if (!cookieChoice && banner) {
+      setTimeout(() => {
+        banner.classList.add('show');
+      }, 1000); // Show after 1 second
+    }
+    
+    // Handle accept
+    acceptBtn?.addEventListener('click', () => {
+      localStorage.setItem('cookieConsent', 'accepted');
+      localStorage.setItem('cookieConsentDate', new Date().toISOString());
+      hideBanner();
+      
+      // Here you can initialize analytics or other cookie-dependent services
+      // Example: initializeAnalytics();
+    });
+    
+    // Handle decline
+    declineBtn?.addEventListener('click', () => {
+      localStorage.setItem('cookieConsent', 'declined');
+      localStorage.setItem('cookieConsentDate', new Date().toISOString());
+      hideBanner();
+    });
+    
+    // Hide banner function
+    function hideBanner() {
+      if (banner) {
+        banner.classList.remove('show');
+        banner.classList.add('hide');
+        
+        // Remove from DOM after animation
+        setTimeout(() => {
+          banner.style.display = 'none';
+        }, 300);
+      }
+    }
+    
+    // Close on ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && banner?.classList.contains('show')) {
+        hideBanner();
+        // Treat as declined if closed with ESC
+        localStorage.setItem('cookieConsent', 'declined');
+        localStorage.setItem('cookieConsentDate', new Date().toISOString());
+      }
+    });
+  });
+</script>

@@ -1,9 +1,8 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
-import ServicesInfo from '../../components/ServicesInfo.astro';
+import Services from '../../components/Services.astro';
 import ProcessTimeline from '../../components/ProcessTimeline.astro';
-import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
 const pageTitle = "Conseil fiscal au Luxembourg — Taxpertize by Fiduciaire Expert";
 const pageDescription = "Cabinet d'expertise fiscale basé au Luxembourg. Intervention à haute intensité analytique pour sociétés, fonds, groupes internationaux, dirigeants et investisseurs privés.";
@@ -58,7 +57,8 @@ const faqItems = [
     subtitle="Cabinet d'expertise fiscale basé au Luxembourg. Intervention à haute intensité analytique pour sociétés, fonds, groupes internationaux, dirigeants et investisseurs privés. Couverture intégrale : structuration, diagnostic, modélisation, rescrits, contrôles et contentieux."
   />
   <!-- Section Domaines d'expertise -->
-  <ServicesInfo
+  <Services
+    variant="list"
     title="Domaines d'expertise"
     subtitle="Cinq piliers d'intervention pour une couverture fiscale intégrale au Luxembourg"
     sections={[
@@ -66,27 +66,28 @@ const faqItems = [
         title: "1. Fiscalité des entreprises et groupes",
         content: "",
         items: [
-          "Structurations holding / SOPARFI : schémas dividendes-intérêts-plus-values, tests de participation exemption, remontées de trésorerie, substance, gouvernance.",
-          "ATAD : limitation d'intérêts (30 % EBITDA ou 3 M€), règles anti-hybrides, CFC, GAAR. Cartographie dettes/instruments, recalibrage EBITDA fiscal, safe harbors.",
-          "Pillar Two (minimum 15 %) : cadrage scope (≥ 750 M€ CA consolidé), diagnostics ETR juridictionnel, QDMTT/IIR/UTPR, données GloBE et contrôles qualité.",
-          "Déclarations CbCR : préparation et dépôt des Country-by-Country Reports, notifications CbC, coordination multi-juridictionnelle, revue des données financières par pays.",
-          "Prix de transfert : études comparables, analyses DEMPE, politiques intragroupe, master/local file, accords préalables (APA).",
-          "Réorganisations : fusions, apports, spin-offs, migrations, exit tax, continuité de valeurs fiscales."
+          { label: "Structurations holding / SOPARFI : schémas dividendes-intérêts-plus-values, tests de participation exemption, remontées de trésorerie, substance, gouvernance." },
+          { label: "ATAD : limitation d'intérêts (30 % EBITDA ou 3 M€), règles anti-hybrides, CFC, GAAR. Cartographie dettes/instruments, recalibrage EBITDA fiscal, safe harbors." },
+          { label: "Pillar Two (minimum 15 %) : cadrage scope (≥ 750 M€ CA consolidé), diagnostics ETR juridictionnel, QDMTT/IIR/UTPR, données GloBE et contrôles qualité." },
+          { label: "Déclarations CbCR : préparation et dépôt des Country-by-Country Reports, notifications CbC, coordination multi-juridictionnelle, revue des données financières par pays." },
+          { label: "Prix de transfert : études comparables, analyses DEMPE, politiques intragroupe, master/local file, accords préalables (APA)." },
+          { label: "Réorganisations : fusions, apports, spin-offs, migrations, exit tax, continuité de valeurs fiscales." }
         ]
       },
       {
         title: "2. Fiscalité immobilière",
         content: "",
         items: [
-          "Investissement direct/indirect : sociétés immobilières, SPV par actif, club-deals.",
-          "Allocation dette/équité : modélisation cash-tax, plafonds d'intérêts ATAD, tests d'imputation.",
-          "Cycle de vie : acquisition (fiscalité d'entrée), détention (régime courant, IF/NWT), arbitrage cession (share deal vs asset deal)."
+          { label: "Investissement direct/indirect : sociétés immobilières, SPV par actif, club-deals." },
+          { label: "Allocation dette/équité : modélisation cash-tax, plafonds d'intérêts ATAD, tests d'imputation." },
+          { label: "Cycle de vie : acquisition (fiscalité d'entrée), détention (régime courant, IF/NWT), arbitrage cession (share deal vs asset deal)." }
         ]
       }
     ]}
     backgroundColor="#f8fafc"
   />
-  <ServicesInfo
+  <Services
+    variant="list"
     sections={[
       {
         title: "3. Secteur financier et fonds",
@@ -171,7 +172,8 @@ const faqItems = [
     variant="vertical"
   />
   <!-- Section Honoraires -->
-  <ServicesInfo
+  <Services
+    variant="list"
     title="Structure d'honoraires transparente"
     subtitle="Tarification adaptée à la complexité et aux enjeux de chaque mission"
     sections={[
@@ -203,7 +205,8 @@ const faqItems = [
     backgroundColor="#f8fafc"
   />
   <!-- Section Références Sectorielles -->
-  <ServicesInfo
+  <Services
+    variant="list"
     title="Références sectorielles"
     subtitle="Une expertise reconnue dans les secteurs clés de l'économie luxembourgeoise"
     sections={[
@@ -245,17 +248,11 @@ const faqItems = [
       }
     ]}
   />
-  <CTA
-    title="Prêt à optimiser votre situation fiscale ?"
-    subtitle="Contactez Taxpertize pour une première consultation et découvrez comment notre expertise peut créer de la valeur pour votre organisation."
-    buttonText="Demander une consultation"
-    buttonHref="/fr/contact?service=taxpertize"
-  />
   <FAQ
     title="Questions fréquentes sur la fiscalité luxembourgeoise"
     subtitle="Réponses d'experts aux questions fiscales complexes"
     faqItems={faqItems}
-    showCTA={false}
+    
     generateSchema={true}
   />
 </LayoutI18n>

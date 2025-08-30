@@ -4,8 +4,7 @@ import LegalFormInfo from '../../components/LegalFormInfo.astro';
 import ProcessTimeline from '../../components/ProcessTimeline.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
 import BlogCarousel from '../../components/BlogCarousel.astro';
-import CTA from '../../components/CTA.astro';
-import ServicesHighlight from '../../components/ServicesHighlight.astro';
+import Services from '../../components/Services.astro';
 import FAQ from '../../components/FAQ.astro';
 // --- DATA & SEO ---
 const societyTypes = [
@@ -139,12 +138,6 @@ const constitutionSchema = {
     steps={processSteps}
     variant="vertical"
   />
-  <CTA
-    title="Ready to create your company in Luxembourg?"
-    subtitle="Benefit from expert support to choose the right legal structure and launch your business with peace of mind. We handle all the formalities for you."
-    buttonText="Request a free quote"
-    buttonHref="/en/contact"
-  />
   <LegalFormInfo
     title="Which legal form to choose?"
     subtitle="Each structure has its specificities. Here's a comparison to help you decide."
@@ -159,7 +152,8 @@ const constitutionSchema = {
     lang="en"
     backgroundColor="#f1f5f9"
   />
-  <ServicesHighlight
+  <Services
+    variant="grid"
     title="Corporate secretarial – complete support"
     subtitle="We ensure the legal and administrative management of your company throughout its life."
     services={legalServices}

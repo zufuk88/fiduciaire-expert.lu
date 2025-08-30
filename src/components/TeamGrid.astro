@@ -1,5 +1,7 @@
 ---
 import { Image } from 'astro:assets';
+import SectionTitle from './SectionTitle.astro';
+
 export interface Props {
   title: string;
   subtitle?: string;
@@ -16,11 +18,12 @@ export interface Props {
 const { title, subtitle, members, backgroundColor } = Astro.props;
 ---
 <section class="team-section" aria-labelledby="team-title" style={backgroundColor ? `background-color: ${backgroundColor};` : ''}>
+  <SectionTitle 
+    title={title}
+    subtitle={subtitle}
+    id="team-title"
+  />
   <div class="container">
-    <div class="section-header">
-      <h2 id="team-title">{title}</h2>
-      {subtitle && <p class="section-subtitle">{subtitle}</p>}
-    </div>
     <div class="team-grid">
       {members.map(member => (
         <div class="team-card">
@@ -54,118 +57,116 @@ const { title, subtitle, members, backgroundColor } = Astro.props;
 </section>
 <style>
   .team-section {
-    padding: 5rem 0;
+    padding: 0 0 6rem 0;
+    background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+    position: relative;
+    overflow: hidden;
   }
+  
+  /* Decoration subtile */
+  .team-section::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: -10%;
+    width: 50%;
+    height: 150%;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.02) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  
   .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
   }
-  .section-header {
-    text-align: left;
-    margin-bottom: 3.5rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 2rem;
-  }
-  .section-header h2 {
-    font-size: 2.5rem;
-    font-weight: 300;
-    color: #2c4157;
-    margin-bottom: 1rem;
-    letter-spacing: -0.01em;
-    line-height: 1.2;
-    position: relative;
-    padding-bottom: 1.5rem;
-  }
-  .section-header h2::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 2px;
-    background: #3b82f6;
-    margin: 1.5rem 0 0;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    transform: none;
-  }
-  .section-subtitle {
-    font-size: 1.25rem;
-    color: #64748b;
-    line-height: 1.65;
-    max-width: 600px;
-    margin: 1rem 0 0 2.5rem;
-    font-weight: 400;
-    position: relative;
-  }
   .team-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
   }
   .team-card {
-    background: #ffffff;
+    background: white;
     border: 1px solid #e2e8f0;
-    border-radius: 4px;
+    border-radius: 12px;
     padding: 2.5rem 2rem;
     text-align: center;
     position: relative;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+    transition: opacity 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .team-card:hover {
+    box-shadow: 0 8px 15px -8px rgba(0, 0, 0, 0.12);
     border-color: #cbd5e1;
+    opacity: 0.98;
   }
   .member-image {
     margin-bottom: 1.75rem;
     position: relative;
+    width: 120px;
+    height: 120px;
   }
   .member-image img {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     object-fit: cover;
     margin: 0 auto;
-    border: 3px solid #f1f5f9;
+    border: 4px solid white;
+    box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.1);
   }
   .member-info h3 {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #2c4157;
-    margin: 0 0 0.375rem 0;
+    color: #0f172a;
+    margin: 0 0 0.5rem 0;
     letter-spacing: -0.01em;
+    line-height: 1.3;
   }
   .member-role {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(96, 165, 250, 0.04));
     color: #3b82f6;
-    font-size: 0.875rem;
-    font-weight: 600;
+    font-size: 0.75rem;
+    font-weight: 500;
     margin-bottom: 1.25rem;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.05em;
+    border-radius: 9999px;
+    border: 1px solid rgba(59, 130, 246, 0.15);
   }
   .member-bio {
-    color: #64748b;
-    line-height: 1.6;
-    font-size: 0.875rem;
+    color: #475569;
+    line-height: 1.65;
+    font-size: 0.9375rem;
     margin-bottom: 1.5rem;
     font-weight: 400;
+    flex: 1;
   }
   .linkedin-link {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    color: #2c4157;
-    text-decoration: none;
-    font-size: 0.875rem;
-    font-weight: 500;
     padding: 0.5rem 1rem;
-    border: 1px solid #e2e8f0;
-    border-radius: 4px;
+    background: #3b82f6;
+    color: white;
+    text-decoration: none;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    border-radius: 9999px;
+    transition: opacity 0.2s ease, box-shadow 0.2s ease;
+    margin-top: auto;
   }
   .linkedin-link:hover {
-    background: #f8fafc;
-    border-color: #3b82f6;
-    color: #3b82f6;
+    background: #2563eb;
+    box-shadow: 0 4px 12px -4px rgba(59, 130, 246, 0.3);
+    opacity: 0.95;
   }
   .linkedin-link svg {
     width: 16px;
@@ -186,22 +187,29 @@ const { title, subtitle, members, backgroundColor } = Astro.props;
   }
   @media (max-width: 768px) {
     .team-section {
-      padding: 3.5rem 0;
+      padding: 0 0 4rem 0;
     }
-    .section-header {
-      margin-bottom: 2.5rem;
-      padding-left: 1rem;
-    }
-    .section-header h2 {
-      font-size: 2rem;
-    }
-    .section-subtitle {
-      font-size: 1.125rem;
-      margin-left: 1.5rem;
+    .container {
+      padding: 0 1rem;
     }
     .team-grid {
       grid-template-columns: 1fr;
+      padding: 0 1rem;
     }
+    .member-image,
+    .member-image img {
+      width: 100px;
+      height: 100px;
+    }
+    .team-card {
+      padding: 2rem 1.5rem;
+    }
+  }
+  @media (max-width: 480px) {
+    .team-grid {
+      grid-template-columns: 1fr;
+    }
+    .member-image,
     .member-image img {
       width: 80px;
       height: 80px;

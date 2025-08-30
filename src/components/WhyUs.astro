@@ -1,4 +1,6 @@
 ---
+import SectionTitle from './SectionTitle.astro';
+
 export interface Props {
   title: string;
   subtitle: string;
@@ -17,28 +19,40 @@ const {
   metrics,
   advantages
 } = Astro.props;
+
+// Combiner metrics et advantages en une seule grille
+const allItems = [
+  ...metrics.map(m => ({ type: 'metric', ...m })),
+  ...advantages.map(a => ({ type: 'advantage', ...a }))
+];
 ---
 <section id="why-us" class="why-us-section" aria-labelledby="why-us-title">
+  <SectionTitle 
+    title={title}
+    subtitle={subtitle}
+    id="why-us-title"
+  />
   <div class="container">
-    <div class="section-header">
-      <h2 id="why-us-title">{title}</h2>
-      <p class="subtitle">{subtitle}</p>
-    </div>
-    <div class="trust-metrics">
+    <div class="features-grid">
       {metrics.map((metric) => (
-        <div class="metric-badge">
-          <span class="metric-number">{metric.value}</span>
-          <span class="metric-label">{metric.label}</span>
+        <div class="feature-card metric-card">
+          <div class="metric-content">
+            <span class="metric-value">{metric.value}</span>
+            <span class="metric-label">{metric.label}</span>
+          </div>
         </div>
       ))}
-    </div>
-    <!-- Advantages list -->
-    <div class="advantages-timeline">
       {advantages.map((advantage) => (
-        <div class="timeline-item">
-          <div class="timeline-content">
-            <h3>{advantage.title}</h3>
-            <p>{advantage.description}</p>
+        <div class="feature-card advantage-card">
+          <div class="card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 11l3 3L22 4"></path>
+              <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
+            </svg>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">{advantage.title}</h4>
+            <p class="card-description">{advantage.description}</p>
           </div>
         </div>
       ))}
@@ -47,189 +61,228 @@ const {
 </section>
 <style>
   .why-us-section {
-    padding: 6rem 0;
-    background: linear-gradient(to bottom, #ffffff, #f8fafc);
+    padding: 0 0 6rem 0;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
     position: relative;
-    overflow: hidden;
   }
+  
   .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
-    position: relative;
-    z-index: 2;
   }
-  /* Section Header */
-  .section-header {
-    text-align: left;
-    margin-bottom: 4rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 2rem;
-  }
-  h2 {
-    font-size: 2.5rem;
-    font-weight: 300;
-    color: #0f172a;
-    margin: 0 0 1rem 0;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    text-align: left;
-    max-width: 900px;
-    position: relative;
-    padding-bottom: 1.5rem;
-  }
-  h2::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 2px;
-    background: #3b82f6;
-    margin: 1.5rem 0 0;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    transform: none;
-  }
-  h2 strong {
-    font-weight: 600;
-    background: linear-gradient(135deg, #0f172a 0%, #3b82f6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .subtitle {
-    font-size: 1.25rem;
-    color: #64748b;
-    line-height: 1.75;
-    max-width: 600px;
-    margin: 1rem 0 0 2.5rem;
-    font-weight: 400;
-    position: relative;
-  }
-  /* Trust Metrics - Elegant card design */
-  .trust-metrics {
+  
+  /* Grille moderne mixte */
+  .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 2rem;
-    margin: 4rem auto;
-    max-width: 900px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: stretch;
   }
-  /* Metric badges - Premium design */
-  .metric-badge {
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 4px;
-    padding: 1.75rem 1.5rem;
-    text-align: center;
+  
+  /* Card de base */
+  .feature-card {
+    background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
+    border: 1px solid transparent;
+    border-radius: 16px;
+    padding: 2rem;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.08);
   }
-  .metric-badge:hover {
-    border-color: #cbd5e1;
+  
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    opacity: 0;
   }
-  .metric-number {
-    display: block;
-    font-size: 2.25rem;
-    font-weight: 200;
-    color: #0f172a;
+  
+  .feature-card:hover {
+    box-shadow: 0 8px 30px -8px rgba(0, 0, 0, 0.12);
+    border-color: #e2e8f0;
+    background: #ffffff;
+  }
+  
+  .feature-card:hover::before {
+    opacity: 1;
+  }
+  
+  /* Metric Cards - Design moderne */
+  .metric-card {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 180px;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border: none;
+  }
+  
+  .metric-card:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.4);
+  }
+  
+  .metric-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .metric-value {
+    font-size: 3rem;
+    font-weight: 700;
     line-height: 1;
-    margin-bottom: 0.5rem;
+    letter-spacing: -0.03em;
+    display: block;
+  }
+  
+  .metric-label {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    opacity: 0.95;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  /* Advantage Cards */
+  .advantage-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(96, 165, 250, 0.05));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3b82f6;
+    flex-shrink: 0;
+  }
+  
+  .advantage-card:hover .card-icon {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(96, 165, 250, 0.08));
+  }
+  
+  .card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .card-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+    line-height: 1.3;
     letter-spacing: -0.02em;
   }
-  .metric-label {
-    display: block;
-    font-size: 0.875rem;
-    color: #64748b;
-    font-weight: 500;
-    letter-spacing: 0.025em;
-    text-transform: uppercase;
-  }
-  /* Advantages - Clean list */
-  .advantages-timeline {
-    max-width: 800px;
-    margin: 4rem auto 0;
-    display: grid;
-    gap: 1rem;
-  }
-  .timeline-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
-    position: relative;
-  }
-  .timeline-content {
-    flex: 1;
-    background: #ffffff;
-    border-left: 3px solid #e2e8f0;
-    padding: 1.25rem 1.5rem;
-    position: relative;
-  }
-  .timeline-item:hover .timeline-content {
-    border-left-color: #3b82f6;
-  }
-  .timeline-content h3 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #0f172a;
-    margin: 0 0 0.5rem 0;
-    letter-spacing: -0.01em;
-    line-height: 1.3;
-  }
-  .timeline-content p {
+  
+  .card-description {
     font-size: 0.9375rem;
     color: #64748b;
-    line-height: 1.65;
+    line-height: 1.6;
     margin: 0;
-    font-weight: 400;
   }
-  /* Responsive */
-  @media (max-width: 768px) {
+  
+  /* Grille responsive intelligente */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 700px;
+    }
+    
+    .metric-card,
+    .advantage-card {
+      grid-column: span 1;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .features-grid {
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1000px;
+    }
+    
+    .metric-card {
+      grid-column: span 1;
+    }
+    
+    .advantage-card {
+      grid-column: span 1;
+    }
+  }
+  
+  /* Mobile */
+  @media (max-width: 767px) {
     .why-us-section {
-      padding: 4rem 0;
+      padding: 0 0 4rem 0;
     }
-    .section-header {
-      margin-bottom: 3rem;
-    }
-    .trust-metrics {
+    
+    .features-grid {
       grid-template-columns: 1fr;
-      gap: 1rem;
-      margin: 3rem auto;
+      gap: 1.25rem;
+      max-width: 400px;
     }
-    .metric-badge {
-      padding: 1.5rem;
+    
+    .feature-card {
+      padding: 1.75rem;
     }
-    .metric-number {
-      font-size: 2rem;
+    
+    .metric-card {
+      min-height: 150px;
     }
+    
+    .metric-value {
+      font-size: 2.5rem;
+    }
+    
     .metric-label {
       font-size: 0.875rem;
     }
-    .advantages-timeline {
-      gap: 0.75rem;
-      margin: 3rem auto;
+    
+    .card-icon {
+      width: 40px;
+      height: 40px;
     }
-    .timeline-content {
-      padding: 1rem 1.25rem;
-      border-left-width: 2px;
+    
+    .card-title {
+      font-size: 1.0625rem;
     }
-    .timeline-content h3 {
-      font-size: 1rem;
+    
+    .card-description {
+      font-size: 0.875rem;
     }
-    .timeline-content p {
-      font-size: 0.9375rem;
-      line-height: 1.6;
+  }
+  
+  @media (max-width: 480px) {
+    .container {
+      padding: 0 1rem;
     }
-    .section-header {
-      padding-left: 1rem;
+    
+    .feature-card {
+      padding: 1.5rem;
+      border-radius: 12px;
     }
-    h2 {
+    
+    .metric-value {
       font-size: 2rem;
-    }
-    .subtitle {
-      font-size: 1.125rem;
-      margin-left: 1.5rem;
     }
   }
 </style>

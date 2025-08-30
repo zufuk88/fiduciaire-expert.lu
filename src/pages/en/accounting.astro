@@ -1,10 +1,8 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
-import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
-import ServicePresentation from '../../components/ServicePresentation.astro';
-import ServicesInfo from '../../components/ServicesInfo.astro';
+import Services from '../../components/Services.astro';
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -66,21 +64,33 @@ const faqItems = [
     subtitle="Entrust your accounting to certified experts who master Luxembourg regulations (PCN 2020, eCDF, RCS). We ensure complete compliance while optimizing your tax situation and financial performance."
   />
   <!-- Legal Accounting Obligations Section -->
-  <ServicePresentation
+  <Services
+    variant="presentation"
     title="Legal accounting obligations for Luxembourg companies"
     subtitle="Every company incorporated in Luxembourg must maintain proper accounting records according to the law of 19 December 2002. Understanding these requirements helps avoid penalties and ensure smooth operations."
-    contentType="paragraph"
-    content={[
-      "Luxembourg's regulatory environment requires accounting expertise that goes beyond basic bookkeeping. With over 20 years serving the Grand Duchy's business community, our chartered accountants combine deep technical knowledge with practical experience across diverse industries.",
-      "The accounting landscape has evolved with the PCN 2020 standard chart of accounts and mandatory eCDF electronic filing. These sit alongside the law of 18 December 2015 on annual and consolidated accounts and the framework around the RCS from the law of 19 December 2002, creating a comprehensive set of obligations for entities operating in Luxembourg. Depending on size, structure, and activities, each company must apply specific rules and thresholds.",
-      "Our approach integrates compliance with strategic financial advisory so your accounting function supports growth while meeting Luxembourg GAAP. Whether you're establishing a new entity through our company formation services (including SARL, SARL-S, or SAS structures), running ongoing operations, or planning expansion, professional accounting services provide a solid foundation for sustainable success in Luxembourg.",
-      "<strong>Fundamental accounting requirements</strong>",
-      "All Luxembourg companies, regardless of size, must keep double-entry books with chronological, complete, and timely entries and retain supporting documents for every transaction. This includes establishing annual accounts comprising at minimum a balance sheet and profit & loss statement, and ensuring all accounting records are kept for a period of ten years.",
-      "These requirements form the foundation of Luxembourg's accounting regulatory framework and apply universally to all registered entities."
+    services={[
+      {
+        title: "Complex regulatory framework",
+        content: [
+          "Luxembourg's regulatory environment requires accounting expertise that goes beyond basic bookkeeping. With over 20 years serving the Grand Duchy's business community, our chartered accountants combine deep technical knowledge with practical experience across diverse industries.",
+          "The accounting landscape has evolved with the PCN 2020 standard chart of accounts and mandatory eCDF electronic filing. These sit alongside the law of 18 December 2015 on annual and consolidated accounts and the framework around the RCS from the law of 19 December 2002, creating a comprehensive set of obligations for entities operating in Luxembourg. Depending on size, structure, and activities, each company must apply specific rules and thresholds.",
+          "Our approach integrates compliance with strategic financial advisory so your accounting function supports growth while meeting Luxembourg GAAP. Whether you're establishing a new entity through our company formation services (including SARL, SARL-S, or SAS structures), running ongoing operations, or planning expansion, professional accounting services provide a solid foundation for sustainable success in Luxembourg."
+        ],
+        bulletStyle: "none"
+      },
+      {
+        title: "Fundamental accounting requirements",
+        content: [
+          "All Luxembourg companies, regardless of size, must keep double-entry books with chronological, complete, and timely entries and retain supporting documents for every transaction. This includes establishing annual accounts comprising at minimum a balance sheet and profit & loss statement, and ensuring all accounting records are kept for a period of ten years.",
+          "These requirements form the foundation of Luxembourg's accounting regulatory framework and apply universally to all registered entities."
+        ],
+        bulletStyle: "none"
+      }
     ]}
   />
   <!-- PCN Requirements Section -->
-  <ServicesInfo
+  <Services
+    variant="categories"
     title="Plan Comptable Normalisé (PCN): Understanding your obligations"
     backgroundColor="#f1f5f9"
     sections={[
@@ -114,7 +124,8 @@ const faqItems = [
     }}
   />
   <!-- Company Size Categories Section -->
-  <ServicesInfo
+  <Services
+    variant="categories"
     title="Company size categories and their impact on obligations"
     subtitle="Luxembourg law classifies companies into categories based on size criteria, each with specific accounting and audit requirements."
     categories={[
@@ -336,13 +347,6 @@ const faqItems = [
       </div>
     </div>
   </section>
-  <CTA
-    title="Start with a comprehensive accounting assessment"
-    subtitle="Every business has unique accounting needs. Start with a thorough assessment of your current situation: identify your compliance gaps, and find a tailored solution for your business."
-    buttonText="Contact us"
-    buttonHref="/en/contact?service=accounting"
-    ]}
-  />
   <!-- Industry Expertise Section -->
   <section class="section-grey">
     <div class="container">
@@ -393,7 +397,7 @@ const faqItems = [
     title="Frequently asked questions about accounting in Luxembourg"
     subtitle="Essential information for managing your company's accounting obligations"
     faqItems={faqItems}
-    showCTA={false}
+    
     generateSchema={true}
     backgroundColor="#f1f5f9"
   />

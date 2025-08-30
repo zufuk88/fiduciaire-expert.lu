@@ -1,9 +1,8 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
-import ServicesInfo from '../../components/ServicesInfo.astro';
+import Services from '../../components/Services.astro';
 import ProcessTimeline from '../../components/ProcessTimeline.astro';
-import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
 const pageTitle = "Tax Advisory in Luxembourg — Taxpertize by Fiduciaire Expert";
 const pageDescription = "Luxembourg-based tax expertise firm. High-intensity analytical intervention for companies, funds, international groups, executives and private investors.";
@@ -58,7 +57,8 @@ const faqItems = [
     subtitle="Luxembourg-based tax expertise firm. High-intensity analytical intervention for companies, funds, international groups, executives and private investors. Comprehensive coverage: structuring, diagnostics, modeling, rulings, audits and litigation."
   />
   <!-- Expertise Areas Section -->
-  <ServicesInfo
+  <Services
+    variant="list"
     title="Areas of Expertise"
     subtitle="Five pillars of intervention for comprehensive tax coverage in Luxembourg"
     sections={[
@@ -86,7 +86,8 @@ const faqItems = [
     ]}
     backgroundColor="#f8fafc"
   />
-  <ServicesInfo
+  <Services
+    variant="list"
     sections={[
       {
         title: "3. Financial Sector and Funds",
@@ -171,7 +172,8 @@ const faqItems = [
     variant="vertical"
   />
   <!-- Fee Structure Section -->
-  <ServicesInfo
+  <Services
+    variant="list"
     title="Transparent Fee Structure"
     subtitle="Pricing adapted to the complexity and stakes of each mission"
     sections={[
@@ -203,7 +205,8 @@ const faqItems = [
     backgroundColor="#f8fafc"
   />
   <!-- Sector References Section -->
-  <ServicesInfo
+  <Services
+    variant="list"
     title="Sector References"
     subtitle="Recognized expertise in key sectors of the Luxembourg economy"
     sections={[
@@ -245,17 +248,11 @@ const faqItems = [
       }
     ]}
   />
-  <CTA
-    title="Ready to optimize your tax situation?"
-    subtitle="Contact Taxpertize for an initial consultation and discover how our expertise can create value for your organization."
-    buttonText="Request a consultation"
-    buttonHref="/en/contact?service=taxpertize"
-  />
   <FAQ
     title="Frequently Asked Questions about Luxembourg Taxation"
     subtitle="Expert answers to complex tax questions"
     faqItems={faqItems}
-    showCTA={false}
+    
     generateSchema={true}
   />
 </LayoutI18n>

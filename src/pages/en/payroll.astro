@@ -1,7 +1,6 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
-import CTA from '../../components/CTA.astro';
 import FAQ from '../../components/FAQ.astro';
 import ProcessTimeline from '../../components/ProcessTimeline.astro';
 const metaDescription = "Payroll outsourcing in Luxembourg. Complete and compliant service: payslips, CCSS/CNS declarations, HR management. Experts in Luxembourg labor law.";
@@ -239,15 +238,8 @@ const faqItems = [
     title="Frequently asked questions about payroll management"
     subtitle="Everything you need to know about outsourcing your payroll in Luxembourg"
     faqItems={faqItems}
-    showCTA={false}
+    
     generateSchema={true}
-  />
-  <CTA
-    title="Ready to simplify your payroll management?"
-    subtitle="Contact us for a free audit of your social situation and discover how we can optimize your HR management."
-    buttonText="Request a free quote"
-    buttonHref="/en/contact?service=payroll"
-    ]}
   />
 </LayoutI18n>
 <style>

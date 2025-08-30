@@ -4,8 +4,7 @@ import LegalFormInfo from '../../components/LegalFormInfo.astro';
 import ProcessTimeline from '../../components/ProcessTimeline.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
 import BlogCarousel from '../../components/BlogCarousel.astro';
-import CTA from '../../components/CTA.astro';
-import ServicesHighlight from '../../components/ServicesHighlight.astro';
+import Services from '../../components/Services.astro';
 import FAQ from '../../components/FAQ.astro';
 // --- DONNÉES & SEO (INCHANGÉS) ---
 const societyTypes = [
@@ -139,12 +138,6 @@ const constitutionSchema = {
     steps={processSteps}
     variant="vertical"
   />
-  <CTA
-    title="Prêt à créer votre société au Luxembourg ?"
-    subtitle="Bénéficiez d'un accompagnement expert pour choisir la structure juridique adaptée et lancer votre activité en toute sérénité. Nous gérons toutes les formalités pour vous."
-    buttonText="Demander un devis gratuit"
-    buttonHref="/fr/contact"
-  />
   <LegalFormInfo
     title="Quelle forme juridique choisir ?"
     subtitle="Chaque structure a ses spécificités. Voici un comparatif pour vous aider à décider."
@@ -159,7 +152,8 @@ const constitutionSchema = {
     lang="fr"
     backgroundColor="#f1f5f9"
   />
-  <ServicesHighlight
+  <Services
+    variant="grid"
     title="Secrétariat juridique – accompagnement complet"
     subtitle="Nous assurons la gestion juridique et administrative de votre société tout au long de sa vie."
     services={legalServices}
