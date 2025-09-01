@@ -88,8 +88,8 @@ const {
   }
 
   .value {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 42px;
+    font-family: var(--font-family-display);
+    font-size: clamp(32px, 5vw, 42px);
     font-weight: 500;
     color: #1e3a5f;
     display: block;
@@ -98,7 +98,7 @@ const {
   }
 
   .label {
-    font-size: 13px;
+    font-size: var(--font-h6);
     color: #525252;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -106,7 +106,7 @@ const {
   }
 
   h4 {
-    font-size: 18px;
+    font-size: var(--font-h3);
     font-weight: 600;
     color: #1e3a5f;
     margin: 0 0 16px 0;
@@ -114,7 +114,7 @@ const {
   }
 
   p {
-    font-size: 15px;
+    font-size: var(--font-body);
     line-height: 1.7;
     color: #525252;
     margin: 0;
@@ -136,7 +136,7 @@ const {
     }
 
     .value {
-      font-size: 36px;
+      /* Les variables CSS clamp() gèrent déjà le responsive */
     }
   }
 
@@ -150,11 +150,9 @@ const {
     }
 
     .value {
-      font-size: 32px;
+      /* Les variables CSS clamp() gèrent déjà le responsive */
     }
 
-    h4 {
-      font-size: 16px;
-    }
+    /* Les variables CSS clamp() gèrent déjà le responsive pour h4 */
   }
 </style>

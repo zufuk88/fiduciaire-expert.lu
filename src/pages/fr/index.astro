@@ -14,7 +14,7 @@ const pageKeywords = "expert-comptable Luxembourg, cabinet comptable Luxembourg,
 const faqItems = [
   {
     question: "Quel est le tarif d'un expert-comptable au Luxembourg en 2025 ?",
-    answer: "Les honoraires ne sont pas réglementés. Ils varient selon le cabinet et le périmètre de chaque mission. Chez Fiduciaire Expert, l'accompagnement comptable et fiscal pour une PME au Luxembourg démarre à 150 € HTVA / mois. Le prix dépend du volume de pièces, de la complexité de la structure et des services inclus (paie, fiscalité, TVA, reporting). Obtenez un devis gratuit et personnalisé avant toute mission."
+    answer: "Les honoraires ne sont pas réglementés. Ils varient selon le cabinet et le périmètre de chaque mission. Chez Fiduciaire Expert, l'accompagnement comptable et fiscal pour une PME au Luxembourg démarre à 150 € HTVA / mois. Le prix dépend du volume de pièces, de la complexité de la structure et des services inclus (paie, fiscalité, TVA, reporting). Contactez-nous pour un devis personnalisé."
   },
   {
     question: "Combien de temps pour créer une SARL au Luxembourg ?",
@@ -22,15 +22,15 @@ const faqItems = [
   },
   {
     question: "Pourquoi choisir un expert-comptable au Luxembourg ?",
-    answer: "Un expert-comptable au Luxembourg sécurise la comptabilité, la TVA, la fiscalité et les obligations CCSS. Il assure la conformité légale, optimise la charge fiscale et améliore le pilotage financier de votre entreprise. C'est un levier de croissance et de pérennité."
+    answer: "Un expert-comptable au Luxembourg sécurise la comptabilité, la TVA, la fiscalité et les obligations CCSS. Il assure la conformité légale, optimise la charge fiscale et améliore le pilotage financier de votre entreprise."
   },
   {
     question: "Différence entre comptable et expert-comptable au Luxembourg",
-    answer: "Le comptable réalise la tenue et les déclarations courantes. L'expert-comptable, agréé par l'Ordre des Experts-Comptables (OEC), intervient plus largement : conseil stratégique, revue et certification, accompagnement juridique et fiscal. Choisir un expert-comptable agréé OEC garantit méthode, contrôle et sécurité."
+    answer: "Le comptable réalise la tenue et les déclarations courantes. L'expert-comptable, agréé par l'Ordre des Experts-Comptables (OEC), intervient plus largement : conseil stratégique, revue et certification, accompagnement juridique et fiscal."
   },
   {
     question: "Quelles obligations comptables et fiscales pour une entreprise au Luxembourg ?",
-    answer: "Toute société doit tenir une comptabilité conforme à la loi luxembourgeoise, déposer ses comptes annuels au RCS, et respecter les échéances TVA, impôt sur le revenu des collectivités (IRC) et impôt commercial communal (ICC) ou impôt sur la fortune (IF). Des pénalités s'appliquent en cas de retard. Un expert-comptable fiabilise vos process et vos dépôts."
+    answer: "Toute société doit tenir une comptabilité conforme à la loi luxembourgeoise, déposer ses comptes annuels au RCS, et respecter les échéances TVA, impôt sur le revenu des collectivités (IRC) et impôt commercial communal (ICC) ou impôt sur la fortune (IF). Des pénalités s'appliquent en cas de retard."
   }
 ];
 // Données Structurées JSON-LD - Réarchitecturées pour une sémantique parfaite
@@ -100,10 +100,11 @@ const schema = {
   title={pageTitle}
   description={pageDescription}
   keywords={pageKeywords}
+  schema={schema}
 >
   <Hero 
     title="Fiduciaire et expert-comptable<br />au Luxembourg"
-    subtitle="<strong>Fiduciaire et cabinet d'expertise comptable agréé</strong> pour les sociétés financières et PME luxembourgeoises. Services fiduciaires complets : comptabilité, publication des comptes annuels, gestion de la paie, préparation des déclarations fiscales et TVA."
+    subtitle="<strong>Fiduciaire et cabinet d'expertise comptable agréé</strong> pour les sociétés financières et PME luxembourgeoises. Services fiduciaires complets : comptabilité, publication des comptes annuels, gestion de la paie, des déclarations fiscales et TVA."
     ctaPrimary={{
       text: "Contactez-nous",
       href: "/fr/contact#devis-express"
@@ -112,7 +113,7 @@ const schema = {
   <Services
     variant="grid"
     title="Solutions fiduciaires complètes : de la création à la gestion quotidienne"
-    subtitle="En tant que fiduciaire et cabinet d'expertise comptable, nous offrons une gamme de services fiduciaires conçus pour répondre à tous les besoins comptables et fiscaux des entreprises au Luxembourg."
+    subtitle="En tant que fiduciaire et cabinet d'expertise comptable, nous offrons une gamme de services fiduciaires conçus pour répondre à tous les besoins comptables et fiscaux"
     services={[
       {
         title: "Préparation des comptes annuels",
@@ -121,25 +122,25 @@ const schema = {
       },
       {
         title: "Constitution de société",
-        description: "Nous prenons en charge la constitution de votre SARL, SA, SAS, SARL-S ou SCI dans les 48h. Un service clé en main, de la rédaction des statuts à l'immatriculation RCS.",
+        description: "Nous prenons en charge la constitution de votre SARL, SA, SAS, SARL-S ou SCI dans les meilleurs délais avec un service clé en main. De la rédaction des statuts jusqu'à l'immatriculation au RCS.",
         href: "/fr/creation-societe-luxembourg"
       },
       {
         title: "Gestion de la paie pour PME",
-        description: "Gestion de vos obligations sociales : fiches de salaire, déclarations CCSS, et rédaction de contrats de travail conformes au droit social luxembourgeois.",
+        description: "Gestion de vos obligations sociales : fiches de salaire, déclarations CCSS, rédaction ou revue de contrats de travail conformément au droit social luxembourgeois.",
         href: "/fr/paie"
       }
     ]}
   />
   <BlogCarousel 
     title="Blog expert-comptable : conseils fiscaux et comptables"
-    subtitle="Nos articles d'expert-comptable pour optimiser votre gestion d'entreprise au Luxembourg"
+    subtitle="Nos articles d'expertise pour optimiser votre gestion d'entreprise au Luxembourg"
     lang="fr"
     maxPosts={4}
   />
   <WhyUs
     title="Expert-comptable au Luxembourg"
-    subtitle="Cabinet d'expertise comptable spécialisé en fiscalité IRC/ICC/IF et TVA, gestion sociale CCSS pour PME et sociétés luxembourgeoises"
+    subtitle="Cabinet d'expertise comptable spécialisé en fiscalité (IRC/ICC/IF et TVA), gestion sociale CCSS pour PME et sociétés luxembourgeoises"
     metrics={[
       {
         value: "20+",
@@ -169,10 +170,9 @@ const schema = {
       }
     ]}
   />
-  <script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />
   <FAQ 
     title="Questions fréquentes sur l'expert-comptable au Luxembourg"
-    subtitle="Tout ce que vous devez savoir sur les services comptables et fiscaux pour votre entreprise luxembourgeoise."
+    subtitle="Tout ce que vous devez savoir sur les services comptables et fiscaux pour votre entreprise luxembourgeoise"
     faqItems={faqItems}
     
   />

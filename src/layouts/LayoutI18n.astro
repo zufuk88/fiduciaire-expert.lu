@@ -103,15 +103,30 @@ const finalSchema = schema ? schema : websiteSchema;
       --color-border-light: #f1f5f9;
       --color-dark: #0f172a;
       --color-accent: #f8fafc;
-      /* Typographie premium et élégante */
+      /* Typographie premium et élégante - Système harmonisé 4 tailles */
       --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-      --font-size-base: 0.9375rem;
-      --font-size-sm: 0.875rem;
-      --font-size-lg: 1.125rem;
-      --font-size-xl: 1.25rem;
-      --font-size-h1: clamp(2.5rem, 5vw, 3.75rem);
-      --font-size-h2: clamp(2rem, 4vw, 2.75rem);
-      --font-size-h3: clamp(1.25rem, 3vw, 1.5rem);
+      --font-family-display: 'Playfair Display', Georgia, serif;  /* Pour H1 et H2 */
+      --font-family-body: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;  /* Pour tout le reste */
+      
+      /* Système typographique optimisé avec 4 tailles principales */
+      --font-hero: clamp(24px, 5vw, 48px);      /* Hero/H1: 24px → 48px */
+      --font-h2: clamp(24px, 4vw, 32px);        /* H2: 24px → 32px */
+      --font-h3: clamp(17px, 2.5vw, 20px);      /* H3/Sous-titres: 17px → 20px */
+      --font-body: clamp(15px, 1.8vw, 16px);    /* Corps/Paragraphes: 15px → 16px */
+      
+      /* Tailles supplémentaires pour h4, h5, h6 */
+      --font-h4: clamp(16px, 2vw, 18px);        /* H4: 16px → 18px */
+      --font-h5: clamp(14px, 1.5vw, 16px);      /* H5: 14px → 16px */
+      --font-h6: clamp(13px, 1.2vw, 14px);      /* H6/Small: 13px → 14px */
+      
+      /* Aliases pour compatibilité */
+      --font-size-base: var(--font-body);
+      --font-size-sm: var(--font-h6);
+      --font-size-lg: var(--font-h4);
+      --font-size-xl: var(--font-h3);
+      --font-size-h1: var(--font-hero);
+      --font-size-h2: var(--font-h2);
+      --font-size-h3: var(--font-h3);
       /* Espacements harmonieux */
       --spacing-xs: 0.5rem;
       --spacing-sm: 1rem;
@@ -167,30 +182,61 @@ const finalSchema = schema ? schema : websiteSchema;
       font-feature-settings: "kern" 1;
     }
     h1 { 
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: var(--font-size-h1);
+      font-family: var(--font-family-display);
+      font-size: var(--font-hero);
       font-weight: 500;
       margin-bottom: 1.75rem;
       letter-spacing: -0.01em;
       color: #1e3a5f;
+      line-height: 1.2;
     }
     h2 { 
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: var(--font-size-h2);
+      font-family: var(--font-family-display);
+      font-size: var(--font-h2);
       margin-bottom: 1.5rem;
       font-weight: 500;
       letter-spacing: -0.01em;
       color: #1e3a5f;
+      line-height: 1.3;
     }
     h3 { 
-      font-size: var(--font-size-h3);
+      font-family: var(--font-family-body);
+      font-size: var(--font-h3);
       margin-bottom: 1rem;
       font-weight: 600;
       color: #2d4a6b;
+      line-height: 1.4;
+    }
+    h4 {
+      font-family: var(--font-family-body);
+      font-size: var(--font-h4);
+      margin-bottom: 0.875rem;
+      font-weight: 600;
+      color: #374151;
+      line-height: 1.5;
+    }
+    h5 {
+      font-family: var(--font-family-body);
+      font-size: var(--font-h5);
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+      color: #4b5563;
+      line-height: 1.5;
+    }
+    h6 {
+      font-family: var(--font-family-body);
+      font-size: var(--font-h6);
+      margin-bottom: 0.625rem;
+      font-weight: 600;
+      color: #6b7280;
+      line-height: 1.5;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     p { 
+      font-size: var(--font-body);
       margin-bottom: 1.5rem;
-      line-height: 1.75;
+      line-height: 1.7;
       color: var(--color-text-secondary);
       font-weight: 400;
     }
