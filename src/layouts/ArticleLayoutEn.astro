@@ -6,6 +6,7 @@ import Button from '../components/ui/Button.astro';
 import ArticleHero from '../components/hero/ArticleHero.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import StickyPageTop from '../components/StickyPageTop.astro';
+import BlogCarousel from '../components/BlogCarousel.astro';
 import { calculateReadingTime } from '../utils/reading-time';
 import '../styles/blog-articles.css';
 const { frontmatter } = Astro.props;
@@ -230,12 +231,9 @@ const combinedSchema = {
           </div>
             {/* Simplified CTA */}
             <div class="article-cta-simple">
-              <Button href="/en/contact" variant="primary" class="cta-button-simple">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-icon">
-                  <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                </svg>
-                Need help? Contact our experts
-              </Button>
+              <a href="/en/contact" class="cta-button-simple">
+                Contact
+              </a>
             </div>
           </div>
         </div>
@@ -248,47 +246,16 @@ const combinedSchema = {
         </aside>
       </div>
     </div>
-    {relatedPosts.length > 0 && (
-      <section class="related-articles">
-        <div class="container">
-          <div class="section-header">
-            <h3>Similar articles</h3>
-            <p>Continue reading with these articles from the {category} category</p>
-          </div>
-          <div class="related-grid">
-            {relatedPosts.map(post => (
-              <article class="related-card">
-                <a href={`/en/articles/${post.slug.replace('en/', '')}`} class="related-link">
-                  {post.data.image && (
-                    <div class="related-image-wrapper">
-                      <Image 
-                        src={post.data.image} 
-                        alt={post.data.title}
-                        width={400} 
-                        height={200} 
-                        loading="lazy" 
-                        quality="mid" 
-                      />
-                    </div>
-                  )}
-                  <div class="related-content">
-                    <time class="related-date">
-                      {new Date(post.data.date).toLocaleDateString('en-GB', { 
-                        day: 'numeric', 
-                        month: 'long', 
-                        year: 'numeric' 
-                      })}
-                    </time>
-                    <h4 class="related-title">{post.data.title}</h4>
-                    <p class="related-excerpt">{post.data.description}</p>
-                  </div>
-                </a>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-    )}
+    <BlogCarousel
+      title="Similar articles"
+      subtitle={`Continue reading with these articles from the ${category} category`}
+      lang="en"
+      variant="grid"
+      columns={3}
+      category={category}
+      excludeSlug={Astro.url.pathname}
+      maxPosts={3}
+    />
   </article>
 </LayoutI18n>
 <style>
@@ -510,31 +477,31 @@ const combinedSchema = {
   }
   /* Simplified CTA */
   .article-cta-simple {
-    margin-top: 2rem;
+    margin-top: 32px;
     text-align: center;
-    padding: 2rem 0;
+    padding: 40px 0;
+    border-top: 1px solid #e5e7eb;
   }
-  .article-cta-simple :global(.cta-button-simple) {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.875rem 1.75rem;
-    background: #3b82f6;
-    color: white;
+  .article-cta-simple .cta-button-simple {
+    display: inline-block;
+    padding: 12px 32px;
+    background: #1e3a5f !important;
+    color: white !important;
     border: none;
-    border-radius: 9999px;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    text-decoration: none;
+    border-radius: 2px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-decoration: none !important;
+    transition: all 0.2s ease;
     cursor: pointer;
   }
-  .article-cta-simple :global(.cta-button-simple:hover) {
-    background: #2563eb;
-    color: white;
-  }
-  .article-cta-simple :global(.cta-icon) {
-    width: 18px;
-    height: 18px;
+  .article-cta-simple .cta-button-simple:hover {
+    background: #2c4157 !important;
+    color: white !important;
+    transform: translateY(-2px);
+    text-decoration: none !important;
   }
   /* Sidebar - Increased specificity to avoid conflicts */
   .article-page .article-sidebar,
@@ -622,18 +589,21 @@ const combinedSchema = {
   .related-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5rem;
+    gap: 24px;
     max-width: 1200px;
     margin: 0 auto;
   }
   .related-card {
-    background-color: #ffffff;
-    border: 1px solid #f1f5f9;
-    border-radius: 4px;
+    background: #fafbfc;
+    border: 1px solid #e5e7eb;
+    border-radius: 2px;
     overflow: hidden;
+    transition: all 0.2s ease;
   }
   .related-card:hover {
-    border-color: transparent;
+    background: #ffffff;
+    border-color: #9ca3af;
+    transform: translateY(-2px);
   }
   .related-link {
     text-decoration: none;
@@ -642,35 +612,40 @@ const combinedSchema = {
   }
   .related-image-wrapper {
     overflow: hidden;
-    background-color: #f1f5f9;
+    background-color: #fafbfc;
+    height: 120px;
   }
   .related-image-wrapper img {
     width: 100%;
-    height: 200px;
+    height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.3s ease;
   }
   .related-card:hover .related-image-wrapper img {
-    transform: scale(1.03);
+    transform: scale(1.05);
   }
   .related-content {
-    padding: 1.5rem;
+    padding: 24px;
   }
   .related-date {
     display: block;
-    font-size: 0.875rem;
-    color: #64748b;
-    margin-bottom: 0.75rem;
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
   }
   .related-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
     line-height: 1.4;
-    color: #0f172a;
+    color: #111827;
   }
   .related-card:hover .related-title {
-    color: #2c4157;
+    color: #1e3a5f;
   }
   .related-excerpt {
     color: #64748b;

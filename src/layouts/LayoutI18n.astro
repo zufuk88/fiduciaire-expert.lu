@@ -85,8 +85,8 @@ const finalSchema = schema ? schema : websiteSchema;
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" as="style" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <!-- Critical CSS -->
   <style is:inline>
     /* ===== SYSTÈME DE DESIGN GLOBAL PREMIUM ===== */
@@ -167,19 +167,26 @@ const finalSchema = schema ? schema : websiteSchema;
       font-feature-settings: "kern" 1;
     }
     h1 { 
+      font-family: 'Playfair Display', Georgia, serif;
       font-size: var(--font-size-h1);
-      font-weight: 300;
+      font-weight: 500;
       margin-bottom: 1.75rem;
+      letter-spacing: -0.01em;
+      color: #1e3a5f;
     }
     h2 { 
+      font-family: 'Playfair Display', Georgia, serif;
       font-size: var(--font-size-h2);
       margin-bottom: 1.5rem;
-      font-weight: 300;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: #1e3a5f;
     }
     h3 { 
       font-size: var(--font-size-h3);
       margin-bottom: 1rem;
       font-weight: 600;
+      color: #2d4a6b;
     }
     p { 
       margin-bottom: 1.5rem;

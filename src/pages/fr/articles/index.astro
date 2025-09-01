@@ -14,7 +14,11 @@ const currentPage = 1; // Page d'accueil = page 1
 // La logique de récupération des articles est inchangée
 const allPosts = await getCollection('blog');
 const frenchCategories = ['Fiscalité', 'Social', 'Comptabilité', 'Juridique'];
-const frenchPosts = allPosts.filter(post => frenchCategories.includes(post.data.category) && post.data.draft !== true);
+const frenchPosts = allPosts.filter(post => {
+  // Accepter tous les articles français (ceux dont le slug commence par 'fr/')
+  const isFrench = post.slug.startsWith('fr/');
+  return isFrench && post.data.draft !== true;
+});
 let sortedPosts = frenchPosts.sort((a, b) => {
   // Utiliser modified s'il existe, sinon utiliser date
   const dateA = new Date(a.data.modified || a.data.date).getTime();
@@ -160,7 +164,7 @@ const articlesSchema = {
               showTitle={false}
               showCTA={false}
               columns={2}
-              maxPosts={8}
+              maxPosts={POSTS_PER_PAGE - 1}
               skipFirst={1}
               lang="fr"
             />

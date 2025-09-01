@@ -76,7 +76,19 @@ const isEnglish = lang === 'en';
 <style>
   /* ===== Section Styles ===== */
   .comparison-section {
-    padding: var(--spacing-xl) 0;
+    padding: 80px 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .comparison-section {
+      padding: 60px 20px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .comparison-section {
+      padding: 40px 16px;
+    }
   }
   .container {
     max-width: 1200px;
@@ -270,10 +282,6 @@ const isEnglish = lang === 'en';
   .card-link:hover svg {
   }
   /* Responsive */
-  @media (max-width: 768px) {
-    .comparison-section {
-      padding: 3rem 0;
-    }
     .section-header {
       margin-bottom: 2.5rem;
       padding-left: 1rem;

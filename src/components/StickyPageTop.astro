@@ -1,6 +1,4 @@
 ---
-import { Image } from 'astro:assets';
-import heroImage from '../assets/images/Fiduciaire-expert-Hero.jpg';
 
 export interface Props {
   breadcrumbItems: Array<{ text: string; href?: string }>;
@@ -68,21 +66,8 @@ const items = [...breadcrumbItems, { text: title }];
 </nav>
 {subtitle && (
   <section class="subtitle">
-    <div class="subtitle-background" aria-hidden="true">
-      <Image 
-        src={heroImage}
-        alt=""
-        width={1920}
-        height={600}
-        quality="mid"
-        loading="eager"
-      />
-    </div>
     <div class="container">
-      <blockquote class="subtitle-text">
-        <span class="quote-mark" aria-hidden="true">"</span>
-        <p>{subtitle}</p>
-      </blockquote>
+      <p class="subtitle-text">{subtitle}</p>
     </div>
   </section>
 )}
@@ -168,80 +153,26 @@ const items = [...breadcrumbItems, { text: title }];
     font-weight: 600;
     color: var(--fg);
   }
-  /* Subtitle - Mini Hero moderne */
+  /* Subtitle - Élégance austère */
   .subtitle {
-    padding-block: 4rem;
-    background: white;
+    padding: 40px 20px;
+    background: #fafbfc;
     position: relative;
     z-index: 10;
-    box-shadow: 0 8px 15px -8px rgba(0, 0, 0, 0.12);
-    overflow: hidden;
-  }
-  
-  /* Background image avec opacité */
-  .subtitle-background {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    opacity: 0.06;
-  }
-  
-  .subtitle-background img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
   }
   
   .subtitle .container {
     max-width: 900px;
-    position: relative;
-    z-index: 1;
   }
   
-  /* Blockquote styling */
   .subtitle-text {
     margin: 0;
-    padding: 0;
-    border: none;
+    font-size: 17px;
+    line-height: 1.7;
+    color: #525252;
+    font-weight: 400;
     text-align: center;
-    position: relative;
-  }
-  
-  /* Quote mark décoratif */
-  .quote-mark {
-    display: block;
-    font-size: 3rem;
-    line-height: 1;
-    color: #3b82f6;
-    opacity: 0.3;
-    font-family: Georgia, serif;
-    margin-bottom: 1rem;
-  }
-  
-  .subtitle-text p {
-    margin: 0;
-    font-size: 1.5rem;
-    line-height: 1.6;
-    color: #1e293b;
-    font-weight: 300;
-    text-align: center;
-    position: relative;
-    padding-inline: 2rem;
-    letter-spacing: -0.01em;
-  }
-  
-  /* Accent subtil en bas */
-  .subtitle-text::after {
-    content: '';
-    position: absolute;
-    bottom: -1.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, #3b82f6, #60a5fa);
-    border-radius: 2px;
+    letter-spacing: 0.02em;
   }
   /* Search Form Styles */
   .breadcrumb-search {
@@ -289,27 +220,24 @@ const items = [...breadcrumbItems, { text: title }];
     bottom: 0;
     left: 0;
     right: 0;
-    height: 3px;
+    height: 2px;
     background: rgba(255, 255, 255, 0.1);
     overflow: hidden;
   }
   .reading-progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
+    background: #1e3a5f;
     width: 0%;
   }
   /* Mobile */
   @media (max-width: 768px) {
     ol { font-size: 0.75rem; }
     .link, .current { padding: 0.25rem 0.5rem; }
-    .subtitle { padding-block: 3rem; }
-    .quote-mark {
-      font-size: 2rem;
-      margin-bottom: 0.75rem;
+    .subtitle { 
+      padding: 32px 16px;
     }
-    .subtitle-text p { 
-      font-size: 1.125rem;
-      padding-inline: 1rem;
+    .subtitle-text { 
+      font-size: 15px;
     }
     /* Hide search on mobile */
     .breadcrumb-search {

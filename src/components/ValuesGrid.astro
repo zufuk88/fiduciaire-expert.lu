@@ -21,9 +21,9 @@ const { title, subtitle, values, backgroundColor } = Astro.props;
   />
   <div class="container">
     <div class="values-grid">
-      {values.map(value => (
+      {values.map((value, index) => (
         <article class="value-card">
-          <div class="value-icon" set:html={value.icon} />
+          <span class="value-number">{String(index + 1).padStart(2, '0')}</span>
           <h3 class="value-title">{value.title}</h3>
           <p class="value-description">{value.description}</p>
         </article>
@@ -33,156 +33,105 @@ const { title, subtitle, values, backgroundColor } = Astro.props;
 </section>
 <style>
   .values-section {
-    padding: 0 0 6rem 0;
-    background: linear-gradient(135deg, #fafbfc 0%, #ffffff 100%);
-    position: relative;
-    overflow: hidden;
+    padding: 120px 20px 140px;
   }
   
-  /* Decoration subtile */
-  .values-section::before {
-    content: '';
-    position: absolute;
-    top: 20%;
-    right: -15%;
-    width: 40%;
-    height: 60%;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.025) 0%, transparent 70%);
-    pointer-events: none;
+  @media (max-width: 768px) {
+    .values-section {
+      padding: 80px 20px 100px;
+    }
   }
+  
+  @media (max-width: 480px) {
+    .values-section {
+      padding: 60px 16px 80px;
+    }
+  }
+  
   
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
   }
   .values-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
-    position: relative;
-    z-index: 1;
-    max-width: 1200px;
-    margin: 0 auto;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    row-gap: 40px;
   }
   /* Value Cards */
   .value-card {
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 2.5rem 2rem;
-    text-align: center;
+    background: #fafbfc;
+    border: 1px solid #e5e7eb;
+    border-radius: 2px;
+    padding: 40px;
     position: relative;
-    overflow: hidden;
-    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.04);
-    transition: opacity 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    transition: all 0.2s ease;
     display: flex;
     flex-direction: column;
-    align-items: center;
   }
   .value-card:hover {
-    box-shadow: 0 8px 15px -8px rgba(0, 0, 0, 0.12);
-    border-color: #cbd5e1;
-    opacity: 0.98;
+    background: #ffffff;
+    border-color: #9ca3af;
+    transform: translateY(-2px);
   }
-  /* Icon */
-  .value-icon {
-    width: 72px;
-    height: 72px;
-    margin: 0 auto 1.75rem;
-    color: #3b82f6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(96, 165, 250, 0.05));
-    border-radius: 12px;
-    border: 1px solid rgba(59, 130, 246, 0.15);
-    position: relative;
-  }
-  .value-icon :global(svg) {
-    width: 36px;
-    height: 36px;
-    stroke-width: 1.5;
-  }
-  .value-card:hover .value-icon {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(96, 165, 250, 0.08));
-    border-color: rgba(59, 130, 246, 0.25);
+  /* Number */
+  .value-number {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 36px;
+    font-weight: 500;
+    color: #1e3a5f;
+    margin-bottom: 24px;
+    line-height: 1;
   }
   /* Title */
   .value-title {
-    font-size: 1.125rem;
+    font-size: 18px;
     font-weight: 600;
-    color: #0f172a;
-    margin: 0 0 1rem 0;
-    line-height: 1.3;
-    letter-spacing: -0.01em;
+    color: #1e3a5f;
+    margin: 0 0 16px 0;
+    line-height: 1.4;
   }
   /* Description */
   .value-description {
-    color: #475569;
-    line-height: 1.65;
+    color: #525252;
+    line-height: 1.7;
     margin: 0;
-    font-size: 0.9375rem;
-    font-weight: 400;
-  }
-  /* Accent decoration on hover */
-  .value-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #3b82f6, #60a5fa);
-    opacity: 0;
-    transition: opacity 0.2s ease;
-  }
-  .value-card:hover::before {
-    opacity: 1;
+    font-size: 15px;
   }
   
   /* Responsive */
   @media (max-width: 1024px) {
     .values-grid {
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
     }
   }
   @media (max-width: 768px) {
-    .values-section {
-      padding: 0 0 4rem 0;
-    }
-    .container {
-      padding: 0 1rem;
-    }
     .values-grid {
       grid-template-columns: 1fr;
-      padding: 0 1rem;
+      gap: 24px;
+      row-gap: 32px;
     }
     .value-card {
-      padding: 2rem 1.5rem;
+      padding: 32px;
     }
-    .value-icon {
-      width: 60px;
-      height: 60px;
-      margin-bottom: 1.5rem;
-    }
-    .value-icon :global(svg) {
-      width: 30px;
-      height: 30px;
+    .value-number {
+      font-size: 32px;
+      margin-bottom: 20px;
     }
     .value-title {
-      font-size: 1.0625rem;
+      font-size: 17px;
     }
     .value-description {
-      font-size: 0.875rem;
+      font-size: 14px;
     }
   }
   @media (max-width: 480px) {
-    .values-grid {
-      grid-template-columns: 1fr;
-    }
     .value-card {
-      padding: 1.75rem 1.25rem;
+      padding: 28px;
+    }
+    .value-number {
+      font-size: 28px;
     }
   }
 </style>

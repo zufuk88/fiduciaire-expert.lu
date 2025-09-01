@@ -67,12 +67,18 @@ const isActive = (path: string) => {
           <li class="nav-item">
             <a
               href={item.href}
-              class:list={{ 'is-active': isActive(item.href) }}
+              class:list={{ 'is-active': isActive(item.href), 'has-submenu': !!item.subItems }}
               title={item.title}
               aria-current={isActive(item.href) ? 'page' : undefined}
+              aria-haspopup={item.subItems ? 'true' : undefined}
               itemprop="url"
             >
               <span itemprop="name">{item.text}</span>
+              {item.subItems && (
+                <svg class="submenu-indicator" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              )}
             </a>
             {item.subItems && (
               <ul class="submenu" aria-label={`Sous-menu pour ${item.text}`}>
@@ -173,22 +179,19 @@ const isActive = (path: string) => {
     display: flex; 
     flex-direction: column; 
     justify-content: space-around; 
-    width: 28px; 
-    height: 22px; 
+    width: 24px; 
+    height: 18px; 
     background: transparent; 
     border: none; 
     cursor: pointer; 
     padding: 0; 
     z-index: 110;
   }
-  #burger-menu:hover {
-    transform: scale(1.1);
-  }
   .burger-line { 
     width: 100%; 
     height: 2px; 
-    background-color: #1a1a1a; 
-    border-radius: 1px;
+    background-color: #525252; 
+    transition: all 0.2s ease;
   }
   #burger-menu.is-open .burger-line:nth-child(1) { 
     transform: translateY(8px) rotate(45deg); 
@@ -223,75 +226,103 @@ const isActive = (path: string) => {
       position: relative;
       font-size: 0.9375rem;
       letter-spacing: -0.01em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
     }
     .nav-item > a:hover {
-      color: #3b82f6;
+      color: #1e3a5f;
     }
     .nav-item > a.is-active { 
-      color: #3b82f6;
-      font-weight: 500;
+      color: #1e3a5f;
+      font-weight: 600;
+    }
+    .submenu-indicator {
+      opacity: 0.5;
+      transition: transform 0.3s ease, opacity 0.2s ease;
+    }
+    .nav-item:hover .submenu-indicator {
+      opacity: 1;
+      transform: rotate(180deg);
     }
     .submenu { 
       position: absolute; 
-      top: 100%; 
+      top: calc(100% + 0.5rem); 
       left: 50%; 
       transform: translateX(-50%);
-      margin-top: 0.75rem;
-      padding: 0.25rem;
-      min-width: 240px; 
-      background-color: #ffffff; 
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      border-radius: 4px;
+      padding: 8px;
+      min-width: 260px; 
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 2px;
       list-style: none; 
       opacity: 0; 
-      visibility: hidden; 
+      visibility: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: all 0.2s ease;
     }
     .submenu::before {
       content: '';
       position: absolute;
-      top: -0.75rem;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 10px;
+      height: 10px;
+      background: #ffffff;
+      border-top: 1px solid #e5e7eb;
+      border-left: 1px solid #e5e7eb;
+    }
+    .submenu::after {
+      content: '';
+      position: absolute;
+      top: -0.5rem;
       left: 0;
       right: 0;
-      height: 0.75rem;
+      height: 0.5rem;
       background: transparent;
     }
     .nav-item:hover .submenu { 
       opacity: 1; 
       visibility: visible;
     }
+    .submenu li {
+      margin: 0;
+    }
+    .submenu li:hover {
+      background: #fafbfc;
+    }
     .submenu a { 
-      display: block; 
-      padding: 0.75rem 1rem; 
-      color: #475569; 
+      display: block;
+      padding: 12px 16px; 
+      color: #525252; 
       white-space: nowrap;
-      font-size: 0.9375rem;
-      position: relative;
-      border-radius: 2px;
-      font-weight: 400;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border-left: 2px solid transparent;
     }
     .submenu a:hover { 
-      color: #3b82f6; 
+      color: #1e3a5f;
+      background: #fafbfc;
       text-decoration: none;
+      border-left-color: #1e3a5f;
     }
     /* Style pour Taxpertize - sous-élément de Fiscalité */
     .submenu a.sub-item {
-      padding-left: 2rem;
-      font-size: 0.875rem;
-      opacity: 0.95;
-    }
-    .submenu a.sub-item::before {
-      content: "└";
-      position: absolute;
-      left: 1rem;
-      color: #64748b;
-      font-weight: 600;
-      opacity: 0.8;
+      padding-left: 32px;
+      font-size: 13px;
+      color: #6b7280;
+      background: transparent;
+      border-left: 2px solid #e5e7eb;
+      margin-left: 12px;
+      font-weight: 400;
     }
     .submenu a.sub-item:hover {
-      color: #4ade80 !important;
-    }
-    .submenu a.sub-item:hover::before {
-      color: #4ade80;
+      color: #525252;
+      background: #f5f5f5;
+      border-left-color: #9ca3af;
     }
   }
   @media (max-width: 991px) {
@@ -307,8 +338,10 @@ const isActive = (path: string) => {
       height: 100vh; 
       background-color: #ffffff; 
       transform: translateX(-100%); 
-      padding-top: 100px; 
+      padding-top: 72px; 
       overflow-y: auto;
+      transition: transform 0.3s ease;
+      box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
     }
     .main-navigation.is-open { 
       transform: translateX(0); 
@@ -320,58 +353,70 @@ const isActive = (path: string) => {
     }
     .nav-item > a { 
       display: block; 
-      padding: 1.25rem 2rem; 
-      font-size: 1rem; 
+      padding: 18px 24px; 
+      font-size: 15px; 
       font-weight: 500; 
-      color: #1a1a1a;
+      color: #525252;
       position: relative;
       -webkit-tap-highlight-color: transparent;
       text-decoration: none;
+      border-bottom: 1px solid #f0f0f0;
+      transition: all 0.2s ease;
     }
     .nav-item > a:hover {
-      color: #3b82f6;
+      color: #1e3a5f;
+      background: #fafbfc;
       text-decoration: none;
+      padding-left: 28px;
     }
     .nav-item > a.is-active { 
-      color: #3b82f6;
+      color: #1e3a5f;
       font-weight: 600;
-      background-color: transparent;
+      background-color: #fafbfc;
       text-decoration: none;
+      border-left: 3px solid #1e3a5f;
     }
     .submenu { 
       list-style: none; 
+      background: transparent;
+      margin: 0;
+      padding: 0;
     }
     .submenu a { 
       display: block; 
-      padding: 1rem 2rem 1rem 3.5rem; 
-      font-size: 1rem; 
-      background-color: rgba(248, 249, 250, 0.5);
-      color: #64748b;
+      padding: 14px 24px 14px 48px; 
+      font-size: 14px; 
+      color: #6b7280;
       -webkit-tap-highlight-color: transparent;
       text-decoration: none;
+      border-bottom: 1px solid #f0f0f0;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .submenu a::before {
+      content: "—";
+      position: absolute;
+      left: 28px;
+      color: #d1d5db;
     }
     .submenu a:hover {
-      background-color: rgba(59, 130, 246, 0.05);
-      color: #3b82f6;
+      background-color: #fafbfc;
+      color: #1e3a5f;
       text-decoration: none;
     }
     /* Style pour Taxpertize mobile - sous-élément de Fiscalité */
     .submenu a.sub-item {
-      padding-left: 4.5rem;
-      font-size: 0.9375rem;
-      background-color: rgba(248, 249, 250, 0.7);
-      font-style: italic;
+      padding-left: 64px;
+      font-size: 13px;
+      color: #9ca3af;
+      font-weight: 400;
     }
     .submenu a.sub-item::before {
-      content: "└";
-      position: absolute;
-      left: 3rem;
-      color: #64748b;
-      font-weight: 600;
-      opacity: 0.8;
+      content: "·";
+      left: 48px;
     }
     .submenu a.sub-item:hover {
-      color: #4ade80 !important;
+      color: #525252;
     }
   }
 </style>

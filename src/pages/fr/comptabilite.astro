@@ -3,6 +3,8 @@ import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
 import FAQ from '../../components/FAQ.astro';
 import Services from '../../components/Services.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import ProcessTimeline from '../../components/ProcessTimeline.astro';
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -64,10 +66,12 @@ const faqItems = [
     subtitle="Confiez votre comptabilité à des experts agréés qui maîtrisent les réglementations luxembourgeoises (PCN 2020, eCDF, RCS). Nous assurons une conformité totale tout en optimisant votre situation fiscale."
   />
   <!-- Section Obligations Comptables Légales -->
-  <Services
-    variant="presentation"
+  <SectionTitle
     title="Obligations comptables légales pour les sociétés luxembourgeoises"
     subtitle="Toute société constituée au Luxembourg doit tenir une comptabilité conforme à la loi du 19 décembre 2002. Comprendre ces exigences est crucial pour éviter les pénalités et assurer le bon fonctionnement de vos opérations."
+  />
+  <Services
+    variant="presentation"
     services={[
       {
         title: "Cadre réglementaire complexe",
@@ -89,9 +93,12 @@ const faqItems = [
     ]}
   />
   <!-- Section Exigences PCN -->
+  <SectionTitle
+    title="Plan Comptable Normalisé (PCN) : comprendre vos obligations"
+    subtitle="Le PCN 2020 standardise le reporting financier luxembourgeois avec le dépôt électronique eCDF obligatoire"
+  />
   <Services
     variant="list"
-    title="Plan Comptable Normalisé (PCN) : comprendre vos obligations"
     backgroundColor="#f1f5f9"
     sections={[
       {
@@ -120,15 +127,20 @@ const faqItems = [
     ]}
   />
   <!-- PCN 2020 et dépôt électronique eCDF -->
-  <div style="background: #f1f5f9; padding: 2rem; margin: 2rem 0; border-radius: 12px; border: 1px solid #e2e8f0;">
-    <h3 style="margin: 0 0 1rem 0; font-size: 1.25rem; color: #0f172a; font-weight: 600;">PCN 2020 et dépôt électronique eCDF</h3>
-    <p style="margin: 0; color: #475569; line-height: 1.7;">Le PCN 2020 introduit des exigences numériques renforcées via le format électronique commun de données (eCDF), qui standardise le reporting financier au Luxembourg. Ce système exige que les sociétés déposent leurs comptes annuels électroniquement via la plateforme eCDF dédiée. Sauf pour les sociétés autorisées à utiliser les normes IFRS, la validation eCDF au format PCN est obligatoire avant tout dépôt au RCS.</p>
-  </div>
-  <!-- Section Catégories de taille d'entreprise -->
   <Services
-    variant="categories"
+    variant="highlight"
+    highlightIcon="database"
+    highlightTitle="PCN 2020 et dépôt électronique eCDF"
+    highlightContent="Le PCN 2020 introduit des exigences numériques renforcées via le format électronique commun de données (eCDF), qui standardise le reporting financier au Luxembourg. Ce système exige que les sociétés déposent leurs comptes annuels électroniquement via la plateforme eCDF dédiée."
+    highlightNote="Sauf pour les sociétés autorisées à utiliser les normes IFRS, la validation eCDF au format PCN est obligatoire avant tout dépôt au RCS."
+  />
+  <!-- Section Catégories de taille d'entreprise -->
+  <SectionTitle
     title="Catégories de taille d'entreprise et leur impact sur les obligations"
     subtitle="La loi luxembourgeoise classe les sociétés en catégories basées sur des critères de taille, chacune avec des exigences comptables et d'audit spécifiques."
+  />
+  <Services
+    variant="categories"
     categories={[
       {
         badge: "PETITE",
@@ -182,716 +194,214 @@ const faqItems = [
     note="Important : Les sociétés ne doivent pas dépasser 2 des 3 critères pendant deux années consécutives pour maintenir leur classification."
   />
   <!-- Section Exigences techniques eCDF -->
-  <section class="section-white">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Exigences de dépôt électronique PCN 2020 et eCDF</h2>
-        <p class="section-subtitle">La mise en œuvre du PCN 2020 représente une modernisation significative du cadre comptable luxembourgeois.</p>
-      </div>
-      <div class="requirements-grid">
-        <div class="info-box">
-          <h3>Exigences techniques pour le dépôt eCDF</h3>
-          <p>Le système eCDF exige que les sociétés structurent leurs données financières selon un schéma XML spécifique garantissant la cohérence entre tous les dépôts. Cela comprend :</p>
-          <ul class="requirements-list">
-            <li>L'utilisation de codes de compte standardisés du plan comptable PCN 2020</li>
-            <li>L'application de formules de calcul prescrites pour les indicateurs financiers clés</li>
-            <li>L'indication claire de la devise utilisée avec la précision appropriée</li>
-            <li>L'inclusion de données structurées sur la forme juridique, le siège social et l'exercice financier</li>
-          </ul>
-        </div>
-        <div class="info-box">
-          <h3>Processus de préparation et de validation</h3>
-          <p>Avant la soumission, les sociétés doivent valider leurs fichiers eCDF via la plateforme eCDF du CTIE (Centre des Technologies de l'Information de l'État) ou par transfert XML selon le schéma officiel. Cette validation vérifie :</p>
-          <ul class="requirements-list">
-            <li>La conformité technique avec le schéma XML officiel</li>
-            <li>La cohérence mathématique entre les chiffres liés</li>
-            <li>L'exhaustivité des champs obligatoires</li>
-          </ul>
-          <p>Notre équipe comptable gère l'ensemble du processus de préparation eCDF, de la structuration initiale des données à la validation sur la plateforme CTIE, puis au dépôt en ligne auprès du RCS, garantissant la conformité technique tout en maintenant la précision.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <SectionTitle
+    title="Exigences de dépôt électronique PCN 2020 et eCDF"
+    subtitle="La mise en œuvre du PCN 2020 représente une modernisation significative du cadre comptable luxembourgeois."
+  />
+  <Services
+    variant="presentation"
+    services={[
+      {
+        title: "Exigences techniques pour le dépôt eCDF",
+        content: [
+          "Le système eCDF exige que les sociétés structurent leurs données financières selon un schéma XML spécifique garantissant la cohérence entre tous les dépôts. Cela comprend :",
+          "L'utilisation de codes de compte standardisés du plan comptable PCN 2020",
+          "L'application de formules de calcul prescrites pour les indicateurs financiers clés",
+          "L'indication claire de la devise utilisée avec la précision appropriée",
+          "L'inclusion de données structurées sur la forme juridique, le siège social et l'exercice financier"
+        ],
+        bulletStyle: "check"
+      },
+      {
+        title: "Processus de préparation et de validation",
+        content: [
+          "Avant la soumission, les sociétés doivent valider leurs fichiers eCDF via la plateforme eCDF du CTIE (Centre des Technologies de l'Information de l'État) ou par transfert XML selon le schéma officiel. Cette validation vérifie :",
+          "La conformité technique avec le schéma XML officiel",
+          "La cohérence mathématique entre les chiffres liés",
+          "L'exhaustivité des champs obligatoires",
+          "Notre équipe comptable gère l'ensemble du processus de préparation eCDF, de la structuration initiale des données à la validation sur la plateforme CTIE, puis au dépôt en ligne auprès du RCS, garantissant la conformité technique tout en maintenant la précision."
+        ],
+        bulletStyle: "arrow"
+      }
+    ]}
+  />
   <!-- Section Échéances critiques -->
-  <section class="section-grey">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Échéances critiques et sanctions administratives</h2>
-      </div>
-      <div class="deadline-grid">
-        <div class="deadline-card">
-          <h3>Échéances de dépôt des comptes annuels</h3>
-          <div class="timeline">
-            <div class="timeline-item">
-              <span class="timeline-marker"></span>
-              <div class="timeline-content">
-                <strong>Clôture de l'exercice</strong>
-                <p>Finaliser les registres comptables et préparer les projets d'états financiers pour l'exercice fiscal</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <span class="timeline-marker"></span>
-              <div class="timeline-content">
-                <strong>Dans les 6 mois après la clôture</strong>
-                <p>L'Assemblée Générale Annuelle doit approuver les comptes. Pour une clôture au 31 décembre, l'échéance est le 30 juin</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <span class="timeline-marker"></span>
-              <div class="timeline-content">
-                <strong>Dans le mois suivant l'AGO</strong>
-                <p>Déposer les comptes annuels approuvés au Registre de Commerce et des Sociétés (RCS)</p>
-              </div>
-            </div>
-            <div class="timeline-item critical">
-              <span class="timeline-marker"></span>
-              <div class="timeline-content">
-                <strong>31 juillet (pour clôture en décembre)</strong>
-                <p>Date limite absolue pour le dépôt RCS - les pénalités de retard s'appliquent immédiatement après cette date</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="deadline-card">
-          <h3>Sanctions administratives et financières</h3>
-          <div class="penalty-table">
-            <div class="penalty-row">
-              <span class="delay">8ème mois après la clôture</span>
-              <span class="amount">50 €</span>
-            </div>
-            <div class="penalty-row">
-              <span class="delay">9ème-11ème mois</span>
-              <span class="amount">200 €</span>
-            </div>
-            <div class="penalty-row critical">
-              <span class="delay">12ème mois et au-delà</span>
-              <span class="amount">500 €</span>
-            </div>
-          </div>
-          <p class="warning-text">Au-delà des pénalités financières, la non-conformité persistante peut entraîner :</p>
-          <ul class="consequences-list">
-            <li>Publication sur les listes de sociétés non conformes</li>
-            <li>Amendes pénales possibles pour les dirigeants</li>
-            <li>En cas de persistance, dissolution judiciaire à l'initiative du parquet</li>
-          </ul>
-        </div>
-      </div>
-      <div class="info-box">
-        <h3>Échéances et pénalités liées aux impôts</h3>
-        <p>Les déclarations d'impôt sur le revenu des collectivités (IRC) et d'impôt commercial communal (ICC) d'un exercice doivent être déposées au plus tard le 31 décembre de l'année suivante. Le dépôt électronique via MyGuichet.lu est obligatoire. Le dépôt tardif peut entraîner une amende administrative et, si l'impôt reste impayé, des intérêts de retard.</p>
-        <p>La déclaration d'impôt sur la fortune (IF) doit être déposée au plus tard le 31 décembre de l'année concernée. L'IF est due si la société existe au 1er janvier de l'année d'imposition.</p>
-        <p>Les déclarations TVA sont déposées mensuellement, trimestriellement ou annuellement selon le chiffre d'affaires. Depuis 2025, le régime de franchise pour petites entreprises est porté à 50 000 € de chiffre d'affaires annuel (avec une tolérance de 10%), permettant une exonération de TVA sous ce seuil. La soumission tardive est soumise à une amende administrative et des intérêts sur les montants impayés.</p>
-        <p>Nos services de conformité fiscale garantissent le respect de toutes les échéances, tandis que notre solution de conseil fiscal spécialisée (<a href="/fr/taxpertize">Taxpertize</a>) accompagne une planification fiscale complète.</p>
-      </div>
-    </div>
-  </section>
+  <SectionTitle
+    title="Échéances critiques et sanctions administratives"
+    subtitle="Respectez les délais légaux pour éviter les pénalités financières et les conséquences administratives"
+  />
+  
+  <!-- Timeline des échéances -->
+  <ProcessTimeline
+    title="Échéances de dépôt des comptes annuels"
+    subtitle="Calendrier légal à respecter pour éviter les sanctions"
+    steps={[
+      {
+        number: "1",
+        title: "Clôture de l'exercice",
+        description: ["Finaliser les registres comptables et préparer les projets d'états financiers pour l'exercice fiscal"]
+      },
+      {
+        number: "2",
+        title: "Dans les 6 mois après la clôture",
+        description: ["L'Assemblée Générale Annuelle doit approuver les comptes", "Pour une clôture au 31 décembre, l'échéance est le 30 juin"]
+      },
+      {
+        number: "3",
+        title: "Dans le mois suivant l'AGO",
+        description: ["Déposer les comptes annuels approuvés au Registre de Commerce et des Sociétés (RCS)"]
+      },
+      {
+        number: "⚠",
+        title: "31 juillet (pour clôture en décembre)",
+        description: ["Date limite absolue pour le dépôt RCS", "Les pénalités de retard s'appliquent immédiatement après cette date"],
+        highlight: true
+      }
+    ]}
+  />
+  
+  <!-- Sanctions et pénalités -->
+  <Services
+    variant="presentation"
+    services={[
+      {
+        title: "Sanctions administratives et financières",
+        content: [
+          "8ème mois après la clôture : 50 €",
+          "9ème-11ème mois : 200 €",
+          "12ème mois et au-delà : 500 €",
+          "Au-delà des pénalités financières, la non-conformité persistante peut entraîner : Publication sur les listes de sociétés non conformes, amendes pénales possibles pour les dirigeants, et en cas de persistance, dissolution judiciaire à l'initiative du parquet"
+        ],
+        bulletStyle: "arrow"
+      },
+      {
+        title: "Échéances et pénalités liées aux impôts",
+        content: [
+          "Les déclarations d'impôt sur le revenu des collectivités (IRC) et d'impôt commercial communal (ICC) d'un exercice doivent être déposées au plus tard le 31 décembre de l'année suivante. Le dépôt électronique via MyGuichet.lu est obligatoire.",
+          "La déclaration d'impôt sur la fortune (IF) doit être déposée au plus tard le 31 décembre de l'année concernée. L'IF est due si la société existe au 1er janvier de l'année d'imposition.",
+          "Les déclarations TVA sont déposées mensuellement, trimestriellement ou annuellement selon le chiffre d'affaires. Depuis 2025, le régime de franchise pour petites entreprises est porté à 50 000 € de chiffre d'affaires annuel.",
+          "Nos services de conformité fiscale garantissent le respect de toutes les échéances, tandis que notre solution de conseil fiscal spécialisée (Taxpertize) accompagne une planification fiscale complète."
+        ],
+        bulletStyle: "check"
+      }
+    ]}
+  />
   <!-- Section Services complets -->
-  <section class="section-white">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Services comptables complets que nous fournissons</h2>
-        <p class="section-subtitle">Transformez votre fonction comptable d'un fardeau de conformité en un atout stratégique qui stimule la croissance de l'entreprise.</p>
-      </div>
-      <div class="services-grid">
-        <div class="service-category">
-          <h3>Gestion comptable quotidienne</h3>
-          <div class="service-items">
-            <div class="service-item">
-              <h4>Enregistrement financier</h4>
-              <p>Enregistrement complet des transactions, gestion des comptes fournisseurs/clients, rapprochement bancaire et catégorisation des dépenses avec contrôles internes robustes.</p>
-            </div>
-            <div class="service-item">
-              <h4>Gestion documentaire</h4>
-              <p>Solutions numériques pour le partage de factures et documents, mise en œuvre des meilleures pratiques informatiques pour faciliter les communications et la collaboration avec les clients.</p>
-            </div>
-          </div>
-        </div>
-        <div class="service-category">
-          <h3>Reporting financier et conformité</h3>
-          <div class="service-items">
-            <div class="service-item">
-              <h4>Reporting statutaire</h4>
-              <p>Préparation de tous les états financiers requis selon les normes luxembourgeoises GAAP ou IFRS si autorisées par la loi, garantissant une conformité complète au PCN 2020. Sauf pour les IFRS autorisées, la validation eCDF au format PCN est requise avant le dépôt RCS.</p>
-            </div>
-            <div class="service-item">
-              <h4>Dépôt eCDF</h4>
-              <p>Gestion complète des exigences de dépôt électronique avec validation technique et soumission dans les délais.</p>
-            </div>
-          </div>
-        </div>
-        <div class="service-category">
-          <h3>Conformité fiscale</h3>
-          <div class="service-items">
-            <div class="service-item">
-              <h4>Déclarations d'impôts directs</h4>
-              <p>Préparation et dépôt des déclarations d'impôts directs. Pour les sociétés de capitaux : formulaire 500 unifiant IRC, ICC et IF via MyGuichet.lu.</p>
-            </div>
-            <div class="service-item">
-              <h4>Déclarations TVA</h4>
-              <p>Gestion des déclarations TVA périodiques et annuelles, plus les états récapitulatifs lorsque requis.</p>
-            </div>
-          </div>
-        </div>
-        <div class="service-category">
-          <h3>Conseil et support stratégique</h3>
-          <div class="service-items">
-            <div class="service-item">
-              <h4>Analyse financière</h4>
-              <p>Prévisions de trésorerie, analyse de rentabilité, évaluation d'investissements et modélisation financière pour la prise de décision stratégique.</p>
-            </div>
-            <div class="service-item">
-              <h4>Due diligence</h4>
-              <p>Accompagnement professionnel des entrepreneurs pour l'acquisition de sociétés au Luxembourg. Préparation complète d'audits comptables, fiscaux, juridiques et sociaux.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <SectionTitle
+    title="Services comptables complets que nous fournissons"
+    subtitle="Transformez votre fonction comptable d'un fardeau de conformité en un atout stratégique qui stimule la croissance de l'entreprise."
+  />
+  <Services
+    variant="grid"
+    columns={2}
+    services={[
+      {
+        title: "Enregistrement financier",
+        description: "Enregistrement complet des transactions, gestion des comptes fournisseurs/clients, rapprochement bancaire et catégorisation des dépenses avec contrôles internes robustes.",
+        icon: "document"
+      },
+      {
+        title: "Gestion documentaire",
+        description: "Solutions numériques pour le partage de factures et documents, mise en œuvre des meilleures pratiques informatiques pour faciliter les communications et la collaboration avec les clients.",
+        icon: "folder"
+      },
+      {
+        title: "Reporting statutaire",
+        description: "Préparation de tous les états financiers requis selon les normes luxembourgeoises GAAP ou IFRS si autorisées par la loi, garantissant une conformité complète au PCN 2020.",
+        icon: "chart"
+      },
+      {
+        title: "Dépôt eCDF",
+        description: "Gestion complète des exigences de dépôt électronique avec validation technique et soumission dans les délais.",
+        icon: "upload"
+      },
+      {
+        title: "Déclarations d'impôts directs",
+        description: "Préparation et dépôt des déclarations d'impôts directs. Pour les sociétés de capitaux : formulaire 500 unifiant IRC, ICC et IF via MyGuichet.lu.",
+        icon: "calculator"
+      },
+      {
+        title: "Déclarations TVA",
+        description: "Gestion des déclarations TVA périodiques et annuelles, plus les états récapitulatifs lorsque requis.",
+        icon: "percent"
+      },
+      {
+        title: "Analyse financière",
+        description: "Prévisions de trésorerie, analyse de rentabilité, évaluation d'investissements et modélisation financière pour la prise de décision stratégique.",
+        icon: "analytics"
+      },
+      {
+        title: "Due diligence",
+        description: "Accompagnement professionnel des entrepreneurs pour l'acquisition de sociétés au Luxembourg. Préparation complète d'audits comptables, fiscaux, juridiques et sociaux.",
+        icon: "shield"
+      }
+    ]}
+  />
   <!-- Section Expertise sectorielle -->
-  <section class="section-grey">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Expertise spécialisée dans les secteurs suivants</h2>
-        <p class="section-subtitle">Différents secteurs font face à des défis comptables uniques et des exigences réglementaires au Luxembourg.</p>
-      </div>
-      <div class="industry-grid">
-        <div class="industry-card">
-          <h3>Fonds d'investissement et services financiers</h3>
-          <p>Navigation dans des paysages réglementaires complexes incluant les exigences de reporting CSSF, les calculs de VNI et le reporting aux investisseurs. Expertise en OPCVM, FIA et sociétés de gestion. Découvrez comment les <a href="/fr/articles/soparfi-holding">structures holding SOPARFI</a> optimisent les opérations d'investissement.</p>
-        </div>
-        <div class="industry-card">
-          <h3>Immobilier et construction</h3>
-          <p>Méthodes d'évaluation immobilière, comptabilité des contrats de construction, optimisation TVA pour les transactions immobilières et structuration SPV pour les actifs immobiliers. En savoir plus sur les <a href="/fr/articles/sci-luxembourg">structures SCI pour l'immobilier</a>.</p>
-        </div>
-        <div class="industry-card">
-          <h3>Industrie et commerce</h3>
-          <p>Évaluation des stocks, comptabilité analytique, documentation des prix de transfert et optimisation des droits de douane pour les chaînes d'approvisionnement complexes.</p>
-        </div>
-        <div class="industry-card">
-          <h3>Services professionnels</h3>
-          <p>Comptabilité pour les cabinets d'ingénierie, sociétés de conseil et prestataires de services aux entreprises. Comptabilité par projet, reconnaissance des revenus et gestion des frais professionnels.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <SectionTitle
+    title="Expertise spécialisée dans les secteurs suivants"
+    subtitle="Différents secteurs font face à des défis comptables uniques et des exigences réglementaires au Luxembourg."
+  />
+  <Services
+    variant="cards"
+    services={[
+      {
+        title: "Fonds d'investissement et services financiers",
+        description: "Navigation dans des paysages réglementaires complexes incluant les exigences de reporting CSSF, les calculs de VNI et le reporting aux investisseurs. Expertise en OPCVM, FIA et sociétés de gestion. Découvrez comment les structures holding SOPARFI optimisent les opérations d'investissement.",
+        href: "/fr/articles/soparfi-holding",
+        icon: "chart"
+      },
+      {
+        title: "Immobilier et construction",
+        description: "Méthodes d'évaluation immobilière, comptabilité des contrats de construction, optimisation TVA pour les transactions immobilières et structuration SPV pour les actifs immobiliers. En savoir plus sur les structures SCI pour l'immobilier.",
+        href: "/fr/articles/sci-luxembourg",
+        icon: "building"
+      },
+      {
+        title: "Industrie et commerce",
+        description: "Évaluation des stocks, comptabilité analytique, documentation des prix de transfert et optimisation des droits de douane pour les chaînes d'approvisionnement complexes.",
+        icon: "factory"
+      },
+      {
+        title: "Services professionnels",
+        description: "Comptabilité pour les cabinets d'ingénierie, sociétés de conseil et prestataires de services aux entreprises. Comptabilité par projet, reconnaissance des revenus et gestion des frais professionnels.",
+        icon: "briefcase"
+      }
+    ]}
+  />
   <!-- Section Solutions logicielles -->
-  <section class="section-white">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Logiciels comptables professionnels</h2>
-        <p class="section-subtitle">Une gestion comptable efficace nécessite des logiciels robustes et fiables conformes aux exigences réglementaires spécifiques du Luxembourg.</p>
-      </div>
-      <div class="info-box">
-        <h3>Solutions d'entreprise</h3>
-        <p>Les professionnels comptables luxembourgeois travaillent avec des plateformes logicielles établies qui répondent aux exigences réglementaires :</p>
-        <ul class="software-list">
-          <li><strong>Horus :</strong> Fonctionnalité complète assistée par IA spécialement conçue pour l'environnement réglementaire luxembourgeois avec support complet PCN 2020</li>
-          <li><strong>Bob 50 :</strong> Capacités avancées de reporting financier et de gestion multi-entités</li>
-          <li><strong>Odoo :</strong> Plateforme modulaire moderne basée sur le cloud configurée pour la conformité luxembourgeoise</li>
-        </ul>
-        <p>Chaque système prend en charge le plan comptable normalisé, les calculs TVA automatisés et l'export XML eCDF si l'éditeur est homologué par eCDF. L'implémentation professionnelle garantit une configuration et une migration des données appropriées.</p>
-      </div>
-    </div>
-  </section>
+  <SectionTitle
+    title="Logiciels comptables professionnels"
+    subtitle="Une gestion comptable efficace nécessite des logiciels robustes et fiables conformes aux exigences réglementaires spécifiques du Luxembourg."
+  />
+  <Services
+    variant="list"
+    sections={[
+      {
+        title: "Solutions d'entreprise",
+        content: "Les professionnels comptables luxembourgeois travaillent avec des plateformes logicielles établies qui répondent aux exigences réglementaires :",
+        items: [
+          { 
+            label: "Horus", 
+            value: "Fonctionnalité complète assistée par IA spécialement conçue pour l'environnement réglementaire luxembourgeois avec support complet PCN 2020" 
+          },
+          { 
+            label: "Bob 50", 
+            value: "Capacités avancées de reporting financier et de gestion multi-entités" 
+          },
+          { 
+            label: "Odoo", 
+            value: "Plateforme modulaire moderne basée sur le cloud configurée pour la conformité luxembourgeoise" 
+          }
+        ],
+        footer: "Chaque système prend en charge le plan comptable normalisé, les calculs TVA automatisés et l'export XML eCDF si l'éditeur est homologué par eCDF. L'implémentation professionnelle garantit une configuration et une migration des données appropriées."
+      }
+    ]}
+  />
   <FAQ
     title="Questions fréquentes sur la comptabilité au Luxembourg"
     subtitle="Informations essentielles pour gérer les obligations comptables de votre société"
     faqItems={faqItems}
-    
     generateSchema={true}
-    backgroundColor="#f1f5f9"
   />
 </LayoutI18n>
-<style>
-  :root {
-    --color-primary: #005fcc;
-    --color-dark: #0f172a;
-    --color-text: #334155;
-    --color-text-secondary: #64748b;
-    --color-background: #ffffff;
-    --color-grey-light: #f1f5f9;
-    --color-grey: #f1f5f9;
-    --color-border: #e2e8f0;
-    --color-success: #10b981;
-    --color-warning: #f59e0b;
-    --color-danger: #ef4444;
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  }
-  /* Styles des sections */
-  .section-white {
-    padding: 5rem 0;
-    position: relative;
-    isolation: isolate;
-  }
-  .section-white::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: radial-gradient(circle at 1px 1px, rgba(0, 95, 204, 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
-    pointer-events: none;
-    z-index: 1;
-  }
-  .section-grey {
-    background: #f1f5f9;
-    padding: 5rem 0;
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-  }
-  .section-grey::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 40px,
-      rgba(0, 95, 204, 0.02) 40px,
-      rgba(0, 95, 204, 0.02) 41px
-    );
-    pointer-events: none;
-    z-index: 1;
-  }
-  .section-grey::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 50%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(0, 85, 184, 0.03) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-  }
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-    position: relative;
-    z-index: 2;
-  }
-  /* Typographie */
-  .section-header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-  .section-title {
-    font-size: 2.5rem;
-    font-weight: 300;
-    color: var(--color-dark);
-    margin-bottom: 1rem;
-    line-height: 1.2;
-  }
-  .section-subtitle {
-    font-size: 1.125rem;
-    color: var(--color-text-secondary);
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.7;
-  }
-  /* Boîtes d'information */
-  .info-box {
-    background: var(--color-grey);
-    border-radius: 4px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-  }
-  .info-box h3 {
-    color: var(--color-dark);
-    font-size: 1.375rem;
-    font-weight: 300;
-    margin-bottom: 1rem;
-  }
-  .info-box p {
-    color: var(--color-text);
-    line-height: 1.7;
-    margin-bottom: 1rem;
-  }
-  .info-box p:last-child {
-    margin-bottom: 0;
-  }
-  .text-muted {
-    color: var(--color-text-secondary) !important;
-    font-size: 0.95rem;
-    font-style: italic;
-  }
-  /* Boîte de note */
-  .note-box {
-    background: #fef3c7;
-    border-left: 4px solid var(--color-warning);
-    border-radius: 4px;
-    padding: 1.5rem;
-    margin-top: 2rem;
-  }
-  .note-box p {
-    color: #92400e;
-    margin: 0;
-  }
-  /* Listes */
-  .requirements-list {
-    list-style: none;
-    padding: 0;
-    margin: 1rem 0;
-  }
-  .requirements-list li {
-    position: relative;
-    padding-left: 1.75rem;
-    margin-bottom: 0.75rem;
-    color: var(--color-text);
-  }
-  .requirements-list li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: var(--color-success);
-    font-weight: bold;
-  }
-  /* Catégories de taille d'entreprise */
-  .size-categories-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-bottom: 2rem;
-  }
-  .category-card {
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .category-card:hover {
-  }
-  .category-header {
-    padding: 1.5rem;
-    background: var(--color-grey-light);
-    border-bottom: 2px solid var(--color-border);
-  }
-  .category-badge {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 300;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-  .category-card.small .category-badge {
-    background: #dcfce7;
-    color: #166534;
-  }
-  .category-card.medium .category-badge {
-    background: #fed7aa;
-    color: #9a3412;
-  }
-  .category-card.large .category-badge {
-    background: #fecaca;
-    color: #991b1b;
-  }
-  .category-header h3 {
-    margin: 0;
-    color: var(--color-dark);
-    font-size: 1.25rem;
-    font-weight: 300;
-  }
-  .thresholds {
-    padding: 1.5rem;
-    background: var(--color-grey-light);
-  }
-  .threshold-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--color-border);
-  }
-  .threshold-item:last-child {
-    border-bottom: none;
-  }
-  .threshold-item .label {
-    color: var(--color-text-secondary);
-    font-size: 0.875rem;
-  }
-  .threshold-item .value {
-    color: var(--color-dark);
-    font-weight: 300;
-  }
-  .requirements {
-    padding: 1.5rem;
-  }
-  .requirements h4 {
-    color: var(--color-dark);
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    font-weight: 300;
-  }
-  .requirements ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .requirements li {
-    padding: 0.5rem 0;
-    padding-left: 1.5rem;
-    position: relative;
-    color: var(--color-text);
-    font-size: 0.875rem;
-  }
-  .requirements li::before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    color: var(--color-primary);
-  }
-  /* Section Échéances */
-  .deadline-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-bottom: 2rem;
-  }
-  .deadline-card {
-    border-radius: 4px;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-  }
-  .deadline-card h3 {
-    color: var(--color-dark);
-    font-size: 1.375rem;
-    margin-bottom: 1.5rem;
-    font-weight: 300;
-  }
-  .deadline-card:first-child {
-    min-height: 400px;
-  }
-  .timeline {
-    position: relative;
-    padding-left: 2rem;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 0.5rem;
-    top: 0.5rem;
-    bottom: 0;
-    width: 2px;
-    background: var(--color-border);
-  }
-  .timeline-item {
-    position: relative;
-    padding-bottom: 2.5rem;
-    flex: 1;
-  }
-  .timeline-item:last-child {
-    padding-bottom: 1rem;
-  }
-  .timeline-marker {
-    position: absolute;
-    left: -1.5rem;
-    top: 0.25rem;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    background: var(--color-primary);
-    border: 3px solid white;
-  }
-  .timeline-item.critical .timeline-marker {
-    background: var(--color-danger);
-  }
-  .timeline-content strong {
-    color: var(--color-dark);
-    display: block;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-  }
-  .timeline-content p {
-    color: var(--color-text-secondary);
-    font-size: 0.9rem;
-    line-height: 1.5;
-  }
-  /* Tableau des pénalités */
-  .penalty-table {
-    margin-bottom: 1.5rem;
-  }
-  .penalty-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.75rem;
-    background: var(--color-grey-light);
-    border-radius: 4px;
-    margin-bottom: 0.5rem;
-  }
-  .penalty-row.critical {
-    background: #fee2e2;
-  }
-  .penalty-row .delay {
-    color: var(--color-text);
-    font-size: 0.875rem;
-  }
-  .penalty-row .amount {
-    color: var(--color-danger);
-    font-weight: 300;
-  }
-  .warning-text {
-    color: var(--color-danger);
-    font-weight: 300;
-    margin: 1rem 0;
-  }
-  .consequences-list {
-    list-style: none;
-    padding: 0;
-  }
-  .consequences-list li {
-    padding: 0.5rem 0;
-    padding-left: 1.5rem;
-    position: relative;
-    color: var(--color-text);
-    font-size: 0.875rem;
-  }
-  .consequences-list li::before {
-    content: "⚠";
-    position: absolute;
-    left: 0;
-    color: var(--color-warning);
-  }
-  /* Grille des services */
-  .services-grid {
-    display: grid;
-    gap: 2rem;
-  }
-  .service-category {
-    background: var(--color-grey-light);
-    border-radius: 4px;
-    padding: 2rem;
-  }
-  .service-category h3 {
-    color: var(--color-dark);
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid var(--color-primary);
-    font-weight: 300;
-  }
-  .service-items {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
-  .service-item {
-    padding: 1.5rem;
-    border-radius: 4px;
-  }
-  .service-item h4 {
-    color: var(--color-primary);
-    font-size: 1.125rem;
-    margin-bottom: 0.75rem;
-    font-weight: 300;
-  }
-  .service-item p {
-    color: var(--color-text);
-    font-size: 0.875rem;
-    line-height: 1.6;
-  }
-  /* Grille des industries */
-  .industry-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
-  .industry-card {
-    padding: 2rem;
-    border-radius: 4px;
-  }
-  .industry-card:hover {
-  }
-  .industry-card h3 {
-    color: var(--color-primary);
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-    font-weight: 300;
-  }
-  .industry-card p {
-    color: var(--color-text);
-    line-height: 1.6;
-  }
-  /* Liste des logiciels */
-  .software-list {
-    list-style: none;
-    padding: 0;
-    margin: 1.5rem 0;
-  }
-  .software-list li {
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--color-border);
-    color: var(--color-text);
-    line-height: 1.6;
-  }
-  .software-list li:last-child {
-    border-bottom: none;
-  }
-  /* Section Introduction */
-  .intro-content.info-box {
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  .intro-content p {
-    color: var(--color-text);
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-    text-align: justify;
-  }
-  .intro-content p.lead {
-    font-size: 1.125rem;
-    font-weight: 300;
-    color: var(--color-dark);
-    margin-bottom: 2rem;
-  }
-  .info-box a {
-    color: var(--color-primary);
-    text-decoration: none;
-    font-weight: 300;
-  }
-  .info-box a:hover {
-    text-decoration: underline;
-  }
-  /* Responsive */
-  @media (max-width: 768px) {
-    .section-title {
-      font-size: 1.875rem;
-    }
-    .pcn-grid,
-    .requirements-grid,
-    .deadline-grid,
-    .industry-grid {
-      grid-template-columns: 1fr;
-    }
-    .size-categories-grid {
-      grid-template-columns: 1fr;
-    }
-    .service-items {
-      grid-template-columns: 1fr;
-    }
-    .deadline-card:first-child {
-      min-height: auto;
-    }
-    .timeline-item {
-      padding-bottom: 1.5rem;
-    }
-    .timeline-content strong {
-      font-size: 0.9rem;
-    }
-    .timeline-content p {
-      font-size: 0.85rem;
-    }
-  }
-</style>

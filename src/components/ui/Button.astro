@@ -82,7 +82,7 @@ const relValue = rel || (target === '_blank' ? 'noopener noreferrer' : undefined
     letter-spacing: 0.025em;
     cursor: pointer;
     border: 1px solid transparent;
-    border-radius: 9999px;
+    border-radius: 2px;
     white-space: nowrap;
     position: relative;
     overflow: hidden;
@@ -101,15 +101,16 @@ const relValue = rel || (target === '_blank' ? 'noopener noreferrer' : undefined
   }
   /* --- Variante Principale (simple et efficace) --- */
   .btn-primary {
-    background: #3b82f6;
+    background: #111827;
     color: white;
     border: none;
+    transition: background 0.2s ease;
   }
   .btn-primary:hover:not(:disabled) {
-    background: #2563eb;
+    background: #374151;
   }
   .btn-primary:active:not(:disabled) {
-    background: #1d4ed8;
+    background: #1f2937;
   }
   /* --- Variante Secondaire (simple et épurée) --- */
   .btn-secondary {
@@ -129,18 +130,19 @@ const relValue = rel || (target === '_blank' ? 'noopener noreferrer' : undefined
   /* --- Variante "Outline" (pour fond blanc) --- */
   .btn-outline {
     background: transparent;
-    color: #334155;
-    border: 2px solid #e2e8f0;
+    color: #374151;
+    border: 2px solid #d1d5db;
     font-weight: 500;
+    transition: all 0.2s ease;
   }
   .btn-outline:hover:not(:disabled) {
-    background: #f8fafc;
-    border-color: #cbd5e1;
-    color: #1e293b;
+    background: #f9fafb;
+    border-color: #9ca3af;
+    color: #111827;
   }
   .btn-outline:active:not(:disabled) {
-    background: #f1f5f9;
-    border-color: #94a3b8;
+    background: #f3f4f6;
+    border-color: #6b7280;
   }
   /* --- Tailles --- */
   .btn-small {
@@ -155,8 +157,9 @@ const relValue = rel || (target === '_blank' ? 'noopener noreferrer' : undefined
   }
   .btn-large {
     /* Taille big pour Hero et CTA importants */
-    padding: 0.75rem 1.75rem;
-    font-size: 0.9375rem;
+    padding: 16px 32px;
+    font-size: 15px;
+    font-weight: 600;
     letter-spacing: 0.02em;
     gap: 0.625rem;
   }

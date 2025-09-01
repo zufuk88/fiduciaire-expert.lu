@@ -17,6 +17,7 @@ export interface Props {
   columns?: 2 | 3 | 4;
   skipFirst?: number;
 }
+
 const {
   title,
   subtitle,
@@ -30,18 +31,19 @@ const {
   columns = 3,
   skipFirst = 0
 } = Astro.props;
+
 const ctaHref = lang === 'fr' ? '/fr/articles' : '/en/articles';
 const ctaText = lang === 'fr' ? 'Voir tous les articles' : 'View all articles';
+
 // Récupérer les articles publiés et triés par date
 const allPosts = await getCollection('blog', ({ data, slug }) => {
-  // Filtrer par langue et exclure les brouillons
   const isCorrectLang = slug.startsWith(`${lang}/`);
   const isCategoryMatch = category ? data.category === category : true;
   return data.draft !== true && isCorrectLang && isCategoryMatch;
 });
+
 const sortedPosts = allPosts
   .sort((a, b) => {
-    // Utiliser modified s'il existe, sinon utiliser date
     const dateA = new Date(a.data.modified || a.data.date).getTime();
     const dateB = new Date(b.data.modified || b.data.date).getTime();
     return dateB - dateA;
@@ -50,6 +52,7 @@ const sortedPosts = allPosts
 const displayedPosts = showAll 
   ? sortedPosts.slice(skipFirst) 
   : sortedPosts.slice(skipFirst, skipFirst + maxPosts);
+
 // Fonction pour formater la date
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat(lang === 'fr' ? 'fr-FR' : 'en-GB', {
@@ -58,427 +61,433 @@ const formatDate = (date: Date) => {
     day: 'numeric'
   }).format(date);
 };
+
 // Fonction pour extraire un extrait du contenu
 const getExcerpt = (content: string, maxLength: number = 120) => {
   const plainText = content
-    .replace(/^---[\s\S]*?---/m, '') // Remove frontmatter
-    .replace(/<[^>]*>/g, '') // Remove HTML tags
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove markdown links
-    .replace(/[#*_`~]/g, '') // Remove markdown formatting
+    .replace(/^---[\s\S]*?---/m, '')
+    .replace(/<[^>]*>/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/[#*_`~]/g, '')
     .trim();
   return plainText.length > maxLength 
     ? plainText.substring(0, maxLength) + '...' 
     : plainText;
 };
 ---
-<section class={`blog-carousel-section blog-${variant}`} aria-labelledby="blog-carousel-title">
+
+<section class="blog-section">
   {showTitle && (
     <SectionTitle 
       title={title}
       subtitle={subtitle}
-      id="blog-carousel-title"
     />
   )}
+  
   <div class="container">
-    <div class={variant === 'carousel' ? 'carousel-wrapper' : `grid-wrapper grid-cols-${columns}`}>
-      <div class={variant === 'carousel' ? 'carousel-track' : 'blog-grid'} id="blog-carousel">
+    <div class={variant === 'carousel' ? 'carousel' : `grid grid-${columns}`}>
+      <div class={variant === 'carousel' ? 'carousel-track' : 'articles'} id="blog-carousel">
         {displayedPosts.map((post) => (
-          <article class="blog-card">
+          <article class="article-card">
             {post.data.image && (
-              <div class="blog-card-image">
-                <a href={`/${lang}/articles/${post.slug.replace(`${lang}/`, '')}`}>
-                  <Image 
-                    src={post.data.image} 
-                    alt={post.data.title}
-                    width={320}
-                    height={180}
-                    loading="lazy"
-                    quality="mid"
-                  />
-                </a>
-              </div>
+              <a href={`/${lang}/articles/${post.slug.replace(`${lang}/`, '')}`} class="image-link">
+                <Image 
+                  src={post.data.image} 
+                  alt={post.data.title}
+                  width={320}
+                  height={180}
+                  loading="lazy"
+                  quality="mid"
+                  class="article-image"
+                />
+              </a>
             )}
-            <div class="blog-card-content">
-              <div class="blog-card-header">
-                <a href={`/${lang}/articles/category/${post.data.category.toLowerCase().replace(/\s+/g, '-')}`} class="blog-category">
+            
+            <div class="article-content">
+              <div class="meta">
+                <a href={`/${lang}/articles/category/${post.data.category.toLowerCase().replace(/\s+/g, '-')}`} class="category">
                   {post.data.category}
                 </a>
-                <div class="blog-meta">
-                  <time datetime={(post.data.modified && new Date(post.data.modified) > new Date(post.data.date) ? new Date(post.data.modified) : post.data.date).toISOString()}>
-                    {formatDate(post.data.modified && new Date(post.data.modified) > new Date(post.data.date) ? new Date(post.data.modified) : post.data.date)}
-                  </time>
-                  <span class="meta-separator">•</span>
-                  <span class="reading-time">
-                    {calculateReadingTime(post.body, lang)} {lang === 'fr' ? 'min' : 'min'}
-                  </span>
-                </div>
+                <span class="date">
+                  {formatDate(post.data.modified && new Date(post.data.modified) > new Date(post.data.date) 
+                    ? new Date(post.data.modified) 
+                    : post.data.date)}
+                </span>
+                <span class="reading-time">
+                  {calculateReadingTime(post.body, lang)} min
+                </span>
               </div>
-              <h3 class="blog-title">
+              
+              <h3>
                 <a href={`/${lang}/articles/${post.slug.replace(`${lang}/`, '')}`}>
                   {post.data.title}
                 </a>
               </h3>
-              <p class="blog-excerpt">
+              
+              <p class="excerpt">
                 {post.data.description || getExcerpt(post.body)}
               </p>
-              <div class="blog-footer">
-                <a href={`/${lang}/articles/${post.slug.replace(`${lang}/`, '')}`} class="read-more">
-                  {lang === 'fr' ? 'Lire la suite' : 'Read more'}
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </a>
-              </div>
+              
+              <a href={`/${lang}/articles/${post.slug.replace(`${lang}/`, '')}`} class="read-more">
+                {lang === 'fr' ? 'Lire →' : 'Read →'}
+              </a>
             </div>
           </article>
         ))}
       </div>
+      
       {variant === 'carousel' && (
         <>
-          <!-- Navigation buttons -->
-          <button class="carousel-nav carousel-nav-prev" aria-label="Previous articles" data-direction="prev">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-          </button>
-          <button class="carousel-nav carousel-nav-next" aria-label="Next articles" data-direction="next">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
+          <button class="nav prev" aria-label="Previous">‹</button>
+          <button class="nav next" aria-label="Next">›</button>
         </>
       )}
     </div>
+    
     {showCTA && (
-      <div class="section-footer">
-        <a href={ctaHref} class="cta-button">
+      <div class="footer">
+        <a href={ctaHref} class="cta">
           {ctaText}
         </a>
       </div>
     )}
   </div>
 </section>
+
 <style>
-  .blog-carousel-section {
-    padding: 0 0 6rem 0;
+  .blog-section {
+    padding: 120px 20px 140px;
   }
-  
-  /* Grid variant styles */
-  .grid-wrapper {
-    padding: 0;
-  }
-  
-  .grid-wrapper .blog-grid {
-    display: grid;
-    gap: 1.5rem;
-    padding: 0;
-    overflow: visible;
-    scroll-behavior: auto;
-  }
-  
-  .grid-cols-2 .blog-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .grid-cols-3 .blog-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  
-  .grid-cols-4 .blog-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  
-  @media (max-width: 968px) {
-    .grid-cols-3 .blog-grid,
-    .grid-cols-4 .blog-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  
-  @media (max-width: 640px) {
-    .grid-cols-2 .blog-grid,
-    .grid-cols-3 .blog-grid,
-    .grid-cols-4 .blog-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-  
-  /* Hide carousel buttons in grid mode */
-  .blog-grid .carousel-button {
-    display: none;
-  }
-  
+
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
   }
+
   /* Carousel */
-  .carousel-wrapper {
+  .carousel {
     position: relative;
-    margin: 0 -1rem;
-    padding: 0 3rem;
   }
+
   .carousel-track {
     display: flex;
-    gap: 1.5rem;
+    gap: 32px;
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding: 1rem;
+    padding-bottom: 4px;
+    scroll-behavior: smooth;
   }
+
   .carousel-track::-webkit-scrollbar {
     display: none;
   }
-  /* Blog Card - Calculé pour afficher exactement 3 cartes */
-  .blog-card {
-    flex: 0 0 calc((100% - 3rem) / 3);
-    min-width: 300px;
-    max-width: 400px;
-    border-radius: 12px;
+
+  /* Grid */
+  .grid {
+    display: grid;
+    gap: 24px;
+  }
+
+  .articles {
+    display: grid;
+    gap: 24px;
+  }
+  
+  .grid-2 > .articles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .grid-3 > .articles {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .grid-4 > .articles {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Article Card */
+  .article-card {
+    background: #fafbfc;
+    border: 1px solid #e5e7eb;
+    border-radius: 2px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
-    border: 1px solid transparent;
-    box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease;
+  }
+  
+  /* Carousel specific width */
+  .carousel-track .article-card {
+    flex: 0 0 320px;
+  }
+
+  .carousel .article-card {
+    min-width: 320px;
+  }
+
+  .article-card:hover {
+    background: #ffffff;
+    border-color: #9ca3af;
+    transform: translateY(-2px);
+  }
+
+  .image-link {
+    display: block;
+    height: 120px;
+    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    overflow: hidden;
     position: relative;
   }
-  /* Barre d'accent en haut de la carte */
-  .blog-card::before {
+  
+  .image-link::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #3b82f6, #60a5fa);
-    opacity: 0;
-    z-index: 1;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(30, 58, 95, 0.03) 100%);
   }
-  
-  .blog-card:hover {
-    box-shadow: 0 8px 30px -8px rgba(0, 0, 0, 0.12);
-    border-color: #e2e8f0;
-    background: #ffffff;
-  }
-  
-  .blog-card:hover::before {
-    opacity: 1;
-  }
-  /* Blog Card Image */
-  .blog-card-image {
-    position: relative;
-    overflow: hidden;
-    height: 180px;
-    background: #f1f5f9;
-  }
-  .blog-card-image img {
+
+  .article-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    opacity: 0.95;
   }
-  /* Blog Card Content */
-  .blog-card-content {
-    padding: 1.5rem;
+  
+  .article-card:hover .article-image {
+    opacity: 1;
+  }
+
+  .article-content {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    padding: 24px;
   }
-  .blog-card-header {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 1rem;
-    font-size: 0.875rem;
-    gap: 0.5rem;
-  }
-  .blog-category {
-    color: #3b82f6;
-    font-weight: 600;
-    font-size: 0.75rem;
-    text-decoration: none;
-    background: rgba(59, 130, 246, 0.1);
-    padding: 0.25rem 0.625rem;
-    border-radius: 9999px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .blog-category:hover {
-    background: rgba(59, 130, 246, 0.15);
-    color: #2563eb;
-  }
-  .blog-meta {
+
+  /* Meta */
+  .meta {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    color: #94a3b8;
-    font-size: 0.8125rem;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    color: #6b7280;
   }
-  time {
-    color: #94a3b8;
-    font-weight: 400;
-  }
-  .meta-separator {
-    color: #cbd5e1;
-  }
-  .reading-time {
-    color: #94a3b8;
-    font-weight: 400;
-  }
-  .blog-title {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 0.75rem;
-    line-height: 1.3;
-    letter-spacing: -0.02em;
-  }
-  .blog-title a {
-    color: inherit;
+
+  .category {
+    color: #1e3a5f;
     text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 11px;
   }
-  .blog-title a:hover {
-    color: #3b82f6;
+
+  .category:hover {
+    color: #374151;
   }
-  .blog-excerpt {
-    color: #64748b;
-    line-height: 1.6;
-    font-size: 0.9375rem;
-    margin-bottom: 1.25rem;
+
+  .date::before {
+    content: '—';
+    margin-right: 8px;
+    color: #d1d5db;
+  }
+
+  .reading-time::before {
+    content: '—';
+    margin-right: 8px;
+    color: #d1d5db;
+  }
+
+  /* Title */
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 14px 0;
+    line-height: 1.4;
+  }
+
+  h3 a {
+    color: #1e3a5f;
+    text-decoration: none;
+    display: block;
+  }
+
+  h3 a:hover {
+    color: #4b5563;
+  }
+
+  /* Excerpt */
+  .excerpt {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #525252;
+    margin: 0 0 20px 0;
     flex-grow: 1;
   }
-  .blog-footer {
-    margin-top: auto;
-  }
+
+  /* Read More */
   .read-more {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e3a5f;
+    text-decoration: none;
+    margin-top: auto;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: #3b82f6;
-    color: white;
-    font-weight: 500;
-    font-size: 0.8125rem;
-    text-decoration: none;
-    border-radius: 9999px;
-    transition: opacity 0.2s ease, box-shadow 0.2s ease;
+    gap: 6px;
+    transition: gap 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
+
   .read-more:hover {
-    background: #2563eb;
-    box-shadow: 0 4px 12px -4px rgba(59, 130, 246, 0.3);
-    text-decoration: none;
+    color: #374151;
+    gap: 10px;
   }
+
   /* Navigation */
-  .carousel-nav {
+  .nav {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: white;
-    border-radius: 50%;
     width: 40px;
     height: 40px;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 2px;
+    font-size: 18px;
+    color: #6b7280;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     z-index: 2;
-    color: #6b7280;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
   }
-  .carousel-nav:hover {
+
+  .nav:hover {
     background: #f9fafb;
-    color: #111827;
+    border-color: #9ca3af;
+    color: #374151;
   }
-  .carousel-nav-prev {
-    left: 0;
+
+  .nav:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
-  .carousel-nav-next {
-    right: 0;
+
+  .prev {
+    left: -24px;
   }
+
+  .next {
+    right: -24px;
+  }
+
   /* Footer */
-  .section-footer {
+  .footer {
     text-align: center;
-    margin-top: 3rem;
+    margin-top: 48px;
   }
-  /* CTA Button - Cohérent avec le design global */
-  .cta-button {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.75rem 1.75rem;
-    background: #3b82f6;
-    color: white;
-    border-radius: 9999px;
-    font-weight: 500;
+
+  .cta {
+    display: inline-block;
+    padding: 12px 28px;
+    background: transparent;
+    color: #1e3a5f;
+    border: 2px solid #1e3a5f;
+    border-radius: 2px;
     text-decoration: none;
-    font-size: 0.875rem;
-    letter-spacing: 0.025em;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
   }
-  .cta-button:hover {
-    background: #2563eb;
+
+  .cta:hover {
+    background: #1e3a5f;
+    color: #ffffff;
   }
+
   /* Responsive */
   @media (max-width: 1024px) {
-    /* 2 cartes sur tablette */
-    .blog-card {
-      flex: 0 0 calc((100% - 1.5rem) / 2);
-      min-width: 280px;
-    }
-    .blog-title {
-      font-size: 1rem;
+    .grid-3 .articles,
+    .grid-4 .articles {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
+
   @media (max-width: 768px) {
-    .blog-carousel-section {
-      padding: 4rem 0;
+    .blog-section {
+      padding: 80px 20px 100px;
     }
-    .carousel-wrapper {
-      margin: 0;
-      padding: 0;
-    }
+
     .carousel-track {
-      padding: 1rem 1rem 1rem 2rem;
-      gap: 1rem;
+      gap: 20px;
     }
-    /* 1 carte complète sur mobile avec un peu de la suivante visible */
-    .blog-card {
-      flex: 0 0 85%;
-      min-width: 260px;
-      max-width: none;
+
+    .article-card {
+      flex: 0 0 280px;
+      min-width: 280px;
     }
-    .blog-title {
-      font-size: 1rem;
+
+    .grid-2 .articles,
+    .grid-3 .articles,
+    .grid-4 .articles {
+      grid-template-columns: 1fr;
     }
-    .blog-excerpt {
-      font-size: 0.875rem;
-    }
-    .carousel-nav {
+
+    .nav {
       display: none;
+    }
+
+    h3 {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .blog-section {
+      padding: 60px 16px 80px;
+    }
+
+    .article-card {
+      flex: 0 0 280px;
+      min-width: 280px;
     }
   }
 </style>
+
 <script>
-  // Carousel navigation
   document.addEventListener('DOMContentLoaded', () => {
     const track = document.getElementById('blog-carousel');
-    const prevBtn = document.querySelector('.carousel-nav-prev');
-    const nextBtn = document.querySelector('.carousel-nav-next');
+    const prevBtn = document.querySelector('.nav.prev');
+    const nextBtn = document.querySelector('.nav.next');
+    
     if (!track || !prevBtn || !nextBtn) return;
-    const cardWidth = 320 + 24; // card width + gap
+    
+    const cards = track.querySelectorAll('.article-card');
+    const cardWidth = cards?.[0]?.offsetWidth + 32 || 400;
+    
     prevBtn.addEventListener('click', () => {
       track.scrollBy({ left: -cardWidth, behavior: 'smooth' });
     });
+    
     nextBtn.addEventListener('click', () => {
       track.scrollBy({ left: cardWidth, behavior: 'smooth' });
     });
-    // Update button states
+    
     const updateButtons = () => {
       const isAtStart = track.scrollLeft <= 0;
       const isAtEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 10;
       prevBtn.disabled = isAtStart;
       nextBtn.disabled = isAtEnd;
     };
+    
     track.addEventListener('scroll', updateButtons);
     updateButtons();
   });

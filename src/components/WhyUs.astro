@@ -13,276 +13,148 @@ export interface Props {
     description: string;
   }>;
 }
+
 const { 
   title,
   subtitle,
   metrics,
   advantages
 } = Astro.props;
-
-// Combiner metrics et advantages en une seule grille
-const allItems = [
-  ...metrics.map(m => ({ type: 'metric', ...m })),
-  ...advantages.map(a => ({ type: 'advantage', ...a }))
-];
 ---
-<section id="why-us" class="why-us-section" aria-labelledby="why-us-title">
+
+<section class="why-us">
   <SectionTitle 
     title={title}
     subtitle={subtitle}
-    id="why-us-title"
   />
+  
   <div class="container">
-    <div class="features-grid">
+    <div class="grid">
       {metrics.map((metric) => (
-        <div class="feature-card metric-card">
-          <div class="metric-content">
-            <span class="metric-value">{metric.value}</span>
-            <span class="metric-label">{metric.label}</span>
-          </div>
+        <div class="card metric">
+          <span class="value">{metric.value}</span>
+          <span class="label">{metric.label}</span>
         </div>
       ))}
+      
       {advantages.map((advantage) => (
-        <div class="feature-card advantage-card">
-          <div class="card-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 11l3 3L22 4"></path>
-              <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
-            </svg>
-          </div>
-          <div class="card-content">
-            <h4 class="card-title">{advantage.title}</h4>
-            <p class="card-description">{advantage.description}</p>
-          </div>
+        <div class="card">
+          <h4>{advantage.title}</h4>
+          <p>{advantage.description}</p>
         </div>
       ))}
     </div>
   </div>
 </section>
+
 <style>
-  .why-us-section {
-    padding: 0 0 6rem 0;
-    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-    position: relative;
+  .why-us {
+    padding: 120px 20px 140px;
   }
-  
+
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
   }
-  
-  /* Grille moderne mixte */
-  .features-grid {
+
+  .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    max-width: 1100px;
-    margin: 0 auto;
-    justify-content: center;
-    align-items: stretch;
+    gap: 32px;
+    row-gap: 40px;
   }
-  
-  /* Card de base */
-  .feature-card {
-    background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
-    border: 1px solid transparent;
-    border-radius: 16px;
-    padding: 2rem;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.08);
+
+  .card {
+    padding: 40px;
+    background: #fafbfc;
+    border: 1px solid #e5e7eb;
+    border-radius: 2px;
+    transition: all 0.2s ease;
   }
-  
-  .feature-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #3b82f6, #60a5fa);
-    opacity: 0;
-  }
-  
-  .feature-card:hover {
-    box-shadow: 0 8px 30px -8px rgba(0, 0, 0, 0.12);
-    border-color: #e2e8f0;
+
+  .card:hover {
     background: #ffffff;
+    border-color: #9ca3af;
   }
-  
-  .feature-card:hover::before {
-    opacity: 1;
-  }
-  
-  /* Metric Cards - Design moderne */
-  .metric-card {
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 180px;
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-    color: white;
-    border: none;
-  }
-  
-  .metric-card:hover {
-    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-    box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.4);
-  }
-  
-  .metric-content {
+
+  .metric {
+    text-align: left;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
+    justify-content: flex-start;
+    min-height: auto;
+    border-left: 3px solid #1e3a5f;
+    padding-left: 40px;
   }
-  
-  .metric-value {
-    font-size: 3rem;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.03em;
-    display: block;
-  }
-  
-  .metric-label {
-    font-size: 0.9375rem;
+
+  .value {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 42px;
     font-weight: 500;
-    opacity: 0.95;
+    color: #1e3a5f;
+    display: block;
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+
+  .label {
+    font-size: 13px;
+    color: #525252;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 1px;
+    font-weight: 600;
   }
-  
-  /* Advantage Cards */
-  .advantage-card {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-  
-  .card-icon {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(96, 165, 250, 0.05));
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #3b82f6;
-    flex-shrink: 0;
-  }
-  
-  .advantage-card:hover .card-icon {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(96, 165, 250, 0.08));
-  }
-  
-  .card-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .card-title {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin: 0;
+
+  h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e3a5f;
+    margin: 0 0 16px 0;
     line-height: 1.3;
-    letter-spacing: -0.02em;
   }
-  
-  .card-description {
-    font-size: 0.9375rem;
-    color: #64748b;
-    line-height: 1.6;
+
+  p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #525252;
     margin: 0;
   }
-  
-  /* Grille responsive intelligente */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .features-grid {
-      grid-template-columns: repeat(2, 1fr);
-      max-width: 700px;
+
+  @media (max-width: 768px) {
+    .why-us {
+      padding: 80px 20px 100px;
     }
-    
-    .metric-card,
-    .advantage-card {
-      grid-column: span 1;
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .features-grid {
-      grid-template-columns: repeat(3, 1fr);
-      max-width: 1000px;
-    }
-    
-    .metric-card {
-      grid-column: span 1;
-    }
-    
-    .advantage-card {
-      grid-column: span 1;
-    }
-  }
-  
-  /* Mobile */
-  @media (max-width: 767px) {
-    .why-us-section {
-      padding: 0 0 4rem 0;
-    }
-    
-    .features-grid {
+
+    .grid {
       grid-template-columns: 1fr;
-      gap: 1.25rem;
-      max-width: 400px;
+      gap: 24px;
+      row-gap: 32px;
     }
-    
-    .feature-card {
-      padding: 1.75rem;
+
+    .metric {
+      padding-left: 24px;
     }
-    
-    .metric-card {
-      min-height: 150px;
-    }
-    
-    .metric-value {
-      font-size: 2.5rem;
-    }
-    
-    .metric-label {
-      font-size: 0.875rem;
-    }
-    
-    .card-icon {
-      width: 40px;
-      height: 40px;
-    }
-    
-    .card-title {
-      font-size: 1.0625rem;
-    }
-    
-    .card-description {
-      font-size: 0.875rem;
+
+    .value {
+      font-size: 36px;
     }
   }
-  
+
   @media (max-width: 480px) {
-    .container {
-      padding: 0 1rem;
+    .why-us {
+      padding: 60px 16px 80px;
     }
-    
-    .feature-card {
-      padding: 1.5rem;
-      border-radius: 12px;
+
+    .card {
+      padding: 28px;
     }
-    
-    .metric-value {
-      font-size: 2rem;
+
+    .value {
+      font-size: 32px;
+    }
+
+    h4 {
+      font-size: 16px;
     }
   }
 </style>
