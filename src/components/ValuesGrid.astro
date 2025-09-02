@@ -7,7 +7,6 @@ export interface Props {
   values: Array<{
     title: string;
     description: string;
-    icon: string;
   }>;
   backgroundColor?: string;
 }
@@ -65,7 +64,6 @@ const { title, subtitle, values, backgroundColor } = Astro.props;
     border: 1px solid #e5e7eb;
     border-radius: 2px;
     padding: 40px;
-    position: relative;
     transition: all 0.2s ease;
     display: flex;
     flex-direction: column;
@@ -77,8 +75,8 @@ const { title, subtitle, values, backgroundColor } = Astro.props;
   }
   /* Number */
   .value-number {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 36px;
+    font-family: var(--font-family-display);
+    font-size: var(--font-h2);
     font-weight: 500;
     color: #1e3a5f;
     margin-bottom: 24px;
@@ -86,18 +84,18 @@ const { title, subtitle, values, backgroundColor } = Astro.props;
   }
   /* Title */
   .value-title {
-    font-size: 18px;
+    font-size: var(--font-h3);
     font-weight: 600;
     color: #1e3a5f;
     margin: 0 0 16px 0;
-    line-height: 1.4;
+    line-height: 1.3;
   }
   /* Description */
   .value-description {
-    color: #525252;
+    font-size: var(--font-body);
     line-height: 1.7;
+    color: #525252;
     margin: 0;
-    font-size: 15px;
   }
   
   /* Responsive */
@@ -116,22 +114,12 @@ const { title, subtitle, values, backgroundColor } = Astro.props;
       padding: 32px;
     }
     .value-number {
-      font-size: 32px;
       margin-bottom: 20px;
-    }
-    .value-title {
-      font-size: 17px;
-    }
-    .value-description {
-      font-size: 14px;
     }
   }
   @media (max-width: 480px) {
     .value-card {
       padding: 28px;
-    }
-    .value-number {
-      font-size: 28px;
     }
   }
 </style>

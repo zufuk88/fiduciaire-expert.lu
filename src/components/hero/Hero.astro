@@ -46,13 +46,18 @@ const {
 </header>
 <style>
   .hero-section {
-    padding: 120px 20px 160px;
-    background: #ffffff;
+    min-height: calc(100vh - 80px); /* Compense la hauteur de la navbar */
+    background: #fafbfc;
+    display: flex;
+    align-items: center;
+    padding: 80px 20px;
+    margin-top: -20px; /* Léger ajustement pour remonter le contenu */
   }
 
   .container {
     max-width: 1200px;
     margin: 0 auto;
+    width: 100%;
   }
 
   .hero-content {
@@ -98,7 +103,8 @@ const {
 
   @media (max-width: 768px) {
     .hero-section {
-      padding: 80px 20px 100px;
+      min-height: 80vh;
+      padding: 60px 20px;
     }
 
     h1 {
@@ -114,7 +120,8 @@ const {
 
   @media (max-width: 480px) {
     .hero-section {
-      padding: 60px 16px 80px;
+      min-height: 70vh;
+      padding: 40px 16px;
     }
 
     h1 {

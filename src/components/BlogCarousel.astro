@@ -220,9 +220,6 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
   /* Carousel specific width */
   .carousel-track .article-card {
     flex: 0 0 320px;
-  }
-
-  .carousel .article-card {
     min-width: 320px;
   }
 
@@ -430,7 +427,7 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
       gap: 20px;
     }
 
-    .article-card {
+    .carousel-track .article-card {
       flex: 0 0 280px;
       min-width: 280px;
     }
@@ -444,20 +441,11 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     .nav {
       display: none;
     }
-
-    h3 {
-      /* Les variables CSS clamp() gèrent déjà le responsive */
-    }
   }
 
   @media (max-width: 480px) {
     .blog-section {
       padding: 60px 16px 80px;
-    }
-
-    .article-card {
-      flex: 0 0 280px;
-      min-width: 280px;
     }
   }
 </style>

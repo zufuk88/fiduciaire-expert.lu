@@ -41,7 +41,7 @@ const faqSchema = generateSchema ? {
   
   <div class="container">
     <div class="accordion">
-      {faqItems.map((item, index) => (
+      {faqItems.map((item) => (
         <details class="item">
           <summary class="question">
             <span>{item.question}</span>
@@ -137,7 +137,6 @@ const faqSchema = generateSchema ? {
     }
 
     .question {
-      /* Les variables CSS clamp() gèrent déjà le responsive */
       padding: 16px 0;
     }
 
@@ -151,13 +150,6 @@ const faqSchema = generateSchema ? {
       padding: 60px 16px 80px;
     }
 
-    .question {
-      /* Les variables CSS clamp() gèrent déjà le responsive */
-    }
-
-    .answer p {
-      /* Les variables CSS clamp() gèrent déjà le responsive */
-    }
   }
 </style>
 

@@ -1,18 +1,12 @@
 ---
 export interface Props {
-  title: string;
-  category: string;
-  lang?: 'fr' | 'en';
   image?: any;
 }
-const { title, category, lang = 'fr', image } = Astro.props;
+const { image } = Astro.props;
 ---
-<!-- Article Header -->
 <header class="article-header" style={image ? `--hero-image: url(${typeof image === 'string' ? image : image.src})` : ''} role="banner">
-  <!-- Hero image uniquement -->
 </header>
 <style>
-  /* Article Header */
   .article-header { 
     padding: 6rem 0 3rem; 
     position: relative;
@@ -20,9 +14,6 @@ const { title, category, lang = 'fr', image } = Astro.props;
     margin-top: -2px;
     background: linear-gradient(135deg, #94a3b8 0%, #cbd5e1 50%, #e2e8f0 100%);
     min-height: 380px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
   /* Image de l'article en arrière-plan */
   .article-header[style*="--hero-image"]::before {
