@@ -56,41 +56,30 @@ const {
   
   <div class="container">
     <div class={`grid grid-${columns}`}>
-      {(variant === 'grid' || variant === 'cards') && services.map((service, index) => (
-        service.href ? (
-          <a href={service.href} class="card">
-            <div class="card-icon">{index + 1}</div>
+      {(variant === 'grid' || variant === 'cards') && services.map((service, index) => {
+        const Wrapper = service.href ? 'a' : 'div';
+        const wrapperProps = service.href ? { href: service.href } : {};
+        
+        return (
+          <Wrapper class="card" {...wrapperProps} aria-label={`Service ${index + 1}: ${service.title}`}>
+            <div class="card-icon" aria-label={`Service numéro ${index + 1}`}>
+              <span aria-hidden="true">{index + 1}</span>
+            </div>
             <h3>{service.title}</h3>
             {service.description && <p>{service.description}</p>}
             {variant === 'cards' && service.features && (
-              <ul class="features">
-                {service.features.map(feature => (
-                  <li>{feature}</li>
+              <ul class="features" role="list">
+                {service.features.map((feature) => (
+                  <li role="listitem">{feature}</li>
                 ))}
               </ul>
             )}
             {variant === 'cards' && service.price && (
-              <span class="price">{service.price}</span>
+              <span class="price" aria-label={`Prix: ${service.price}`}>{service.price}</span>
             )}
-          </a>
-        ) : (
-          <div class="card">
-            <div class="card-icon">{index + 1}</div>
-            <h3>{service.title}</h3>
-            {service.description && <p>{service.description}</p>}
-            {variant === 'cards' && service.features && (
-              <ul class="features">
-                {service.features.map(feature => (
-                  <li>{feature}</li>
-                ))}
-              </ul>
-            )}
-            {variant === 'cards' && service.price && (
-              <span class="price">{service.price}</span>
-            )}
-          </div>
-        )
-      ))}
+          </Wrapper>
+        );
+      })}
       
       {variant === 'list' && sections.map((section) => (
         <div class="card">
@@ -471,5 +460,251 @@ const {
     .card {
       padding: 28px;
     }
+  }
+
+  /* Support du mode sombre */
+  @media (prefers-color-scheme: dark) {
+    .services {
+      background: #0f172a;
+    }
+
+    .card {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    .card:hover {
+      background: #263449;
+      border-color: #475569;
+    }
+
+    .card h3 {
+      color: #f1f5f9;
+    }
+
+    a.card:hover h3 {
+      color: #e2e8f0;
+    }
+
+    .card p {
+      color: #94a3b8;
+    }
+
+    .card-icon {
+      background: #334155;
+      color: #f1f5f9;
+    }
+
+    .badge {
+      background: #334155;
+      color: #cbd5e1;
+    }
+
+    .list li {
+      color: #cbd5e1;
+      border-bottom-color: #334155;
+    }
+
+    .label {
+      color: #e2e8f0;
+    }
+
+    .value {
+      color: #94a3b8;
+    }
+
+    .footer {
+      border-top-color: #334155;
+      color: #64748b;
+    }
+
+    .thresholds {
+      background: #1e293b;
+      border: 1px solid #334155;
+    }
+
+    .threshold {
+      border-bottom-color: #334155;
+    }
+
+    .threshold .label {
+      color: #94a3b8;
+    }
+
+    .threshold .value {
+      color: #f1f5f9;
+    }
+
+    h4 {
+      color: #cbd5e1;
+    }
+
+    .features li {
+      color: #94a3b8;
+    }
+
+    .features li::before {
+      color: #22c55e;
+    }
+
+    .price {
+      background: #334155;
+      color: #f1f5f9;
+    }
+
+    .content-list li {
+      color: #94a3b8;
+      border-bottom-color: #334155;
+    }
+
+    .content-list li::before {
+      color: #64748b;
+    }
+
+    .highlight-box {
+      background: #1e293b;
+      border-color: #334155;
+      border-left-color: #3b82f6;
+    }
+
+    .highlight-content h3 {
+      color: #f1f5f9;
+    }
+
+    .highlight-content p {
+      color: #94a3b8;
+    }
+
+    .highlight-note {
+      background: #263449;
+      border-left-color: #64748b;
+      color: #cbd5e1;
+    }
+
+    .highlight-note strong {
+      color: #f1f5f9;
+    }
+  }
+
+  /* Support du mode sombre avec classe sur body */
+  :global(body.dark) .services {
+    background: #0f172a;
+  }
+
+  :global(body.dark) .card {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global(body.dark) .card:hover {
+    background: #263449;
+    border-color: #475569;
+  }
+
+  :global(body.dark) .card h3 {
+    color: #f1f5f9;
+  }
+
+  :global(body.dark) a.card:hover h3 {
+    color: #e2e8f0;
+  }
+
+  :global(body.dark) .card p {
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .card-icon {
+    background: #334155;
+    color: #f1f5f9;
+  }
+
+  :global(body.dark) .badge {
+    background: #334155;
+    color: #cbd5e1;
+  }
+
+  :global(body.dark) .list li {
+    color: #cbd5e1;
+    border-bottom-color: #334155;
+  }
+
+  :global(body.dark) .label {
+    color: #e2e8f0;
+  }
+
+  :global(body.dark) .value {
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .footer {
+    border-top-color: #334155;
+    color: #64748b;
+  }
+
+  :global(body.dark) .thresholds {
+    background: #1e293b;
+    border: 1px solid #334155;
+  }
+
+  :global(body.dark) .threshold {
+    border-bottom-color: #334155;
+  }
+
+  :global(body.dark) .threshold .label {
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .threshold .value {
+    color: #f1f5f9;
+  }
+
+  :global(body.dark) h4 {
+    color: #cbd5e1;
+  }
+
+  :global(body.dark) .features li {
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .features li::before {
+    color: #22c55e;
+  }
+
+  :global(body.dark) .price {
+    background: #334155;
+    color: #f1f5f9;
+  }
+
+  :global(body.dark) .content-list li {
+    color: #94a3b8;
+    border-bottom-color: #334155;
+  }
+
+  :global(body.dark) .content-list li::before {
+    color: #64748b;
+  }
+
+  :global(body.dark) .highlight-box {
+    background: #1e293b;
+    border-color: #334155;
+    border-left-color: #3b82f6;
+  }
+
+  :global(body.dark) .highlight-content h3 {
+    color: #f1f5f9;
+  }
+
+  :global(body.dark) .highlight-content p {
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .highlight-note {
+    background: #263449;
+    border-left-color: #64748b;
+    color: #cbd5e1;
+  }
+
+  :global(body.dark) .highlight-note strong {
+    color: #f1f5f9;
   }
 </style>

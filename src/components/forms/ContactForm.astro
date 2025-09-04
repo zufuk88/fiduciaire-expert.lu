@@ -438,6 +438,266 @@ const services = lang === 'fr'
     outline: 2px solid #3b82f6;
     outline-offset: 2px;
   }
+
+  /* Support du mode sombre */
+  @media (prefers-color-scheme: dark) {
+    .form-container {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    .form-container::before {
+      background: #60a5fa;
+    }
+
+    .form-header h2 {
+      color: #f1f5f9;
+    }
+
+    .form-header p {
+      color: #94a3b8;
+    }
+
+    .form-label {
+      color: #cbd5e1;
+    }
+
+    .form-input {
+      background: #0f172a;
+      color: #f1f5f9;
+      border-color: #334155;
+    }
+
+    .form-input::placeholder {
+      color: #64748b;
+    }
+
+    .form-input:hover {
+      border-color: #475569;
+    }
+
+    .form-input:focus {
+      border-color: #60a5fa;
+      background: #0f172a;
+    }
+
+    .form-input:not(:placeholder-shown) {
+      background: #0f172a;
+    }
+
+    .select-arrow {
+      color: #64748b;
+    }
+
+    .form-select:focus ~ .select-arrow {
+      color: #60a5fa;
+    }
+
+    .privacy-note {
+      background: #0f172a;
+      border-color: #334155;
+      color: #94a3b8;
+    }
+
+    .privacy-note svg {
+      color: #60a5fa;
+    }
+
+    .form-input:invalid:not(:focus):not(:placeholder-shown) {
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    .form-input:valid:not(:focus):not(:placeholder-shown):not(:hover) {
+      border-color: #334155;
+      background: #0f172a;
+    }
+
+    /* Bouton submit clair en mode dark */
+    .form-submit {
+      background: #ffffff !important;
+      color: #0f172a !important;
+      border: 1px solid #e5e7eb !important;
+    }
+
+    .form-submit:hover {
+      background: #f1f5f9 !important;
+      color: #0f172a !important;
+      border-color: #cbd5e1 !important;
+    }
+  }
+
+  /* Support du mode sombre avec classe sur body */
+  :global(body.dark) .form-container {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global(body.dark) .form-container::before {
+    background: #60a5fa;
+  }
+
+  :global(body.dark) .form-header h2 {
+    color: #f1f5f9;
+  }
+
+  :global(body.dark) .form-header p {
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .form-label {
+    color: #cbd5e1;
+  }
+
+  :global(body.dark) .form-input {
+    background: #0f172a;
+    color: #f1f5f9;
+    border-color: #334155;
+  }
+
+  :global(body.dark) .form-input::placeholder {
+    color: #64748b;
+  }
+
+  :global(body.dark) .form-input:hover {
+    border-color: #475569;
+  }
+
+  :global(body.dark) .form-input:focus {
+    border-color: #60a5fa;
+    background: #0f172a;
+  }
+
+  :global(body.dark) .form-input:not(:placeholder-shown) {
+    background: #0f172a;
+  }
+
+  :global(body.dark) .select-arrow {
+    color: #64748b;
+  }
+
+  :global(body.dark) .form-select:focus ~ .select-arrow {
+    color: #60a5fa;
+  }
+
+  :global(body.dark) .privacy-note {
+    background: #0f172a;
+    border-color: #334155;
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .privacy-note svg {
+    color: #60a5fa;
+  }
+
+  :global(body.dark) .form-input:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+  }
+
+  :global(body.dark) .form-input:valid:not(:focus):not(:placeholder-shown):not(:hover) {
+    border-color: #334155;
+    background: #0f172a;
+  }
+
+  /* Bouton submit clair en mode dark avec body.dark */
+  :global(body.dark) .form-submit {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    border: 1px solid #e5e7eb !important;
+  }
+
+  :global(body.dark) .form-submit:hover {
+    background: #f1f5f9 !important;
+    color: #0f172a !important;
+    border-color: #cbd5e1 !important;
+  }
+
+  /* Support du mode sombre avec attribut data-theme */
+  :global([data-theme="dark"]) .form-container {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .form-container::before {
+    background: #60a5fa;
+  }
+
+  :global([data-theme="dark"]) .form-header h2 {
+    color: #f1f5f9;
+  }
+
+  :global([data-theme="dark"]) .form-header p {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .form-label {
+    color: #cbd5e1;
+  }
+
+  :global([data-theme="dark"]) .form-input {
+    background: #0f172a;
+    color: #f1f5f9;
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .form-input::placeholder {
+    color: #64748b;
+  }
+
+  :global([data-theme="dark"]) .form-input:hover {
+    border-color: #475569;
+  }
+
+  :global([data-theme="dark"]) .form-input:focus {
+    border-color: #60a5fa;
+    background: #0f172a;
+  }
+
+  :global([data-theme="dark"]) .form-input:not(:placeholder-shown) {
+    background: #0f172a;
+  }
+
+  :global([data-theme="dark"]) .select-arrow {
+    color: #64748b;
+  }
+
+  :global([data-theme="dark"]) .form-select:focus ~ .select-arrow {
+    color: #60a5fa;
+  }
+
+  :global([data-theme="dark"]) .privacy-note {
+    background: #0f172a;
+    border-color: #334155;
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .privacy-note svg {
+    color: #60a5fa;
+  }
+
+  :global([data-theme="dark"]) .form-input:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+  }
+
+  :global([data-theme="dark"]) .form-input:valid:not(:focus):not(:placeholder-shown):not(:hover) {
+    border-color: #334155;
+    background: #0f172a;
+  }
+
+  /* Bouton submit clair en mode dark avec data-theme */
+  :global([data-theme="dark"]) .form-submit {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    border: 1px solid #e5e7eb !important;
+  }
+
+  :global([data-theme="dark"]) .form-submit:hover {
+    background: #f1f5f9 !important;
+    color: #0f172a !important;
+    border-color: #cbd5e1 !important;
+  }
 </style>
 <script>
   document.addEventListener('DOMContentLoaded', () => {

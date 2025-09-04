@@ -145,4 +145,111 @@ const {
       padding: 28px;
     }
   }
+
+  /* Support du mode sombre */
+  @media (prefers-color-scheme: dark) {
+    .why-us {
+      background: #0f172a;
+    }
+
+    .card {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    .card:hover {
+      background: #263449;
+      border-color: #475569;
+    }
+
+    .metric {
+      border-left-color: #3b82f6;
+    }
+
+    .value {
+      color: #f1f5f9;
+    }
+
+    .label {
+      color: #94a3b8;
+    }
+
+    h4 {
+      color: #f1f5f9;
+    }
+
+    p {
+      color: #94a3b8;
+    }
+  }
+
+  /* Support du mode sombre avec classe sur body */
+  :global(body.dark) .why-us {
+    background: #0f172a;
+  }
+
+  :global(body.dark) .card {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global(body.dark) .card:hover {
+    background: #263449;
+    border-color: #475569;
+  }
+
+  :global(body.dark) .metric {
+    border-left-color: #3b82f6;
+  }
+
+  :global(body.dark) .value {
+    color: #f1f5f9;
+  }
+
+  :global(body.dark) .label {
+    color: #94a3b8;
+  }
+
+  :global(body.dark) h4 {
+    color: #f1f5f9;
+  }
+
+  :global(body.dark) p {
+    color: #94a3b8;
+  }
+
+  /* Support du mode sombre avec attribut data-theme */
+  :global([data-theme="dark"]) .why-us {
+    background: #0f172a;
+  }
+
+  :global([data-theme="dark"]) .card {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .card:hover {
+    background: #263449;
+    border-color: #475569;
+  }
+
+  :global([data-theme="dark"]) .metric {
+    border-left-color: #3b82f6;
+  }
+
+  :global([data-theme="dark"]) .value {
+    color: #f1f5f9;
+  }
+
+  :global([data-theme="dark"]) .label {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) h4 {
+    color: #f1f5f9;
+  }
+
+  :global([data-theme="dark"]) p {
+    color: #94a3b8;
+  }
 </style>

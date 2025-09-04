@@ -149,7 +149,83 @@ const faqSchema = generateSchema ? {
     .faq {
       padding: 60px 16px 80px;
     }
+  }
 
+  /* Support du mode sombre */
+  @media (prefers-color-scheme: dark) {
+    .faq {
+      background: #0f172a;
+    }
+
+    .item {
+      border-bottom-color: #334155;
+    }
+
+    .question {
+      color: #f1f5f9;
+    }
+
+    .question:hover {
+      color: #e2e8f0;
+    }
+
+    .icon {
+      color: #94a3b8;
+    }
+
+    .answer p {
+      color: #94a3b8;
+    }
+  }
+
+  /* Support du mode sombre avec classe sur body */
+  :global(body.dark) .faq {
+    background: #0f172a;
+  }
+
+  :global(body.dark) .item {
+    border-bottom-color: #334155;
+  }
+
+  :global(body.dark) .question {
+    color: #f1f5f9;
+  }
+
+  :global(body.dark) .question:hover {
+    color: #e2e8f0;
+  }
+
+  :global(body.dark) .icon {
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .answer p {
+    color: #94a3b8;
+  }
+
+  /* Support du mode sombre avec attribut data-theme */
+  :global([data-theme="dark"]) .faq {
+    background: #0f172a;
+  }
+
+  :global([data-theme="dark"]) .item {
+    border-bottom-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .question {
+    color: #f1f5f9;
+  }
+
+  :global([data-theme="dark"]) .question:hover {
+    color: #e2e8f0;
+  }
+
+  :global([data-theme="dark"]) .icon {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .answer p {
+    color: #94a3b8;
   }
 </style>
 

@@ -141,6 +141,137 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
       padding: 8px 0;
     }
   }
+
+  /* Support du mode sombre */
+  @media (prefers-color-scheme: dark) {
+    .table-of-contents {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    .table-of-contents::after {
+      background: linear-gradient(to top, #1e293b, transparent);
+    }
+
+    .toc-title {
+      color: #f1f5f9;
+    }
+
+    .toc-link {
+      color: #94a3b8;
+    }
+
+    .toc-link:hover {
+      color: #f1f5f9;
+      border-left-color: #475569;
+      background: #263449;
+    }
+
+    .toc-link.active {
+      color: #60a5fa;
+      border-left-color: #60a5fa;
+      background: #263449;
+      font-weight: 600;
+    }
+
+    .toc-list::-webkit-scrollbar-thumb {
+      background: #334155;
+    }
+
+    .toc-list::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+
+    .toc-list {
+      scrollbar-color: #334155 transparent;
+    }
+  }
+
+  /* Support du mode sombre avec classe sur body */
+  :global(body.dark) .table-of-contents {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global(body.dark) .table-of-contents::after {
+    background: linear-gradient(to top, #1e293b, transparent);
+  }
+
+  :global(body.dark) .toc-title {
+    color: #f1f5f9;
+  }
+
+  :global(body.dark) .toc-link {
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .toc-link:hover {
+    color: #f1f5f9;
+    border-left-color: #475569;
+    background: #263449;
+  }
+
+  :global(body.dark) .toc-link.active {
+    color: #60a5fa;
+    border-left-color: #60a5fa;
+    background: #263449;
+    font-weight: 600;
+  }
+
+  :global(body.dark) .toc-list::-webkit-scrollbar-thumb {
+    background: #334155;
+  }
+
+  :global(body.dark) .toc-list::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+  }
+
+  :global(body.dark) .toc-list {
+    scrollbar-color: #334155 transparent;
+  }
+
+  /* Support du mode sombre avec attribut data-theme */
+  :global([data-theme="dark"]) .table-of-contents {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .table-of-contents::after {
+    background: linear-gradient(to top, #1e293b, transparent);
+  }
+
+  :global([data-theme="dark"]) .toc-title {
+    color: #f1f5f9;
+  }
+
+  :global([data-theme="dark"]) .toc-link {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .toc-link:hover {
+    color: #f1f5f9;
+    border-left-color: #475569;
+    background: #263449;
+  }
+
+  :global([data-theme="dark"]) .toc-link.active {
+    color: #60a5fa;
+    border-left-color: #60a5fa;
+    background: #263449;
+    font-weight: 600;
+  }
+
+  :global([data-theme="dark"]) .toc-list::-webkit-scrollbar-thumb {
+    background: #334155;
+  }
+
+  :global([data-theme="dark"]) .toc-list::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+  }
+
+  :global([data-theme="dark"]) .toc-list {
+    scrollbar-color: #334155 transparent;
+  }
 </style>
 <script>
   document.addEventListener('DOMContentLoaded', () => {

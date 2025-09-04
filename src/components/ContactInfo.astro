@@ -195,4 +195,111 @@ const contactData = {
       padding: 28px;
     }
   }
+
+  /* Support du mode sombre */
+  @media (prefers-color-scheme: dark) {
+    .contact-item {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    .contact-item:hover:not(.contact-item--static) {
+      background: #263449;
+      border-color: #475569;
+    }
+
+    .item-icon {
+      background: #60a5fa;
+    }
+
+    .item-icon svg {
+      color: #0f172a;
+    }
+
+    .item-content h3 {
+      color: #94a3b8;
+    }
+
+    .item-value {
+      color: #f1f5f9;
+    }
+
+    .contact-item:hover:not(.contact-item--static) .item-value {
+      color: #ffffff;
+    }
+
+    .item-subtitle {
+      color: #94a3b8;
+    }
+  }
+
+  /* Support du mode sombre avec classe sur body */
+  :global(body.dark) .contact-item {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global(body.dark) .contact-item:hover:not(.contact-item--static) {
+    background: #263449;
+    border-color: #475569;
+  }
+
+  :global(body.dark) .item-icon {
+    background: #60a5fa;
+  }
+
+  :global(body.dark) .item-icon svg {
+    color: #0f172a;
+  }
+
+  :global(body.dark) .item-content h3 {
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .item-value {
+    color: #f1f5f9;
+  }
+
+  :global(body.dark) .contact-item:hover:not(.contact-item--static) .item-value {
+    color: #ffffff;
+  }
+
+  :global(body.dark) .item-subtitle {
+    color: #94a3b8;
+  }
+
+  /* Support du mode sombre avec attribut data-theme */
+  :global([data-theme="dark"]) .contact-item {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .contact-item:hover:not(.contact-item--static) {
+    background: #263449;
+    border-color: #475569;
+  }
+
+  :global([data-theme="dark"]) .item-icon {
+    background: #60a5fa;
+  }
+
+  :global([data-theme="dark"]) .item-icon svg {
+    color: #0f172a;
+  }
+
+  :global([data-theme="dark"]) .item-content h3 {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .item-value {
+    color: #f1f5f9;
+  }
+
+  :global([data-theme="dark"]) .contact-item:hover:not(.contact-item--static) .item-value {
+    color: #ffffff;
+  }
+
+  :global([data-theme="dark"]) .item-subtitle {
+    color: #94a3b8;
+  }
 </style>

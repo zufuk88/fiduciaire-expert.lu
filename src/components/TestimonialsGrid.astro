@@ -126,4 +126,105 @@ const { title, subtitle, testimonials } = Astro.props;
       padding: 28px;
     }
   }
+
+  /* Support du mode sombre */
+  @media (prefers-color-scheme: dark) {
+    .testimonials-section {
+      background: #0f172a;
+    }
+
+    .testimonial-card {
+      background: #1e293b;
+      border-color: #334155;
+      border-left-color: #60a5fa;
+    }
+
+    .testimonial-card:hover {
+      background: #263449;
+      border-color: #475569;
+      border-left-color: #60a5fa;
+    }
+
+    .testimonial-content p {
+      color: #cbd5e1;
+    }
+
+    .testimonial-author {
+      border-top-color: #334155;
+    }
+
+    .testimonial-author strong {
+      color: #f1f5f9;
+    }
+
+    .testimonial-author span {
+      color: #94a3b8;
+    }
+  }
+
+  /* Support du mode sombre avec classe sur body */
+  :global(body.dark) .testimonials-section {
+    background: #0f172a;
+  }
+
+  :global(body.dark) .testimonial-card {
+    background: #1e293b;
+    border-color: #334155;
+    border-left-color: #60a5fa;
+  }
+
+  :global(body.dark) .testimonial-card:hover {
+    background: #263449;
+    border-color: #475569;
+    border-left-color: #60a5fa;
+  }
+
+  :global(body.dark) .testimonial-content p {
+    color: #cbd5e1;
+  }
+
+  :global(body.dark) .testimonial-author {
+    border-top-color: #334155;
+  }
+
+  :global(body.dark) .testimonial-author strong {
+    color: #f1f5f9;
+  }
+
+  :global(body.dark) .testimonial-author span {
+    color: #94a3b8;
+  }
+
+  /* Support du mode sombre avec attribut data-theme */
+  :global([data-theme="dark"]) .testimonials-section {
+    background: #0f172a;
+  }
+
+  :global([data-theme="dark"]) .testimonial-card {
+    background: #1e293b;
+    border-color: #334155;
+    border-left-color: #60a5fa;
+  }
+
+  :global([data-theme="dark"]) .testimonial-card:hover {
+    background: #263449;
+    border-color: #475569;
+    border-left-color: #60a5fa;
+  }
+
+  :global([data-theme="dark"]) .testimonial-content p {
+    color: #cbd5e1;
+  }
+
+  :global([data-theme="dark"]) .testimonial-author {
+    border-top-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .testimonial-author strong {
+    color: #f1f5f9;
+  }
+
+  :global([data-theme="dark"]) .testimonial-author span {
+    color: #94a3b8;
+  }
 </style>

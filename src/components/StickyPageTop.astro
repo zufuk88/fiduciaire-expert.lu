@@ -244,6 +244,59 @@ const items = [...breadcrumbItems, { text: title }];
       display: none;
     }
   }
+
+  /* Support du mode sombre */
+  @media (prefers-color-scheme: dark) {
+    .breadcrumbs {
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .subtitle {
+      background: #0f172a;
+    }
+
+    .subtitle-text {
+      color: #94a3b8;
+    }
+
+    .reading-progress-fill {
+      background: #60a5fa;
+    }
+  }
+
+  /* Support du mode sombre avec classe sur body */
+  :global(body.dark) .breadcrumbs {
+    background: rgba(15, 23, 42, 0.95);
+  }
+
+  :global(body.dark) .subtitle {
+    background: #0f172a;
+  }
+
+  :global(body.dark) .subtitle-text {
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .reading-progress-fill {
+    background: #60a5fa;
+  }
+
+  /* Support du mode sombre avec attribut data-theme */
+  :global([data-theme="dark"]) .breadcrumbs {
+    background: rgba(15, 23, 42, 0.95);
+  }
+
+  :global([data-theme="dark"]) .subtitle {
+    background: #0f172a;
+  }
+
+  :global([data-theme="dark"]) .subtitle-text {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .reading-progress-fill {
+    background: #60a5fa;
+  }
 </style>
 {showProgress && (
   <script is:inline>

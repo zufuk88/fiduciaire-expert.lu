@@ -180,4 +180,111 @@ const { title, subtitle, members } = Astro.props;
       padding: 28px;
     }
   }
+
+  /* Support du mode sombre */
+  @media (prefers-color-scheme: dark) {
+    .team-section {
+      background: #0f172a;
+    }
+
+    .team-card {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    .team-card:hover {
+      background: #263449;
+      border-color: #475569;
+    }
+
+    .member-info h3 {
+      color: #f1f5f9;
+    }
+
+    .member-role {
+      color: #94a3b8;
+    }
+
+    .member-bio {
+      color: #94a3b8;
+    }
+
+    .linkedin-link {
+      color: #94a3b8;
+    }
+
+    .linkedin-link:hover {
+      color: #60a5fa;
+    }
+  }
+
+  /* Support du mode sombre avec classe sur body */
+  :global(body.dark) .team-section {
+    background: #0f172a;
+  }
+
+  :global(body.dark) .team-card {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global(body.dark) .team-card:hover {
+    background: #263449;
+    border-color: #475569;
+  }
+
+  :global(body.dark) .member-info h3 {
+    color: #f1f5f9;
+  }
+
+  :global(body.dark) .member-role {
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .member-bio {
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .linkedin-link {
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .linkedin-link:hover {
+    color: #60a5fa;
+  }
+
+  /* Support du mode sombre avec attribut data-theme */
+  :global([data-theme="dark"]) .team-section {
+    background: #0f172a;
+  }
+
+  :global([data-theme="dark"]) .team-card {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .team-card:hover {
+    background: #263449;
+    border-color: #475569;
+  }
+
+  :global([data-theme="dark"]) .member-info h3 {
+    color: #f1f5f9;
+  }
+
+  :global([data-theme="dark"]) .member-role {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .member-bio {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .linkedin-link {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .linkedin-link:hover {
+    color: #60a5fa;
+  }
 </style>

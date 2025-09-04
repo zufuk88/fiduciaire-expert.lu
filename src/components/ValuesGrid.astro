@@ -122,4 +122,87 @@ const { title, subtitle, values, backgroundColor } = Astro.props;
       padding: 28px;
     }
   }
+
+  /* Support du mode sombre */
+  @media (prefers-color-scheme: dark) {
+    .values-section {
+      background: #0f172a;
+    }
+
+    .value-card {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    .value-card:hover {
+      background: #263449;
+      border-color: #475569;
+    }
+
+    .value-number {
+      color: #60a5fa;
+    }
+
+    .value-title {
+      color: #f1f5f9;
+    }
+
+    .value-description {
+      color: #94a3b8;
+    }
+  }
+
+  /* Support du mode sombre avec classe sur body */
+  :global(body.dark) .values-section {
+    background: #0f172a;
+  }
+
+  :global(body.dark) .value-card {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global(body.dark) .value-card:hover {
+    background: #263449;
+    border-color: #475569;
+  }
+
+  :global(body.dark) .value-number {
+    color: #60a5fa;
+  }
+
+  :global(body.dark) .value-title {
+    color: #f1f5f9;
+  }
+
+  :global(body.dark) .value-description {
+    color: #94a3b8;
+  }
+
+  /* Support du mode sombre avec attribut data-theme */
+  :global([data-theme="dark"]) .values-section {
+    background: #0f172a;
+  }
+
+  :global([data-theme="dark"]) .value-card {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .value-card:hover {
+    background: #263449;
+    border-color: #475569;
+  }
+
+  :global([data-theme="dark"]) .value-number {
+    color: #60a5fa;
+  }
+
+  :global([data-theme="dark"]) .value-title {
+    color: #f1f5f9;
+  }
+
+  :global([data-theme="dark"]) .value-description {
+    color: #94a3b8;
+  }
 </style>

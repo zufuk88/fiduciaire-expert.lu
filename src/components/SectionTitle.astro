@@ -84,4 +84,48 @@ const {
       padding: 3px 8px;
     }
   }
+
+  /* Support du mode sombre */
+  @media (prefers-color-scheme: dark) {
+    .badge {
+      background: #334155;
+      color: #cbd5e1;
+    }
+
+    h2 {
+      color: #f1f5f9;
+    }
+
+    p {
+      color: #94a3b8;
+    }
+  }
+
+  /* Support du mode sombre avec classe sur body */
+  :global(body.dark) .badge {
+    background: #334155;
+    color: #cbd5e1;
+  }
+
+  :global(body.dark) h2 {
+    color: #f1f5f9;
+  }
+
+  :global(body.dark) p {
+    color: #94a3b8;
+  }
+
+  /* Support du mode sombre avec attribut data-theme */
+  :global([data-theme="dark"]) .badge {
+    background: #334155;
+    color: #cbd5e1;
+  }
+
+  :global([data-theme="dark"]) h2 {
+    color: #f1f5f9;
+  }
+
+  :global([data-theme="dark"]) p {
+    color: #94a3b8;
+  }
 </style>

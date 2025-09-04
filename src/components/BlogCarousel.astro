@@ -16,6 +16,7 @@ export interface Props {
   showCTA?: boolean;
   columns?: 2 | 3 | 4;
   skipFirst?: number;
+  posts?: any[]; // Allow passing posts directly
 }
 
 const {
@@ -29,25 +30,32 @@ const {
   showTitle = true,
   showCTA = true,
   columns = 3,
-  skipFirst = 0
+  skipFirst = 0,
+  posts: providedPosts
 } = Astro.props;
 
 const ctaHref = lang === 'fr' ? '/fr/articles' : '/en/articles';
 const ctaText = lang === 'fr' ? 'Voir tous les articles' : 'View all articles';
 
-// Récupérer les articles publiés et triés par date
-const allPosts = await getCollection('blog', ({ data, slug }) => {
-  const isCorrectLang = slug.startsWith(`${lang}/`);
-  const isCategoryMatch = category ? data.category === category : true;
-  return data.draft !== true && isCorrectLang && isCategoryMatch;
-});
-
-const sortedPosts = allPosts
-  .sort((a, b) => {
-    const dateA = new Date(a.data.modified || a.data.date).getTime();
-    const dateB = new Date(b.data.modified || b.data.date).getTime();
-    return dateB - dateA;
+// Use provided posts if available, otherwise fetch them
+let sortedPosts;
+if (providedPosts) {
+  sortedPosts = providedPosts;
+} else {
+  // Récupérer les articles publiés et triés par date
+  const allPosts = await getCollection('blog', ({ data, slug }) => {
+    const isCorrectLang = slug.startsWith(`${lang}/`);
+    const isCategoryMatch = category ? data.category === category : true;
+    return data.draft !== true && isCorrectLang && isCategoryMatch;
   });
+
+  sortedPosts = allPosts
+    .sort((a, b) => {
+      const dateA = new Date(a.data.modified || a.data.date).getTime();
+      const dateB = new Date(b.data.modified || b.data.date).getTime();
+      return dateB - dateA;
+    });
+}
 
 const displayedPosts = showAll 
   ? sortedPosts.slice(skipFirst) 
@@ -140,6 +148,11 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
         <>
           <button class="nav prev" aria-label="Previous">‹</button>
           <button class="nav next" aria-label="Next">›</button>
+          <div class="carousel-indicators">
+            {displayedPosts.map((_, index) => (
+              <span class="indicator" data-index={index} aria-label={`Aller \u00e0 l'article ${index + 1}`}></span>
+            ))}
+          </div>
         </>
       )}
     </div>
@@ -147,7 +160,7 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     {showCTA && (
       <div class="footer">
         <a href={ctaHref} class="cta">
-          {ctaText}
+          <span>{ctaText}</span>
         </a>
       </div>
     )}
@@ -177,10 +190,39 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     -ms-overflow-style: none;
     padding-bottom: 4px;
     scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
   }
 
   .carousel-track::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Indicateurs de position */
+  .carousel-indicators {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 24px;
+  }
+
+  .indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #d1d5db;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .indicator.active {
+    background: #1e3a5f;
+    width: 24px;
+    border-radius: 4px;
+  }
+
+  .indicator:hover {
+    background: #9ca3af;
   }
 
   /* Grid */
@@ -221,17 +263,25 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
   .carousel-track .article-card {
     flex: 0 0 320px;
     min-width: 320px;
+    scroll-snap-align: start;
   }
 
   .article-card:hover {
     background: #ffffff;
-    border-color: #9ca3af;
-    transform: translateY(-2px);
+    border-color: #1e3a5f;
+    box-shadow: 0 4px 12px rgba(30, 58, 95, 0.08);
+  }
+
+  /* Accessibilit\u00e9 clavier */
+  .article-card:focus-within {
+    outline: 2px solid #1e3a5f;
+    outline-offset: 2px;
   }
 
   .image-link {
     display: block;
-    height: 120px;
+    aspect-ratio: 16/9;
+    min-height: 180px;
     background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
     overflow: hidden;
     position: relative;
@@ -393,7 +443,9 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
   }
 
   .cta {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     padding: 12px 28px;
     background: transparent;
     color: #1e3a5f;
@@ -403,11 +455,25 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     font-size: var(--font-h5);
     font-weight: 600;
     transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.025em;
   }
 
   .cta:hover {
     background: #1e3a5f;
     color: #ffffff;
+  }
+
+  .cta::after {
+    content: '→';
+    display: inline-block;
+    transition: transform 0.2s ease;
+    font-size: 18px;
+  }
+
+  .cta:hover::after {
+    transform: translateX(4px);
   }
 
   /* Responsive */
@@ -448,19 +514,213 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
       padding: 60px 16px 80px;
     }
   }
+
+  /* Support du mode sombre */
+  @media (prefers-color-scheme: dark) {
+    .blog-section {
+      background: #0f172a;
+    }
+
+    .article-card {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    .article-card:hover {
+      background: #263449;
+      border-color: #475569;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .indicator {
+      background: #475569;
+    }
+
+    .indicator.active {
+      background: #60a5fa;
+    }
+
+    .indicator:hover {
+      background: #64748b;
+    }
+
+    .image-link {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    }
+
+    .image-link::after {
+      background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.2) 100%);
+    }
+
+    .meta {
+      color: #94a3b8;
+    }
+
+    .category {
+      color: #60a5fa;
+    }
+
+    .category:hover {
+      color: #93c5fd;
+    }
+
+    .date::before,
+    .reading-time::before {
+      color: #475569;
+    }
+
+    h3 a {
+      color: #f1f5f9;
+    }
+
+    h3 a:hover {
+      color: #e2e8f0;
+    }
+
+    .excerpt {
+      color: #94a3b8;
+    }
+
+    .read-more {
+      color: #60a5fa;
+    }
+
+    .read-more:hover {
+      color: #93c5fd;
+    }
+
+    .nav {
+      background: #1e293b;
+      border-color: #334155;
+      color: #94a3b8;
+    }
+
+    .nav:hover {
+      background: #263449;
+      border-color: #475569;
+      color: #f1f5f9;
+    }
+
+    .cta {
+      color: #60a5fa;
+      border-color: #60a5fa;
+    }
+
+    .cta:hover {
+      background: #60a5fa;
+      color: #0f172a;
+    }
+  }
+
+  /* Support du mode sombre avec classe sur body */
+  :global(body.dark) .blog-section {
+    background: #0f172a;
+  }
+
+  :global(body.dark) .article-card {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global(body.dark) .article-card:hover {
+    background: #263449;
+    border-color: #475569;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  :global(body.dark) .indicator {
+    background: #475569;
+  }
+
+  :global(body.dark) .indicator.active {
+    background: #60a5fa;
+  }
+
+  :global(body.dark) .indicator:hover {
+    background: #64748b;
+  }
+
+  :global(body.dark) .image-link {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  }
+
+  :global(body.dark) .image-link::after {
+    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.2) 100%);
+  }
+
+  :global(body.dark) .meta {
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .category {
+    color: #60a5fa;
+  }
+
+  :global(body.dark) .category:hover {
+    color: #93c5fd;
+  }
+
+  :global(body.dark) .date::before,
+  :global(body.dark) .reading-time::before {
+    color: #475569;
+  }
+
+  :global(body.dark) h3 a {
+    color: #f1f5f9;
+  }
+
+  :global(body.dark) h3 a:hover {
+    color: #e2e8f0;
+  }
+
+  :global(body.dark) .excerpt {
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .read-more {
+    color: #60a5fa;
+  }
+
+  :global(body.dark) .read-more:hover {
+    color: #93c5fd;
+  }
+
+  :global(body.dark) .nav {
+    background: #1e293b;
+    border-color: #334155;
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .nav:hover {
+    background: #263449;
+    border-color: #475569;
+    color: #f1f5f9;
+  }
+
+  :global(body.dark) .cta {
+    color: #60a5fa;
+    border-color: #60a5fa;
+  }
+
+  :global(body.dark) .cta:hover {
+    background: #60a5fa;
+    color: #0f172a;
+  }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const track = document.getElementById('blog-carousel');
-    const prevBtn = document.querySelector('.nav.prev');
-    const nextBtn = document.querySelector('.nav.next');
+    const prevBtn = document.querySelector('.nav.prev') as HTMLButtonElement;
+    const nextBtn = document.querySelector('.nav.next') as HTMLButtonElement;
+    const indicators = document.querySelectorAll('.indicator');
     
     if (!track || !prevBtn || !nextBtn) return;
     
     const cards = track.querySelectorAll('.article-card');
-    const cardWidth = cards?.[0]?.offsetWidth + 32 || 400;
+    const cardWidth = (cards?.[0] as HTMLElement)?.offsetWidth + 32 || 400;
     
+    // Navigation boutons
     prevBtn.addEventListener('click', () => {
       track.scrollBy({ left: -cardWidth, behavior: 'smooth' });
     });
@@ -469,14 +729,35 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
       track.scrollBy({ left: cardWidth, behavior: 'smooth' });
     });
     
-    const updateButtons = () => {
+    // Indicateurs cliquables
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        track.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
+      });
+    });
+    
+    // Update indicateurs et boutons
+    const updateUI = () => {
+      const scrollPosition = track.scrollLeft;
+      const currentIndex = Math.round(scrollPosition / cardWidth);
+      
+      // Update indicateurs
+      indicators.forEach((indicator, index) => {
+        if (index === currentIndex) {
+          indicator.classList.add('active');
+        } else {
+          indicator.classList.remove('active');
+        }
+      });
+      
+      // Update boutons
       const isAtStart = track.scrollLeft <= 0;
       const isAtEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 10;
       prevBtn.disabled = isAtStart;
       nextBtn.disabled = isAtEnd;
     };
     
-    track.addEventListener('scroll', updateButtons);
-    updateButtons();
+    track.addEventListener('scroll', updateUI);
+    updateUI();
   });
 </script>

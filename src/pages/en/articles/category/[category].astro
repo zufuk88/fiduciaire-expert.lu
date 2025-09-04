@@ -6,6 +6,8 @@ import LayoutI18n from '../../../../layouts/LayoutI18n.astro';
 import { Image } from 'astro:assets';
 import SearchBar from '../../../../components/SearchBar.astro';
 import StickyPageTop from '../../../../components/StickyPageTop.astro';
+import '../../../../styles/blog-articles.css';
+import '../../../../styles/blog-articles-dark.css';
 // 1. Generate a page for each category using getCollection
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');

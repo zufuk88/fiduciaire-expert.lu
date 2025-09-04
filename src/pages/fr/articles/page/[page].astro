@@ -1,11 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
 import LayoutI18n from '../../../../layouts/LayoutI18n.astro';
-import { Image } from 'astro:assets';
 import SearchBar from '../../../../components/SearchBar.astro';
 import StickyPageTop from '../../../../components/StickyPageTop.astro';
-import { calculateReadingTime } from '../../../../utils/reading-time';
+import BlogCarousel from '../../../../components/BlogCarousel.astro';
 import '../../../../styles/blog-articles.css';
+import '../../../../styles/blog-articles-dark.css';
 export async function getStaticPaths() {
   const POSTS_PER_PAGE = 9;
   const allPosts = await getCollection('blog');
@@ -99,37 +99,17 @@ const breadcrumbSchema = {
   <section class="blog-main-section">
     <div class="container blog-layout">
       <div class="posts-column">
-        <div class="posts-grid">
-          {posts.map(post => (
-            <article class="post-card">
-              <a href={`/fr/articles/${post.slug.replace('fr/', '')}`} class="post-link">
-                {post.data.image && (
-                  <div class="post-image-wrapper">
-                    <Image 
-                      src={post.data.image} 
-                      alt={`${post.data.title} - Article comptabilité fiscalité Luxembourg`} 
-                      width={400} 
-                      height={200} 
-                      loading="lazy" 
-                      quality="mid" 
-                    />
-                  </div>
-                )}
-                <div class="post-content">
-                  <p class="post-meta">
-                    <span class="category-badge">{post.data.category}</span>
-                    <time datetime={(post.data.modified && new Date(post.data.modified) > new Date(post.data.date) ? new Date(post.data.modified) : post.data.date).toISOString()}>
-                      {formatDate(post.data.modified && new Date(post.data.modified) > new Date(post.data.date) ? new Date(post.data.modified) : post.data.date)}
-                    </time>
-                    <span class="reading-time">• {calculateReadingTime(post.body, 'fr')} min</span>
-                  </p>
-                  <h4 class="post-title">{post.data.title}</h4>
-                  <p class="post-excerpt">{post.data.description}</p>
-                </div>
-              </a>
-            </article>
-          ))}
-        </div>
+        <h2 class="section-title">Tous les articles - Page {currentPage}</h2>
+        <BlogCarousel 
+          title="" 
+          variant="grid" 
+          showAll={false}
+          showTitle={false}
+          showCTA={false}
+          columns={2}
+          posts={posts}
+          lang="fr"
+        />
         {/* Pagination avec rel prev/next */}
         <div class="pagination">
           {currentPage === 2 ? (
