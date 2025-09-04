@@ -1,204 +1,5 @@
 /* Styles partagés pour les pages articles du blog */
 
-/* Section Article à la Une - Design minimaliste et austère */
-.featured-section {
-  padding: 6rem 0 4rem;
-  background-color: #ffffff;
-  position: relative;
-  z-index: 1;
-}
-
-.featured-article {
-  background: #fafbfc;
-  border: 1px solid #e5e7eb;
-  border-radius: 2px;
-  overflow: hidden;
-  transition: all 0.2s ease;
-}
-
-.featured-article:hover {
-  background: #ffffff;
-  border-color: #9ca3af;
-  transform: translateY(-2px);
-}
-
-.featured-link {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  text-decoration: none !important;
-  color: inherit;
-  align-items: stretch;
-  gap: 0;
-  height: 420px;
-}
-
-.featured-link:hover {
-  text-decoration: none !important;
-}
-
-@media (max-width: 968px) {
-  .featured-link {
-    grid-template-columns: 1fr;
-    gap: 0;
-    height: auto;
-  }
-  
-  .featured-image-wrapper {
-    height: 180px;
-  }
-  
-  .featured-content {
-    padding: 24px;
-  }
-}
-
-.featured-image-wrapper {
-  position: relative;
-  overflow: hidden;
-  height: 100%;
-  min-height: 420px;
-  width: 100%;
-  background-color: #fafbfc;
-}
-
-.featured-image-wrapper img,
-.featured-image-wrapper .featured-image,
-.featured-image-wrapper > img[data-astro-image] {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-  transition: transform 0.3s ease;
-}
-
-.featured-article:hover .featured-image-wrapper img {
-  transform: scale(1.05);
-}
-
-/* Les media queries pour featured-image-wrapper sont déjà gérées plus haut */
-
-.featured-content {
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-@media (max-width: 968px) {
-  .featured-content {
-    padding: 2rem;
-  }
-}
-
-.featured-meta {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
-  font-size: var(--font-h6);
-  color: #6b7280;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.featured-article a.category-badge,
-.featured-article .category-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 10px;
-  background: #1e3a5f;
-  color: white;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-size: var(--font-h6);
-  border-radius: 2px;
-  text-decoration: none !important;
-  transition: all 0.2s ease;
-}
-
-.featured-article a.category-badge:hover,
-.featured-article .category-badge:hover {
-  background: #2c4157;
-  text-decoration: none !important;
-}
-
-/* Post cards read more */
-.posts-grid .post-card .read-more {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  color: #1e3a5f;
-  font-weight: 600;
-  font-size: var(--font-h6);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  margin-top: auto;
-}
-
-.posts-grid .post-card:hover .read-more {
-  color: #111827;
-  transform: translateX(2px);
-}
-
-.featured-meta time {
-  color: #6b7280;
-  font-weight: 500;
-}
-
-.featured-meta .reading-time {
-  color: #6b7280;
-  font-weight: 500;
-}
-
-.featured-title {
-  font-size: var(--font-h3);
-  font-weight: 700;
-  color: #111827;
-  line-height: 1.4;
-  margin: 0 0 12px 0;
-  letter-spacing: -0.01em;
-}
-
-.featured-excerpt {
-  color: #6b7280;
-  font-size: var(--font-body);
-  line-height: 1.6;
-  margin-bottom: 20px;
-  font-weight: 400;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex: 1;
-}
-
-.featured-article .read-more {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  color: #1e3a5f;
-  font-weight: 600;
-  font-size: var(--font-h6);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  margin-top: auto;
-}
-
-.featured-article:hover .read-more {
-  color: #111827;
-  transform: translateX(2px);
-}
-
 /* Section Principale du Blog */
 .blog-main-section {
   padding: 4rem 0 6rem;
@@ -216,6 +17,42 @@
   .blog-layout {
     grid-template-columns: 1fr;
     gap: 3rem;
+  }
+}
+
+/* Posts column styles for article pages */
+.posts-column {
+  width: 100%;
+}
+
+/* Ensure BlogCarousel uses full width in article pages */
+.posts-column .blog-section {
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+.posts-column .container {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .blog-main-section {
+    padding: 3rem 0 4rem;
+  }
+  
+  .blog-main-section .container {
+    padding: 0 12px;
+  }
+  
+  .blog-layout {
+    gap: 2rem;
+  }
+  
+  /* Reduce container padding on mobile */
+  .container {
+    padding: 0 12px;
   }
 }
 

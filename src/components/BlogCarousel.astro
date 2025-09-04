@@ -10,13 +10,14 @@ export interface Props {
   maxPosts?: number;
   lang?: 'fr' | 'en';
   category?: string;
-  variant?: 'carousel' | 'grid';
+  variant?: 'carousel' | 'grid' | 'grid-featured';
   showAll?: boolean;
   showTitle?: boolean;
   showCTA?: boolean;
   columns?: 2 | 3 | 4;
   skipFirst?: number;
-  posts?: any[]; // Allow passing posts directly
+  posts?: any[];
+  featuredFirst?: boolean; // Show first post as featured
 }
 
 const {
@@ -31,7 +32,8 @@ const {
   showCTA = true,
   columns = 3,
   skipFirst = 0,
-  posts: providedPosts
+  posts: providedPosts,
+  featuredFirst = false
 } = Astro.props;
 
 const ctaHref = lang === 'fr' ? '/fr/articles' : '/en/articles';
@@ -93,10 +95,10 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
   )}
   
   <div class="container">
-    <div class={variant === 'carousel' ? 'carousel' : `grid grid-${columns}`}>
+    <div class={variant === 'carousel' ? 'carousel' : featuredFirst ? 'grid grid-featured' : `grid grid-${columns}`}>
       <div class={variant === 'carousel' ? 'carousel-track' : 'articles'} id="blog-carousel">
-        {displayedPosts.map((post) => (
-          <article class="article-card">
+        {displayedPosts.map((post, index) => (
+          <article class={`article-card ${featuredFirst && index === 0 ? 'featured-card' : ''}`}>
             {post.data.image && (
               <a href={`/${lang}/articles/${post.slug.replace(`${lang}/`, '')}`} class="image-link">
                 <Image 
@@ -171,10 +173,21 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
   .blog-section {
     padding: 120px 20px 140px;
   }
+  
+  /* When used inside article pages, remove padding */
+  .posts-column .blog-section {
+    padding: 0;
+    background: transparent;
+  }
 
   .container {
     max-width: 1200px;
     margin: 0 auto;
+  }
+  
+  /* Full width in article pages */
+  .posts-column .container {
+    max-width: 100%;
   }
 
   /* Carousel */
@@ -246,6 +259,81 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
   
   .grid-4 > .articles {
     grid-template-columns: repeat(4, 1fr);
+  }
+  
+  /* Grid avec featured */
+  .grid-featured > .articles {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
+  }
+  
+  /* Featured card prend toute la largeur et est plus grande */
+  .featured-card {
+    grid-column: 1 / -1;  /* Prend toute la largeur */
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    min-height: 320px;
+    background: #ffffff;
+    align-items: stretch;
+  }
+  
+  .featured-card .image-link {
+    height: 320px;
+    aspect-ratio: unset;
+    overflow: hidden;
+  }
+  
+  .featured-card .image-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .featured-card .article-content {
+    padding: 32px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 320px;
+  }
+  
+  .featured-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  
+  .featured-card .excerpt {
+    -webkit-line-clamp: 3;
+    font-size: 0.95rem;
+  }
+  
+  @media (max-width: 968px) {
+    .featured-card {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    
+    .featured-card .image-link {
+      height: 220px;
+      aspect-ratio: unset;
+    }
+    
+    .featured-card .article-content {
+      min-height: auto;
+      padding: 24px;
+    }
+    
+    .featured-card .article-content {
+      padding: 24px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .grid-featured > .articles {
+      grid-template-columns: 1fr;
+    }
   }
 
   /* Article Card */
@@ -486,22 +574,32 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
 
   @media (max-width: 768px) {
     .blog-section {
-      padding: 80px 20px 100px;
+      padding: 80px 16px 100px;
+    }
+    
+    /* No padding when inside article pages */
+    .posts-column .blog-section {
+      padding: 0;
     }
 
     .carousel-track {
-      gap: 20px;
+      gap: 16px;
     }
 
     .carousel-track .article-card {
-      flex: 0 0 280px;
-      min-width: 280px;
+      flex: 0 0 calc(100vw - 32px);
+      min-width: calc(100vw - 32px);
     }
 
     .grid-2 .articles,
     .grid-3 .articles,
     .grid-4 .articles {
       grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    
+    .articles {
+      gap: 16px;
     }
 
     .nav {
@@ -511,7 +609,16 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
 
   @media (max-width: 480px) {
     .blog-section {
-      padding: 60px 16px 80px;
+      padding: 60px 12px 80px;
+    }
+    
+    .posts-column .blog-section {
+      padding: 0;
+    }
+    
+    .carousel-track .article-card {
+      flex: 0 0 calc(100vw - 24px);
+      min-width: calc(100vw - 24px);
     }
   }
 

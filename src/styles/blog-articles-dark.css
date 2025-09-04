@@ -4,61 +4,6 @@
 
 /* Mode sombre avec prefers-color-scheme */
 @media (prefers-color-scheme: dark) {
-  /* Section Article à la Une */
-  .featured-section {
-    background-color: #0f172a;
-  }
-
-  .featured-article {
-    background: #1e293b;
-    border-color: #334155;
-  }
-
-  .featured-article:hover {
-    background: #263449;
-    border-color: #475569;
-  }
-
-  .featured-image-wrapper {
-    background-color: #1e293b;
-  }
-
-  .featured-meta {
-    color: #94a3b8;
-  }
-
-  .featured-meta time,
-  .featured-meta .reading-time {
-    color: #94a3b8;
-  }
-
-  .featured-article a.category-badge,
-  .featured-article .category-badge {
-    background: #60a5fa;
-    color: #0f172a;
-  }
-
-  .featured-article a.category-badge:hover,
-  .featured-article .category-badge:hover {
-    background: #3b82f6;
-  }
-
-  .featured-title {
-    color: #f1f5f9;
-  }
-
-  .featured-excerpt {
-    color: #94a3b8;
-  }
-
-  .featured-article .read-more {
-    color: #60a5fa;
-  }
-
-  .featured-article:hover .read-more {
-    color: #93c5fd;
-  }
-
   /* Section Principale du Blog */
   .blog-main-section {
     background-color: #0f172a;
@@ -199,60 +144,6 @@
 }
 
 /* Mode sombre avec classe sur body */
-body.dark .featured-section {
-  background-color: #0f172a;
-}
-
-body.dark .featured-article {
-  background: #1e293b;
-  border-color: #334155;
-}
-
-body.dark .featured-article:hover {
-  background: #263449;
-  border-color: #475569;
-}
-
-body.dark .featured-image-wrapper {
-  background-color: #1e293b;
-}
-
-body.dark .featured-meta {
-  color: #94a3b8;
-}
-
-body.dark .featured-meta time,
-body.dark .featured-meta .reading-time {
-  color: #94a3b8;
-}
-
-body.dark .featured-article a.category-badge,
-body.dark .featured-article .category-badge {
-  background: #60a5fa;
-  color: #0f172a;
-}
-
-body.dark .featured-article a.category-badge:hover,
-body.dark .featured-article .category-badge:hover {
-  background: #3b82f6;
-}
-
-body.dark .featured-title {
-  color: #f1f5f9;
-}
-
-body.dark .featured-excerpt {
-  color: #94a3b8;
-}
-
-body.dark .featured-article .read-more {
-  color: #60a5fa;
-}
-
-body.dark .featured-article:hover .read-more {
-  color: #93c5fd;
-}
-
 body.dark .blog-main-section {
   background-color: #0f172a;
 }
@@ -365,60 +256,6 @@ body.dark .no-posts-section {
 }
 
 /* Mode sombre avec attribut data-theme */
-[data-theme="dark"] .featured-section {
-  background-color: #0f172a;
-}
-
-[data-theme="dark"] .featured-article {
-  background: #1e293b;
-  border-color: #334155;
-}
-
-[data-theme="dark"] .featured-article:hover {
-  background: #263449;
-  border-color: #475569;
-}
-
-[data-theme="dark"] .featured-image-wrapper {
-  background-color: #1e293b;
-}
-
-[data-theme="dark"] .featured-meta {
-  color: #94a3b8;
-}
-
-[data-theme="dark"] .featured-meta time,
-[data-theme="dark"] .featured-meta .reading-time {
-  color: #94a3b8;
-}
-
-[data-theme="dark"] .featured-article a.category-badge,
-[data-theme="dark"] .featured-article .category-badge {
-  background: #60a5fa;
-  color: #0f172a;
-}
-
-[data-theme="dark"] .featured-article a.category-badge:hover,
-[data-theme="dark"] .featured-article .category-badge:hover {
-  background: #3b82f6;
-}
-
-[data-theme="dark"] .featured-title {
-  color: #f1f5f9;
-}
-
-[data-theme="dark"] .featured-excerpt {
-  color: #94a3b8;
-}
-
-[data-theme="dark"] .featured-article .read-more {
-  color: #60a5fa;
-}
-
-[data-theme="dark"] .featured-article:hover .read-more {
-  color: #93c5fd;
-}
-
 [data-theme="dark"] .blog-main-section {
   background-color: #0f172a;
 }

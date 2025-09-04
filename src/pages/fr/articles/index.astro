@@ -2,11 +2,9 @@
 // src/pages/fr/articles/index.astro
 import { getCollection } from 'astro:content';
 import LayoutI18n from '../../../layouts/LayoutI18n.astro';
-import { Image } from 'astro:assets';
 import SearchBar from '../../../components/SearchBar.astro';
 import StickyPageTop from '../../../components/StickyPageTop.astro';
 import BlogCarousel from '../../../components/BlogCarousel.astro';
-import { calculateReadingTime } from '../../../utils/reading-time';
 import '../../../styles/blog-articles.css';
 import '../../../styles/blog-articles-dark.css';
 // Pagination
@@ -27,12 +25,8 @@ let sortedPosts = frenchPosts.sort((a, b) => {
   return dateB - dateA;
 });
 const categories = frenchCategories;
-const featuredPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
 const totalPages = Math.max(1, Math.ceil(sortedPosts.length / POSTS_PER_PAGE));
 const hasMorePosts = sortedPosts.length > POSTS_PER_PAGE;
-const formatDate = (date) => date.toLocaleDateString('fr-FR', {
-  year: 'numeric', month: 'long', day: 'numeric'
-});
 // Schema.org pour la page d'articles
 const articlesSchema = {
   "@context": "https://schema.org",
@@ -117,43 +111,6 @@ const articlesSchema = {
   />
   {sortedPosts.length > 0 ? (
     <>
-      {featuredPost && (
-        <section class="featured-section">
-          <div class="container">
-            <article class="featured-article">
-              <a href={`/fr/articles/${featuredPost.slug.replace('fr/', '')}`} class="featured-link">
-                {featuredPost.data.image && (
-                  <div class="featured-image-wrapper">
-                    {/* MODIFIÉ : Utilisation du composant Image optimisé */}
-                    <Image 
-                      src={featuredPost.data.image} 
-                      alt={`${featuredPost.data.title} - Guide expert comptable Luxembourg`} 
-                      width={1200} 
-                      height={420} 
-                      loading="eager" 
-                      fetchpriority="high" 
-                      quality="mid"
-                      class="featured-image"
-                    />
-                  </div>
-                )}
-                <div class="featured-content">
-                  <p class="featured-meta">
-                    <span class="category-badge">{featuredPost.data.category}</span>
-                    <time datetime={(featuredPost.data.modified && new Date(featuredPost.data.modified) > new Date(featuredPost.data.date) ? new Date(featuredPost.data.modified) : featuredPost.data.date).toISOString()}>
-                      {formatDate(featuredPost.data.modified && new Date(featuredPost.data.modified) > new Date(featuredPost.data.date) ? new Date(featuredPost.data.modified) : featuredPost.data.date)}
-                    </time>
-                    <span class="reading-time">• {calculateReadingTime(featuredPost.body, 'fr')} min</span>
-                  </p>
-                  <h2 class="featured-title">{featuredPost.data.title}</h2>
-                  <p class="featured-excerpt">{featuredPost.data.description}</p>
-                  <span class="read-more">Lire l'article →</span>
-                </div>
-              </a>
-            </article>
-          </div>
-        </section>
-      )}
       <section class="blog-main-section">
         <div class="container blog-layout">
           <div class="posts-column">
@@ -165,9 +122,10 @@ const articlesSchema = {
               showTitle={false}
               showCTA={false}
               columns={2}
-              maxPosts={POSTS_PER_PAGE - 1}
-              skipFirst={1}
+              maxPosts={7}
+              skipFirst={0}
               lang="fr"
+              featuredFirst={true}
             />
             {/* Pagination */}
             {hasMorePosts && (

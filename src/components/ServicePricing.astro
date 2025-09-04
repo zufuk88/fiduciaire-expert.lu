@@ -1,0 +1,471 @@
+---
+export interface PricingItem {
+  label: string;
+  price: string;
+  unit?: string;
+  description?: string;
+  included?: string[];
+  highlighted?: boolean;
+}
+
+export interface Props {
+  items: PricingItem[];
+  note?: string;
+  variant?: 'table' | 'cards' | 'list';
+}
+
+const { 
+  items,
+  note,
+  variant = 'table'
+} = Astro.props;
+---
+
+<section class="service-pricing">
+  <div class="container">
+    {variant === 'table' && (
+      <div class="pricing-table-wrapper">
+        <table class="pricing-table">
+          <thead>
+            <tr>
+              <th>Prestation</th>
+              <th>Tarif</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map(item => (
+              <tr class={item.highlighted ? 'is-highlighted' : ''}>
+                <td class="item-label">{item.label}</td>
+                <td class="item-price">
+                  <strong>{item.price}</strong>
+                  {item.unit && <span class="price-unit">{item.unit}</span>}
+                </td>
+                <td class="item-description">{item.description || '-'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )}
+    
+    {variant === 'cards' && (
+      <div class="pricing-cards">
+        {items.map(item => (
+          <div class={`pricing-card ${item.highlighted ? 'is-highlighted' : ''}`}>
+            <h3 class="card-label">{item.label}</h3>
+            <div class="card-price">
+              <span class="price-value">{item.price}</span>
+              {item.unit && <span class="price-unit">/{item.unit}</span>}
+            </div>
+            {item.description && (
+              <p class="card-description">{item.description}</p>
+            )}
+            {item.included && item.included.length > 0 && (
+              <ul class="card-features">
+                {item.included.map(feature => (
+                  <li>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
+      </div>
+    )}
+    
+    {variant === 'list' && (
+      <div class="pricing-list">
+        {items.map(item => (
+          <div class={`pricing-row ${item.highlighted ? 'is-highlighted' : ''}`}>
+            <div class="row-content">
+              <div class="row-label">{item.label}</div>
+              {item.description && (
+                <div class="row-description">{item.description}</div>
+              )}
+            </div>
+            <div class="row-price">
+              <strong>{item.price}</strong>
+              {item.unit && <span class="price-unit">{item.unit}</span>}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+    
+    {note && (
+      <div class="pricing-note">
+        <svg class="note-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8 7V8M8 11H8.01M14 8C14 11.3137 11.3137 14 8 14C4.68629 14 2 11.3137 2 8C2 4.68629 4.68629 2 8 2C11.3137 2 14 4.68629 14 8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>{note}</span>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .service-pricing {
+    padding: 4rem 0;
+    background: white;
+  }
+
+  /* Table variant */
+  .pricing-table-wrapper {
+    overflow-x: auto;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+  }
+
+  .pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .pricing-table thead {
+    background: #f8fafc;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  .pricing-table th {
+    text-align: left;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    color: #475569;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .pricing-table tbody tr {
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .pricing-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .pricing-table tbody tr.is-highlighted {
+    background: #fef3c7;
+  }
+
+  .pricing-table td {
+    padding: 1.25rem 1.5rem;
+    color: #334155;
+  }
+
+  .item-label {
+    font-weight: 500;
+    color: #1e293b;
+  }
+
+  .item-price strong {
+    font-size: 1.125rem;
+    color: #3b82f6;
+  }
+
+  .price-unit {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-left: 0.25rem;
+  }
+
+  /* Cards variant */
+  .pricing-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .pricing-card {
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .pricing-card:hover {
+    border-color: #3b82f6;
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .pricing-card.is-highlighted {
+    border-color: #3b82f6;
+    background: #eff6ff;
+  }
+
+  .card-label {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 1rem;
+  }
+
+  .card-price {
+    margin-bottom: 1.5rem;
+  }
+
+  .price-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #3b82f6;
+  }
+
+  .card-description {
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+  }
+
+  .card-features li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    color: #475569;
+  }
+
+  .card-features svg {
+    color: #10b981;
+    flex-shrink: 0;
+  }
+
+  /* List variant */
+  .pricing-list {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+  }
+
+  .pricing-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .pricing-row:last-child {
+    border-bottom: none;
+  }
+
+  .pricing-row.is-highlighted {
+    background: #fef3c7;
+  }
+
+  .row-label {
+    font-weight: 500;
+    color: #1e293b;
+    margin-bottom: 0.25rem;
+  }
+
+  .row-description {
+    font-size: 0.875rem;
+    color: #64748b;
+  }
+
+  .row-price {
+    text-align: right;
+  }
+
+  .row-price strong {
+    font-size: 1.25rem;
+    color: #3b82f6;
+  }
+
+  /* Note */
+  .pricing-note {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    color: #64748b;
+  }
+
+  .note-icon {
+    flex-shrink: 0;
+    color: #94a3b8;
+  }
+
+  /* Dark mode */
+  :global(body.dark) .service-pricing,
+  :global([data-theme="dark"]) .service-pricing {
+    background: #0f172a;
+  }
+
+  :global(body.dark) .pricing-table-wrapper,
+  :global([data-theme="dark"]) .pricing-table-wrapper,
+  :global(body.dark) .pricing-card,
+  :global([data-theme="dark"]) .pricing-card,
+  :global(body.dark) .pricing-list,
+  :global([data-theme="dark"]) .pricing-list {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global(body.dark) .pricing-table thead,
+  :global([data-theme="dark"]) .pricing-table thead {
+    background: #0f172a;
+    border-bottom-color: #334155;
+  }
+
+  :global(body.dark) .pricing-table th,
+  :global([data-theme="dark"]) .pricing-table th {
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .pricing-table tbody tr,
+  :global([data-theme="dark"]) .pricing-table tbody tr,
+  :global(body.dark) .pricing-row,
+  :global([data-theme="dark"]) .pricing-row {
+    border-bottom-color: #334155;
+  }
+
+  :global(body.dark) .pricing-table td,
+  :global([data-theme="dark"]) .pricing-table td {
+    color: #cbd5e1;
+  }
+
+  :global(body.dark) .item-label,
+  :global([data-theme="dark"]) .item-label,
+  :global(body.dark) .card-label,
+  :global([data-theme="dark"]) .card-label,
+  :global(body.dark) .row-label,
+  :global([data-theme="dark"]) .row-label {
+    color: #f1f5f9;
+  }
+
+  :global(body.dark) .pricing-table tbody tr.is-highlighted,
+  :global([data-theme="dark"]) .pricing-table tbody tr.is-highlighted,
+  :global(body.dark) .pricing-row.is-highlighted,
+  :global([data-theme="dark"]) .pricing-row.is-highlighted,
+  :global(body.dark) .pricing-card.is-highlighted,
+  :global([data-theme="dark"]) .pricing-card.is-highlighted {
+    background: #1e3a5f;
+  }
+
+  :global(body.dark) .pricing-note,
+  :global([data-theme="dark"]) .pricing-note {
+    background: #1e293b;
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .card-description,
+  :global([data-theme="dark"]) .card-description,
+  :global(body.dark) .row-description,
+  :global([data-theme="dark"]) .row-description {
+    color: #94a3b8;
+  }
+
+  :global(body.dark) .card-features li,
+  :global([data-theme="dark"]) .card-features li {
+    color: #cbd5e1;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .service-pricing {
+      background: #0f172a;
+    }
+    
+    .pricing-table-wrapper,
+    .pricing-card,
+    .pricing-list {
+      background: #1e293b;
+      border-color: #334155;
+    }
+    
+    .pricing-table thead {
+      background: #0f172a;
+      border-bottom-color: #334155;
+    }
+    
+    .pricing-table th {
+      color: #94a3b8;
+    }
+    
+    .pricing-table tbody tr,
+    .pricing-row {
+      border-bottom-color: #334155;
+    }
+    
+    .pricing-table td {
+      color: #cbd5e1;
+    }
+    
+    .item-label,
+    .card-label,
+    .row-label {
+      color: #f1f5f9;
+    }
+    
+    .pricing-table tbody tr.is-highlighted,
+    .pricing-row.is-highlighted,
+    .pricing-card.is-highlighted {
+      background: #1e3a5f;
+    }
+    
+    .pricing-note {
+      background: #1e293b;
+      color: #94a3b8;
+    }
+    
+    .card-description,
+    .row-description {
+      color: #94a3b8;
+    }
+    
+    .card-features li {
+      color: #cbd5e1;
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .service-pricing {
+      padding: 3rem 0;
+    }
+    
+    .pricing-table {
+      font-size: 0.875rem;
+    }
+    
+    .pricing-table th,
+    .pricing-table td {
+      padding: 0.75rem 1rem;
+    }
+    
+    .pricing-cards {
+      grid-template-columns: 1fr;
+    }
+    
+    .pricing-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    
+    .row-price {
+      text-align: left;
+    }
+  }
+</style>
