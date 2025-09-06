@@ -124,23 +124,8 @@ const isActive = (path: string) => {
     top: 0; 
     width: 100%; 
     z-index: 1000; 
-    background-color: rgba(255, 255, 255, 0.95); /* Augmenté l'opacité */
+    background-color: rgba(255, 255, 255, 0.98);
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-     /* Optimisation GPU */
-    transform: translateZ(0); /* Force l'accélération matérielle */
-    -webkit-transform: translateZ(0);
-  }
-  /* Backdrop-filter uniquement pour Safari */
-  @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
-    .site-header {
-      background-color: rgba(255, 255, 255, 0.8);
-    }
-  }
-  /* Désactiver backdrop-filter sur Chrome pour la performance */
-  @media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
-    .site-header {
-      background-color: rgba(255, 255, 255, 0.98);
-    }
   }
   .container {
     max-width: 1200px;
@@ -150,7 +135,7 @@ const isActive = (path: string) => {
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
-    height: 72px;
+    height: 60px;
     padding: 0 2rem;
   }
   .logo-link {
@@ -161,7 +146,7 @@ const isActive = (path: string) => {
     opacity: 0.8;
   }
   .logo-link img { 
-    height: 40px; 
+    height: 35px; 
     width: auto; 
     display: block; 
   }
@@ -171,9 +156,7 @@ const isActive = (path: string) => {
     gap: 2rem; 
   }
   .cta-desktop { 
-    display: none;
-    padding: 0.5rem 1.25rem !important;
-    font-size: 0.9375rem;
+    display: none !important; /* Force le display none sur mobile */
   }
   #burger-menu { 
     display: flex; 
@@ -205,7 +188,7 @@ const isActive = (path: string) => {
   @media (min-width: 992px) {
     #burger-menu { display: none; }
     .cta-desktop { 
-      display: inline-block;
+      display: inline-block !important; /* Override le display none du mobile */
       padding: 0.5rem 1.25rem !important;
       font-size: 0.9375rem;
     }
@@ -326,10 +309,6 @@ const isActive = (path: string) => {
     }
   }
   @media (max-width: 991px) {
-    /* Afficher le sélecteur de langue sur mobile */
-    .header-actions .language-selector {
-      display: block;
-    }
     .main-navigation { 
       position: fixed; 
       top: 0; 
@@ -338,7 +317,7 @@ const isActive = (path: string) => {
       height: 100vh; 
       background-color: #ffffff; 
       transform: translateX(-100%); 
-      padding-top: 72px; 
+      padding-top: 60px; 
       overflow-y: auto;
       transition: transform 0.3s ease;
       box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
