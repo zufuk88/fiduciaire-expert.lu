@@ -262,7 +262,7 @@ const combinedSchema = {
   
   /* Article page container */
   .article-page {
-    ;
+    background: #ffffff;
   }
   /* Layout avec sidebar */
   .article-layout {
@@ -316,12 +316,12 @@ const combinedSchema = {
   /* Wrapper avec espace de lecture optimal */
   .article-body-wrapper { 
     padding: 2rem 0 4rem 0; /* Reduced padding-top because we have the sticky breadcrumb */
-    ; 
+    background-color: #ffffff; 
     position: relative;
   }
   /* Article Metadata Section */
   .article-meta-section {
-    background: var(--bg-secondary);
+    background: #f8fafc;
     border-top: 1px solid #e2e8f0;
     border-bottom: 1px solid #e2e8f0;
     padding: 1.25rem 0;
@@ -422,7 +422,7 @@ const combinedSchema = {
     font-weight: 500;
     text-decoration: none !important;
     border: 1px solid #e2e8f0;
-    background: var(--card);
+    background: white;
     color: #475569 !important;
     cursor: pointer;
     font-family: inherit;
@@ -514,7 +514,7 @@ const combinedSchema = {
     contain: layout style; /* Render optimization */
   }
   .sidebar-widget {
-    background-color: var(--bg-secondary);
+    background-color: #fafbfc;
     border: 1px solid #e2e8f0;
     border-radius: 4px;
     padding: 2rem;
@@ -543,7 +543,7 @@ const combinedSchema = {
     border-radius: 4px;
   }
   .category-link:hover {
-    background-color: var(--bg-secondary);
+    background-color: #f1f5f9;
     color: #0f172a;
   }
   .category-link.is-active {
@@ -554,7 +554,7 @@ const combinedSchema = {
   /* Section épurée pour les suggestions */
   .related-articles {
     padding: 6rem 0;
-    background-color: var(--bg-secondary);
+    background-color: #fafbfc;
     position: relative;
   }
   .related-articles::before {
@@ -591,14 +591,14 @@ const combinedSchema = {
     margin: 0 auto;
   }
   .related-card {
-    background: var(--card);
+    background: #fafbfc;
     border: 1px solid #e5e7eb;
     border-radius: 2px;
     overflow: hidden;
     transition: all 0.2s ease;
   }
   .related-card:hover {
-    ;
+    background: #ffffff;
     border-color: #9ca3af;
     transform: translateY(-2px);
   }
@@ -609,7 +609,7 @@ const combinedSchema = {
   }
   .related-image-wrapper {
     overflow: hidden;
-    background-color: var(--bg-secondary);
+    background-color: #fafbfc;
     height: 120px;
   }
   .related-image-wrapper img {
@@ -694,7 +694,7 @@ const combinedSchema = {
     font-weight: 500;
   }
   .article-content :global(a:hover) { 
-    text-decoration: none;
+    text-decoration: underline;
     color: #2563eb;
   }
   .article-content :global(ul), 
@@ -745,9 +745,7 @@ const combinedSchema = {
     overflow-x: auto;
     margin: 2rem 0;
     border-radius: 4px;
-    border: 1px solid var(--card-border);
-    background: white;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid #e2e8f0;
     -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
   }
 
@@ -759,32 +757,24 @@ const combinedSchema = {
     border-collapse: collapse; 
     font-size: 0.9375rem;
     overflow: hidden;
-    background: white;
   }
   .article-content :global(th), 
   .article-content :global(td) { 
-    border: 1px solid var(--card-border); 
+    border: 1px solid #e2e8f0; 
     padding: 0.75rem 1rem; 
     text-align: left; 
     line-height: 1.5; 
   }
-  .article-content :global(td) {
-    background: white;
-    color: var(--muted);
-  }
   .article-content :global(th) { 
-    background-color: var(--accent); 
+    background-color: #f8fafc; 
     font-weight: 600;
-    color: white;
+    color: #0f172a;
     font-size: 0.875rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-  .article-content :global(tbody tr:hover) {
-    background-color: #f9f9f9;
-  }
-  .article-content :global(tbody tr:hover td) {
-    background-color: #f9f9f9;
+  .article-content :global(tr:hover) {
+    background-color: #fafbfc;
   }
 
   /* Scroll indicator on mobile */

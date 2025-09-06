@@ -1,4 +1,5 @@
 ---
+// SectionHeader.astro
 export interface Props {
   badge?: string;
   title: string;
@@ -6,126 +7,75 @@ export interface Props {
   id?: string;
 }
 
-const { 
-  badge,
-  title,
-  subtitle,
-  id
-} = Astro.props;
+const { badge, title, subtitle, id } = Astro.props;
 ---
 
 <div class="section-header">
-  {badge && (
-    <span class="badge">{badge}</span>
-  )}
+  {badge && <span class="badge">{badge}</span>}
   <h2 id={id}>{title}</h2>
-  {subtitle && (
-    <p>{subtitle}</p>
-  )}
+  {subtitle && <p>{subtitle}</p>}
 </div>
 
 <style>
   .section-header {
     text-align: center;
     max-width: 900px;
-    margin: 0 auto 64px;
+    margin: 0 auto 80px;
     padding: 0 20px;
   }
 
   .badge {
     display: inline-block;
-    font-size: 11px;
-    font-weight: 600;
+    font: 600 12px/1 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #6b7280;
-    background: #f3f4f6;
-    padding: 4px 12px;
-    border-radius: 2px;
-    margin-bottom: 12px;
+    color: var(--badge-fg);
+    background: var(--badge-bg);
+    padding: 6px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border: 1px solid var(--card-border);
   }
 
   h2 {
-    font-family: var(--font-family-display);
-    font-size: clamp(28px, 5vw, 42px);
+    font-family: var(--font-family-display, system-ui, -apple-system, Segoe UI, Roboto, sans-serif);
+    font-size: var(--font-hero);
     font-weight: 500;
-    color: #1e293b;
-    margin: 0 0 20px 0;
-    line-height: 1.3;
-    letter-spacing: -0.01em;
+    color: var(--accent);
+    margin: 0 0 28px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    transition: color .2s ease;
   }
 
   p {
-    font-size: clamp(16px, 2.5vw, 18px);
+    font-size: var(--font-h3);
     font-weight: 400;
-    color: #64748b;
-    line-height: 1.7;
-    margin: 0;
-    max-width: 700px;
+    color: var(--fg-secondary);
+    line-height: 1.6;
     margin: 0 auto;
+    max-width: 750px;
   }
 
+  /* Texte plus clair en dark mode */
+  }
+
+
+
   @media (max-width: 768px) {
-    .section-header {
-      margin-bottom: 48px;
+    .section-header { margin-bottom: 60px; }
+    
+    h2 {
+      margin: 0 0 24px;
     }
-    /* Les variables clamp() gèrent déjà le responsive */
   }
 
   @media (max-width: 480px) {
-    .section-header {
-      margin-bottom: 40px;
-      padding: 0 16px;
-    }
-    /* Les variables clamp() gèrent déjà le responsive */
+    .section-header { margin-bottom: 48px; padding: 0 16px; }
+    .badge { font-size: 11px; padding: 5px 12px; }
     
-    .badge {
-      font-size: 10px;
-      padding: 3px 8px;
+    h2 {
+      margin: 0 0 20px;
     }
-  }
-
-  /* Support du mode sombre */
-  @media (prefers-color-scheme: dark) {
-    .section-header .badge {
-      background: #334155;
-      color: #cbd5e1;
-    }
-
-    .section-header h2 {
-      color: #f1f5f9 !important;
-    }
-
-    .section-header p {
-      color: #94a3b8 !important;
-    }
-  }
-
-  /* Support du mode sombre avec classe sur body */
-  :global(body.dark) .section-header .badge {
-    background: #334155;
-    color: #cbd5e1;
-  }
-
-  :global(body.dark) .section-header h2 {
-    color: #f1f5f9 !important;
-  }
-
-  :global(body.dark) .section-header p {
-    color: #94a3b8 !important;
-  }
-
-  /* Support du mode sombre avec attribut data-theme */
-  :global([data-theme="dark"]) .section-header .badge {
-    background: #334155;
-    color: #cbd5e1;
-  }
-
-  :global([data-theme="dark"]) .section-header h2 {
-    color: #f1f5f9 !important;
-  }
-
-  :global([data-theme="dark"]) .section-header p {
-    color: #94a3b8 !important;
   }
 </style>

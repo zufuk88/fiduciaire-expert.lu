@@ -65,11 +65,6 @@ const { image } = Astro.props;
     }
   }
 
-  /* Support du mode sombre */
-  @media (prefers-color-scheme: dark) {
-    .article-header {
-      background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
-    }
 
     .article-header[style*="--hero-image"]::after {
       background: linear-gradient(
@@ -89,47 +84,9 @@ const { image } = Astro.props;
     }
   }
 
-  /* Support du mode sombre avec classe sur body */
-  :global(body.dark) .article-header {
-    background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
-  }
 
-  :global(body.dark) .article-header[style*="--hero-image"]::after {
-    background: linear-gradient(
-      180deg,
-      rgba(15, 23, 42, 0.3) 0%,
-      rgba(15, 23, 42, 0.5) 50%,
-      rgba(15, 23, 42, 0.8) 80%,
-      rgba(15, 23, 42, 0.95) 100%
-    );
-  }
 
-  :global(body.dark) .article-header:not([style*="--hero-image"])::after {
-    background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    opacity: 0.4;
-  }
 
-  /* Support du mode sombre avec attribut data-theme */
-  :global([data-theme="dark"]) .article-header {
-    background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
-  }
 
-  :global([data-theme="dark"]) .article-header[style*="--hero-image"]::after {
-    background: linear-gradient(
-      180deg,
-      rgba(15, 23, 42, 0.3) 0%,
-      rgba(15, 23, 42, 0.5) 50%,
-      rgba(15, 23, 42, 0.8) 80%,
-      rgba(15, 23, 42, 0.95) 100%
-    );
-  }
 
-  :global([data-theme="dark"]) .article-header:not([style*="--hero-image"])::after {
-    background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    opacity: 0.4;
-  }
 </style>

@@ -5,7 +5,6 @@ import SearchBar from '../../../../components/SearchBar.astro';
 import StickyPageTop from '../../../../components/StickyPageTop.astro';
 import BlogCarousel from '../../../../components/BlogCarousel.astro';
 import '../../../../styles/blog-articles.css';
-import '../../../../styles/blog-articles-dark.css';
 export async function getStaticPaths() {
   const POSTS_PER_PAGE = 9;
   const allPosts = await getCollection('blog');

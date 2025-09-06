@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import SectionTitle from './SectionTitle.astro';
+import Button from './ui/Button.astro';
 import { calculateReadingTime } from '../utils/reading-time';
 
 export interface Props {
@@ -161,9 +162,9 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     
     {showCTA && (
       <div class="footer">
-        <a href={ctaHref} class="cta">
-          <span>{ctaText}</span>
-        </a>
+        <Button href={ctaHref} variant="primary">
+          {ctaText}
+        </Button>
       </div>
     )}
   </div>
@@ -223,19 +224,19 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #d1d5db;
+    background: var(--input-border);
     cursor: pointer;
     transition: all 0.2s ease;
   }
 
   .indicator.active {
-    background: #1e3a5f;
+    background: var(--primary);
     width: 24px;
     border-radius: 4px;
   }
 
   .indicator:hover {
-    background: #9ca3af;
+    background: var(--muted);
   }
 
   /* Grid */
@@ -274,7 +275,7 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     display: grid;
     grid-template-columns: 50% 50%;
     min-height: 320px;
-    background: #ffffff;
+    background: var(--card-hover);
     align-items: stretch;
   }
   
@@ -338,8 +339,8 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
 
   /* Article Card */
   .article-card {
-    background: #fafbfc;
-    border: 1px solid #e5e7eb;
+    background: var(--card);
+    border: 1px solid var(--card-border);
     border-radius: 2px;
     overflow: hidden;
     display: flex;
@@ -355,14 +356,14 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
   }
 
   .article-card:hover {
-    background: #ffffff;
-    border-color: #1e3a5f;
+    background: var(--card-hover);
+    border-color: var(--primary);
     box-shadow: 0 4px 12px rgba(30, 58, 95, 0.08);
   }
 
   /* Accessibilit\u00e9 clavier */
   .article-card:focus-within {
-    outline: 2px solid #1e3a5f;
+    outline: 2px solid var(--primary);
     outline-offset: 2px;
   }
 
@@ -370,7 +371,7 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     display: block;
     aspect-ratio: 16/9;
     min-height: 180px;
-    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    background: linear-gradient(135deg, var(--muted-bg) 0%, var(--card-border) 100%);
     overflow: hidden;
     position: relative;
   }
@@ -410,11 +411,11 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     gap: 12px;
     margin-bottom: 12px;
     font-size: 12px;
-    color: #6b7280;
+    color: var(--muted);
   }
 
   .category {
-    color: #1e3a5f;
+    color: var(--primary);
     text-decoration: none;
     font-weight: 600;
     text-transform: uppercase;
@@ -423,19 +424,19 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
   }
 
   .category:hover {
-    color: #374151;
+    color: var(--fg);
   }
 
   .date::before {
     content: '—';
     margin-right: 8px;
-    color: #d1d5db;
+    color: var(--border);
   }
 
   .reading-time::before {
     content: '—';
     margin-right: 8px;
-    color: #d1d5db;
+    color: var(--border);
   }
 
   /* Title */
@@ -447,20 +448,20 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
   }
 
   h3 a {
-    color: #1e3a5f;
+    color: var(--primary);
     text-decoration: none;
     display: block;
   }
 
   h3 a:hover {
-    color: #4b5563;
+    color: var(--fg);
   }
 
   /* Excerpt */
   .excerpt {
     font-size: var(--font-body) !important;
     line-height: 1.7;
-    color: #525252;
+    color: var(--fg);
     margin: 0 0 20px 0;
     flex-grow: 1;
   }
@@ -469,7 +470,7 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
   .read-more {
     font-size: var(--font-h6);
     font-weight: 600;
-    color: #1e3a5f;
+    color: var(--primary);
     text-decoration: none;
     margin-top: auto;
     display: inline-flex;
@@ -481,7 +482,7 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
   }
 
   .read-more:hover {
-    color: #374151;
+    color: var(--fg);
     gap: 10px;
   }
 
@@ -492,11 +493,11 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     transform: translateY(-50%);
     width: 40px;
     height: 40px;
-    background: #ffffff;
-    border: 1px solid #d1d5db;
+    background: var(--card-hover);
+    border: 1px solid var(--border);
     border-radius: 2px;
     font-size: var(--font-h4);
-    color: #6b7280;
+    color: var(--muted);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -506,9 +507,9 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
   }
 
   .nav:hover {
-    background: #f9fafb;
-    border-color: #9ca3af;
-    color: #374151;
+    background: var(--bg);
+    border-color: var(--muted);
+    color: var(--fg);
   }
 
   .nav:disabled {
@@ -530,39 +531,7 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     margin-top: 48px;
   }
 
-  .cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 28px;
-    background: transparent;
-    color: #1e3a5f;
-    border: 2px solid #1e3a5f;
-    border-radius: 2px;
-    text-decoration: none;
-    font-size: var(--font-h5);
-    font-weight: 600;
-    transition: all 0.2s ease;
-    position: relative;
-    overflow: hidden;
-    letter-spacing: 0.025em;
-  }
-
-  .cta:hover {
-    background: #1e3a5f;
-    color: #ffffff;
-  }
-
-  .cta::after {
-    content: '→';
-    display: inline-block;
-    transition: transform 0.2s ease;
-    font-size: 18px;
-  }
-
-  .cta:hover::after {
-    transform: translateX(4px);
-  }
+  /* Les styles du bouton sont gérés par le composant Button */
 
   /* Responsive */
   @media (max-width: 1024px) {
@@ -587,8 +556,9 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     }
 
     .carousel-track .article-card {
-      flex: 0 0 calc(100vw - 32px);
-      min-width: calc(100vw - 32px);
+      flex: 0 0 280px;
+      min-width: 280px;
+      max-width: 280px;
     }
 
     .grid-2 .articles,
@@ -617,42 +587,38 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     }
     
     .carousel-track .article-card {
-      flex: 0 0 calc(100vw - 24px);
-      min-width: calc(100vw - 24px);
+      flex: 0 0 260px;
+      min-width: 260px;
+      max-width: 260px;
     }
   }
 
-  /* Support du mode sombre */
-  @media (prefers-color-scheme: dark) {
-    .blog-section {
-      background: #0f172a;
-    }
 
     .article-card {
-      background: #1e293b;
-      border-color: #334155;
+      background: var(--card);
+      border-color: var(--card-border);
     }
 
     .article-card:hover {
-      background: #263449;
-      border-color: #475569;
+      background: var(--card-hover);
+      border-color: var(--border);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     .indicator {
-      background: #475569;
+      background: var(--muted);
     }
 
     .indicator.active {
-      background: #60a5fa;
+      background: var(--accent);
     }
 
     .indicator:hover {
-      background: #64748b;
+      background: var(--fg-secondary);
     }
 
     .image-link {
-      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      background: linear-gradient(135deg, var(--card) 0%, var(--card-border) 100%);
     }
 
     .image-link::after {
@@ -660,159 +626,79 @@ const getExcerpt = (content: string, maxLength: number = 120) => {
     }
 
     .meta {
-      color: #94a3b8;
+      color: var(--muted);
     }
 
     .category {
-      color: #60a5fa;
+      color: var(--accent);
     }
 
     .category:hover {
-      color: #93c5fd;
+      color: var(--accent-hover);
     }
 
     .date::before,
     .reading-time::before {
-      color: #475569;
+      color: var(--border);
     }
 
     h3 a {
-      color: #f1f5f9;
+      color: var(--fg);
     }
 
     h3 a:hover {
-      color: #e2e8f0;
+      color: var(--muted);
     }
 
     .excerpt {
-      color: #94a3b8;
+      color: var(--muted);
     }
 
     .read-more {
-      color: #60a5fa;
+      color: var(--accent);
     }
 
     .read-more:hover {
-      color: #93c5fd;
+      color: var(--accent-hover);
     }
 
     .nav {
-      background: #1e293b;
-      border-color: #334155;
-      color: #94a3b8;
+      background: var(--card);
+      border-color: var(--card-border);
+      color: var(--muted);
     }
 
     .nav:hover {
-      background: #263449;
-      border-color: #475569;
-      color: #f1f5f9;
+      background: var(--card-hover);
+      border-color: var(--border);
+      color: var(--fg);
     }
 
-    .cta {
-      color: #60a5fa;
-      border-color: #60a5fa;
-    }
-
-    .cta:hover {
-      background: #60a5fa;
-      color: #0f172a;
-    }
+    /* Styles du bouton gérés par le composant Button */
   }
 
-  /* Support du mode sombre avec classe sur body */
-  :global(body.dark) .blog-section {
-    background: #0f172a;
-  }
 
-  :global(body.dark) .article-card {
-    background: #1e293b;
-    border-color: #334155;
-  }
 
-  :global(body.dark) .article-card:hover {
-    background: #263449;
-    border-color: #475569;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
 
-  :global(body.dark) .indicator {
-    background: #475569;
-  }
 
-  :global(body.dark) .indicator.active {
-    background: #60a5fa;
-  }
 
-  :global(body.dark) .indicator:hover {
-    background: #64748b;
-  }
 
-  :global(body.dark) .image-link {
-    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-  }
 
-  :global(body.dark) .image-link::after {
-    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.2) 100%);
-  }
 
-  :global(body.dark) .meta {
-    color: #94a3b8;
-  }
 
-  :global(body.dark) .category {
-    color: #60a5fa;
-  }
 
-  :global(body.dark) .category:hover {
-    color: #93c5fd;
-  }
 
-  :global(body.dark) .date::before,
-  :global(body.dark) .reading-time::before {
-    color: #475569;
-  }
 
-  :global(body.dark) h3 a {
-    color: #f1f5f9;
-  }
 
-  :global(body.dark) h3 a:hover {
-    color: #e2e8f0;
-  }
 
-  :global(body.dark) .excerpt {
-    color: #94a3b8;
-  }
 
-  :global(body.dark) .read-more {
-    color: #60a5fa;
-  }
 
-  :global(body.dark) .read-more:hover {
-    color: #93c5fd;
-  }
 
-  :global(body.dark) .nav {
-    background: #1e293b;
-    border-color: #334155;
-    color: #94a3b8;
-  }
 
-  :global(body.dark) .nav:hover {
-    background: #263449;
-    border-color: #475569;
-    color: #f1f5f9;
-  }
 
-  :global(body.dark) .cta {
-    color: #60a5fa;
-    border-color: #60a5fa;
-  }
 
-  :global(body.dark) .cta:hover {
-    background: #60a5fa;
-    color: #0f172a;
-  }
+
+
 </style>
 
 <script>

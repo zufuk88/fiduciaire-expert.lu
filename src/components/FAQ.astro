@@ -62,7 +62,7 @@ const faqSchema = generateSchema ? {
 
 <style>
   .faq {
-    padding: 120px 20px 140px;
+    padding: 140px 20px 160px;
   }
 
   .container {
@@ -71,16 +71,26 @@ const faqSchema = generateSchema ? {
   }
 
   .accordion {
-    margin-top: 48px;
+    margin-top: 64px;
   }
 
   .item {
-    border-bottom: 1px solid #e5e7eb;
-    margin-bottom: 0;
+    border-bottom: 1px solid var(--card-border);
+    margin-bottom: 8px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    border: 1px solid var(--card-border);
+    overflow: hidden;
+    transition: all 0.2s ease;
   }
 
   .item:last-child {
-    border-bottom: none;
+    border-bottom: 1px solid var(--card-border);
+  }
+  
+  .item:hover {
+    border-color: var(--muted);
+    box-shadow: var(--shadow-sm);
   }
 
   .question {
@@ -88,13 +98,16 @@ const faqSchema = generateSchema ? {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 20px 0;
+    padding: 36px 48px;
     cursor: pointer;
     list-style: none;
     font-size: var(--font-h3);
     font-weight: 600;
-    color: #1e3a5f;
+    color: var(--primary);
     line-height: 1.4;
+    background: transparent;
+    border: none;
+    transition: color 0.2s ease;
   }
 
   .question::-webkit-details-marker {
@@ -102,131 +115,110 @@ const faqSchema = generateSchema ? {
   }
 
   .question:hover {
-    color: #4b5563;
+    color: var(--accent-hover);
   }
 
   .icon {
-    font-size: var(--font-h3);
-    font-weight: 400;
-    color: #6b7280;
-    transition: transform 0.2s;
+    font-size: var(--font-h2);
+    font-weight: 300;
+    color: var(--accent);
+    transition: all 0.2s ease;
+    min-width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .item[open] .icon {
     transform: rotate(45deg);
+    color: var(--accent-hover);
   }
 
   .answer {
-    padding: 0 0 20px 0;
+    padding: 28px 48px 40px 48px;
+    border-top: 1px solid var(--card-border);
+    background: white;
+    margin-top: 0;
   }
 
   .answer p {
     font-size: var(--font-body);
-    line-height: 1.7;
-    color: #525252;
-    margin: 0;
+    line-height: 1.8;
+    color: var(--fg-secondary);
+    margin: 20px 0 0 0;
   }
 
   @media (max-width: 768px) {
     .faq {
-      padding: 80px 20px 100px;
+      padding: 100px 20px 120px;
     }
 
     .accordion {
-      margin-top: 36px;
+      margin-top: 48px;
     }
 
     .question {
-      padding: 16px 0;
+      padding: 32px 32px;
+      font-size: var(--font-h4);
     }
 
     .answer {
-      padding: 0 0 16px 0;
+      padding: 24px 32px 36px 32px;
+    }
+    
+    .icon {
+      font-size: var(--font-h3);
+      min-width: 28px;
     }
   }
 
   @media (max-width: 480px) {
     .faq {
-      padding: 60px 16px 80px;
+      padding: 80px 16px 100px;
+    }
+    
+    .question {
+      padding: 28px 28px;
+    }
+
+    .answer {
+      padding: 20px 28px 32px 28px;
     }
   }
 
-  /* Support du mode sombre */
-  @media (prefers-color-scheme: dark) {
-    .faq {
-      background: #0f172a;
-    }
 
     .item {
-      border-bottom-color: #334155;
+      border-bottom-color: var(--card-border);
     }
 
     .question {
-      color: #f1f5f9;
+      color: var(--fg);
     }
 
     .question:hover {
-      color: #e2e8f0;
+      color: var(--muted);
     }
 
     .icon {
-      color: #94a3b8;
+      color: var(--muted);
     }
 
     .answer p {
-      color: #94a3b8;
+      color: var(--muted);
     }
   }
 
-  /* Support du mode sombre avec classe sur body */
-  :global(body.dark) .faq {
-    background: #0f172a;
-  }
 
-  :global(body.dark) .item {
-    border-bottom-color: #334155;
-  }
 
-  :global(body.dark) .question {
-    color: #f1f5f9;
-  }
 
-  :global(body.dark) .question:hover {
-    color: #e2e8f0;
-  }
 
-  :global(body.dark) .icon {
-    color: #94a3b8;
-  }
 
-  :global(body.dark) .answer p {
-    color: #94a3b8;
-  }
 
-  /* Support du mode sombre avec attribut data-theme */
-  :global([data-theme="dark"]) .faq {
-    background: #0f172a;
-  }
 
-  :global([data-theme="dark"]) .item {
-    border-bottom-color: #334155;
-  }
 
-  :global([data-theme="dark"]) .question {
-    color: #f1f5f9;
-  }
 
-  :global([data-theme="dark"]) .question:hover {
-    color: #e2e8f0;
-  }
 
-  :global([data-theme="dark"]) .icon {
-    color: #94a3b8;
-  }
 
-  :global([data-theme="dark"]) .answer p {
-    color: #94a3b8;
-  }
 </style>
 
 <script>

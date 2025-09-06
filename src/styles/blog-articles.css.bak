@@ -3,6 +3,7 @@
 /* Section Principale du Blog */
 .blog-main-section {
   padding: 4rem 0 6rem;
+  background-color: #ffffff;
 }
 
 .blog-layout {
@@ -73,7 +74,7 @@
 }
 
 .posts-grid .post-card {
-  background: var(--card);
+  background: #fafbfc;
   border: 1px solid #e5e7eb;
   border-radius: 2px;
   overflow: hidden;
@@ -83,7 +84,7 @@
 }
 
 .posts-grid .post-card:hover {
-  background: var(--card);
+  background: #ffffff;
   border-color: #9ca3af;
   transform: translateY(-2px);
 }
@@ -106,7 +107,7 @@
 
 .post-image-wrapper {
   overflow: hidden;
-  background-color: var(--bg-secondary);
+  background-color: #fafbfc;
   height: 120px;
   position: relative;
 }
@@ -226,7 +227,7 @@
 }
 
 .sidebar-widget {
-  background: var(--card);
+  background: #fafbfc;
   border: 1px solid #e5e7eb;
   border-radius: 2px;
   padding: 32px;
@@ -255,7 +256,7 @@
 .sidebar-search :global(.search-bar input) {
   font-size: var(--font-body);
   padding: 10px 40px 10px 12px;
-  background: var(--card);
+  background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 2px;
   width: 100%;
@@ -306,7 +307,7 @@
 }
 
 .category-link:hover {
-  background: var(--card);
+  background: #ffffff;
   color: #1e3a5f;
   text-decoration: none !important;
   border-left-color: #1e3a5f;
@@ -314,7 +315,7 @@
 }
 
 .category-link.is-active {
-  background: var(--card);
+  background: #ffffff;
   color: #1e3a5f;
   font-weight: 600;
   border-left-color: #1e3a5f;
@@ -344,7 +345,7 @@
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  background: var(--accent);
+  background: #1e3a5f;
   color: white;
   text-decoration: none;
   border-radius: 2px;
@@ -357,11 +358,9 @@
 
 .pagination-next:hover,
 .pagination-prev:hover {
-  background: var(--bg-secondary);
-  color: var(--accent);
+  background: #2c4157;
   text-decoration: none;
-  border: 1px solid var(--accent);
-  padding: 11px 23px;
+  transform: translateY(-2px);
 }
 
 /* Section Aucun Article */
@@ -391,6 +390,7 @@
   border-radius: 4px;
   margin-bottom: 1rem;
   transition: all 0.2s ease;
+  background-color: #ffffff;
   overflow: hidden;
 }
 
@@ -402,6 +402,7 @@
 
 .article-content details[itemtype="https://schema.org/Question"][open] {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
   border-color: #cbd5e1;
 }
 

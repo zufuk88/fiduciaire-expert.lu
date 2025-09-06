@@ -8,60 +8,34 @@ export interface Props {
   ctaSecondary?: { text: string; href: string };
 }
 
-const { 
-  title, 
-  subtitle, 
-  ctaPrimary,
-  ctaSecondary
-} = Astro.props;
+const { title, subtitle, ctaPrimary, ctaSecondary } = Astro.props;
 
-// Fonction pour gérer les sauts de ligne de manière sécurisée
-const titleParts = title.split('<br />').filter(part => part.trim());
-
-// Fonction pour nettoyer le HTML en gardant seulement les balises autorisées
+// Ne garder que <strong> et <br> pour éviter l'injection HTML
 function sanitizeHTML(html: string): string {
-  // Garde seulement <strong>, </strong>, <br /> et supprime tout le reste
   return html.replace(/<(?!\/?strong|br\s*\/?)(?:[^>]*)>/gi, '');
 }
 
+const cleanTitle = sanitizeHTML(title);
 const cleanSubtitle = sanitizeHTML(subtitle);
+
+const actions = [
+  ctaPrimary && { ...ctaPrimary, variant: 'primary' as const },
+  ctaSecondary && { ...ctaSecondary, variant: 'secondary' as const },
+].filter(Boolean) as Array<{ text: string; href: string; variant: 'primary' | 'secondary' }>;
 ---
 
-<header class="hero-section">
+<header class="hero">
   <div class="container">
-    <div class="hero-content">
-      <h1>
-        {titleParts.map((part, index) => (
-          <>
-            {part}
-            {index < titleParts.length - 1 && <br />}
-          </>
-        ))}
-      </h1>
-      
-      <!-- Version sécurisée du subtitle avec support pour <strong> -->
-      <p class="hero-subtitle" set:html={cleanSubtitle} />
-      
-      {(ctaPrimary || ctaSecondary) && (
-        <div class="hero-actions">
-          {ctaPrimary && (
-            <Button 
-              href={ctaPrimary.href} 
-              variant="primary" 
-              size="large"
-            >
-              {ctaPrimary.text}
+    <div class="content">
+      <h1 set:html={cleanTitle} />
+      <p class="subtitle" set:html={cleanSubtitle} />
+      {actions.length > 0 && (
+        <div class="actions">
+          {actions.map(({ href, text, variant }) => (
+            <Button href={href} variant={variant} size="large">
+              {text}
             </Button>
-          )}
-          {ctaSecondary && (
-            <Button 
-              href={ctaSecondary.href} 
-              variant="outline" 
-              size="large"
-            >
-              {ctaSecondary.text}
-            </Button>
-          )}
+          ))}
         </div>
       )}
     </div>
@@ -69,29 +43,17 @@ const cleanSubtitle = sanitizeHTML(subtitle);
 </header>
 
 <style>
-  .hero-section {
+  .hero {
     min-height: calc(100vh - 80px);
     min-height: calc(100dvh - 80px);
-    background: #fafbfc;
+    background: linear-gradient(135deg, #ffffff 0%, #f9f8f7 50%, #f3f2ef 100%);
     display: flex;
     align-items: center;
     padding: 80px 20px;
     margin-top: -20px;
   }
 
-  /* Pour le mode sombre détecté dans votre screenshot */
-  :global(body.dark) .hero-section,
-  :global([data-theme="dark"]) .hero-section {
-    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-  }
-
-  .hero-content {
+  .content {
     text-align: center;
     max-width: 800px;
     margin: 0 auto;
@@ -99,237 +61,53 @@ const cleanSubtitle = sanitizeHTML(subtitle);
 
   h1 {
     font-family: var(--font-family-display);
-    font-size: var(--font-hero);
-    font-weight: 500;
+    font-size: clamp(32px, 6vw, 64px);
+    font-weight: 700;
     line-height: 1.2;
-    margin: 0 0 28px 0;
+    margin: 0 0 36px;
     color: #1e3a5f;
     letter-spacing: -0.01em;
   }
 
-  /* Mode sombre pour le titre */
-  :global(body.dark) h1,
-  :global([data-theme="dark"]) h1 {
-    color: #f1f5f9;
+  .subtitle {
+    margin: 0 auto 48px;
+    color: #334155;
+    font-size: clamp(18px, 2.5vw, 24px);
+    line-height: 1.6;
   }
 
-  .hero-subtitle {
-    font-size: var(--font-h4);
-    line-height: 1.65;
-    margin: 0 auto 40px;
-    color: #374151;
-    font-weight: 400;
-    max-width: 600px;
-  }
-
-  /* Mode sombre pour le subtitle - IMPORTANT pour la visibilité */
-  :global(body.dark) .hero-subtitle,
-  :global([data-theme="dark"]) .hero-subtitle {
-    color: #94a3b8; /* Gris plus clair pour meilleur contraste */
-  }
-
-  /* Style pour les strong tags */
-  .hero-subtitle :global(strong) {
-    font-weight: 600;
-    color: #1e3a5f;
-  }
-
-  /* Strong en mode sombre - TRÈS IMPORTANT */
-  :global(body.dark) .hero-subtitle :global(strong),
-  :global([data-theme="dark"]) .hero-subtitle :global(strong) {
-    color: #f1f5f9; /* Presque blanc pour maximum de contraste */
+  .subtitle :global(strong) {
     font-weight: 600;
   }
-  
-  .hero-subtitle :global(p) {
-    margin: 0 0 16px 0;
-  }
-  
-  .hero-subtitle :global(p:last-child) {
+
+  .subtitle :global(p:last-child) {
     margin-bottom: 0;
   }
 
-  .hero-actions {
+  .actions {
     display: flex;
-    gap: 16px;
+    gap: 24px;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 8px;
   }
 
-  /* Amélioration des boutons en mode sombre */
-  :global(body.dark) .hero-actions :global(.btn-primary),
-  :global([data-theme="dark"]) .hero-actions :global(.btn-primary) {
-    background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
-    color: #0f172a;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  :global(body.dark) .hero-actions :global(.btn-primary:hover),
-  :global([data-theme="dark"]) .hero-actions :global(.btn-primary:hover) {
-    background: #ffffff;
-    box-shadow: 0 4px 14px rgba(255, 255, 255, 0.25);
-    transform: translateY(-2px);
-  }
-
-  @media (max-width: 768px) {
-    .hero-section {
-      min-height: 80vh;
-      min-height: 80dvh;
-      padding: 60px 20px;
-    }
-
-    h1 {
-      margin: 0 0 22px 0;
-    }
-
-    .hero-subtitle {
-      margin: 0 auto 34px;
-    }
+  .actions > :global(*) {
+    /* évite les boutons trop petits sur mobile */
+    min-width: 140px;
+    flex: 0 0 auto;
   }
 
   @media (max-width: 480px) {
-    .hero-section {
+    .hero {
       min-height: 70vh;
       min-height: 70dvh;
       padding: 40px 16px;
     }
-
-    h1 {
-      margin: 0 0 22px 0;
-    }
-    
-    .hero-actions > :global(*) {
-      min-width: 140px;
+    .actions > :global(*) {
       flex: 1 1 auto;
       max-width: 200px;
     }
   }
 
-  /* Support automatique du mode sombre du système */
-  @media (prefers-color-scheme: dark) {
-    .hero-section {
-      background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-    }
-
-    h1 {
-      color: #f1f5f9;
-    }
-
-    .hero-subtitle {
-      color: #94a3b8;
-    }
-
-    .hero-subtitle :global(strong) {
-      color: #f1f5f9;
-      font-weight: 600;
-    }
-
-    /* Boutons clairs en dark mode */
-    .hero-actions :global(.btn-primary) {
-      background: #ffffff;
-      color: #0f172a;
-      border: none;
-    }
-
-    .hero-actions :global(.btn-primary:hover) {
-      background: #f1f5f9;
-      color: #0f172a;
-    }
-
-    .hero-actions :global(.btn-outline) {
-      background: transparent;
-      color: #ffffff;
-      border: 2px solid #ffffff;
-    }
-
-    .hero-actions :global(.btn-outline:hover) {
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-      border-color: #f1f5f9;
-    }
-  }
-
-  /* Support du mode sombre avec classe sur body */
-  :global(body.dark) .hero-section {
-    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-  }
-
-  :global(body.dark) h1 {
-    color: #f1f5f9;
-  }
-
-  :global(body.dark) .hero-subtitle {
-    color: #94a3b8;
-  }
-
-  :global(body.dark) .hero-subtitle :global(strong) {
-    color: #f1f5f9;
-    font-weight: 600;
-  }
-
-  /* Boutons clairs en dark mode */
-  :global(body.dark) .hero-actions :global(.btn-primary) {
-    background: #ffffff;
-    color: #0f172a;
-    border: none;
-  }
-
-  :global(body.dark) .hero-actions :global(.btn-primary:hover) {
-    background: #f1f5f9;
-    color: #0f172a;
-  }
-
-  :global(body.dark) .hero-actions :global(.btn-outline) {
-    background: transparent;
-    color: #ffffff;
-    border: 2px solid #ffffff;
-  }
-
-  :global(body.dark) .hero-actions :global(.btn-outline:hover) {
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    border-color: #f1f5f9;
-  }
-
-  /* Support du mode sombre avec attribut data-theme */
-  :global([data-theme="dark"]) .hero-section {
-    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-  }
-
-  :global([data-theme="dark"]) h1 {
-    color: #f1f5f9;
-  }
-
-  :global([data-theme="dark"]) .hero-subtitle {
-    color: #94a3b8;
-  }
-
-  :global([data-theme="dark"]) .hero-subtitle :global(strong) {
-    color: #f1f5f9;
-    font-weight: 600;
-  }
-
-  /* Boutons clairs en dark mode avec data-theme */
-  :global([data-theme="dark"]) .hero-actions :global(.btn-primary) {
-    background: #ffffff;
-    color: #0f172a;
-    border: none;
-  }
-
-  :global([data-theme="dark"]) .hero-actions :global(.btn-primary:hover) {
-    background: #f1f5f9;
-    color: #0f172a;
-  }
-
-  :global([data-theme="dark"]) .hero-actions :global(.btn-outline) {
-    background: transparent;
-    color: #ffffff;
-    border: 2px solid #ffffff;
-  }
-
-  :global([data-theme="dark"]) .hero-actions :global(.btn-outline:hover) {
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    border-color: #f1f5f9;
-  }
 </style>

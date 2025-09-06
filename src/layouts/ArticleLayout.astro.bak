@@ -11,25 +11,25 @@ import { calculateReadingTime } from '../utils/reading-time';
 import '../styles/blog-articles.css';
 const { frontmatter } = Astro.props;
 const { title, seoTitle, description, date, modified, category, image, imageAlt, author, rawContent, headings } = frontmatter;
-// Calculate reading time
-const readingTime = rawContent ? calculateReadingTime(rawContent, 'en') : 5;
+// Calculer le temps de lecture
+const readingTime = rawContent ? calculateReadingTime(rawContent, 'fr') : 5;
 const pageTitle = seoTitle || title;
 const siteUrl = Astro.site ? Astro.site.origin : "https://www.fiduciaire-expert.lu";
 const articleUrl = new URL(Astro.url.pathname, siteUrl).href;
-// Get articles from the same category
+// Récupérer les articles de la même catégorie
 const allPosts = await getCollection('blog');
 const relatedPosts = allPosts
   .filter(post => 
     post.data.category === category && 
     post.data.title !== title && 
     post.data.draft !== true &&
-    post.id.startsWith('en/')
+    post.id.startsWith('fr/')
   )
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
-// Get only English categories for English layout
-const englishCategories = ['Tax', 'Payroll', 'Accounting', 'Corporate Law'];
-const categories = englishCategories;
+// Récupérer seulement les catégories françaises
+const frenchCategories = ['Fiscalité', 'Social', 'Comptabilité', 'Juridique'];
+const categories = frenchCategories;
 // Schema Article pour SEO
 const articleSchema = {
   "@type": "Article",
@@ -57,7 +57,7 @@ const articleSchema = {
     "@type": "WebPage",
     "@id": articleUrl
   },
-  "inLanguage": "en-US",
+  "inLanguage": "fr-FR",
   "articleSection": category,
   "keywords": category
 };
@@ -68,20 +68,20 @@ const breadcrumbSchema = {
     {
       "@type": "ListItem",
       "position": 1,
-      "name": "Home",
-      "item": new URL("/en", siteUrl).href
+      "name": "Accueil",
+      "item": siteUrl
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Blog",
-      "item": new URL("/en/articles", siteUrl).href
+      "item": new URL("/articles", siteUrl).href
     },
     {
       "@type": "ListItem",
       "position": 3,
       "name": category,
-      "item": new URL(`/en/articles/category/${category.toLowerCase().replace(/\s+/g, '-')}`, siteUrl).href
+      "item": new URL(`/articles/category/${category.toLowerCase().replace(/\s+/g, '-')}`, siteUrl).href
     },
     {
       "@type": "ListItem",
@@ -108,14 +108,14 @@ const combinedSchema = {
     />
     <StickyPageTop
       breadcrumbItems={[
-        { text: 'Home', href: '/en' },
-        { text: 'Articles', href: '/en/articles' },
-        { text: category, href: `/en/articles/category/${category.toLowerCase().replace(/\s+/g, '-')}` }
+        { text: 'Accueil', href: '/fr' },
+        { text: 'Articles', href: '/fr/articles' },
+        { text: category, href: `/fr/articles/category/${category.toLowerCase().replace(/\s+/g, '-')}` }
       ]}
       title={title}
       showSearch={true}
-      searchPlaceholder="Search articles..."
-      lang="en"
+      searchPlaceholder="Rechercher un article..."
+      lang="fr"
       showProgress={true}
     />
     
@@ -130,7 +130,7 @@ const combinedSchema = {
             <line x1="3" y1="10" x2="21" y2="10"/>
           </svg>
           <time datetime={modified || date}>
-            {new Date(modified || date).toLocaleDateString('en-US', { 
+            {new Date(modified || date).toLocaleDateString('fr-FR', { 
               day: 'numeric', 
               month: 'long', 
               year: 'numeric' 
@@ -151,14 +151,14 @@ const combinedSchema = {
             <circle cx="12" cy="12" r="10"/>
             <polyline points="12 6 12 12 16 14"/>
           </svg>
-          <span>{readingTime} min read</span>
+          <span>{readingTime} min de lecture</span>
         </div>
         
         <div class="meta-item meta-category">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
           </svg>
-          <a href={`/en/articles/category/${category.toLowerCase().replace(/\s+/g, '-')}`}>
+          <a href={`/fr/articles/category/${category.toLowerCase().replace(/\s+/g, '-')}`}>
             {category}
           </a>
         </div>
@@ -170,60 +170,60 @@ const combinedSchema = {
         <div class="article-main">
           <div class="article-content" itemprop="articleBody">
             <slot />
-            {/* Social share buttons - moved after content */}
+            {/* Boutons de partage social - déplacés après le contenu */}
             <div class="social-share">
-              <span class="share-label">Share this article:</span>
-            <a 
-              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="share-button share-linkedin"
-              aria-label="Share on LinkedIn"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-              </svg>
-              LinkedIn
-            </a>
-            <a 
-              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="share-button share-facebook"
-              aria-label="Share on Facebook"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-              </svg>
-              Facebook
-            </a>
-            <a 
-              href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl)}&text=${encodeURIComponent(title)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="share-button share-x"
-              aria-label="Share on X"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-              </svg>
-              X
-            </a>
-            <button 
-              onclick="navigator.clipboard.writeText(window.location.href).then(() => { this.textContent = 'Copied!'; setTimeout(() => { this.innerHTML = '<svg width=\'20\' height=\'20\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\'><rect x=\'9\' y=\'9\' width=\'13\' height=\'13\' rx=\'2\' ry=\'2\'/><path d=\'M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1\'/></svg>Copy link'; }, 2000); })"
-              class="share-button share-copy"
-              aria-label="Copy link"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-              </svg>
-              Copy link
-            </button>
-          </div>
-            {/* Simplified CTA */}
+              <span class="share-label">Partager cet article :</span>
+              <a 
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="share-button share-linkedin"
+                aria-label="Partager sur LinkedIn"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+                LinkedIn
+              </a>
+              <a 
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(articleUrl)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="share-button share-facebook"
+                aria-label="Partager sur Facebook"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+                Facebook
+              </a>
+              <a 
+                href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(articleUrl)}&text=${encodeURIComponent(title)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="share-button share-x"
+                aria-label="Partager sur X"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+                X
+              </a>
+              <button 
+                onclick="navigator.clipboard.writeText(window.location.href).then(() => { this.textContent = 'Copié !'; setTimeout(() => { this.innerHTML = '<svg width=\'20\' height=\'20\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\'><rect x=\'9\' y=\'9\' width=\'13\' height=\'13\' rx=\'2\' ry=\'2\'/><path d=\'M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1\'/></svg>Copier le lien'; }, 2000); })"
+                class="share-button share-copy"
+                aria-label="Copier le lien"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                </svg>
+                Copier le lien
+              </button>
+            </div>
+            {/* CTA simplifié */}
             <div class="article-cta-simple">
-              <a href="/en/contact" class="cta-button-simple">
+              <a href="/fr/contact" class="cta-button-simple">
                 Contact
               </a>
             </div>
@@ -231,17 +231,17 @@ const combinedSchema = {
         </div>
         <!-- Sidebar -->
         <aside class="article-sidebar">
-          <!-- Table of Contents -->
+          <!-- Table des matières -->
           {headings && headings.length > 2 && (
-            <TableOfContents headings={headings} lang="en" />
+            <TableOfContents headings={headings} lang="fr" />
           )}
         </aside>
       </div>
     </div>
     <BlogCarousel
-      title="Similar articles"
-      subtitle={`Continue reading with these articles from the ${category} category`}
-      lang="en"
+      title="Articles similaires"
+      subtitle={`Continuez votre lecture avec ces articles de la catégorie ${category}`}
+      lang="fr"
       variant="grid"
       columns={3}
       category={category}
@@ -252,7 +252,7 @@ const combinedSchema = {
 </LayoutI18n>
 <style>
   /* ===== DESIGN PREMIUM ÉPURÉ ET STATUTAIRE ===== */
-  /* Variables for sticky heights */
+  /* Variables pour les hauteurs sticky */
   :root {
     --header-height: 72px;
     --breadcrumb-height: 48px;
@@ -262,7 +262,7 @@ const combinedSchema = {
   
   /* Article page container */
   .article-page {
-    ;
+    background: #ffffff;
   }
   /* Layout avec sidebar */
   .article-layout {
@@ -315,13 +315,13 @@ const combinedSchema = {
   }
   /* Wrapper avec espace de lecture optimal */
   .article-body-wrapper { 
-    padding: 2rem 0 4rem 0; /* Reduced padding-top because we have the sticky breadcrumb */
-    ; 
+    padding: 2rem 0 4rem 0; /* Réduit le padding-top car on a le breadcrumb sticky */
+    background-color: #ffffff; 
     position: relative;
   }
   /* Article Metadata Section */
   .article-meta-section {
-    background: var(--bg-secondary);
+    background: #f8fafc;
     border-top: 1px solid #e2e8f0;
     border-bottom: 1px solid #e2e8f0;
     padding: 1.25rem 0;
@@ -396,7 +396,7 @@ const combinedSchema = {
       gap: 0.75rem;
     }
   }
-  /* Social share buttons - positioned at bottom */
+  /* Boutons de partage social - positionnés en bas */
   .social-share {
     display: flex;
     align-items: center;
@@ -422,7 +422,7 @@ const combinedSchema = {
     font-weight: 500;
     text-decoration: none !important;
     border: 1px solid #e2e8f0;
-    background: var(--card);
+    background: white;
     color: #475569 !important;
     cursor: pointer;
     font-family: inherit;
@@ -472,7 +472,7 @@ const combinedSchema = {
     color: #2c4157 !important;
     font-weight: 400;
   }
-  /* Simplified CTA */
+  /* CTA simplifié */
   .article-cta-simple {
     margin-top: 32px;
     text-align: center;
@@ -500,21 +500,30 @@ const combinedSchema = {
     transform: translateY(-2px);
     text-decoration: none !important;
   }
-  /* Sidebar - Increased specificity to avoid conflicts */
+  /* Sidebar - Spécificité augmentée pour éviter les conflits */
   .article-page .article-sidebar,
   aside.article-sidebar {
     position: sticky !important;
-    top: var(--sidebar-top) !important; /* Uses calculated variable */
+    top: var(--sidebar-top) !important; /* Utilise la variable calculée */
     align-self: start;
     max-height: calc(100vh - var(--sidebar-top) - 20px);
     overflow-y: auto;
-    /* Performance optimizations */
-    transform: translateZ(0); /* Force GPU acceleration */
+    /* Optimisations performance */
+    transform: translateZ(0); /* Force accélération GPU */
     -webkit-transform: translateZ(0);
-    contain: layout style; /* Render optimization */
+    contain: layout style; /* Optimisation du rendu */
+  }
+  /* Désactiver sticky sur mobile */
+  @media (max-width: 1200px) {
+    .article-page .article-sidebar,
+    aside.article-sidebar {
+      position: static !important;
+      top: auto !important;
+      max-height: none;
+    }
   }
   .sidebar-widget {
-    background-color: var(--bg-secondary);
+    background-color: #fafbfc;
     border: 1px solid #e2e8f0;
     border-radius: 4px;
     padding: 2rem;
@@ -543,7 +552,7 @@ const combinedSchema = {
     border-radius: 4px;
   }
   .category-link:hover {
-    background-color: var(--bg-secondary);
+    background-color: #f1f5f9;
     color: #0f172a;
   }
   .category-link.is-active {
@@ -554,7 +563,7 @@ const combinedSchema = {
   /* Section épurée pour les suggestions */
   .related-articles {
     padding: 6rem 0;
-    background-color: var(--bg-secondary);
+    background-color: #fafbfc;
     position: relative;
   }
   .related-articles::before {
@@ -591,14 +600,14 @@ const combinedSchema = {
     margin: 0 auto;
   }
   .related-card {
-    background: var(--card);
+    background: #fafbfc;
     border: 1px solid #e5e7eb;
     border-radius: 2px;
     overflow: hidden;
     transition: all 0.2s ease;
   }
   .related-card:hover {
-    ;
+    background: #ffffff;
     border-color: #9ca3af;
     transform: translateY(-2px);
   }
@@ -609,7 +618,7 @@ const combinedSchema = {
   }
   .related-image-wrapper {
     overflow: hidden;
-    background-color: var(--bg-secondary);
+    background-color: #fafbfc;
     height: 120px;
   }
   .related-image-wrapper img {
@@ -694,7 +703,7 @@ const combinedSchema = {
     font-weight: 500;
   }
   .article-content :global(a:hover) { 
-    text-decoration: none;
+    text-decoration: underline;
     color: #2563eb;
   }
   .article-content :global(ul), 
@@ -740,54 +749,44 @@ const combinedSchema = {
     border-radius: 4px;
     border: 1px solid #e2e8f0;
   }
-  /* Responsive wrapper for tables */
+  /* Wrapper responsive pour les tableaux */
   .article-content :global(.table-wrapper) {
     overflow-x: auto;
     margin: 2rem 0;
     border-radius: 4px;
-    border: 1px solid var(--card-border);
-    background: white;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    border: 1px solid #e2e8f0;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling sur iOS */
   }
 
   /* Styles pour les tableaux */
   .article-content :global(table) { 
     width: 100%; 
-    min-width: 600px; /* Force minimum width for readability */
+    min-width: 600px; /* Force une largeur minimale pour la lisibilité */
     margin: 0; /* Remove margin since wrapper has it */
     border-collapse: collapse; 
     font-size: 0.9375rem;
     overflow: hidden;
-    background: white;
   }
   .article-content :global(th), 
   .article-content :global(td) { 
-    border: 1px solid var(--card-border); 
+    border: 1px solid #e2e8f0; 
     padding: 0.75rem 1rem; 
     text-align: left; 
     line-height: 1.5; 
   }
-  .article-content :global(td) {
-    background: white;
-    color: var(--muted);
-  }
   .article-content :global(th) { 
-    background-color: var(--accent); 
+    background-color: #f8fafc; 
     font-weight: 600;
-    color: white;
+    color: #0f172a;
     font-size: 0.875rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-  .article-content :global(tbody tr:hover) {
-    background-color: #f9f9f9;
-  }
-  .article-content :global(tbody tr:hover td) {
-    background-color: #f9f9f9;
+  .article-content :global(tr:hover) {
+    background-color: #fafbfc;
   }
 
-  /* Scroll indicator on mobile */
+  /* Indicateur de scroll sur mobile */
   @media (max-width: 768px) {
     .article-content :global(.table-wrapper) {
       position: relative;
@@ -811,7 +810,7 @@ const combinedSchema = {
       display: none;
     }
 
-    /* Tables on mobile - adjusted styles */
+    /* Tables sur mobile - styles ajustés */
     .article-content :global(table) {
       font-size: 0.875rem;
     }
@@ -882,6 +881,198 @@ const combinedSchema = {
     }
   }
 
+  /* ===== SUPPORT DU MODE SOMBRE ===== */
+  
+  /* Mode sombre avec prefers-color-scheme */
+
+    .article-body-wrapper {
+      background-color: #0f172a;
+    }
+
+    .article-meta-section {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    .meta-item {
+      color: #94a3b8;
+    }
+
+    .meta-item svg {
+      color: #64748b;
+    }
+
+    .meta-item time,
+    .meta-item span {
+      color: #cbd5e1;
+    }
+
+    .meta-category a {
+      color: #60a5fa;
+    }
+
+    .meta-category a:hover {
+      color: #93c5fd;
+    }
+
+    .social-share {
+      border-color: #334155;
+    }
+
+    .share-label {
+      color: #94a3b8;
+    }
+
+    .share-button {
+      background: #1e293b;
+      border-color: #334155;
+      color: #cbd5e1 !important;
+    }
+
+    .share-button:hover {
+      background: #263449;
+    }
+
+    .article-content {
+      color: #cbd5e1;
+    }
+
+    .article-content > :global(p),
+    .article-content > :global(ul) > :global(li),
+    .article-content > :global(ol) > :global(li) {
+      color: #cbd5e1 !important;
+    }
+
+    .article-content :global(h2),
+    .article-content :global(h3),
+    .article-content :global(h4) {
+      color: #f1f5f9;
+    }
+
+    .article-content :global(h2)::before {
+      background: #60a5fa;
+    }
+
+    .article-content :global(a) {
+      color: #60a5fa;
+    }
+
+    .article-content :global(a:hover) {
+      color: #93c5fd;
+    }
+
+    .article-content :global(blockquote) {
+      background: linear-gradient(135deg, #1e293b 0%, #263449 100%);
+      border-left-color: #60a5fa;
+      color: #cbd5e1;
+    }
+
+    .article-content :global(blockquote p) {
+      color: #cbd5e1 !important;
+    }
+
+    .article-content :global(blockquote h1),
+    .article-content :global(blockquote h2),
+    .article-content :global(blockquote h3),
+    .article-content :global(blockquote h4),
+    .article-content :global(blockquote h5),
+    .article-content :global(blockquote h6) {
+      color: #ffffff !important;
+      font-weight: 600 !important;
+    }
+
+    .article-content :global(blockquote strong),
+    .article-content :global(blockquote b) {
+      color: #f1f5f9 !important;
+    }
+
+    /* Textes en gras dans le contenu */
+    .article-content :global(strong),
+    .article-content :global(b) {
+      color: #f1f5f9 !important;
+      font-weight: 600;
+    }
+
+    .article-content :global(blockquote)::before {
+      color: #334155;
+    }
+
+    .article-content :global(.table-wrapper) {
+      border-color: #334155;
+      background-color: #1e293b;
+    }
+
+    .article-content :global(table) {
+      border-color: #334155;
+    }
+
+    .article-content :global(th),
+    .article-content :global(td) {
+      border-color: #334155;
+    }
+
+    .article-content :global(th) {
+      background-color: #1e293b;
+      color: #f1f5f9;
+    }
+
+    .article-content :global(tr:hover) {
+      background-color: #1e293b;
+    }
+
+    .article-cta-simple {
+      border-top-color: #334155;
+    }
+
+    .article-cta-simple .cta-button-simple {
+      background: #60a5fa !important;
+      color: #0f172a !important;
+    }
+
+    .article-cta-simple .cta-button-simple:hover {
+      background: #3b82f6 !important;
+    }
+
+    .sidebar-widget {
+      background-color: #1e293b;
+      border-color: #334155;
+    }
+
+    .widget-title {
+      color: #f1f5f9;
+    }
+
+    .category-link {
+      color: #94a3b8;
+    }
+
+    .category-link:hover {
+      background-color: #263449;
+      color: #60a5fa;
+    }
+
+    .category-link.is-active {
+      background-color: #334155;
+      color: #f1f5f9;
+    }
+
+    .related-articles {
+      background-color: #0f172a;
+    }
+
+    .related-articles::before {
+      background: linear-gradient(90deg, transparent, #334155, transparent);
+    }
+
+    .section-header h3 {
+      color: #f1f5f9;
+    }
+
+    .section-header p {
+      color: #94a3b8;
+    }
+  }
+
 
 </style>
 
@@ -913,3 +1104,4 @@ const combinedSchema = {
     });
   });
 </script>
+</LayoutI18n>

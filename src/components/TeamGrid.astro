@@ -86,8 +86,8 @@ const { title, subtitle, members } = Astro.props;
     margin: 0 auto;
   }
   .team-card {
-    background: #fafbfc;
-    border: 1px solid #e5e7eb;
+    background: var(--card);
+    border: 1px solid var(--card-border);
     border-radius: 2px;
     padding: 40px;
     text-align: left;
@@ -96,8 +96,8 @@ const { title, subtitle, members } = Astro.props;
     transition: all 0.2s ease;
   }
   .team-card:hover {
-    background: #ffffff;
-    border-color: #9ca3af;
+    background: var(--card-hover);
+    border-color: var(--muted);
     transform: translateY(-2px);
   }
   .member-image {
@@ -126,14 +126,14 @@ const { title, subtitle, members } = Astro.props;
   .member-info h3 {
     font-size: var(--font-h3);
     font-weight: 600;
-    color: #1e3a5f;
+    color: var(--accent);
     margin: 0;
     line-height: 1.3;
     display: inline;
   }
   .member-role {
     font-size: var(--font-h6);
-    color: #6b7280;
+    color: var(--muted);
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 16px;
@@ -142,19 +142,19 @@ const { title, subtitle, members } = Astro.props;
   .member-bio {
     font-size: var(--font-body);
     line-height: 1.7;
-    color: #525252;
+    color: var(--muted);
     margin: 0 0 20px 0;
     flex: 1;
   }
   .linkedin-link {
     display: inline-flex;
     align-items: center;
-    color: #6b7280;
+    color: var(--muted);
     text-decoration: none;
     transition: color 0.2s ease;
   }
   .linkedin-link:hover {
-    color: #1e3a5f;
+    color: var(--accent);
   }
   .linkedin-link svg {
     width: 16px;
@@ -179,112 +179,4 @@ const { title, subtitle, members } = Astro.props;
     .team-card {
       padding: 28px;
     }
-  }
-
-  /* Support du mode sombre */
-  @media (prefers-color-scheme: dark) {
-    .team-section {
-      background: #0f172a;
-    }
-
-    .team-card {
-      background: #1e293b;
-      border-color: #334155;
-    }
-
-    .team-card:hover {
-      background: #263449;
-      border-color: #475569;
-    }
-
-    .member-info h3 {
-      color: #f1f5f9;
-    }
-
-    .member-role {
-      color: #94a3b8;
-    }
-
-    .member-bio {
-      color: #94a3b8;
-    }
-
-    .linkedin-link {
-      color: #94a3b8;
-    }
-
-    .linkedin-link:hover {
-      color: #60a5fa;
-    }
-  }
-
-  /* Support du mode sombre avec classe sur body */
-  :global(body.dark) .team-section {
-    background: #0f172a;
-  }
-
-  :global(body.dark) .team-card {
-    background: #1e293b;
-    border-color: #334155;
-  }
-
-  :global(body.dark) .team-card:hover {
-    background: #263449;
-    border-color: #475569;
-  }
-
-  :global(body.dark) .member-info h3 {
-    color: #f1f5f9;
-  }
-
-  :global(body.dark) .member-role {
-    color: #94a3b8;
-  }
-
-  :global(body.dark) .member-bio {
-    color: #94a3b8;
-  }
-
-  :global(body.dark) .linkedin-link {
-    color: #94a3b8;
-  }
-
-  :global(body.dark) .linkedin-link:hover {
-    color: #60a5fa;
-  }
-
-  /* Support du mode sombre avec attribut data-theme */
-  :global([data-theme="dark"]) .team-section {
-    background: #0f172a;
-  }
-
-  :global([data-theme="dark"]) .team-card {
-    background: #1e293b;
-    border-color: #334155;
-  }
-
-  :global([data-theme="dark"]) .team-card:hover {
-    background: #263449;
-    border-color: #475569;
-  }
-
-  :global([data-theme="dark"]) .member-info h3 {
-    color: #f1f5f9;
-  }
-
-  :global([data-theme="dark"]) .member-role {
-    color: #94a3b8;
-  }
-
-  :global([data-theme="dark"]) .member-bio {
-    color: #94a3b8;
-  }
-
-  :global([data-theme="dark"]) .linkedin-link {
-    color: #94a3b8;
-  }
-
-  :global([data-theme="dark"]) .linkedin-link:hover {
-    color: #60a5fa;
-  }
-</style>
+  }</style>

@@ -2,64 +2,68 @@
 // src/pages/articles/category/[category].astro
 import { getCollection } from 'astro:content';
 import LayoutI18n from '../../../../layouts/LayoutI18n.astro';
-// NOUVEAU : Importation du composant Image
+// NEW: Import Image component
 import { Image } from 'astro:assets';
 import SearchBar from '../../../../components/SearchBar.astro';
 import StickyPageTop from '../../../../components/StickyPageTop.astro';
 import '../../../../styles/blog-articles.css';
-// 1. Génère une page pour chaque catégorie en utilisant getCollection (inchangé)
+// 1. Generate a page for each category using getCollection
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');
-  const frenchCategories = ['Fiscalité', 'Social', 'Comptabilité', 'Juridique'];
-  const frenchPosts = allPosts.filter(post => frenchCategories.includes(post.data.category) && post.data.draft !== true);
-  const uniqueCategories = [...new Set(frenchPosts.map((post) => post.data.category).filter(Boolean))];
+  // Only get English categories
+  const englishCategories = ['Tax', 'Payroll', 'Accounting', 'Corporate Law'];
+  const englishPosts = allPosts.filter(post => englishCategories.includes(post.data.category) && post.data.draft !== true);
+  const uniqueCategories = [...new Set(englishPosts.map((post) => post.data.category).filter(Boolean))];
   return uniqueCategories.map((category) => {
     const slug = category.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-');
     return {
       params: { category: slug },
-      props: { categoryName: category },
+      props: { 
+        categoryName: category
+      },
     };
   });
 }
 const { category } = Astro.params;
 const { categoryName } = Astro.props;
-// 2. Filtre les articles de la bonne catégorie (inchangé)
+// 2. Filter articles from the right category
 const allPosts = await getCollection('blog');
+// Filter posts by exact category match
 const filteredPosts = allPosts.filter(post => {
-  const postCategorySlug = post.data.category?.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-');
-  return postCategorySlug === category && post.data.draft !== true;
+  return post.data.category === categoryName && post.data.draft !== true;
 }).sort((a, b) => {
-  // Utiliser modified s'il existe, sinon utiliser date
+  // Use modified if it exists, otherwise use date
   const dateA = new Date(a.data.modified || a.data.date).getTime();
   const dateB = new Date(b.data.modified || b.data.date).getTime();
   return dateB - dateA;
 });
-// Récupérer seulement les catégories françaises
-const frenchCategories = ['Fiscalité', 'Social', 'Comptabilité', 'Juridique'];
-const allCategories = frenchCategories;
-// Helper (inchangé)
-const formatDate = (date) => date.toLocaleDateString('fr-FR', {
+// Get only English categories
+const englishCategories = ['Tax', 'Payroll', 'Accounting', 'Corporate Law'];
+const allCategories = englishCategories;
+// Helper (unchanged)
+const formatDate = (date: Date) => date.toLocaleDateString('en-GB', {
   year: 'numeric', month: 'long', day: 'numeric'
 });
 ---
 <LayoutI18n
-  title={`Catégorie : ${categoryName} | Blog Fiduciaire Expert`}
-  description={`Retrouvez tous nos articles sur le thème "${categoryName}" et bénéficiez de nos conseils d'experts.`}
-  canonical={`https://www.fiduciaire-expert.lu/fr/articles/category/${category}`}
+  title={`Category: ${categoryName} | Blog Fiduciaire Expert`}
+  description={`Find all our articles on the topic "${categoryName}" and benefit from our expert advice.`}
+  canonical={`https://www.fiduciaire-expert.lu/en/articles/category/${category}`}
+  lang="en"
 >
   <StickyPageTop
     breadcrumbItems={[
-      { text: "Accueil", href: "/fr" },
-      { text: "Blog", href: "/fr/articles" },
+      { text: "Home", href: "/en" },
+      { text: "Blog", href: "/en/articles" },
       { text: categoryName }
     ]}
-    title={`Catégorie : ${categoryName}`}
-    subtitle={`${filteredPosts.length} article${filteredPosts.length > 1 ? 's' : ''} trouvé${filteredPosts.length > 1 ? 's' : ''} sur ce sujet.`}
+    title={`Category: ${categoryName}`}
+    subtitle={`${filteredPosts.length} article${filteredPosts.length > 1 ? 's' : ''} found on this topic.`}
   />
   <!-- Search Bar Section -->
   <section class="search-section">
     <div class="container">
-      <SearchBar placeholder={`Rechercher dans ${categoryName}...`} lang="fr" />
+      <SearchBar placeholder={`Search in ${categoryName}...`} lang="en" />
     </div>
   </section>
   <section class="category-posts-section">
@@ -67,16 +71,16 @@ const formatDate = (date) => date.toLocaleDateString('fr-FR', {
       <div class="posts-grid">
         {filteredPosts.map(post => (
           <article class="post-card">
-            <a href={`/fr/articles/${post.slug.replace('fr/', '')}`} class="post-link">
+            <a href={`/en/articles/${post.slug.replace('en/', '')}`} class="post-link">
               {post.data.image && (
                 <div class="post-image-wrapper">
-                  {/* MODIFIÉ : Utilisation du composant Image optimisé */}
+                  {/* MODIFIED: Using optimized Image component */}
                   <Image src={post.data.image} alt={post.data.title} width="400" height="200" loading="lazy" quality="mid" />
                 </div>
               )}
               <div class="post-content">
                 <p class="post-meta">
-                   {/* On ajoute la catégorie ici pour être cohérent avec l'index */}
+                   {/* Add category here to be consistent with index */}
                   <span class="category-badge">{post.data.category}</span>
                   <time datetime={(post.data.modified && new Date(post.data.modified) > new Date(post.data.date) ? new Date(post.data.modified) : post.data.date).toISOString()}>{formatDate(post.data.modified && new Date(post.data.modified) > new Date(post.data.date) ? new Date(post.data.modified) : post.data.date)}</time>
                 </p>
@@ -88,19 +92,19 @@ const formatDate = (date) => date.toLocaleDateString('fr-FR', {
       </div>
     </div>
   </section>
-  <!-- Section Catégories -->
+  <!-- Categories Section -->
   <section class="categories-section">
     <div class="container">
       <div class="categories-widget">
-        <h3 class="widget-title">Explorer d'autres catégories</h3>
+        <h3 class="widget-title">Explore other categories</h3>
         <nav class="category-nav">
-          <a href="/fr/articles" class="category-link">Toutes les catégories</a>
+          <a href="/en/articles" class="category-link">All categories</a>
           {allCategories.map(cat => {
             const slug = cat.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-');
             const isActive = cat === categoryName;
             return (
               <a 
-                href={`/fr/articles/category/${slug}`} 
+                href={`/en/articles/category/${slug}`} 
                 class={`category-link ${isActive ? 'is-active' : ''}`}
               >
                 {cat}
@@ -113,7 +117,7 @@ const formatDate = (date) => date.toLocaleDateString('fr-FR', {
   </section>
 </LayoutI18n>
 <style>
-  /* ===== DESIGN PREMIUM ÉPURÉ ET STATUTAIRE ===== */
+  /* ===== PREMIUM CLEAN AND STATUTORY DESIGN ===== */
   /* Search Section */
   .search-section {
     padding: 3rem 0 2rem;
@@ -156,8 +160,8 @@ const formatDate = (date) => date.toLocaleDateString('fr-FR', {
     margin: 0 auto;
   }
   .post-card {
-    background-color: var(--card);
-    border: 1px solid var(--card-border);
+    background-color: #fafbfc;
+    border: 1px solid #e2e8f0;
     border-radius: 4px;
     overflow: hidden;
     display: flex;
@@ -173,7 +177,7 @@ const formatDate = (date) => date.toLocaleDateString('fr-FR', {
   }
   .post-image-wrapper {
     overflow: hidden;
-    background-color: var(--bg-secondary);
+    background-color: #f1f5f9;
     height: 200px;
   }
   .post-image-wrapper img {
@@ -239,54 +243,6 @@ const formatDate = (date) => date.toLocaleDateString('fr-FR', {
   .post-card:nth-child(4) { animation-delay: 0.2s; }
   .post-card:nth-child(5) { animation-delay: 0.25s; }
   .post-card:nth-child(6) { animation-delay: 0.3s; }
-  /* Section Catégories - Design épuré */
-  .categories-section {
-    padding: 4rem 0 6rem;
-    border-top: 1px solid var(--border);
-  }
-  .categories-widget {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 4px;
-    padding: 3rem;
-    text-align: center;
-  }
-  .widget-title {
-    font-size: 1.5rem;
-    font-weight: 200;
-    color: #0f172a;
-    margin-bottom: 2rem;
-    letter-spacing: -0.02em;
-  }
-  .category-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    justify-content: center;
-  }
-  .category-link {
-    padding: 0.625rem 1.25rem;
-    text-decoration: none;
-    color: var(--muted);
-    font-size: 0.875rem;
-    font-weight: 500;
-    border-radius: 4px;
-    border: 1px solid var(--card-border);
-    background-color: var(--card);
-  }
-  .category-link:hover {
-    background-color: var(--bg-secondary);
-    color: var(--fg);
-    border-color: var(--border);
-  }
-  .category-link.is-active {
-    background-color: var(--accent);
-    color: white;
-    border-color: var(--accent);
-    font-weight: 600;
-  }
   /* Responsive */
   @media (max-width: 768px) {
     .posts-grid {
@@ -313,6 +269,61 @@ const formatDate = (date) => date.toLocaleDateString('fr-FR', {
       grid-template-columns: repeat(4, 1fr);
       gap: 1.25rem;
     }
+  }
+  /* Categories Section - Design épuré */
+  .categories-section {
+    padding: 4rem 0 6rem;
+    background-color: #ffffff;
+    border-top: 1px solid #f1f5f9;
+  }
+  .categories-widget {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fafbfc;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 3rem;
+    text-align: center;
+  }
+  .widget-title {
+    font-size: 1.5rem;
+    font-weight: 200;
+    color: #0f172a;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+  }
+  .category-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+  .category-link {
+    padding: 0.625rem 1.25rem;
+    text-decoration: none;
+    color: #64748b;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+    background-color: #ffffff;
+  }
+  .category-link:hover {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    border-color: #cbd5e1;
+  }
+  .category-link.is-active {
+    background-color: #3b82f6;
+    color: #ffffff;
+    border-color: #3b82f6;
+    font-weight: 600;
+  }
+  /* Container */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
   }
   @media (max-width: 768px) {
     .categories-widget {

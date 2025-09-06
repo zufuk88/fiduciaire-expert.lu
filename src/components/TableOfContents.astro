@@ -28,8 +28,8 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
 )}
 <style>
   .table-of-contents {
-    background: #fafbfc;
-    border: 1px solid #e5e7eb;
+    background: var(--card);
+    border: 1px solid var(--card-border);
     border-radius: 2px;
     padding: 32px;
     margin-bottom: 0;
@@ -40,7 +40,7 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
   .toc-title {
     font-size: 14px;
     font-weight: 600;
-    color: #1e3a5f;
+    color: var(--accent);
     margin-bottom: 20px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -64,7 +64,7 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
   .toc-link {
     display: block;
     padding: 10px 0;
-    color: #525252;
+    color: var(--muted);
     text-decoration: none;
     font-size: 14px;
     line-height: 1.5;
@@ -76,16 +76,16 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
     transition: all 0.2s ease;
   }
   .toc-link:hover {
-    color: #1e3a5f;
-    border-left-color: #e5e7eb;
-    background: #ffffff;
+    color: var(--accent);
+    border-left-color: var(--card-border);
+    background: var(--card-hover);
     padding-left: 16px;
   }
   .toc-link.active {
-    color: #1e3a5f;
+    color: var(--accent);
     font-weight: 600;
-    border-left-color: #1e3a5f;
-    background: #ffffff;
+    border-left-color: var(--accent);
+    background: var(--card-hover);
   }
   /* Scrollbar styles */
   .toc-list::-webkit-scrollbar {
@@ -95,16 +95,16 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
     background: transparent;
   }
   .toc-list::-webkit-scrollbar-thumb {
-    background: #e5e7eb;
+    background: var(--card-border);
     border-radius: 2px;
   }
   .toc-list::-webkit-scrollbar-thumb:hover {
-    background: #9ca3af;
+    background: var(--muted);
   }
   /* Firefox scrollbar */
   .toc-list {
     scrollbar-width: thin;
-    scrollbar-color: #e5e7eb transparent;
+    scrollbar-color: var(--card-border) transparent;
   }
   /* Fade effect at bottom when scrollable */
   .table-of-contents::after {
@@ -114,7 +114,7 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
     left: 0;
     right: 0;
     height: 24px;
-    background: linear-gradient(to top, #fafbfc, transparent);
+    background: linear-gradient(to top, var(--card), transparent);
     pointer-events: none;
     opacity: 0;
   }
@@ -142,136 +142,23 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
     }
   }
 
-  /* Support du mode sombre */
-  @media (prefers-color-scheme: dark) {
-    .table-of-contents {
-      background: #1e293b;
-      border-color: #334155;
-    }
 
-    .table-of-contents::after {
-      background: linear-gradient(to top, #1e293b, transparent);
-    }
 
-    .toc-title {
-      color: #f1f5f9;
-    }
 
-    .toc-link {
-      color: #94a3b8;
-    }
 
-    .toc-link:hover {
-      color: #f1f5f9;
-      border-left-color: #475569;
-      background: #263449;
-    }
 
-    .toc-link.active {
-      color: #60a5fa;
-      border-left-color: #60a5fa;
-      background: #263449;
-      font-weight: 600;
-    }
 
-    .toc-list::-webkit-scrollbar-thumb {
-      background: #334155;
-    }
 
-    .toc-list::-webkit-scrollbar-thumb:hover {
-      background: #475569;
-    }
 
-    .toc-list {
-      scrollbar-color: #334155 transparent;
-    }
-  }
 
-  /* Support du mode sombre avec classe sur body */
-  :global(body.dark) .table-of-contents {
-    background: #1e293b;
-    border-color: #334155;
-  }
 
-  :global(body.dark) .table-of-contents::after {
-    background: linear-gradient(to top, #1e293b, transparent);
-  }
 
-  :global(body.dark) .toc-title {
-    color: #f1f5f9;
-  }
 
-  :global(body.dark) .toc-link {
-    color: #94a3b8;
-  }
 
-  :global(body.dark) .toc-link:hover {
-    color: #f1f5f9;
-    border-left-color: #475569;
-    background: #263449;
-  }
 
-  :global(body.dark) .toc-link.active {
-    color: #60a5fa;
-    border-left-color: #60a5fa;
-    background: #263449;
-    font-weight: 600;
-  }
 
-  :global(body.dark) .toc-list::-webkit-scrollbar-thumb {
-    background: #334155;
-  }
 
-  :global(body.dark) .toc-list::-webkit-scrollbar-thumb:hover {
-    background: #475569;
-  }
 
-  :global(body.dark) .toc-list {
-    scrollbar-color: #334155 transparent;
-  }
-
-  /* Support du mode sombre avec attribut data-theme */
-  :global([data-theme="dark"]) .table-of-contents {
-    background: #1e293b;
-    border-color: #334155;
-  }
-
-  :global([data-theme="dark"]) .table-of-contents::after {
-    background: linear-gradient(to top, #1e293b, transparent);
-  }
-
-  :global([data-theme="dark"]) .toc-title {
-    color: #f1f5f9;
-  }
-
-  :global([data-theme="dark"]) .toc-link {
-    color: #94a3b8;
-  }
-
-  :global([data-theme="dark"]) .toc-link:hover {
-    color: #f1f5f9;
-    border-left-color: #475569;
-    background: #263449;
-  }
-
-  :global([data-theme="dark"]) .toc-link.active {
-    color: #60a5fa;
-    border-left-color: #60a5fa;
-    background: #263449;
-    font-weight: 600;
-  }
-
-  :global([data-theme="dark"]) .toc-list::-webkit-scrollbar-thumb {
-    background: #334155;
-  }
-
-  :global([data-theme="dark"]) .toc-list::-webkit-scrollbar-thumb:hover {
-    background: #475569;
-  }
-
-  :global([data-theme="dark"]) .toc-list {
-    scrollbar-color: #334155 transparent;
-  }
 </style>
 <script>
   document.addEventListener('DOMContentLoaded', () => {

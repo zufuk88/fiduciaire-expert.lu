@@ -439,6 +439,13 @@ const footerSchema = {
       flex-direction: column;
       gap: 1.5rem;
     }
+    /* Cacher les 3 premières colonnes (pages du site) sur mobile */
+    .footer-nav-column:nth-child(1),
+    .footer-nav-column:nth-child(2),
+    .footer-nav-column:nth-child(3) {
+      display: none;
+    }
+    /* Garder seulement la colonne contact */
     .footer-nav-column {
       width: 100%;
       align-items: center;

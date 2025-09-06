@@ -60,8 +60,8 @@ const { title, subtitle, values, backgroundColor } = Astro.props;
   }
   /* Value Cards */
   .value-card {
-    background: #fafbfc;
-    border: 1px solid #e5e7eb;
+    background: var(--card);
+    border: 1px solid var(--card-border);
     border-radius: 2px;
     padding: 40px;
     transition: all 0.2s ease;
@@ -69,8 +69,8 @@ const { title, subtitle, values, backgroundColor } = Astro.props;
     flex-direction: column;
   }
   .value-card:hover {
-    background: #ffffff;
-    border-color: #9ca3af;
+    background: var(--card-hover);
+    border-color: var(--muted);
     transform: translateY(-2px);
   }
   /* Number */
@@ -78,7 +78,7 @@ const { title, subtitle, values, backgroundColor } = Astro.props;
     font-family: var(--font-family-display);
     font-size: var(--font-h2);
     font-weight: 500;
-    color: #1e3a5f;
+    color: var(--accent);
     margin-bottom: 24px;
     line-height: 1;
   }
@@ -86,7 +86,7 @@ const { title, subtitle, values, backgroundColor } = Astro.props;
   .value-title {
     font-size: var(--font-h3);
     font-weight: 600;
-    color: #1e3a5f;
+    color: var(--accent);
     margin: 0 0 16px 0;
     line-height: 1.3;
   }
@@ -94,7 +94,7 @@ const { title, subtitle, values, backgroundColor } = Astro.props;
   .value-description {
     font-size: var(--font-body);
     line-height: 1.7;
-    color: #525252;
+    color: var(--muted);
     margin: 0;
   }
   
@@ -121,88 +121,4 @@ const { title, subtitle, values, backgroundColor } = Astro.props;
     .value-card {
       padding: 28px;
     }
-  }
-
-  /* Support du mode sombre */
-  @media (prefers-color-scheme: dark) {
-    .values-section {
-      background: #0f172a;
-    }
-
-    .value-card {
-      background: #1e293b;
-      border-color: #334155;
-    }
-
-    .value-card:hover {
-      background: #263449;
-      border-color: #475569;
-    }
-
-    .value-number {
-      color: #60a5fa;
-    }
-
-    .value-title {
-      color: #f1f5f9;
-    }
-
-    .value-description {
-      color: #94a3b8;
-    }
-  }
-
-  /* Support du mode sombre avec classe sur body */
-  :global(body.dark) .values-section {
-    background: #0f172a;
-  }
-
-  :global(body.dark) .value-card {
-    background: #1e293b;
-    border-color: #334155;
-  }
-
-  :global(body.dark) .value-card:hover {
-    background: #263449;
-    border-color: #475569;
-  }
-
-  :global(body.dark) .value-number {
-    color: #60a5fa;
-  }
-
-  :global(body.dark) .value-title {
-    color: #f1f5f9;
-  }
-
-  :global(body.dark) .value-description {
-    color: #94a3b8;
-  }
-
-  /* Support du mode sombre avec attribut data-theme */
-  :global([data-theme="dark"]) .values-section {
-    background: #0f172a;
-  }
-
-  :global([data-theme="dark"]) .value-card {
-    background: #1e293b;
-    border-color: #334155;
-  }
-
-  :global([data-theme="dark"]) .value-card:hover {
-    background: #263449;
-    border-color: #475569;
-  }
-
-  :global([data-theme="dark"]) .value-number {
-    color: #60a5fa;
-  }
-
-  :global([data-theme="dark"]) .value-title {
-    color: #f1f5f9;
-  }
-
-  :global([data-theme="dark"]) .value-description {
-    color: #94a3b8;
-  }
-</style>
+  }</style>

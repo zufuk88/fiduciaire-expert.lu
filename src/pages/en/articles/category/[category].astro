@@ -7,7 +7,6 @@ import { Image } from 'astro:assets';
 import SearchBar from '../../../../components/SearchBar.astro';
 import StickyPageTop from '../../../../components/StickyPageTop.astro';
 import '../../../../styles/blog-articles.css';
-import '../../../../styles/blog-articles-dark.css';
 // 1. Generate a page for each category using getCollection
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');
@@ -122,7 +121,6 @@ const formatDate = (date: Date) => date.toLocaleDateString('en-GB', {
   /* Search Section */
   .search-section {
     padding: 3rem 0 2rem;
-    background-color: #ffffff;
     position: relative;
   }
   .search-section::after {
@@ -141,7 +139,6 @@ const formatDate = (date: Date) => date.toLocaleDateString('en-GB', {
   /* Section principale épurée */
   .category-posts-section {
     padding: 6rem 0;
-    background-color: #fafbfc;
     position: relative;
   }
   .category-posts-section::before {
@@ -163,8 +160,8 @@ const formatDate = (date: Date) => date.toLocaleDateString('en-GB', {
     margin: 0 auto;
   }
   .post-card {
-    background-color: #fafbfc;
-    border: 1px solid #e2e8f0;
+    background-color: var(--card);
+    border: 1px solid var(--card-border);
     border-radius: 4px;
     overflow: hidden;
     display: flex;
@@ -180,7 +177,7 @@ const formatDate = (date: Date) => date.toLocaleDateString('en-GB', {
   }
   .post-image-wrapper {
     overflow: hidden;
-    background-color: #f1f5f9;
+    background-color: var(--bg-secondary);
     height: 200px;
   }
   .post-image-wrapper img {
@@ -203,7 +200,7 @@ const formatDate = (date: Date) => date.toLocaleDateString('en-GB', {
     align-items: center;
     gap: 1rem;
     margin-bottom: 0.75rem;
-    color: #64748b;
+    color: var(--muted);
     font-size: 0.8125rem;
   }
   .category-badge {
@@ -276,14 +273,13 @@ const formatDate = (date: Date) => date.toLocaleDateString('en-GB', {
   /* Categories Section - Design épuré */
   .categories-section {
     padding: 4rem 0 6rem;
-    background-color: #ffffff;
-    border-top: 1px solid #f1f5f9;
+    border-top: 1px solid var(--border);
   }
   .categories-widget {
     max-width: 800px;
     margin: 0 auto;
-    background-color: #fafbfc;
-    border: 1px solid #e2e8f0;
+    background-color: var(--card);
+    border: 1px solid var(--card-border);
     border-radius: 4px;
     padding: 3rem;
     text-align: center;
@@ -304,22 +300,22 @@ const formatDate = (date: Date) => date.toLocaleDateString('en-GB', {
   .category-link {
     padding: 0.625rem 1.25rem;
     text-decoration: none;
-    color: #64748b;
+    color: var(--muted);
     font-size: 0.875rem;
     font-weight: 500;
     border-radius: 4px;
-    border: 1px solid #e2e8f0;
-    background-color: #ffffff;
+    border: 1px solid var(--card-border);
+    background-color: var(--card);
   }
   .category-link:hover {
-    background-color: #f1f5f9;
+    background-color: var(--bg-secondary);
     color: #0f172a;
-    border-color: #cbd5e1;
+    border-color: var(--border);
   }
   .category-link.is-active {
-    background-color: #3b82f6;
+    background-color: var(--accent);
     color: #ffffff;
-    border-color: #3b82f6;
+    border-color: var(--accent);
     font-weight: 600;
   }
   /* Container */
