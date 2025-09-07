@@ -1,10 +1,9 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
-import ValuesGrid from '../../components/ValuesGrid.astro';
-import TeamGrid from '../../components/TeamGrid.astro';
-import WhyUs from '../../components/WhyUs.astro';
-import TestimonialsGrid from '../../components/TestimonialsGrid.astro';
+import AboutUs from '../../components/AboutUs.astro';
+import Team from '../../components/Team.astro';
+import Testimonials from '../../components/Testimonials.astro';
 import FAQ from '../../components/FAQ.astro';
 import marcDuboisImage from '/src/assets/images/marc-dubois.jpg';
 import sophieBernardImage from '/src/assets/images/sophie-bernard.jpg';
@@ -187,43 +186,62 @@ const aboutSchema = {
     title="Certified Chartered Accountant and Tax Advisor in Luxembourg"
     subtitle="Chartered accounting firm. Accounting, tax, payroll and company formation for SMEs and entrepreneurs."
   />
-    <WhyUs
-    title="Why choose us?"
-    subtitle="The reasons to trust us with your accounting"
+  
+  <AboutUs 
+    title="Our Expertise at Your Service"
+    subtitle="Fiduciaire Expert, your trusted partner in Luxembourg"
     metrics={[
-      { value: "20+", label: "Years of experience" },
-      { value: "50+", label: "Clients supported" },
-      { value: "100%", label: "Compliance guaranteed" }
-    ]}
-    advantages={[
-      { 
-        title: "Personalized services",
-        description: "Fiduciaire Expert is a certified chartered accounting firm in Luxembourg. Our chartered accountants and qualified tax advisors support companies in their accounting, tax and social management in accordance with Luxembourg legislation."
-      },
-      { 
-        title: "Available team",
-        description: "Our approach combines technical rigor, technological innovation and privileged human relationships. We have perfect mastery of the Luxembourg regulatory environment and support our clients in their growth with personalized strategic advice."
+      {
+        value: "20+",
+        label: "Years of accounting expertise"
       },
       {
-        title: "Advanced technology",
-        description: "We use advanced technological tools to optimize the management of your accounting and tax returns."
+        value: "OEC",
+        label: "Licensed Order of Chartered Accountants"
+      },
+      {
+        value: "48h",
+        label: "Guaranteed response"
+      }
+    ]}
+    advantages={[
+      {
+        title: "OEC licensed member in Luxembourg",
+        description: "Quality guarantee and compliance with the strictest professional standards of the Order of Chartered Accountants."
+      },
+      {
+        title: "Luxembourg tax expert",
+        description: "Complete mastery of CIT, MBT, NWT and VAT and legal tax optimization for SMEs and holding companies."
+      },
+      {
+        title: "Personalized SME support",
+        description: "A dedicated chartered accountant who knows your sector and responds within 48h to all your questions."
       }
     ]}
   />
-  <ValuesGrid 
-    title="Our values"
-    subtitle="The principles that guide our daily commitment to our clients"
-    values={values}
+  
+  <Team
+    title="Our Team"
+    subtitle="Passionate experts, united by excellence"
+    members={teamMembers.map(member => ({
+      name: member.name,
+      role: member.role,
+      image: member.imageUrl,
+      imageAlt: member.imageAlt,
+      description: member.bio,
+      linkedin: member.linkedin
+    }))}
   />
-  <TeamGrid 
-    title="Our team"
-    subtitle="Passionate experts, united by the requirement of excellence"
-    members={teamMembers}
-  />
-  <TestimonialsGrid 
+  <Testimonials 
     title="They trust us"
     subtitle="Our clients' testimonials reflect our commitment to quality"
-    testimonials={testimonials}
+    testimonials={testimonials.map(t => ({
+      content: t.content,
+      author: t.author.split(', ')[0],
+      role: t.role?.split(', ')[0],
+      company: t.role?.split(', ')[1],
+      rating: 5
+    }))}
   />
   <FAQ 
     title="Frequently asked questions"

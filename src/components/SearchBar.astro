@@ -18,8 +18,10 @@ const searchAction = lang === 'fr' ? '/fr/recherche' : '/en/search';
         type="search"
         name="q"
         class="search-input"
+        id="article-search"
         placeholder={placeholder}
         aria-label="Rechercher dans les articles"
+        autocomplete="off"
       />
       <button type="submit" class="search-button" aria-label="Lancer la recherche">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -27,6 +29,27 @@ const searchAction = lang === 'fr' ? '/fr/recherche' : '/en/search';
           <path d="m21 21-4.35-4.35"></path>
         </svg>
       </button>
+      
+      <!-- Dropdown des suggestions -->
+      <div class="search-suggestions" id="search-suggestions">
+        <div class="suggestions-header">
+          <span class="suggestions-title">Suggestions</span>
+          <button type="button" class="suggestions-close" aria-label="Fermer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6 6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <div class="suggestions-list" id="suggestions-list">
+          <!-- Les suggestions seront ajoutées dynamiquement -->
+        </div>
+        <div class="search-history">
+          <span class="history-title">Recherches récentes</span>
+          <div class="history-list" id="history-list">
+            <!-- L'historique sera ajouté dynamiquement -->
+          </div>
+        </div>
+      </div>
     </div>
   </form>
 </div>
@@ -47,38 +70,184 @@ const searchAction = lang === 'fr' ? '/fr/recherche' : '/en/search';
   .search-input {
     width: 100%;
     padding: 0.875rem 3.5rem 0.875rem 1.5rem;
-    font-size: 0.9375rem;
-    font-family: inherit;
-    border: 1px solid #e2e8f0;
-    border-radius: 2px;
-    background-color: #ffffff;
-    color: #0f172a;
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    background-color: var(--white);
+    color: var(--fg);
     outline: none;
+    transition: all 0.2s ease;
   }
   .search-input::placeholder {
-    color: #94a3b8;
+    color: var(--gray-muted);
   }
   .search-input:focus {
-    border-color: #3b82f6;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 105, 92, 0.1);
   }
   .search-button {
     position: absolute;
     right: 0.5rem;
     padding: 0.625rem;
-    background-color: #3b82f6;
-    color: #ffffff;
+    background-color: var(--accent);
+    color: var(--white);
     border: none;
-    border-radius: 2px;
+    border-radius: 6px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s ease;
   }
   .search-button:hover {
-    background-color: #2563eb;
+    background-color: var(--accent-dark);
+    transform: translateY(-1px);
   }
   .search-button:active {
     transform: translateY(0);
+  }
+  
+  /* Dropdown suggestions */
+  .search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 8px;
+    background: var(--white);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px var(--card-shadow-lg);
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  
+  .search-suggestions.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .suggestions-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--card-border);
+  }
+  
+  .suggestions-title,
+  .history-title {
+    font-family: var(--font-family);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--gray-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .suggestions-close {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--gray-muted);
+    transition: color 0.2s ease;
+  }
+  
+  .suggestions-close:hover {
+    color: var(--fg);
+  }
+  
+  .suggestions-list {
+    padding: 8px 0;
+  }
+  
+  .suggestion-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: var(--fg);
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .suggestion-item:hover,
+  .suggestion-item.active {
+    background: var(--bg);
+  }
+  
+  .suggestion-icon {
+    color: var(--gray-muted);
+    flex-shrink: 0;
+  }
+  
+  .suggestion-text {
+    flex: 1;
+  }
+  
+  .suggestion-highlight {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  
+  .suggestion-category {
+    font-size: var(--text-xs);
+    color: var(--gray-muted);
+    background: var(--bg);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  
+  .search-history {
+    border-top: 1px solid var(--card-border);
+    padding: 12px 16px;
+  }
+  
+  .history-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  
+  .history-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    font-family: var(--font-family);
+    font-size: var(--text-sm);
+    color: var(--fg-secondary);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .history-item:hover {
+    background: var(--white);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  
+  .history-clear {
+    font-size: var(--text-xs);
+    color: var(--gray-muted);
+    cursor: pointer;
+    text-decoration: underline;
   }
   /* Responsive */
   @media (max-width: 768px) {
@@ -86,7 +255,7 @@ const searchAction = lang === 'fr' ? '/fr/recherche' : '/en/search';
       margin-bottom: 2rem;
     }
     .search-input {
-      font-size: 0.875rem;
+      font-size: var(--text-base-mobile);
       padding: 0.75rem 3rem 0.75rem 1.25rem;
     }
     .search-button {
@@ -95,22 +264,184 @@ const searchAction = lang === 'fr' ? '/fr/recherche' : '/en/search';
   }
 </style>
 <script>
-  // Gestion de la recherche côté client pour une meilleure UX
-  const searchForm = document.querySelector('.search-form') as HTMLFormElement;
-  const searchInput = document.querySelector('.search-input') as HTMLInputElement;
-  if (searchForm && searchInput) {
-    // Récupérer la valeur de recherche depuis l'URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchQuery = urlParams.get('q');
-    if (searchQuery) {
-      searchInput.value = searchQuery;
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('article-search') as HTMLInputElement;
+    const suggestionsPanel = document.getElementById('search-suggestions');
+    const suggestionsList = document.getElementById('suggestions-list');
+    const historyList = document.getElementById('history-list');
+    const closeBtn = suggestionsPanel?.querySelector('.suggestions-close');
+    
+    // Récupérer tous les articles pour la recherche (sera défini par la page)
+    const allArticles = (window as any).articlesData || [];
+    
+    // Gestion de l'historique
+    const HISTORY_KEY = 'search-history';
+    const MAX_HISTORY = 5;
+    
+    function getSearchHistory(): string[] {
+      const history = localStorage.getItem(HISTORY_KEY);
+      return history ? JSON.parse(history) : [];
     }
-    // Focus sur le champ de recherche avec Ctrl+K ou Cmd+K
+    
+    function addToHistory(query: string) {
+      if (!query.trim()) return;
+      let history = getSearchHistory();
+      history = history.filter(item => item !== query);
+      history.unshift(query);
+      history = history.slice(0, MAX_HISTORY);
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+    }
+    
+    function displayHistory() {
+      const history = getSearchHistory();
+      if (historyList && history.length > 0) {
+        historyList.innerHTML = history.map(query => `
+          <span class="history-item" data-query="${query}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+            ${query}
+          </span>
+        `).join('');
+      }
+    }
+    
+    // Fonction de recherche
+    function searchArticles(query: string) {
+      if (!query.trim()) return [];
+      
+      const lowerQuery = query.toLowerCase();
+      return allArticles.filter((article: any) => {
+        return article.title.toLowerCase().includes(lowerQuery) ||
+               article.excerpt.toLowerCase().includes(lowerQuery) ||
+               article.category.toLowerCase().includes(lowerQuery) ||
+               (article.tags && article.tags.some((tag: string) => tag.toLowerCase().includes(lowerQuery)));
+      }).slice(0, 5);
+    }
+    
+    // Afficher les suggestions
+    function displaySuggestions(query: string) {
+      if (!suggestionsList) return;
+      
+      const results = searchArticles(query);
+      
+      if (results.length > 0) {
+        suggestionsList.innerHTML = results.map((article: any) => {
+          const highlightedTitle = article.title.replace(
+            new RegExp(query, 'gi'),
+            match => `<span class="suggestion-highlight">${match}</span>`
+          );
+          
+          return `
+            <a href="/${article.lang || 'fr'}/articles/${article.slug}" class="suggestion-item">
+              <svg class="suggestion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <path d="M14 2v6h6"/>
+                <path d="M16 13H8M16 17H8M10 9H8"/>
+              </svg>
+              <span class="suggestion-text">${highlightedTitle}</span>
+              <span class="suggestion-category">${article.category}</span>
+            </a>
+          `;
+        }).join('');
+      } else if (query.trim()) {
+        suggestionsList.innerHTML = `
+          <div class="suggestion-item">
+            <span class="suggestion-text">Aucun résultat pour "${query}"</span>
+          </div>
+        `;
+      }
+    }
+    
+    // Événements
+    if (searchInput) {
+      let debounceTimer: any;
+      
+      // Afficher les suggestions au focus
+      searchInput.addEventListener('focus', () => {
+        if (suggestionsPanel) {
+          suggestionsPanel.classList.add('show');
+          displayHistory();
+          if (searchInput.value) {
+            displaySuggestions(searchInput.value);
+          }
+        }
+      });
+      
+      // Recherche instantanée
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        const query = (e.target as HTMLInputElement).value;
+        
+        debounceTimer = setTimeout(() => {
+          displaySuggestions(query);
+        }, 300);
+      });
+      
+      // Soumettre le formulaire
+      const form = searchInput.closest('form');
+      form?.addEventListener('submit', () => {
+        addToHistory(searchInput.value);
+      });
+    }
+    
+    // Fermer les suggestions
+    closeBtn?.addEventListener('click', () => {
+      suggestionsPanel?.classList.remove('show');
+    });
+    
+    // Clic sur l'historique
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('history-item')) {
+        const query = target.dataset.query;
+        if (searchInput && query) {
+          searchInput.value = query;
+          displaySuggestions(query);
+        }
+      }
+      
+      // Fermer si clic en dehors
+      if (!target.closest('.search-container')) {
+        suggestionsPanel?.classList.remove('show');
+      }
+    });
+    
+    // Navigation au clavier
+    let selectedIndex = -1;
+    searchInput?.addEventListener('keydown', (e) => {
+      const items = suggestionsList?.querySelectorAll('.suggestion-item');
+      
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        selectedIndex = Math.min(selectedIndex + 1, (items?.length || 0) - 1);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        selectedIndex = Math.max(selectedIndex - 1, -1);
+      } else if (e.key === 'Enter' && selectedIndex >= 0) {
+        e.preventDefault();
+        const selectedItem = items?.[selectedIndex] as HTMLAnchorElement;
+        if (selectedItem?.href) {
+          window.location.href = selectedItem.href;
+        }
+      } else if (e.key === 'Escape') {
+        suggestionsPanel?.classList.remove('show');
+        searchInput.blur();
+      }
+      
+      // Mettre à jour la sélection visuelle
+      items?.forEach((item, index) => {
+        item.classList.toggle('active', index === selectedIndex);
+      });
+    });
+    
+    // Focus avec Ctrl+K ou Cmd+K
     document.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
         e.preventDefault();
-        searchInput.focus();
+        searchInput?.focus();
       }
     });
-  }
+  });
 </script>

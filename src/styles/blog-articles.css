@@ -484,22 +484,22 @@
 @media (max-width: 768px) {
   .article-page {
     width: 100%;
-    max-width: 100vw;
+    max-width: 100%;
   }
 
   .article-body-wrapper {
     width: 100%;
-    max-width: 100vw;
+    max-width: 100%;
   }
 
   .article-layout {
     width: 100%;
-    max-width: 100vw;
+    max-width: 100%;
   }
 
   .article-main {
     width: 100%;
-    max-width: 100vw;
+    max-width: 100%;
   }
 
   /* overflow-x uniquement sur le contenu pour permettre le sticky */

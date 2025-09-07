@@ -2,9 +2,10 @@
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
 import FAQ from '../../components/FAQ.astro';
-import Services from '../../components/Services.astro';
-import SectionTitle from '../../components/SectionTitle.astro';
-import ProcessTimeline from '../../components/ProcessTimeline.astro';
+import ContactForm from '../../components/forms/ContactForm.astro';
+import ServiceDetails from '../../components/ServiceDetails.astro';
+import ServiceCards from '../../components/ServiceCards.astro';
+import ServicesList from '../../components/ServicesList.astro';
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -65,339 +66,129 @@ const faqItems = [
     title="Services d'expertise-comptable au Luxembourg"
     subtitle="Confiez votre comptabilité à des experts agréés qui maîtrisent les réglementations luxembourgeoises (PCN 2020, eCDF, RCS). Nous assurons une conformité totale tout en optimisant votre situation fiscale."
   />
-  <!-- Section Obligations Comptables Légales -->
-  <SectionTitle
-    title="Obligations comptables légales pour les sociétés luxembourgeoises"
-    subtitle="Toute société constituée au Luxembourg doit tenir une comptabilité conforme à la loi du 19 décembre 2002. Comprendre ces exigences est crucial pour éviter les pénalités et assurer le bon fonctionnement de vos opérations."
-  />
-  <Services
-    variant="presentation"
-    services={[
-      {
-        title: "Cadre réglementaire complexe",
-        content: [
-          "L'environnement réglementaire complexe du Luxembourg exige une expertise comptable spécialisée qui va au-delà de la simple tenue de livres. Avec plus de 20 ans au service de la communauté d'affaires du Grand-Duché, nos experts-comptables combinent une connaissance technique approfondie avec une expérience pratique dans divers secteurs.",
-          "Le paysage comptable luxembourgeois a considérablement évolué avec l'introduction du PCN 2020 et le dépôt électronique eCDF obligatoire. Ces changements, associés aux exigences existantes de la loi du 19 décembre 2002, créent un cadre complet qui affecte chaque entité commerciale opérant au Luxembourg. Des petites entreprises familiales aux grandes multinationales, chaque société doit naviguer dans des obligations spécifiques basées sur sa taille, sa structure et ses activités.",
-          "Notre approche intègre la gestion de la conformité avec le conseil financier stratégique, garantissant que votre fonction comptable soutient la croissance de l'entreprise tout en maintenant l'excellence réglementaire. Que vous établissiez une nouvelle entité via nos services de création de société (incluant SARL, SARL-S, ou structures SAS), gériez une opération existante ou planifiez une expansion, les services comptables professionnels constituent la base d'un succès durable sur le marché compétitif luxembourgeois."
-        ],
-        bulletStyle: "none"
-      },
-      {
-        title: "Exigences comptables fondamentales",
-        content: [
-          "Toutes les sociétés luxembourgeoises, quelle que soit leur taille, doivent tenir une comptabilité chronologique enregistrant tous les mouvements économiques affectant le patrimoine de la société. Cela inclut la conservation des pièces justificatives pour toutes les transactions, l'établissement de comptes annuels comprenant au minimum un bilan et un compte de profits et pertes, et la conservation de tous les documents comptables pendant une période de dix ans.",
-          "Ces exigences constituent le fondement du cadre réglementaire comptable luxembourgeois et s'appliquent universellement à toutes les entités enregistrées."
-        ],
-        bulletStyle: "none"
-      }
-    ]}
-  />
-  <!-- Section Exigences PCN -->
-  <SectionTitle
+  
+  <!-- Layout 2 colonnes avec ContactForm -->
+  <section class="two-columns-section">
+    <div class="container">
+      <div class="columns-wrapper">
+        <div class="left-column">
+          <ServiceDetails 
+            services={[
+              {
+                title: "Obligations comptables légales pour les sociétés luxembourgeoises",
+                description: "Toute société constituée au Luxembourg doit tenir une comptabilité conforme à la loi du 19 décembre 2002. Comprendre ces exigences est crucial pour éviter les pénalités et assurer le bon fonctionnement de vos opérations."
+              },
+              {
+                title: "Cadre réglementaire complexe",
+                description: [
+                  "L'environnement réglementaire complexe du Luxembourg exige une expertise comptable spécialisée qui va au-delà de la simple tenue de livres. Avec plus de 20 ans au service de la communauté d'affaires du Grand-Duché, nos experts-comptables combinent une connaissance technique approfondie avec une expérience pratique dans divers secteurs.",
+                  "Le paysage comptable luxembourgeois a considérablement évolué avec l'introduction du PCN 2020 et le dépôt électronique eCDF obligatoire. Ces changements, associés aux exigences existantes de la loi du 19 décembre 2002, créent un cadre complet qui affecte chaque entité commerciale opérant au Luxembourg. Des petites entreprises familiales aux grandes multinationales, chaque société doit naviguer dans des obligations spécifiques basées sur sa taille, sa structure et ses activités.",
+                  "Notre approche intègre la gestion de la conformité avec le conseil financier stratégique, garantissant que votre fonction comptable soutient la croissance de l'entreprise tout en maintenant l'excellence réglementaire. Que vous établissiez une nouvelle entité via nos services de création de société (incluant SARL, SARL-S, ou structures SAS), gériez une opération existante ou planifiez une expansion, les services comptables professionnels constituent la base d'un succès durable sur le marché compétitif luxembourgeois."
+                ]
+              },
+              {
+                title: "Exigences comptables fondamentales",
+                description: [
+                  "Toutes les sociétés luxembourgeoises, quelle que soit leur taille, doivent tenir une comptabilité chronologique enregistrant tous les mouvements économiques affectant le patrimoine de la société. Cela inclut la conservation des pièces justificatives pour toutes les transactions, l'établissement de comptes annuels comprenant au minimum un bilan et un compte de profits et pertes, et la conservation de tous les documents comptables pendant une période de dix ans.",
+                  "Ces exigences constituent le fondement du cadre réglementaire comptable luxembourgeois et s'appliquent universellement à toutes les entités enregistrées."
+                ]
+              }
+            ]}
+          />
+        </div>
+        <div class="right-column">
+          <ContactForm lang="fr" />
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Section PCN avec ServiceCards -->
+  <ServiceCards
     title="Plan Comptable Normalisé (PCN) : comprendre vos obligations"
     subtitle="Le PCN 2020 standardise le reporting financier luxembourgeois avec le dépôt électronique eCDF obligatoire"
-  />
-  <Services
-    variant="list"
-    backgroundColor="#f1f5f9"
-    sections={[
+    lang="fr"
+    cards={[
       {
         title: "Sociétés soumises aux exigences PCN",
-        content: "Le Plan Comptable Normalisé, mis à jour en 2020 avec l'introduction du dépôt électronique eCDF, s'applique à la plupart des sociétés commerciales au Luxembourg. Les sociétés tenues de suivre le PCN incluent :",
-        items: [
-          { label: "Sociétés Anonymes (SA)" },
-          { label: "Sociétés à responsabilité limitée (SARL)" },
-          { label: "Sociétés en commandite par actions (SCA)" },
-          { label: "Sociétés par actions simplifiées (SAS)" }
-        ],
-        footer: "Ces entités doivent préparer leurs comptes selon le plan comptable normalisé et les présenter dans le format prescrit."
+        description: "Le Plan Comptable Normalisé, mis à jour en 2020 avec l'introduction du dépôt électronique eCDF, s'applique à la plupart des sociétés commerciales au Luxembourg. Les sociétés tenues de suivre le PCN incluent :",
+        features: [
+          "Sociétés Anonymes (SA)",
+          "Sociétés à responsabilité limitée (SARL)",
+          "Sociétés en commandite par actions (SCA)",
+          "Sociétés par actions simplifiées (SAS)",
+          "Ces entités doivent préparer leurs comptes selon le plan comptable normalisé"
+        ]
       },
       {
         title: "Entités non soumises aux exigences PCN",
-        content: "Certaines entités ne sont pas soumises au PCN ou bénéficient d'obligations comptables simplifiées :",
-        items: [
-          { label: "Commerçants personnes physiques avec un chiffre d'affaires annuel inférieur à 100 000 € HT" },
-          { label: "Sociétés en nom collectif (SNC) avec un chiffre d'affaires annuel inférieur à 100 000 € HT" },
-          { label: "Sociétés en commandite spéciale (SCSp) avec un chiffre d'affaires annuel inférieur à 100 000 € HT" },
-          { label: "Sociétés civiles non engagées dans des activités commerciales" },
-          { label: "Succursales de sociétés étrangères (exigences modifiées)" }
-        ],
-        footer: "Cependant, même les entités non soumises aux exigences PCN doivent tenir des registres comptables suffisants pour établir leurs obligations fiscales et se conformer aux réglementations TVA le cas échéant. Le seuil de 100 000 € HT s'applique pour déterminer l'exemption du PCN pour ces formes juridiques spécifiques."
-      }
-    ]}
-  />
-  <!-- PCN 2020 et dépôt électronique eCDF -->
-  <Services
-    variant="highlight"
-    highlightIcon="database"
-    highlightTitle="PCN 2020 et dépôt électronique eCDF"
-    highlightContent="Le PCN 2020 introduit des exigences numériques renforcées via le format électronique commun de données (eCDF), qui standardise le reporting financier au Luxembourg. Ce système exige que les sociétés déposent leurs comptes annuels électroniquement via la plateforme eCDF dédiée."
-    highlightNote="Sauf pour les sociétés autorisées à utiliser les normes IFRS, la validation eCDF au format PCN est obligatoire avant tout dépôt au RCS."
-  />
-  <!-- Section Catégories de taille d'entreprise -->
-  <SectionTitle
-    title="Catégories de taille d'entreprise et leur impact sur les obligations"
-    subtitle="La loi luxembourgeoise classe les sociétés en catégories basées sur des critères de taille, chacune avec des exigences comptables et d'audit spécifiques."
-  />
-  <Services
-    variant="categories"
-    categories={[
-      {
-        badge: "PETITE",
-        title: "Petites sociétés",
-        thresholds: [
-          { label: "Total bilan", value: "≤ 7 500 000 €" },
-          { label: "Chiffre d'affaires net", value: "≤ 15 000 000 €" },
-          { label: "Employés", value: "≤ 50" }
-        ],
-        requirementsTitle: "Avantages clés",
-        requirements: [
-          "Bilan abrégé autorisé",
-          "Compte de P&P simplifié",
-          "Notes limitées",
-          "Pas d'audit statutaire requis"
+        description: "Certaines entités ne sont pas soumises au PCN ou bénéficient d'obligations comptables simplifiées. Le seuil de 100 000 € HT s'applique pour déterminer l'exemption du PCN.",
+        features: [
+          "Commerçants personnes physiques < 100 000 € HT",
+          "Sociétés en nom collectif (SNC) < 100 000 € HT",
+          "Sociétés en commandite spéciale (SCSp) < 100 000 € HT",
+          "Sociétés civiles non commerciales",
+          "Succursales de sociétés étrangères (exigences modifiées)"
         ]
       },
       {
-        badge: "MOYENNE",
-        title: "Sociétés moyennes",
-        thresholds: [
-          { label: "Total bilan", value: "≤ 25 000 000 €" },
-          { label: "Chiffre d'affaires net", value: "≤ 50 000 000 €" },
-          { label: "Employés", value: "≤ 250" }
-        ],
-        requirementsTitle: "Obligations",
-        requirements: [
-          "États financiers complets",
-          "Audit statutaire obligatoire",
-          "Rapport de gestion requis",
-          "Certaines exemptions de divulgation"
+        title: "PCN 2020 et dépôt électronique eCDF",
+        description: "Le PCN 2020 introduit des exigences numériques renforcées via le format électronique commun de données (eCDF), qui standardise le reporting financier au Luxembourg.",
+        features: [
+          "Dépôt électronique obligatoire via plateforme eCDF",
+          "Validation au format PCN avant dépôt RCS",
+          "Standardisation du reporting financier",
+          "Exemption uniquement pour sociétés IFRS autorisées"
         ]
       },
       {
-        badge: "GRANDE",
-        title: "Grandes sociétés",
-        thresholds: [
-          { label: "Total bilan", value: "> 25 000 000 €" },
-          { label: "Chiffre d'affaires net", value: "> 50 000 000 €" },
-          { label: "Employés", value: "> 250" }
-        ],
-        requirementsTitle: "Conformité complète",
-        requirements: [
-          "États financiers complets",
-          "Notes complètes requises",
-          "Audit statutaire obligatoire",
-          "Rapport de gestion détaillé"
+        title: "Catégories de taille d'entreprise",
+        description: "La loi luxembourgeoise classe les sociétés en 3 catégories avec des obligations spécifiques. Ne pas dépasser 2 des 3 critères pendant 2 ans pour maintenir sa classification.",
+        features: [
+          "PETITES : Bilan ≤7.5M€, CA ≤15M€, ≤50 employés",
+          "Avantages : Bilan abrégé, P&P simplifié, pas d'audit",
+          "MOYENNES : Bilan ≤25M€, CA ≤50M€, ≤250 employés",
+          "Obligations : États complets, audit obligatoire",
+          "GRANDES : Bilan >25M€, CA >50M€, >250 employés",
+          "Conformité complète avec toutes exigences"
         ]
       }
     ]}
-    note="Important : Les sociétés ne doivent pas dépasser 2 des 3 critères pendant deux années consécutives pour maintenir leur classification."
   />
-  <!-- Section Exigences techniques eCDF -->
-  <SectionTitle
+  
+  <!-- Section Exigences de dépôt électronique avec ServicesList -->
+  <ServicesList
     title="Exigences de dépôt électronique PCN 2020 et eCDF"
     subtitle="La mise en œuvre du PCN 2020 représente une modernisation significative du cadre comptable luxembourgeois."
-  />
-  <Services
-    variant="presentation"
     services={[
-      {
-        title: "Exigences techniques pour le dépôt eCDF",
-        content: [
-          "Le système eCDF exige que les sociétés structurent leurs données financières selon un schéma XML spécifique garantissant la cohérence entre tous les dépôts. Cela comprend :",
-          "L'utilisation de codes de compte standardisés du plan comptable PCN 2020",
-          "L'application de formules de calcul prescrites pour les indicateurs financiers clés",
-          "L'indication claire de la devise utilisée avec la précision appropriée",
-          "L'inclusion de données structurées sur la forme juridique, le siège social et l'exercice financier"
-        ],
-        bulletStyle: "check"
-      },
-      {
-        title: "Processus de préparation et de validation",
-        content: [
-          "Avant la soumission, les sociétés doivent valider leurs fichiers eCDF via la plateforme eCDF du CTIE (Centre des Technologies de l'Information de l'État) ou par transfert XML selon le schéma officiel. Cette validation vérifie :",
-          "La conformité technique avec le schéma XML officiel",
-          "La cohérence mathématique entre les chiffres liés",
-          "L'exhaustivité des champs obligatoires",
-          "Notre équipe comptable gère l'ensemble du processus de préparation eCDF, de la structuration initiale des données à la validation sur la plateforme CTIE, puis au dépôt en ligne auprès du RCS, garantissant la conformité technique tout en maintenant la précision."
-        ],
-        bulletStyle: "arrow"
-      }
+      "Le PCN 2020 modernise le cadre comptable luxembourgeois en imposant un format de dépôt électronique standardisé via la plateforme eCDF",
+      "Le système eCDF exige que les sociétés structurent leurs données financières selon un schéma XML spécifique garantissant la cohérence entre tous les dépôts. Cela comprend :",
+      "L'utilisation de codes de compte standardisés du plan comptable PCN 2020",
+      "L'application de formules de calcul prescrites pour les indicateurs financiers clés",
+      "L'indication claire de la devise utilisée avec la précision appropriée",
+      "L'inclusion de données structurées sur la forme juridique, le siège social et l'exercice financier",
+      "Processus de préparation et de validation",
+      "Avant la soumission, les sociétés doivent valider leurs fichiers eCDF via la plateforme eCDF du CTIE (Centre des Technologies de l'Information de l'État) ou par transfert XML selon le schéma officiel. Cette validation vérifie :",
+      "La conformité technique avec le schéma XML officiel",
+      "La cohérence mathématique entre les chiffres liés",
+      "L'exhaustivité des champs obligatoires",
     ]}
   />
-  <!-- Section Échéances critiques -->
-  <SectionTitle
+  
+  <!-- Section Échéances et sanctions avec ServicesList -->
+  <ServicesList
     title="Échéances critiques et sanctions administratives"
     subtitle="Respectez les délais légaux pour éviter les pénalités financières et les conséquences administratives"
-  />
-  
-  <!-- Timeline des échéances -->
-  <ProcessTimeline
-    title="Échéances de dépôt des comptes annuels"
-    subtitle="Calendrier légal à respecter pour éviter les sanctions"
-    steps={[
-      {
-        number: "1",
-        title: "Clôture de l'exercice",
-        description: ["Finaliser les registres comptables et préparer les projets d'états financiers pour l'exercice fiscal"]
-      },
-      {
-        number: "2",
-        title: "Dans les 6 mois après la clôture",
-        description: ["L'Assemblée Générale Annuelle doit approuver les comptes", "Pour une clôture au 31 décembre, l'échéance est le 30 juin"]
-      },
-      {
-        number: "3",
-        title: "Dans le mois suivant l'AGO",
-        description: ["Déposer les comptes annuels approuvés au Registre de Commerce et des Sociétés (RCS)"]
-      },
-      {
-        number: "⚠",
-        title: "31 juillet (pour clôture en décembre)",
-        description: ["Date limite absolue pour le dépôt RCS", "Les pénalités de retard s'appliquent immédiatement après cette date"],
-        highlight: true
-      }
+    services={[
+      "31 juillet (pour clôture en décembre) : Date limite absolue pour le dépôt RCS",
+      "Des majorations de frais existent pour dépôt tardif",
+      "8ème mois après la clôture : 50 €",
+      "9ème-11ème mois : 200 €",
+      "12ème mois et au-delà : 500 €",
+      "Au-delà de ces délais : amendes pénales pour les dirigeants et dissolution judiciaire possibles"
     ]}
   />
   
-  <!-- Sanctions et pénalités -->
-  <Services
-    variant="presentation"
-    services={[
-      {
-        title: "Sanctions administratives et financières",
-        content: [
-          "8ème mois après la clôture : 50 €",
-          "9ème-11ème mois : 200 €",
-          "12ème mois et au-delà : 500 €",
-          "Au-delà des pénalités financières, la non-conformité persistante peut entraîner : Publication sur les listes de sociétés non conformes, amendes pénales possibles pour les dirigeants, et en cas de persistance, dissolution judiciaire à l'initiative du parquet"
-        ],
-        bulletStyle: "arrow"
-      },
-      {
-        title: "Échéances et pénalités liées aux impôts",
-        content: [
-          "Les déclarations d'impôt sur le revenu des collectivités (IRC) et d'impôt commercial communal (ICC) d'un exercice doivent être déposées au plus tard le 31 décembre de l'année suivante. Le dépôt électronique via MyGuichet.lu est obligatoire.",
-          "La déclaration d'impôt sur la fortune (IF) doit être déposée au plus tard le 31 décembre de l'année concernée. L'IF est due si la société existe au 1er janvier de l'année d'imposition.",
-          "Les déclarations TVA sont déposées mensuellement, trimestriellement ou annuellement selon le chiffre d'affaires. Depuis 2025, le régime de franchise pour petites entreprises est porté à 50 000 € de chiffre d'affaires annuel.",
-          "Nos services de conformité fiscale garantissent le respect de toutes les échéances, tandis que notre solution de conseil fiscal spécialisée (Taxpertize) accompagne une planification fiscale complète."
-        ],
-        bulletStyle: "check"
-      }
-    ]}
-  />
-  <!-- Section Services complets -->
-  <SectionTitle
-    title="Services comptables complets que nous fournissons"
-    subtitle="Transformez votre fonction comptable d'un fardeau de conformité en un atout stratégique qui stimule la croissance de l'entreprise."
-  />
-  <Services
-    variant="grid"
-    columns={2}
-    services={[
-      {
-        title: "Enregistrement financier",
-        description: "Enregistrement complet des transactions, gestion des comptes fournisseurs/clients, rapprochement bancaire et catégorisation des dépenses avec contrôles internes robustes.",
-        icon: "document"
-      },
-      {
-        title: "Gestion documentaire",
-        description: "Solutions numériques pour le partage de factures et documents, mise en œuvre des meilleures pratiques informatiques pour faciliter les communications et la collaboration avec les clients.",
-        icon: "folder"
-      },
-      {
-        title: "Reporting statutaire",
-        description: "Préparation de tous les états financiers requis selon les normes luxembourgeoises GAAP ou IFRS si autorisées par la loi, garantissant une conformité complète au PCN 2020.",
-        icon: "chart"
-      },
-      {
-        title: "Dépôt eCDF",
-        description: "Gestion complète des exigences de dépôt électronique avec validation technique et soumission dans les délais.",
-        icon: "upload"
-      },
-      {
-        title: "Déclarations d'impôts directs",
-        description: "Préparation et dépôt des déclarations d'impôts directs. Pour les sociétés de capitaux : formulaire 500 unifiant IRC, ICC et IF via MyGuichet.lu.",
-        icon: "calculator"
-      },
-      {
-        title: "Déclarations TVA",
-        description: "Gestion des déclarations TVA périodiques et annuelles, plus les états récapitulatifs lorsque requis.",
-        icon: "percent"
-      },
-      {
-        title: "Analyse financière",
-        description: "Prévisions de trésorerie, analyse de rentabilité, évaluation d'investissements et modélisation financière pour la prise de décision stratégique.",
-        icon: "analytics"
-      },
-      {
-        title: "Due diligence",
-        description: "Accompagnement professionnel des entrepreneurs pour l'acquisition de sociétés au Luxembourg. Préparation complète d'audits comptables, fiscaux, juridiques et sociaux.",
-        icon: "shield"
-      }
-    ]}
-  />
-  <!-- Section Expertise sectorielle -->
-  <SectionTitle
-    title="Expertise spécialisée dans les secteurs suivants"
-    subtitle="Différents secteurs font face à des défis comptables uniques et des exigences réglementaires au Luxembourg."
-  />
-  <Services
-    variant="cards"
-    services={[
-      {
-        title: "Fonds d'investissement et services financiers",
-        description: "Navigation dans des paysages réglementaires complexes incluant les exigences de reporting CSSF, les calculs de VNI et le reporting aux investisseurs. Expertise en OPCVM, FIA et sociétés de gestion. Découvrez comment les structures holding SOPARFI optimisent les opérations d'investissement.",
-        href: "/fr/articles/soparfi-holding",
-        icon: "chart"
-      },
-      {
-        title: "Immobilier et construction",
-        description: "Méthodes d'évaluation immobilière, comptabilité des contrats de construction, optimisation TVA pour les transactions immobilières et structuration SPV pour les actifs immobiliers. En savoir plus sur les structures SCI pour l'immobilier.",
-        href: "/fr/articles/sci-luxembourg",
-        icon: "building"
-      },
-      {
-        title: "Industrie et commerce",
-        description: "Évaluation des stocks, comptabilité analytique, documentation des prix de transfert et optimisation des droits de douane pour les chaînes d'approvisionnement complexes.",
-        icon: "factory"
-      },
-      {
-        title: "Services professionnels",
-        description: "Comptabilité pour les cabinets d'ingénierie, sociétés de conseil et prestataires de services aux entreprises. Comptabilité par projet, reconnaissance des revenus et gestion des frais professionnels.",
-        icon: "briefcase"
-      }
-    ]}
-  />
-  <!-- Section Solutions logicielles -->
-  <SectionTitle
-    title="Logiciels comptables professionnels"
-    subtitle="Une gestion comptable efficace nécessite des logiciels robustes et fiables conformes aux exigences réglementaires spécifiques du Luxembourg."
-  />
-  <Services
-    variant="list"
-    sections={[
-      {
-        title: "Solutions d'entreprise",
-        content: "Les professionnels comptables luxembourgeois travaillent avec des plateformes logicielles établies qui répondent aux exigences réglementaires :",
-        items: [
-          { 
-            label: "Horus", 
-            value: "Fonctionnalité complète assistée par IA spécialement conçue pour l'environnement réglementaire luxembourgeois avec support complet PCN 2020" 
-          },
-          { 
-            label: "Bob 50", 
-            value: "Capacités avancées de reporting financier et de gestion multi-entités" 
-          },
-          { 
-            label: "Odoo", 
-            value: "Plateforme modulaire moderne basée sur le cloud configurée pour la conformité luxembourgeoise" 
-          }
-        ],
-        footer: "Chaque système prend en charge le plan comptable normalisé, les calculs TVA automatisés et l'export XML eCDF si l'éditeur est homologué par eCDF. L'implémentation professionnelle garantit une configuration et une migration des données appropriées."
-      }
-    ]}
-  />
   <FAQ
     title="Questions fréquentes sur la comptabilité au Luxembourg"
     subtitle="Informations essentielles pour gérer les obligations comptables de votre société"
@@ -405,3 +196,56 @@ const faqItems = [
     generateSchema={true}
   />
 </LayoutI18n>
+
+<style>
+  .two-columns-section {
+    padding: var(--section-padding);
+    background: var(--bg);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .columns-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .left-column {
+    flex: 1;
+  }
+
+  .right-column {
+    position: sticky;
+    top: 100px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .columns-wrapper {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .right-column {
+      position: static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .two-columns-section {
+      padding: var(--section-padding-tablet);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .two-columns-section {
+      padding: var(--section-padding-mobile);
+    }
+  }
+</style>

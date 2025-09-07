@@ -1,6 +1,4 @@
 ---
-import SectionTitle from './SectionTitle.astro';
-
 export interface Props {
   title?: string;
   subtitle?: string;
@@ -33,25 +31,25 @@ const faqSchema = generateSchema ? {
 } : null;
 ---
 
-<section class="faq">
-  <SectionTitle 
-    title={title}
-    subtitle={subtitle}
-  />
-  
+<section class="faq-section">
   <div class="container">
-    <div class="accordion">
-      {faqItems.map((item) => (
-        <details class="item">
-          <summary class="question">
-            <span>{item.question}</span>
-            <span class="icon">+</span>
-          </summary>
-          <div class="answer">
-            <p>{item.answer}</p>
-          </div>
-        </details>
-      ))}
+    <div class="faq-card">
+      <h2 class="faq-title">{title}</h2>
+      {subtitle && <p class="faq-subtitle">{subtitle}</p>}
+      
+      <div class="accordion">
+        {faqItems.map((item) => (
+          <details class="item">
+            <summary class="question">
+              <span>{item.question}</span>
+              <span class="icon">+</span>
+            </summary>
+            <div class="answer">
+              <p>{item.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
     </div>
   </div>
   
@@ -61,8 +59,9 @@ const faqSchema = generateSchema ? {
 </section>
 
 <style>
-  .faq {
-    padding: 140px 20px 160px;
+  .faq-section {
+    padding: var(--section-padding);
+    width: 100%;
   }
 
   .container {
@@ -70,27 +69,54 @@ const faqSchema = generateSchema ? {
     margin: 0 auto;
   }
 
+  .faq-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: var(--card-padding);
+    box-shadow: 0 2px 8px var(--card-shadow-hover);
+  }
+
+  .faq-title {
+    font-family: var(--font-family);
+    font-size: var(--card-title);
+    font-weight: 500;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .faq-subtitle {
+    font-family: var(--font-family);
+    font-size: var(--card-subtitle);
+    color: var(--fg-secondary);
+    text-align: center;
+    margin-bottom: 48px;
+    line-height: 1.6;
+  }
+
   .accordion {
-    margin-top: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 
   .item {
-    border-bottom: 1px solid var(--card-border);
-    margin-bottom: 8px;
-    background: var(--bg-secondary);
+    background: var(--card-bg-light);
     border-radius: 8px;
     border: 1px solid var(--card-border);
     overflow: hidden;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
   }
 
-  .item:last-child {
-    border-bottom: 1px solid var(--card-border);
-  }
-  
   .item:hover {
-    border-color: var(--muted);
-    box-shadow: var(--shadow-sm);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--card-shadow-hover);
+  }
+
+  .item[open] {
+    background: var(--white);
+    border-color: var(--accent);
   }
 
   .question {
@@ -98,16 +124,14 @@ const faqSchema = generateSchema ? {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 36px 48px;
+    padding: 24px 30px;
     cursor: pointer;
-    list-style: none;
-    font-size: var(--font-h3);
+    font-family: var(--font-family);
+    font-size: var(--text-lg);
     font-weight: 600;
-    color: var(--primary);
+    color: var(--fg);
     line-height: 1.4;
-    background: transparent;
-    border: none;
-    transition: color 0.2s ease;
+    transition: all 0.3s ease;
   }
 
   .question::-webkit-details-marker {
@@ -115,15 +139,15 @@ const faqSchema = generateSchema ? {
   }
 
   .question:hover {
-    color: var(--accent-hover);
+    color: var(--accent);
   }
 
   .icon {
-    font-size: var(--font-h2);
+    font-size: var(--icon-size);
     font-weight: 300;
     color: var(--accent);
-    transition: all 0.2s ease;
-    min-width: 32px;
+    transition: all 0.3s ease;
+    min-width: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -131,94 +155,81 @@ const faqSchema = generateSchema ? {
 
   .item[open] .icon {
     transform: rotate(45deg);
-    color: var(--accent-hover);
   }
 
   .answer {
-    padding: 28px 48px 40px 48px;
-    border-top: 1px solid var(--card-border);
-    background: white;
-    margin-top: 0;
+    padding: 0 30px 24px 30px;
+    margin-top: -8px;
   }
 
   .answer p {
-    font-size: var(--font-body);
-    line-height: 1.8;
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    line-height: 1.7;
     color: var(--fg-secondary);
-    margin: 20px 0 0 0;
+    margin: 0;
   }
 
+  /* Responsive */
   @media (max-width: 768px) {
-    .faq {
-      padding: 100px 20px 120px;
+    .faq-section {
+      padding: var(--section-padding-tablet);
     }
 
-    .accordion {
-      margin-top: 48px;
+    .faq-card {
+      padding: var(--card-padding-tablet);
+    }
+
+    .faq-title {
+      font-size: var(--card-title-mobile);
+    }
+
+    .faq-subtitle {
+      font-size: var(--card-subtitle-mobile);
+      margin-bottom: 36px;
     }
 
     .question {
-      padding: 32px 32px;
-      font-size: var(--font-h4);
+      padding: 20px 24px;
+      font-size: var(--text-base);
     }
 
     .answer {
-      padding: 24px 32px 36px 32px;
+      padding: 0 24px 20px 24px;
     }
     
     .icon {
-      font-size: var(--font-h3);
-      min-width: 28px;
+      font-size: var(--icon-size);
+      min-width: 24px;
+    }
+
+    .answer p {
+      font-size: var(--text-base-mobile);
     }
   }
 
   @media (max-width: 480px) {
-    .faq {
-      padding: 80px 16px 100px;
+    .faq-section {
+      padding: var(--section-padding-mobile);
+    }
+    
+    .faq-card {
+      padding: var(--card-padding-mobile);
     }
     
     .question {
-      padding: 28px 28px;
+      padding: 18px 20px;
+      font-size: var(--text-base-mobile);
     }
 
     .answer {
-      padding: 20px 28px 32px 28px;
-    }
-  }
-
-
-    .item {
-      border-bottom-color: var(--card-border);
-    }
-
-    .question {
-      color: var(--fg);
-    }
-
-    .question:hover {
-      color: var(--muted);
-    }
-
-    .icon {
-      color: var(--muted);
+      padding: 0 20px 18px 20px;
     }
 
     .answer p {
-      color: var(--muted);
+      font-size: var(--text-sm);
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
 </style>
 
 <script>

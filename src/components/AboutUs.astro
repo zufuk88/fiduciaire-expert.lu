@@ -1,0 +1,232 @@
+---
+export interface Props {
+  title: string;
+  subtitle?: string;
+  metrics: Array<{
+    value: string;
+    label: string;
+  }>;
+  advantages: Array<{
+    title: string;
+    description: string;
+  }>;
+}
+
+const { 
+  title, 
+  subtitle,
+  metrics,
+  advantages
+} = Astro.props;
+---
+
+<section class="about-us-section">
+  <div class="container">
+    <div class="about-us-card">
+      <h2 class="about-us-title">{title}</h2>
+      {subtitle && <p class="about-us-subtitle">{subtitle}</p>}
+      
+      <div class="metrics-grid">
+        {metrics.map((metric) => (
+          <div class="metric-item">
+            <span class="metric-value">{metric.value}</span>
+            <span class="metric-label">{metric.label}</span>
+          </div>
+        ))}
+      </div>
+      
+      <div class="advantages-list">
+        {advantages.map((advantage) => (
+          <div class="advantage-item">
+            <h3 class="advantage-title">{advantage.title}</h3>
+            <p class="advantage-description">{advantage.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-us-section {
+    padding: var(--section-padding);
+    width: 100%;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .about-us-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: var(--card-padding);
+    box-shadow: 0 2px 8px var(--card-shadow-hover);
+  }
+
+  .about-us-title {
+    font-family: var(--font-family);
+    font-size: var(--card-title);
+    font-weight: 500;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .about-us-subtitle {
+    font-family: var(--font-family);
+    font-size: var(--card-subtitle);
+    color: var(--fg-secondary);
+    text-align: center;
+    margin-bottom: 48px;
+    line-height: 1.6;
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .metric-item {
+    text-align: center;
+  }
+
+  .metric-value {
+    display: block;
+    font-family: var(--font-family);
+    font-size: var(--metric-number);
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+
+  .metric-label {
+    font-family: var(--font-family);
+    font-size: var(--metric-label);
+    color: var(--fg-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+  }
+
+  .advantages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .advantage-item {
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .advantage-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .advantage-title {
+    font-family: var(--font-family);
+    font-size: var(--section-title);
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .advantage-description {
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    color: var(--fg-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Hover effects */
+  .metric-item {
+    transition: transform 0.3s ease;
+  }
+
+  .metric-item:hover {
+    transform: translateY(-4px);
+  }
+
+  .advantage-item {
+    transition: padding-left 0.3s ease;
+  }
+
+  .advantage-item:hover {
+    padding-left: 12px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .about-us-section {
+      padding: var(--section-padding-tablet);
+    }
+
+    .about-us-card {
+      padding: var(--card-padding-tablet);
+    }
+
+    .about-us-title {
+      font-size: var(--card-title-mobile);
+    }
+
+    .about-us-subtitle {
+      font-size: var(--card-subtitle-mobile);
+      margin-bottom: 36px;
+    }
+
+    .metrics-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-bottom: 36px;
+      padding-bottom: 36px;
+    }
+
+    .metric-value {
+      font-size: var(--metric-number);
+    }
+
+    .metric-label {
+      font-size: var(--text-sm-mobile);
+    }
+
+    .advantages-list {
+      gap: 24px;
+    }
+
+    .advantage-title {
+      font-size: var(--text-lg);
+    }
+
+    .advantage-description {
+      font-size: var(--text-base-mobile);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .about-us-section {
+      padding: var(--section-padding-mobile);
+    }
+    
+    .about-us-card {
+      padding: var(--card-padding-mobile);
+    }
+
+    .advantage-item {
+      padding-bottom: 24px;
+    }
+
+    .advantage-item:hover {
+      padding-left: 8px;
+    }
+  }
+</style>

@@ -1,10 +1,9 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
-import ValuesGrid from '../../components/ValuesGrid.astro';
-import TeamGrid from '../../components/TeamGrid.astro';
-import WhyUs from '../../components/WhyUs.astro';
-import TestimonialsGrid from '../../components/TestimonialsGrid.astro';
+import AboutUs from '../../components/AboutUs.astro';
+import Team from '../../components/Team.astro';
+import Testimonials from '../../components/Testimonials.astro';
 import FAQ from '../../components/FAQ.astro';
 import marcDuboisImage from '/src/assets/images/marc-dubois.jpg';
 import sophieBernardImage from '/src/assets/images/sophie-bernard.jpg';
@@ -187,43 +186,61 @@ const aboutSchema = {
     title="Expert-Comptable et Fiscaliste agréés à Luxembourg"
     subtitle="Cabinet d'expertise comptable. Comptabilité, fiscalité, paie et création de sociétés pour PME et entrepreneurs."
   />
-  <WhyUs
-    title="Pourquoi nous choisir ?"
-    subtitle="Les raisons de nous faire confiance pour votre comptabilité"
+  <AboutUs 
+    title="À propos de Fiduciaire Expert : Cabinet d'Expertise Comptable à Luxembourg"
+    subtitle="Découvrez notre histoire, notre mission et notre engagement envers l'excellence comptable et fiscale pour les entreprises et entrepreneurs au Luxembourg. Experts-comptables agréés, fiscalistes diplômés, accompagnement sur-mesure et conseils personnalisés."
     metrics={[
-      { value: "20+", label: "Années d'expertise" },
-      { value: "50+", label: "Clients satisfaits" },
-      { value: "100%", label: "Conformité garantie" }
-    ]}
-    advantages={[
-      { 
-        title: "Services personnalisés",
-        description: "Fiduciaire Expert est un cabinet d'expertise comptable agréé à Luxembourg. Nos experts-comptables et fiscalistes diplômés accompagnent les entreprises dans leur gestion comptable, fiscale et sociale conformément à la législation luxembourgeoise."
-      },
-      { 
-        title: "Équipe disponible",
-        description: "Notre approche combine rigueur technique, innovation technologique et relation humaine privilégiée. Nous maîtrisons parfaitement l'environnement réglementaire luxembourgeois et accompagnons nos clients dans leur croissance avec des conseils stratégiques personnalisés."
+      {
+        value: "20+",
+        label: "Années d'expertise comptable"
       },
       {
-        title: "Technologie avancée",
-        description: "Nous utilisons des outils technologiques avancés pour optimiser la gestion de votre comptabilité et de vos déclarations fiscales."
+        value: "OEC",
+        label: "Agréé Ordre Experts-Comptables"
+      },
+      {
+        value: "48h",
+        label: "Réponse garantie"
+      }
+    ]}
+    advantages={[
+      {
+        title: "Expertise locale",
+        description: "Une maîtrise parfaite du cadre légal, social et fiscal luxembourgeois (IRC/ICC/IF, TVA et CCSS), assurée par une veille juridique constante."
+      },
+      {
+        title: "Transparence tarifaire",
+        description: "Nos tarifs sont clairs et nos devis détaillés. Nous croyons en une communication ouverte et un dialogue avec nos clients."
+      },
+      {
+        title: "Conseil personnalisé",
+        description: "Chaque client bénéficie d'un interlocuteur unique et dédié, garantissant une disponibilité et un conseil personnalisé."
       }
     ]}
   />
-  <ValuesGrid 
-    title="Nos valeurs"
-    subtitle="Les principes qui guident notre engagement quotidien envers nos clients"
-    values={values}
+  
+  <Team
+    title="Notre Équipe"
+    subtitle="Des experts passionnés, unis par l'excellence"
+    members={teamMembers.map(member => ({
+      name: member.name,
+      role: member.role,
+      image: member.imageUrl,
+      imageAlt: member.imageAlt,
+      description: member.bio,
+      linkedin: member.linkedin
+    }))}
   />
-  <TeamGrid 
-    title="Notre équipe"
-    subtitle="Des experts passionnés, unis par l'exigence d'excellence"
-    members={teamMembers}
-  />
-  <TestimonialsGrid 
+  <Testimonials 
     title="Ils nous font confiance"
     subtitle="Les témoignages de nos clients reflètent notre engagement qualité"
-    testimonials={testimonials}
+    testimonials={testimonials.map(t => ({
+      content: t.content,
+      author: t.author.split(', ')[0],
+      role: t.role?.split(', ')[0],
+      company: t.role?.split(', ')[1],
+      rating: 5
+    }))}
   />
   <FAQ 
     title="Questions fréquentes"

@@ -3,10 +3,9 @@ import { getCollection } from 'astro:content';
 import LayoutI18n from '../../../../layouts/LayoutI18n.astro';
 import SearchBar from '../../../../components/SearchBar.astro';
 import StickyPageTop from '../../../../components/StickyPageTop.astro';
-import BlogCarousel from '../../../../components/BlogCarousel.astro';
-import '../../../../styles/blog-articles.css';
+import ArticlesGrid from '../../../../components/ArticlesGrid.astro';
 export async function getStaticPaths() {
-  const POSTS_PER_PAGE = 9;
+  const POSTS_PER_PAGE = 6;
   const allPosts = await getCollection('blog');
   const englishCategories = ['Tax', 'Payroll', 'Accounting', 'Corporate Law'];
   const englishPosts = allPosts.filter(post => englishCategories.includes(post.data.category) && post.data.draft !== true);
@@ -21,7 +20,7 @@ export async function getStaticPaths() {
   // Generate paths for each additional page
   const paths = [];
   for (let page = 2; page <= totalPages; page++) {
-    const startIndex = (page - 1) * POSTS_PER_PAGE; // Page 2 starts at index 9
+    const startIndex = (page - 1) * POSTS_PER_PAGE; // Page 2 starts at index 6
     const endIndex = startIndex + POSTS_PER_PAGE;
     const pagePosts = sortedPosts.slice(startIndex, endIndex);
     // Generate only if there are articles for this page
@@ -40,10 +39,62 @@ export async function getStaticPaths() {
   return paths;
 }
 const { posts, currentPage, totalPages, allPostsCount } = Astro.props;
-// Get categories
 const englishCategories = ['Tax', 'Payroll', 'Accounting', 'Corporate Law'];
+
+// Get ALL articles to have real counters
+const allPosts = await getCollection('blog');
+const allEnglishPosts = allPosts.filter(post => {
+  return englishCategories.includes(post.data.category) && post.data.draft !== true;
+});
+
+// Prepare categories with TOTAL counter (not just current page)
+const categoriesWithCount = englishCategories.map(cat => {
+  const slug = cat.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-');
+  const count = allEnglishPosts.filter(post => 
+    post.data.category?.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-') === slug
+  ).length;
+  
+  return {
+    name: cat,
+    slug: slug,
+    count: count
+  };
+});
+
+// Transform current page posts for ArticlesGrid
+const articles = posts.map(post => ({
+  title: post.data.title,
+  excerpt: post.data.description || '',
+  slug: post.slug.replace('en/', ''),
+  date: post.data.date.toISOString(),
+  category: post.data.category || 'Uncategorized',
+  categorySlug: post.data.category?.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-') || 'uncategorized',
+  author: post.data.author || 'Fiduciaire Expert',
+  readTime: post.data.readingTime || '5',
+  image: post.data.image?.src,
+  tags: post.data.tags || []
+}));
+
+// Transform ALL English articles for complete filtering
+const allArticles = allEnglishPosts.sort((a, b) => {
+  const dateA = new Date(a.data.modified || a.data.date).getTime();
+  const dateB = new Date(b.data.modified || b.data.date).getTime();
+  return dateB - dateA;
+}).map(post => ({
+  title: post.data.title,
+  excerpt: post.data.description || '',
+  slug: post.slug.replace('en/', ''),
+  date: post.data.date.toISOString(),
+  category: post.data.category || 'Uncategorized',
+  categorySlug: post.data.category?.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-') || 'uncategorized',
+  author: post.data.author || 'Fiduciaire Expert',
+  readTime: post.data.readingTime || '5',
+  image: post.data.image?.src,
+  tags: post.data.tags || []
+}));
+
 const categories = englishCategories;
-const formatDate = (date: Date) => date.toLocaleDateString('en-GB', {
+const formatDate = (date) => date.toLocaleDateString('en-GB', {
   year: 'numeric', month: 'long', day: 'numeric'
 });
 // URLs for rel prev/next
@@ -95,23 +146,30 @@ const breadcrumbSchema = {
     ]}
     title="Our latest blog articles"
     subtitle={`Page ${currentPage} of ${totalPages} - Check out our expert analysis and advice to stay informed on accounting, taxation, payroll and corporate law in Luxembourg.`}
+    showFilters={true}
+    categories={categoriesWithCount}
+    lang="en"
   />
-  <section class="blog-main-section">
-    <div class="container blog-layout">
-      <div class="posts-column">
-        <h2 class="section-title">All articles - Page {currentPage}</h2>
-        <BlogCarousel 
-          title="" 
-          variant="grid" 
-          showAll={false}
-          showTitle={false}
-          showCTA={false}
-          columns={2}
-          posts={posts}
-          lang="en"
-        />
-        {/* Pagination with rel prev/next */}
-        <div class="pagination">
+  <section class="articles-page">
+    <div class="container">
+      <SearchBar 
+        placeholder="Search article..." 
+        lang="en"
+      />
+      
+      <ArticlesGrid
+        title={`Articles - Page ${currentPage}`}
+        subtitle={`Showing ${posts.length} articles out of ${allPostsCount} total`}
+        articles={articles}
+        lang="en"
+      />
+    </div>
+  </section>
+  
+  {/* Improved pagination */}
+  <div class="pagination-section" id="pagination-section">
+    <div class="container">
+      <div class="pagination">
           {currentPage === 2 ? (
             <a href="/en/articles" rel="prev" class="pagination-prev">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -119,13 +177,15 @@ const breadcrumbSchema = {
               </svg>
               Previous articles
             </a>
-          ) : (
+          ) : currentPage > 2 ? (
             <a href={`/en/articles/page/${currentPage - 1}`} rel="prev" class="pagination-prev">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M15 18l-6-6 6-6" />
               </svg>
               Previous articles
             </a>
+          ) : (
+            <span class="pagination-disabled">Start</span>
           )}
           <span class="pagination-info">
             Page {currentPage} of {totalPages}
@@ -137,25 +197,110 @@ const breadcrumbSchema = {
                 <path d="M9 18l6-6-6-6" />
               </svg>
             </a>
-          )}
-        </div>
+        ) : (
+          <span class="pagination-disabled">End</span>
+        )}
       </div>
-      <aside class="sidebar-column">
-        <div class="sidebar-widget">
-          <h3 class="widget-title">Categories</h3>
-          <nav class="category-nav">
-            <a href="/en/articles" class="category-link">All categories</a>
-            {categories.map(cat => {
-              const slug = cat.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-');
-              return <a href={`/en/articles/category/${slug}`} class="category-link">{cat}</a>;
-            })}
-          </nav>
-        </div>
-        <div class="sidebar-widget sidebar-search">
-          <h3 class="widget-title">Search</h3>
-          <SearchBar placeholder="Search" lang="en" />
-        </div>
-      </aside>
     </div>
-  </section>
+  </div>
+  
+  <script define:vars={{ articles, allArticles }}>
+    // Pass article data to window for search
+    window.articlesData = articles;
+    // Pass ALL articles for category filtering
+    window.allArticlesData = allArticles;
+  </script>
 </LayoutI18n>
+
+<style>
+  .articles-page {
+    padding: 40px 0;
+    background: var(--bg);
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .pagination-section {
+    padding: 40px 0 60px;
+    background: var(--bg);
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 20px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px var(--card-shadow-hover);
+  }
+  
+  .pagination-info {
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    color: var(--fg-secondary);
+    font-weight: 500;
+  }
+  
+  .pagination-prev,
+  .pagination-next {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--accent);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  
+  .pagination-prev:hover {
+    background: var(--accent-dark);
+    transform: translateX(-2px);
+  }
+  
+  .pagination-next:hover {
+    background: var(--accent-dark);
+    transform: translateX(2px);
+  }
+  
+  .pagination-disabled {
+    padding: 10px 20px;
+    color: var(--gray-muted);
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    font-weight: 500;
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  
+  @media (max-width: 768px) {
+    .articles-page {
+      padding: 20px 0;
+    }
+    
+    .pagination-section {
+      padding: 20px 0 40px;
+    }
+    
+    .pagination {
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .pagination-prev,
+    .pagination-next {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

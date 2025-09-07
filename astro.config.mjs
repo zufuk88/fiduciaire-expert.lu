@@ -28,4 +28,20 @@ export default defineConfig({
       }
     })
   ],
+  
+  // Configuration Vite pour supprimer les warnings CSS
+  vite: {
+    css: {
+      devSourcemap: false
+    },
+    build: {
+      rollupOptions: {
+        onwarn(warning, warn) {
+          // Ignore les warnings CSS syntax-error
+          if (warning.message?.includes('css-syntax-error')) return;
+          warn(warning);
+        }
+      }
+    }
+  }
 });

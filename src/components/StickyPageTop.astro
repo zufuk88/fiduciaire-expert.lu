@@ -8,6 +8,8 @@ export interface Props {
   searchPlaceholder?: string;
   lang?: 'fr' | 'en';
   showProgress?: boolean;
+  showFilters?: boolean;
+  categories?: Array<{ name: string; slug: string; count?: number }>;
 }
 const { 
   breadcrumbItems = [], 
@@ -16,7 +18,9 @@ const {
   showSearch = false,
   searchPlaceholder = "Rechercher...",
   lang = 'fr',
-  showProgress = false
+  showProgress = false,
+  showFilters = false,
+  categories = []
 } = Astro.props;
 const items = [...breadcrumbItems, { text: title }];
 ---
@@ -58,6 +62,31 @@ const items = [...breadcrumbItems, { text: title }];
       )}
     </div>
   </div>
+  {showFilters && categories.length > 0 && (
+    <div class="filters-container">
+      <div class="container">
+        <div class="filters-wrapper">
+          <button 
+            class="filter-pill active" 
+            data-category="all"
+            aria-pressed="true"
+          >
+            {lang === 'fr' ? 'Tous' : 'All'}
+          </button>
+          {categories.map(category => (
+            <button 
+              class="filter-pill" 
+              data-category={category.slug}
+              aria-pressed="false"
+            >
+              {category.name}
+              {category.count && <span class="filter-count">{category.count}</span>}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  )}
   {showProgress && (
     <div class="reading-progress-bar" aria-hidden="true">
       <div class="reading-progress-fill" data-reading-progress></div>
@@ -72,31 +101,19 @@ const items = [...breadcrumbItems, { text: title }];
   </section>
 )}
 <style>
-  :root {
-    --header-h: 60px;
-    --breadcrumb-bg: rgba(30, 41, 59, 0.95);
-    --breadcrumb-fg: #fff;
-    --breadcrumb-fg-dim: rgba(255, 255, 255, 0.7);
-    --container: 1280px;
-    --pad-x: 2rem;
-    --pad-y: 0.5rem;
-  }
-  @media (max-width: 768px) {
-    :root { --header-h: 60px; --pad-x: 1rem; --pad-y: 0.375rem; }
-  }
   .container {
-    max-width: var(--container);
+    max-width: 1280px;
     margin-inline: auto;
-    padding-inline: var(--pad-x);
+    padding-inline: 2rem;
   }
   .breadcrumbs {
     position: sticky;
-    top: var(--header-h);
+    top: 60px;
     z-index: 999;
     background: var(--breadcrumb-bg);
   }
   .breadcrumbs .container {
-    padding-block: var(--pad-y);
+    padding-block: 0.5rem;
   }
   .breadcrumb-content {
     display: flex;
@@ -120,7 +137,7 @@ const items = [...breadcrumbItems, { text: title }];
   li + li::before {
     content: "›";
     margin: 0 0.25rem;
-    color: var(--breadcrumb-fg-dim);
+    color: var(--breadcrumb-separator);
   }
   /* Links */
   .link {
@@ -128,15 +145,15 @@ const items = [...breadcrumbItems, { text: title }];
     padding: 0.375rem 0.75rem;
     text-decoration: none;
     border-radius: 4px;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--breadcrumb-link);
     font-weight: 500;
     position: relative;
     z-index: 1;
     cursor: pointer;
   }
   .link:hover { 
-    background: rgba(255, 255, 255, 0.95); 
-    color: #2c4157; 
+    background: rgba(255, 255, 255, 0.1); 
+    color: var(--breadcrumb-link-hover); 
   }
   /* Current */
   .current {
@@ -147,26 +164,28 @@ const items = [...breadcrumbItems, { text: title }];
     color: var(--breadcrumb-fg);
   }
   .subtitle {
-    padding: 48px 20px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, transparent 100%);
+    padding: 0;
+    background: transparent;
     position: relative;
     z-index: 10;
-    border-bottom: 1px solid var(--card-border);
   }
   
   .subtitle .container {
-    max-width: 900px;
+    max-width: 1280px;
+    background: var(--white);
+    border-radius: 0 0 12px 12px;
+    padding: 40px 50px;
+    box-shadow: 0 4px 12px var(--card-shadow-hover);
+    margin-top: -1px; /* Pour coller au breadcrumb */
   }
   
   .subtitle-text {
     margin: 0;
-    font-size: clamp(18px, 2.5vw, 20px);
-    line-height: 1.8;
-    color: var(--muted);
+    font-size: var(--card-subtitle);
+    line-height: 1.6;
+    color: var(--fg-secondary);
     font-weight: 400;
     text-align: center;
-    letter-spacing: 0.02em;
-    font-style: italic;
   }
   /* Search Form Styles */
   .breadcrumb-search {
@@ -187,7 +206,7 @@ const items = [...breadcrumbItems, { text: title }];
     width: 200px;
   }
   .search-input::placeholder {
-    color: var(--breadcrumb-fg-dim);
+    color: rgba(255, 255, 255, 0.7);
   }
   .search-input:focus {
     outline: none;
@@ -220,27 +239,175 @@ const items = [...breadcrumbItems, { text: title }];
   }
   .reading-progress-fill {
     height: 100%;
-    background: #60a5fa;
+    background: var(--accent);
     width: 0%;
     transition: width 0.1s ease-out;
   }
   /* Mobile */
   @media (max-width: 768px) {
+    .container {
+      padding-inline: 1rem;
+    }
+    .breadcrumbs .container {
+      padding-block: 0.375rem;
+    }
     ol { font-size: 0.75rem; }
     .link, .current { padding: 0.25rem 0.5rem; }
-    .subtitle { 
-      padding: 36px 16px;
+    .subtitle .container { 
+      padding: 30px 24px;
+      border-radius: 0 0 8px 8px;
     }
     .subtitle-text { 
-      font-size: 16px;
+      font-size: var(--card-subtitle-mobile);
     }
     /* Hide search on mobile */
     .breadcrumb-search {
       display: none;
     }
   }
+  
+  /* Filters Container */
+  .filters-container {
+    background: var(--white);
+    border-top: 1px solid var(--card-border);
+    padding: 12px 0;
+  }
+  
+  .filters-wrapper {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gray-lighter) transparent;
+    padding: 4px 0;
+  }
+  
+  .filters-wrapper::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  .filters-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .filters-wrapper::-webkit-scrollbar-thumb {
+    background: var(--gray-lighter);
+    border-radius: 3px;
+  }
+  
+  .filter-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: var(--bg);
+    color: var(--fg-secondary);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    font-family: var(--font-family);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+  
+  .filter-pill:hover {
+    background: var(--white);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+  
+  .filter-pill.active {
+    background: var(--accent);
+    color: var(--white);
+    border-color: var(--accent);
+  }
+  
+  .filter-pill.active:hover {
+    background: var(--accent-dark);
+    border-color: var(--accent-dark);
+  }
+  
+  .filter-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  
+  .filter-pill:not(.active) .filter-count {
+    background: var(--card-border);
+    color: var(--gray-muted);
+  }
+  
+  /* Mobile filters */
+  @media (max-width: 768px) {
+    .filters-container {
+      padding: 10px 0;
+    }
+    
+    .filter-pill {
+      padding: 6px 12px;
+      font-size: var(--text-sm-mobile);
+    }
+  }
 
 </style>
+
+{showFilters && (
+  <script is:inline>
+    // Attendre que le DOM soit chargé
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initFilters);
+    } else {
+      initFilters();
+    }
+    
+    function initFilters() {
+      const filterButtons = document.querySelectorAll('.filter-pill');
+      
+      filterButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          const target = e.currentTarget;
+          const category = target.dataset.category;
+          
+          console.log('Filter clicked:', category);
+          
+          // Update active state
+          filterButtons.forEach(btn => {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-pressed', 'false');
+          });
+          target.classList.add('active');
+          target.setAttribute('aria-pressed', 'true');
+          
+          // Attendre que la fonction soit disponible
+          function tryFilter() {
+            if (typeof window.filterArticles === 'function') {
+              window.filterArticles(category);
+            } else {
+              // Réessayer après un court délai
+              setTimeout(tryFilter, 100);
+            }
+          }
+          
+          tryFilter();
+        });
+      });
+    }
+  </script>
+)}
+
 {showProgress && (
   <script is:inline>
     // Reading progress bar

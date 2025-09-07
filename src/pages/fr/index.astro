@@ -1,9 +1,9 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import Hero from '../../components/hero/Hero.astro';
-import Services from '../../components/Services.astro';
-import BlogCarousel from '../../components/BlogCarousel.astro';
-import WhyUs from '../../components/WhyUs.astro';
+import ServicesList from '../../components/ServicesList.astro';
+import BlogCards from '../../components/BlogCards.astro';
+import AboutUs from '../../components/AboutUs.astro';
 import FAQ from '../../components/FAQ.astro';
 import logoImage from '../../assets/images/Logo.webp';
 // SEO Metadonnées - Optimisées pour le 10/10
@@ -110,35 +110,27 @@ const schema = {
       href: "/fr/contact#devis-express"
     }}
   />
-  <Services
-    variant="grid"
-    title="Solutions fiduciaires complètes : de la création à la gestion quotidienne"
-    subtitle="En tant que fiduciaire et cabinet d'expertise comptable, nous offrons une gamme de services fiduciaires conçus pour répondre à tous les besoins comptables et fiscaux"
+  <ServicesList
+    title="Solutions fiduciaires complètes pour PME et sociétés luxembourgeoises"
+    subtitle="Une gamme de services fiduciaires conçus pour répondre à tous les besoins comptables et fiscaux de votre entreprise"
     services={[
-      {
-        title: "Préparation des comptes annuels",
-        description: "Expert-comptable et préparation de bilans, comptes de résultats et gestion de toutes vos déclarations fiscales (IRC, ICC, IF et TVA) en parfaite conformité avec le droit fiscal luxembourgeois.",
-        href: "/fr/comptabilite"
-      },
-      {
-        title: "Constitution de société",
-        description: "Nous prenons en charge la constitution de votre SARL, SA, SAS, SARL-S ou SCI dans les meilleurs délais avec un service clé en main. De la rédaction des statuts jusqu'à l'immatriculation au RCS.",
-        href: "/fr/creation-societe-luxembourg"
-      },
-      {
-        title: "Gestion de la paie pour PME",
-        description: "Gestion de vos obligations sociales : fiches de salaire, déclarations CCSS, rédaction ou revue de contrats de travail conformément au droit social luxembourgeois.",
-        href: "/fr/paie"
-      }
+      { text: "Comptabilité et tenue de livres", href: "/fr/comptabilite" },
+      { text: "Déclarations fiscales pour entreprises et particuliers", href: "/fr/fiscalite" },
+      { text: "Conseil en gestion et optimisation financière", href: "/fr/taxpertise" },
+      { text: "Création et gestion de sociétés au Luxembourg", href: "/fr/creation-societe-luxembourg" },
+      "Formation et assistance en comptabilité",
+      "Formation personnalisée pour les équipes internes",
+      "Ateliers sur les nouvelles réglementations fiscales",
+      { text: "Domiciliation de sociétés", href: "/fr/domiciliation" }
     ]}
   />
-  <BlogCarousel 
-    title="Blog expert-comptable : conseils fiscaux et comptables"
-    subtitle="Nos articles d'expertise pour optimiser votre gestion d'entreprise au Luxembourg"
+  <BlogCards
+    title="Nos derniers articles"
+    subtitle="Conseils et actualités pour optimiser votre gestion d'entreprise"
     lang="fr"
-    maxPosts={4}
+    maxPosts={6}
   />
-  <WhyUs
+  <AboutUs
     title="Expert-comptable au Luxembourg"
     subtitle="Cabinet d'expertise comptable spécialisé en fiscalité (IRC/ICC/IF et TVA), gestion sociale CCSS pour PME et sociétés luxembourgeoises"
     metrics={[
@@ -177,4 +169,3 @@ const schema = {
     
   />
 </LayoutI18n>
-

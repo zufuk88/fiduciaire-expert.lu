@@ -1,7 +1,7 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import Button from '../../components/ui/Button.astro';
-import Services from '../../components/Services.astro';
+import ServiceCards from '../../components/ServiceCards.astro';
 import FAQ from '../../components/FAQ.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
 // --- PAGE DATA ---
@@ -189,11 +189,81 @@ const structuredData = {
     title="Our chartered accountant services"
     subtitle="Complete and tailor-made solutions for entrepreneurs and SMEs in Luxembourg. We combine rigor, technology and strategic advice to ensure your compliance and optimize your growth."
   />
-  <Services
-    variant="cards"
-    title="Our expertise at your service"
-    subtitle="Discover our complete range of accounting, tax and social services designed to support your growth in Luxembourg"
-    services={allServices}
+  
+  <ServiceCards
+    title="Our Expertise"
+    subtitle="Professional solutions tailored to every need of your business"
+    cards={[
+      {
+        title: "Luxembourg Accounting BOB50 & Professional Software",
+        description: "Professional accounting services using BOB 50, Horus or Odoo. eCDF compliant balance sheets, CIT/MBT/NWT optimization. Chartered accountant for Luxembourg SMEs.",
+        features: [
+          "BOB50 & Sage certified",
+          "eCDF compliant balance sheets",
+          "VAT declarations",
+          "Management dashboards"
+        ],
+        price: "From €150/month"
+      },
+      {
+        title: "Company Formation in Luxembourg (RCS)",
+        description: "Complete company formation: SARL, SAS, SARL-S, SA or SCI. Includes drafting of articles of association, RCS registration and banking support.",
+        features: [
+          "Notarized articles included",
+          "Automatic RCS filing",
+          "Guaranteed fast turnaround",
+          "Banking support"
+        ],
+        buttonText: "Request a quote",
+        buttonHref: "/en/contact"
+      },
+      {
+        title: "Company Domiciliation in Luxembourg",
+        description: "Prestigious domiciliation service with compliant registered office address, mail management and access to meeting rooms.",
+        features: [
+          "Prestigious address",
+          "Mail reception",
+          "Phone answering",
+          "Legal compliance"
+        ],
+        price: "From €150/month"
+      },
+      {
+        title: "Payroll Management & CCSS Declarations",
+        description: "Complete payroll management: CCSS compliant payslips, CNS declarations, leave management and digital HR portal for your employees.",
+        features: [
+          "CCSS payslips",
+          "Digital employee portal",
+          "Auto CNS declarations",
+          "Leave management"
+        ],
+        price: "€15/payslip"
+      },
+      {
+        title: "Tax Advisory and Optimization",
+        description: "Personalized tax support: structure optimization, CIT/MBT/NWT and VAT declarations, tax planning and compliance with Luxembourg regulations.",
+        features: [
+          "Tax optimization",
+          "CIT/MBT/NWT/VAT declarations",
+          "Tax planning",
+          "Regulatory monitoring"
+        ],
+        buttonText: "On request",
+        buttonHref: "/en/contact"
+      },
+      {
+        title: "Due Diligence & Business Plan",
+        description: "Premium advisory services: acquisition due diligence, business plan development for investors and company valuation.",
+        features: [
+          "M&A due diligence",
+          "Complete business plans",
+          "Company valuation",
+          "Support"
+        ],
+        buttonText: "On request",
+        buttonHref: "/en/contact"
+      }
+    ]}
   />
   <FAQ
     title="Frequently Asked Questions"

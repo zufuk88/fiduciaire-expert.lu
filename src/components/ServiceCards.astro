@@ -1,0 +1,258 @@
+---
+import Button from './ui/Button.astro';
+
+export interface Props {
+  title: string;
+  subtitle?: string;
+  cards: Array<{
+    title: string;
+    description: string;
+    features: string[];
+    buttonText?: string;
+    buttonHref?: string;
+    price?: string;
+  }>;
+  lang?: 'fr' | 'en';
+}
+
+const { title, subtitle, cards, lang = 'fr' } = Astro.props;
+
+// Déterminer l'URL de contact selon la langue
+const contactUrl = lang === 'fr' ? '/fr/contact' : '/en/contact';
+const defaultButtonText = lang === 'fr' ? 'Demander un devis' : 'Get a quote';
+---
+
+<section class="service-cards-section">
+  <div class="container">
+    <div class="service-cards-wrapper">
+      <h2 class="service-cards-title">{title}</h2>
+      {subtitle && <p class="service-cards-subtitle">{subtitle}</p>}
+      
+      <div class="cards-grid">
+        {cards.map((card) => (
+          <div class="service-card">
+            <h3 class="card-title">{card.title}</h3>
+            <p class="card-description">{card.description}</p>
+            
+            <ul class="card-features">
+              {card.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+            
+            <div class="card-footer">
+              {card.price ? (
+                <span class="card-price">{card.price}</span>
+              ) : card.buttonText && card.buttonHref ? (
+                <Button 
+                  href={card.buttonHref} 
+                  variant="primary" 
+                  size="small"
+                >
+                  {card.buttonText}
+                </Button>
+              ) : (
+                <Button 
+                  href={contactUrl} 
+                  variant="secondary" 
+                  size="small"
+                >
+                  {defaultButtonText}
+                </Button>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .service-cards-section {
+    padding: var(--section-padding);
+    width: 100%;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .service-cards-wrapper {
+    background: var(--white);
+    border-radius: 12px;
+    padding: var(--card-padding);
+    box-shadow: 0 2px 8px var(--card-shadow-hover);
+  }
+
+  .service-cards-title {
+    font-family: var(--font-family);
+    font-size: var(--card-title);
+    font-weight: 500;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .service-cards-subtitle {
+    font-family: var(--font-family);
+    font-size: var(--card-subtitle);
+    color: var(--fg-secondary);
+    text-align: center;
+    margin-bottom: 48px;
+    line-height: 1.6;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+  }
+
+  .service-card {
+    background: var(--card-bg-light);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px var(--card-shadow-lg);
+    border-color: var(--accent);
+  }
+
+  .card-title {
+    font-family: var(--font-family);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 0 0 12px 0;
+    line-height: 1.3;
+  }
+
+  .card-description {
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    color: var(--fg-secondary);
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+  }
+
+  .card-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+    flex-grow: 1;
+  }
+
+  .card-features li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 12px;
+    font-family: var(--font-family);
+    font-size: var(--text-sm);
+    color: var(--fg);
+    line-height: 1.5;
+  }
+
+  .card-features li:last-child {
+    margin-bottom: 0;
+  }
+
+  .card-features li::before {
+    content: '•';
+    position: absolute;
+    left: 8px;
+    color: var(--accent);
+    font-weight: bold;
+  }
+
+  .card-footer {
+    padding-top: 20px;
+    border-top: 1px solid var(--card-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card-price {
+    font-family: var(--font-family);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  /* Style pour les boutons dans les cartes */
+  .card-footer :global(.btn) {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .service-cards-section {
+      padding: var(--section-padding-tablet);
+    }
+
+    .service-cards-wrapper {
+      padding: var(--card-padding-tablet);
+    }
+
+    .service-cards-title {
+      font-size: var(--card-title-mobile);
+    }
+
+    .service-cards-subtitle {
+      font-size: var(--card-subtitle-mobile);
+      margin-bottom: 36px;
+    }
+
+    .cards-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .service-card {
+      padding: 24px;
+    }
+
+    .card-title {
+      font-size: 18px;
+    }
+
+    .card-description {
+      font-size: var(--text-base-mobile);
+    }
+
+    .card-features li {
+      font-size: var(--text-sm-mobile);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .service-cards-section {
+      padding: var(--section-padding-mobile);
+    }
+    
+    .service-cards-wrapper {
+      padding: var(--card-padding-mobile);
+    }
+
+    .service-card {
+      padding: 20px;
+    }
+
+    .card-features li {
+      padding-left: 20px;
+    }
+
+    .card-features li::before {
+      left: 4px;
+    }
+  }
+</style>

@@ -1,0 +1,129 @@
+---
+export interface ServiceDetail {
+  title: string;
+  subtitle?: string;
+  description: string | string[];
+}
+
+export interface Props {
+  services: ServiceDetail[];
+  maxWidth?: string;
+}
+
+const { services, maxWidth = '800px' } = Astro.props;
+---
+
+<div class="service-details-wrapper">
+  {services.map((service, index) => (
+    <div class="service-detail-card">
+      <h3 class="service-detail-title">{service.title}</h3>
+      {service.subtitle && (
+        <p class="service-detail-subtitle">{service.subtitle}</p>
+      )}
+      <div class="service-detail-content">
+        {Array.isArray(service.description) ? (
+          service.description.map((paragraph) => (
+            <p class="service-detail-paragraph">{paragraph}</p>
+          ))
+        ) : (
+          <p class="service-detail-paragraph">{service.description}</p>
+        )}
+      </div>
+      {index < services.length - 1 && <div class="service-divider" />}
+    </div>
+  ))}
+</div>
+
+<style define:vars={{ maxWidth }}>
+  .service-details-wrapper {
+    background: var(--white);
+    border-radius: 12px;
+    padding: var(--card-padding);
+    box-shadow: 0 2px 8px var(--card-shadow-hover);
+    max-width: var(--maxWidth);
+    width: 100%;
+  }
+
+  .service-detail-card {
+    /* Pas d'animation */
+  }
+
+  .service-detail-title {
+    font-family: var(--font-family);
+    font-size: var(--section-title);
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .service-detail-subtitle {
+    font-family: var(--font-family);
+    font-size: var(--text-lg);
+    color: var(--fg-secondary);
+    margin-bottom: 20px;
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .service-detail-content {
+    margin-bottom: 24px;
+  }
+
+  .service-detail-paragraph {
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    color: var(--fg);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .service-detail-paragraph:last-child {
+    margin-bottom: 0;
+  }
+
+  .service-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--card-border);
+    margin: 32px 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .service-details-wrapper {
+      padding: var(--card-padding-tablet);
+    }
+
+    .service-detail-title {
+      font-size: var(--section-title-tablet);
+    }
+
+    .service-detail-subtitle {
+      font-size: var(--text-base);
+    }
+
+    .service-detail-paragraph {
+      font-size: var(--text-base-mobile);
+    }
+
+    .service-divider {
+      margin: 24px 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .service-details-wrapper {
+      padding: var(--card-padding-mobile);
+      border-radius: 8px;
+    }
+
+    .service-detail-title {
+      font-size: var(--section-title-mobile);
+    }
+
+    .service-divider {
+      margin: 20px 0;
+    }
+  }
+</style>

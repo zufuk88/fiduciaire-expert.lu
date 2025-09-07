@@ -1,231 +1,189 @@
 /* =================================================================
-   SYSTÈME DE STYLE UNIFIÉ - FIDUCIAIRE EXPERT
-   Un seul fichier pour tout gérer : variables, thème, reset, global
+   STYLES GLOBAUX - Version minimale
    ================================================================= */
 
-/* =================================================================
-   VARIABLES DE THÈME - LIGHT MODE (PAR DÉFAUT)
-   ================================================================= */
-
-:root {
-  /* Couleurs principales (Hero) */
-  --bg: #f3f2ef;                /* Beige LinkedIn */
-  --bg-secondary: #f8fafc;       /* Gris très clair pour les sections */
-  --fg: #1e3a5f;                 /* Bleu foncé (texte principal) */
-  --fg-secondary: #334155;       /* Gris foncé (texte secondaire) */
-  --muted: #64748b;              /* Gris moyen (texte discret) */
-  
-  /* Cards & surfaces */
-  --card: #ffffff;               /* Blanc pour les cartes */
-  --card-hover: #f8fafc;         /* Gris très clair au hover */
-  --card-border: #e2e8f0;        /* Bordure gris clair */
-  --card-shadow: rgba(0, 0, 0, 0.05);
-  --border: #e2e8f0;             /* Bordure générale */
-  
-  /* Inputs & forms */
-  --input-bg: #ffffff;
-  --input-border: #e2e8f0;
-  --input-focus: #1e3a5f;        /* Bleu foncé pour le focus */
-  
-  /* Badges & chips */
-  --badge-bg: #f8fafc;           /* Gris très clair */
-  --badge-fg: #1e3a5f;           /* Bleu foncé */
-  
-  /* Accents - Tout en bleu foncé */
-  --primary: #1e3a5f;
-  --accent: #1e3a5f;
-  --accent-hover: #2c4a70;       /* Version plus claire pour hover */
-  --accent-2: #1e3a5f;
-  --accent-2-hover: #2c4a70;
-  
-  /* États (simplifiés) */
-  --success: #1e3a5f;            /* Utilise le bleu foncé */
-  --success-bg: #f8fafc;
-  --warn: #1e3a5f;
-  --warn-bg: #f8fafc;
-  --danger: #1e3a5f;
-  --danger-bg: #f8fafc;
-  --info: #1e3a5f;
-  --info-bg: #f8fafc;
-  
-  /* Overlays */
-  --overlay: rgba(0, 0, 0, 0.5);
-  --modal-bg: #ffffff;
-  
-  /* Navigation */
-  --nav-bg: rgba(255, 255, 255, 0.95);
-  --nav-border: #e2e8f0;
-  
-  /* Footer */
-  --footer-bg: #1e3a5f;          /* Bleu foncé pour le footer */
-  --footer-fg: #ffffff;          /* Texte blanc */
-  --footer-muted: #f8fafc;
-  
-  /* Code blocks */
-  --code-bg: #f8fafc;
-  --code-fg: #1e293b;
-  --code-border: #e2e8f0;
-  
-  /* Scrollbar */
-  --scrollbar-track: #f1f5f9;
-  --scrollbar-thumb: #cbd5e1;
-  --scrollbar-thumb-hover: #94a3b8;
-  
-  /* Typographie */
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-  --font-family-display: 'Playfair Display', Georgia, serif;
-  --font-family-body: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-  
-  /* Tailles de police */
-  --font-hero: clamp(24px, 5vw, 48px);
-  --font-h2: clamp(24px, 4vw, 32px);
-  --font-h3: clamp(18px, 3vw, 24px);
-  --font-body: clamp(16px, 2vw, 18px);
-  --font-h4: clamp(16px, 2vw, 18px);
-  --font-h5: clamp(14px, 1.5vw, 16px);
-  --font-h6: clamp(13px, 1.2vw, 14px);
-  
-  /* Aliases pour compatibilité */
-  --font-size-base: var(--font-body);
-  --font-size-sm: var(--font-h6);
-  --font-size-lg: var(--font-h4);
-  --font-size-xl: var(--font-h3);
-  
-  /* Espacements */
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 2rem;
-  --spacing-lg: 4rem;
-  --spacing-xl: 6rem;
-  --spacing-2xl: 8rem;
-  
-  /* Ombres */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
-  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
-}
-
-
-/* =================================================================
-   RESET CSS
-   ================================================================= */
-
-*,
-*::before,
-*::after {
+/* CSS Reset complet - CRUCIAL pour éviter les débordements */
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-
 html {
-  font-size: 100%;
-  -webkit-text-size-adjust: 100%;
+  background-color: #ffffff;
+  /* Laisse le navigateur gérer la scrollbar naturellement */
 }
 
 body {
-  font-family: var(--font-family);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Empêche le décalage horizontal */
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Empêche tout élément de dépasser la largeur du viewport */
+img, video, iframe, embed, object {
+  max-width: 100%;
+  height: auto;
+}
+
+
+:root {
+  /* =================================================================
+     COULEURS MINIMALES - Utilisées dans les 4 composants uniquement
+     ================================================================= */
+  
+  /* Couleurs de base */
+  --bg: #f4f7f6;                /* Vert menthe - fond principal */
+  --white: #ffffff;             /* Blanc - cartes et surfaces */
+  
+  /* Couleur accent */
+  --accent: #00695c;             /* Vert - couleur principale */
+  --accent-dark: #004d40;        /* Vert foncé - hover */
+  
+  /* Couleurs de texte */
+  --fg: #333333;                 /* Gris foncé - texte principal */
+  --fg-secondary: #555555;       /* Gris moyen - texte secondaire */
+  
+  /* Couleurs pour cartes */
+  --card-bg-light: #f9f9f9;      /* Fond gris très clair */
+  --card-border: rgba(85, 85, 85, 0.15); /* Bordure grise légère */
+  --card-shadow-hover: rgba(0, 0, 0, 0.08); /* Ombre au hover */
+  --card-shadow-lg: rgba(0, 0, 0, 0.12); /* Ombre large */
+  
+  /* Couleurs grises additionnelles */
+  --gray-light: #e0e0e0;         /* Gris clair */
+  --gray-muted: #777777;         /* Gris moyen pour meta */
+  --gray-lighter: #cccccc;       /* Gris très clair pour séparateurs */
+  
+  /* =================================================================
+     VARIABLES REQUISES PAR D'AUTRES COMPOSANTS (à garder pour compatibilité)
+     ================================================================= */
+  
+  /* Alias nécessaires */
+  --bg-secondary: var(--white);
+  --accent-hover: #00897b;
+  --muted: var(--gray-muted);
+  --primary: var(--accent);
+  --border: var(--card-border);
+  --card: var(--white);
+  --card-hover: var(--bg);
+  
+  /* Navigation et Footer (utilisés ailleurs) */
+  --nav-bg: rgba(255, 255, 255, 0.95);
+  --nav-border: var(--card-border);
+  --footer-bg: var(--accent);
+  --footer-fg: var(--white);
+  --footer-muted: rgba(255, 255, 255, 0.8);
+  
+  /* Breadcrumb (utilisé dans StickyPageTop) */
+  --breadcrumb-bg: var(--accent);
+  --breadcrumb-fg: var(--white);
+  --breadcrumb-link: rgba(255, 255, 255, 0.9);
+  --breadcrumb-link-hover: var(--white);
+  --breadcrumb-separator: rgba(255, 255, 255, 0.5);
+  
+  /* Inputs (utilisés dans ContactForm) */
+  --input-bg: var(--white);
+  --input-border: rgba(85, 85, 85, 0.25);
+  --input-focus: var(--accent);
+  
+  /* Badges (utilisés dans Services) */
+  --badge-bg: var(--bg);
+  --badge-fg: var(--accent);
+  
+  /* Ombres (utilisées ailleurs) */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  
+  /* Typographie - Variables utilisées dans les 4 composants uniquement */
+  --font-family: Arial, Helvetica, sans-serif;
+  
+  /* Tailles pour les titres et sous-titres des cartes */
+  --card-title: clamp(24px, 3vw, 36px);         /* Titre principal (tous les composants) */
+  --card-subtitle: 18px;                        /* Sous-titre (tous les composants) */
+  --card-title-mobile: clamp(20px, 4vw, 28px);  /* Titre mobile */
+  --card-subtitle-mobile: 16px;                 /* Sous-titre mobile */
+  
+  /* Tailles de texte utilisées */
+  --text-lg: 18px;                              /* ServicesList items, FAQ questions */
+  --text-base: 16px;                            /* BlogCards titles, AboutUs/FAQ descriptions */
+  --text-sm: 14px;                              /* BlogCards excerpts, AboutUs labels */
+  --text-xs: 12px;                              /* BlogCards meta (dates, catégories) */
+  --text-base-mobile: 15px;                     /* Texte normal mobile */
+  --text-sm-mobile: 13px;                       /* BlogCards read-more, AboutUs labels mobile */
+  
+  /* Tailles spécifiques */
+  --metric-number: clamp(28px, 4vw, 40px);      /* AboutUs nombres */
+  --metric-label: 14px;                         /* AboutUs labels sous les nombres */
+  --section-title: 20px;                        /* AboutUs titres d'avantages */
+  --icon-size: 20px;                            /* FAQ toggle icon */
+  
+  /* Variable manquante pour la taille de base */
+  --font-size-base: 16px;                       /* Taille de texte de base */
+  
+  /* =================================================================
+     ESPACEMENTS - Pour les sections et composants
+     ================================================================= */
+  
+  /* Espacements des sections */
+  --section-padding-y: 90px;                    /* Espacement vertical optimal (entre 80 et 120) */
+  --section-padding-x: 40px;                    /* Réduit pour éviter le débordement */
+  --section-padding: var(--section-padding-y) var(--section-padding-x);
+  
+  /* Espacements mobiles */
+  --section-padding-y-tablet: 70px;             /* Tablette - espacement vertical optimisé */
+  --section-padding-x-tablet: 24px;             /* Réduit pour éviter le débordement */
+  --section-padding-tablet: var(--section-padding-y-tablet) var(--section-padding-x-tablet);
+  
+  --section-padding-y-mobile: 60px;             /* Mobile - réduit à 60px pour meilleur ratio */
+  --section-padding-x-mobile: 16px;             /* Réduit pour éviter le débordement */
+  --section-padding-mobile: var(--section-padding-y-mobile) var(--section-padding-x-mobile);
+  
+  /* Espacements internes des cartes */
+  --card-padding: 50px;                         /* Réduit de 60px à 50px pour ratio optimal */
+  --card-padding-tablet: 40px 30px;
+  --card-padding-mobile: 32px 24px;
+}
+
+/* =================================================================
+   STYLES DE BASE
+   ================================================================= */
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
   font-size: var(--font-size-base);
   line-height: 1.6;
   color: var(--fg);
   background-color: var(--bg);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  letter-spacing: 0.025em;
-  font-weight: 400;
-  text-rendering: optimizeLegibility;
+  padding-top: 60px; /* Compense le header fixe */
 }
 
-main {
-  display: block;
-  width: 100%;
+/* Skip link pour l'accessibilité - caché visuellement mais accessible */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--accent);
+  color: var(--white);
+  padding: 8px;
+  text-decoration: none;
+  z-index: 100;
 }
 
-/* =================================================================
-   TYPOGRAPHIE GLOBALE
-   ================================================================= */
+.skip-link:focus {
+  top: 0;
+}
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 300;
+  font-family: Arial, Helvetica, sans-serif;
   line-height: 1.2;
   color: var(--fg);
   margin-top: 0;
   margin-bottom: 1.5rem;
-  letter-spacing: -0.02em;
-  font-feature-settings: "kern" 1;
-}
-
-h1 { 
-  font-family: var(--font-family-display);
-  font-size: var(--font-hero);
-  font-weight: 700;
-  margin-bottom: 1.75rem;
-  letter-spacing: -0.01em;
-  color: var(--accent);
-  line-height: 1.2;
-}
-
-h2 { 
-  font-family: var(--font-family-display);
-  font-size: var(--font-h2);
-  margin-bottom: 1.5rem;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: var(--accent);
-  line-height: 1.3;
-}
-
-h3 { 
-  font-family: var(--font-family-body);
-  font-size: var(--font-h3);
-  margin-bottom: 1rem;
-  font-weight: 600;
-  color: var(--fg);
-  line-height: 1.4;
-}
-
-h4 {
-  font-family: var(--font-family-body);
-  font-size: var(--font-h4);
-  margin-bottom: 0.875rem;
-  font-weight: 600;
-  color: var(--fg);
-  line-height: 1.5;
-}
-
-h5 {
-  font-family: var(--font-family-body);
-  font-size: var(--font-h5);
-  margin-bottom: 0.75rem;
-  font-weight: 600;
-  color: var(--fg-secondary);
-  line-height: 1.5;
-}
-
-h6 {
-  font-family: var(--font-family-body);
-  font-size: var(--font-h6);
-  margin-bottom: 0.625rem;
-  font-weight: 600;
-  color: var(--muted);
-  line-height: 1.5;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-p { 
-  font-size: var(--font-body);
-  margin-bottom: 1.5rem;
-  line-height: 1.7;
-  color: var(--fg-secondary);
-  font-weight: 400;
-}
-
-strong { 
-  font-weight: 600;
-  color: var(--fg);
 }
 
 a {
@@ -233,190 +191,53 @@ a {
   text-decoration: none;
 }
 
-a:hover { 
-  color: var(--accent-hover);
+a:hover {
+  color: var(--accent-dark);
 }
 
-/* =================================================================
-   STRUCTURE & CONTENEURS
-   ================================================================= */
+p {
+  margin: 0 0 1rem 0;
+  color: var(--fg);
+  line-height: 1.6;
+}
 
-.container {
+/* Conteneur principal */
+main {
+  display: block;
   width: 100%;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
 }
 
-section {
-  padding-top: var(--spacing-2xl);
-  padding-bottom: var(--spacing-2xl);
-}
-
-.section-header {
-  max-width: 800px;
-  margin: 0 auto var(--spacing-xl) auto;
-  text-align: center;
-}
-
-.section-header h2 { 
-  margin-bottom: 1.5rem;
-  color: var(--fg);
-}
-
-.section-header p { 
-  font-size: var(--font-size-lg); 
-  color: var(--fg-secondary);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-}
-
-/* =================================================================
-   BOUTONS
-   ================================================================= */
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.875rem 2rem;
-  font-size: var(--font-size-base);
-  font-weight: 500;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  position: relative;
-  white-space: nowrap;
-  letter-spacing: 0.025em;
-  transition: all 0.2s ease;
-}
-
-.btn:hover { 
-  text-decoration: none;
-}
-
-.btn-primary {
-  background: var(--accent);
-  color: white;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 100%);
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.btn-primary:hover {
-  background: var(--accent-hover);
-}
-
-.btn-primary:hover::before {
-  opacity: 1;
-}
-
-.btn-secondary {
-  background-color: var(--bg);
-  color: var(--fg);
-  border: 1px solid var(--card-border);
-}
-
-.btn-secondary:hover {
-  background-color: var(--bg-secondary);
-  border-color: var(--card-border);
-}
-
-/* =================================================================
-   UTILITAIRES
-   ================================================================= */
-
-/* Transitions smooth pour le changement de thème */
-* {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-
-/* Reset des transitions pour les éléments interactifs */
-button,
-a,
-input,
-textarea,
-select {
-  transition: all 0.2s ease;
-}
-
-/* Scrollbar personnalisée */
-::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb);
-  border-radius: 6px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--scrollbar-thumb-hover);
-}
-
-/* Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
-}
-
-/* =================================================================
-   ACCESSIBILITÉ
-   ================================================================= */
-
-.skip-link {
-  position: absolute;
-  top: -1000px;
-  left: -1000px;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  background: var(--accent);
-  color: var(--bg);
-  padding: 1rem;
-  z-index: 1000;
-}
-
-.skip-link:focus {
-  top: 10px;
-  left: 10px;
-  width: auto;
+/* Images responsives */
+img {
+  max-width: 100%;
   height: auto;
-  overflow: visible;
+  display: block;
 }
 
-/* =================================================================
-   RESPONSIVE
-   ================================================================= */
-
-@media (max-width: 768px) {
-  .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  
-  section {
-    padding-top: var(--spacing-lg);
-    padding-bottom: var(--spacing-lg);
-  }
+/* Listes */
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style-position: inside;
 }
+
+/* Formulaires basiques */
+input, textarea, select {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: var(--font-size-base);
+  color: var(--fg);
+}
+
+/* Sélection de texte */
+::selection {
+  background: rgba(0, 105, 92, 0.2); /* Accent avec 20% d'opacité */
+  color: var(--fg);
+}
+
+::-moz-selection {
+  background: rgba(0, 105, 92, 0.2); /* Accent avec 20% d'opacité */
+  color: var(--fg);
+}
+
+/* Scrollbar simplifiée - Laisse le navigateur gérer naturellement */
+/* Suppression de la personnalisation pour éviter les problèmes */

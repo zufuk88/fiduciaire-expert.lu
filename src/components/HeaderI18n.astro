@@ -3,7 +3,7 @@ import LanguageSelector from './LanguageSelector.astro';
 import Button from './ui/Button.astro';
 import { useTranslation, type Language } from '../i18n/translations';
 import { Image } from 'astro:assets';
-import logoImage from '../assets/images/Logo.webp';
+import logoImage from '../assets/images/Fiduciaire-Expert-Logo-Dark.png';
 export interface Props {
   lang: Language;
 }
@@ -120,12 +120,16 @@ const isActive = (path: string) => {
 </header>
 <style>
   .site-header { 
-    position: sticky; 
+    position: fixed; 
     top: 0; 
+    left: 0;
+    right: 0;
     width: 100%; 
-    z-index: 1000; 
-    background-color: rgba(255, 255, 255, 0.98);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    z-index: 9999; 
+    background-color: var(--white);
+    border-bottom: 1px solid var(--card-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
   .container {
     max-width: 1200px;
@@ -173,7 +177,7 @@ const isActive = (path: string) => {
   .burger-line { 
     width: 100%; 
     height: 2px; 
-    background-color: #525252; 
+    background-color: var(--fg-secondary); 
     transition: all 0.2s ease;
   }
   #burger-menu.is-open .burger-line:nth-child(1) { 
@@ -202,7 +206,7 @@ const isActive = (path: string) => {
     .nav-item { position: relative; }
     .nav-item.mobile-only { display: none; }
     .nav-item > a { 
-      color: #64748b; 
+      color: var(--fg-secondary); 
       font-weight: 450; 
       text-decoration: none; 
       padding: 0.5rem 0; 
@@ -214,10 +218,10 @@ const isActive = (path: string) => {
       gap: 0.25rem;
     }
     .nav-item > a:hover {
-      color: #1e3a5f;
+      color: var(--accent);
     }
     .nav-item > a.is-active { 
-      color: #1e3a5f;
+      color: var(--accent);
       font-weight: 600;
     }
     .submenu-indicator {
@@ -235,13 +239,13 @@ const isActive = (path: string) => {
       transform: translateX(-50%);
       padding: 8px;
       min-width: 260px; 
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
+      background: var(--white);
+      border: 1px solid var(--card-border);
       border-radius: 2px;
       list-style: none; 
       opacity: 0; 
       visibility: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 12px var(--card-shadow-hover);
       transition: all 0.2s ease;
     }
     .submenu::before {
@@ -252,9 +256,9 @@ const isActive = (path: string) => {
       transform: translateX(-50%) rotate(45deg);
       width: 10px;
       height: 10px;
-      background: #ffffff;
-      border-top: 1px solid #e5e7eb;
-      border-left: 1px solid #e5e7eb;
+      background: var(--white);
+      border-top: 1px solid var(--card-border);
+      border-left: 1px solid var(--card-border);
     }
     .submenu::after {
       content: '';
@@ -273,12 +277,12 @@ const isActive = (path: string) => {
       margin: 0;
     }
     .submenu li:hover {
-      background: #fafbfc;
+      background: var(--bg);
     }
     .submenu a { 
       display: block;
       padding: 12px 16px; 
-      color: #525252; 
+      color: var(--fg-secondary); 
       white-space: nowrap;
       font-size: 14px;
       font-weight: 500;
@@ -287,25 +291,25 @@ const isActive = (path: string) => {
       border-left: 2px solid transparent;
     }
     .submenu a:hover { 
-      color: #1e3a5f;
-      background: #fafbfc;
+      color: var(--accent);
+      background: var(--bg);
       text-decoration: none;
-      border-left-color: #1e3a5f;
+      border-left-color: var(--accent);
     }
     /* Style pour Taxpertize - sous-élément de Fiscalité */
     .submenu a.sub-item {
       padding-left: 32px;
       font-size: 13px;
-      color: #6b7280;
+      color: var(--gray-muted);
       background: transparent;
-      border-left: 2px solid #e5e7eb;
+      border-left: 2px solid var(--card-border);
       margin-left: 12px;
       font-weight: 400;
     }
     .submenu a.sub-item:hover {
-      color: #525252;
-      background: #f5f5f5;
-      border-left-color: #9ca3af;
+      color: var(--fg-secondary);
+      background: var(--bg);
+      border-left-color: var(--gray-muted);
     }
   }
   @media (max-width: 991px) {
@@ -315,12 +319,12 @@ const isActive = (path: string) => {
       left: 0; 
       width: 100%; 
       height: 100vh; 
-      background-color: #ffffff; 
+      background-color: var(--white); 
       transform: translateX(-100%); 
       padding-top: 60px; 
       overflow-y: auto;
       transition: transform 0.3s ease;
-      box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
+      box-shadow: 2px 0 12px var(--card-shadow-hover);
     }
     .main-navigation.is-open { 
       transform: translateX(0); 
@@ -335,25 +339,25 @@ const isActive = (path: string) => {
       padding: 18px 24px; 
       font-size: 15px; 
       font-weight: 500; 
-      color: #525252;
+      color: var(--fg-secondary);
       position: relative;
       -webkit-tap-highlight-color: transparent;
       text-decoration: none;
-      border-bottom: 1px solid #f0f0f0;
+      border-bottom: 1px solid var(--card-border);
       transition: all 0.2s ease;
     }
     .nav-item > a:hover {
-      color: #1e3a5f;
-      background: #fafbfc;
+      color: var(--accent);
+      background: var(--bg);
       text-decoration: none;
       padding-left: 28px;
     }
     .nav-item > a.is-active { 
-      color: #1e3a5f;
+      color: var(--accent);
       font-weight: 600;
-      background-color: #fafbfc;
+      background-color: var(--bg);
       text-decoration: none;
-      border-left: 3px solid #1e3a5f;
+      border-left: 3px solid var(--accent);
     }
     .submenu { 
       list-style: none; 
@@ -365,10 +369,10 @@ const isActive = (path: string) => {
       display: block; 
       padding: 14px 24px 14px 48px; 
       font-size: 14px; 
-      color: #6b7280;
+      color: var(--gray-muted);
       -webkit-tap-highlight-color: transparent;
       text-decoration: none;
-      border-bottom: 1px solid #f0f0f0;
+      border-bottom: 1px solid var(--card-border);
       transition: all 0.2s ease;
       position: relative;
     }
@@ -376,18 +380,18 @@ const isActive = (path: string) => {
       content: "—";
       position: absolute;
       left: 28px;
-      color: #d1d5db;
+      color: var(--gray-lighter);
     }
     .submenu a:hover {
-      background-color: #fafbfc;
-      color: #1e3a5f;
+      background-color: var(--bg);
+      color: var(--accent);
       text-decoration: none;
     }
     /* Style pour Taxpertize mobile - sous-élément de Fiscalité */
     .submenu a.sub-item {
       padding-left: 64px;
       font-size: 13px;
-      color: #9ca3af;
+      color: var(--gray-muted);
       font-weight: 400;
     }
     .submenu a.sub-item::before {
@@ -395,7 +399,7 @@ const isActive = (path: string) => {
       left: 48px;
     }
     .submenu a.sub-item:hover {
-      color: #525252;
+      color: var(--fg-secondary);
     }
   }
 </style>

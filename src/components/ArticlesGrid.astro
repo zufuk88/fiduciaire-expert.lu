@@ -1,0 +1,822 @@
+---
+export interface Props {
+  title: string;
+  subtitle?: string;
+  articles: Array<{
+    title: string;
+    excerpt: string;
+    slug: string;
+    date: string;
+    category: string;
+    categorySlug: string;
+    author?: string;
+    readTime?: string;
+    image?: string;
+    tags?: string[];
+  }>;
+  lang?: 'fr' | 'en';
+}
+
+const { title, subtitle, articles, lang = 'fr' } = Astro.props;
+
+const translations = {
+  fr: {
+    readMore: "Lire la suite",
+    by: "Par",
+    minRead: "min de lecture",
+    noArticles: "Aucun article trouvé"
+  },
+  en: {
+    readMore: "Read more",
+    by: "By",
+    minRead: "min read",
+    noArticles: "No articles found"
+  }
+};
+
+const t = translations[lang];
+
+// Formater la date
+function formatDate(dateString: string, lang: string) {
+  const date = new Date(dateString);
+  const options: Intl.DateTimeFormatOptions = { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  };
+  return date.toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', options);
+}
+---
+
+<section class="articles-section">
+  <div class="container">
+    <div class="articles-wrapper">
+      <h2 class="articles-title" data-original-title={title}>{title}</h2>
+      {subtitle && <p class="articles-subtitle" data-original-subtitle={subtitle}>{subtitle}</p>}
+      
+      {articles.length > 0 ? (
+        <div class="articles-grid" id="articles-grid-container">
+          {articles.map((article) => (
+            <article class="article-card">
+              {article.image && (
+                <a href={`/${lang}/articles/${article.slug}`} class="article-image-link">
+                  <div class="article-image">
+                    <img src={article.image} alt={article.title} loading="lazy" />
+                  </div>
+                </a>
+              )}
+              
+              <div class="article-content">
+                <div class="article-meta">
+                  <a href={`/${lang}/articles/category/${article.categorySlug}`} class="article-category" data-category-slug={article.categorySlug}>
+                    {article.category}
+                  </a>
+                  <span class="article-date">{formatDate(article.date, lang)}</span>
+                </div>
+                
+                <h3 class="article-title">
+                  <a href={`/${lang}/articles/${article.slug}`}>
+                    {article.title}
+                  </a>
+                </h3>
+                
+                <p class="article-excerpt">{article.excerpt}</p>
+                
+                <div class="article-footer">
+                  <div class="article-info">
+                    {article.author && (
+                      <span class="article-author">{t.by} {article.author}</span>
+                    )}
+                    {article.readTime && (
+                      <span class="article-read-time">{article.readTime} {t.minRead}</span>
+                    )}
+                  </div>
+                  
+                  <a href={`/${lang}/articles/${article.slug}`} class="article-link">
+                    {t.readMore}
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+                </div>
+                
+                {article.tags && article.tags.length > 0 && (
+                  <div class="article-tags">
+                    {article.tags.map(tag => (
+                      <span class="article-tag">{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="no-articles">
+          <p>{t.noArticles}</p>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .articles-section {
+    padding: var(--section-padding);
+    width: 100%;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .articles-wrapper {
+    background: var(--white);
+    border-radius: 12px;
+    padding: var(--card-padding);
+    box-shadow: 0 2px 8px var(--card-shadow-hover);
+  }
+
+  .articles-title {
+    font-family: var(--font-family);
+    font-size: var(--card-title);
+    font-weight: 500;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .articles-subtitle {
+    font-family: var(--font-family);
+    font-size: var(--card-subtitle);
+    color: var(--fg-secondary);
+    text-align: center;
+    margin-bottom: 48px;
+    line-height: 1.6;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 32px;
+  }
+
+  .article-card {
+    background: var(--card-bg-light);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .article-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px var(--card-shadow-lg);
+  }
+
+  .article-image-link {
+    display: block;
+    text-decoration: none;
+  }
+
+  .article-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: var(--bg);
+  }
+
+  .article-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .article-card:hover .article-image img {
+    transform: scale(1.05);
+  }
+
+  .article-content {
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-family: var(--font-family);
+    font-size: var(--text-xs);
+  }
+
+  .article-category {
+    background: var(--accent);
+    color: var(--white) !important;
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: background-color 0.2s ease;
+  }
+
+  .article-category:hover {
+    background: var(--accent-dark);
+    color: var(--white) !important;
+  }
+
+  .article-date {
+    color: var(--gray-muted);
+  }
+
+  .article-title {
+    font-family: var(--font-family);
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    line-height: 1.4;
+  }
+
+  .article-title a {
+    color: var(--fg);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .article-title a:hover {
+    color: var(--accent);
+  }
+
+  .article-excerpt {
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    color: var(--fg-secondary);
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .article-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid var(--card-border);
+    margin-top: auto;
+  }
+
+  .article-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-family);
+    font-size: var(--text-sm);
+    color: var(--gray-muted);
+  }
+
+  .article-author {
+    font-weight: 500;
+  }
+
+  .article-read-time::before {
+    content: "•";
+    margin-right: 8px;
+  }
+
+  .article-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-family);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .article-link:hover {
+    gap: 10px;
+    color: var(--accent-dark);
+  }
+
+  .article-link svg {
+    transition: transform 0.2s ease;
+  }
+
+  .article-link:hover svg {
+    transform: translateX(2px);
+  }
+
+  .article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .article-tag {
+    font-family: var(--font-family);
+    font-size: var(--text-xs);
+    color: var(--gray-muted);
+    background: var(--bg);
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+
+  .no-articles {
+    text-align: center;
+    padding: 60px 20px;
+    font-family: var(--font-family);
+    font-size: var(--text-lg);
+    color: var(--gray-muted);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .articles-grid {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .articles-section {
+      padding: var(--section-padding-tablet);
+    }
+
+    .articles-wrapper {
+      padding: var(--card-padding-tablet);
+    }
+
+    .articles-title {
+      font-size: var(--card-title-mobile);
+    }
+
+    .articles-subtitle {
+      font-size: var(--card-subtitle-mobile);
+      margin-bottom: 36px;
+    }
+
+    .articles-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .article-content {
+      padding: 20px;
+    }
+
+    .article-title {
+      font-size: 18px;
+    }
+
+    .article-excerpt {
+      font-size: var(--text-base-mobile);
+    }
+
+    .article-info {
+      font-size: var(--text-sm-mobile);
+    }
+
+    .article-link {
+      font-size: var(--text-sm-mobile);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .articles-section {
+      padding: var(--section-padding-mobile);
+    }
+    
+    .articles-wrapper {
+      padding: var(--card-padding-mobile);
+    }
+
+    .article-image {
+      height: 160px;
+    }
+
+    .article-footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .article-info {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Fonction pour créer une carte d'article
+    function createArticleCard(article: any, lang: string) {
+      const t = {
+        fr: {
+          readMore: "Lire la suite",
+          by: "Par",
+          minRead: "min de lecture"
+        },
+        en: {
+          readMore: "Read more",
+          by: "By",
+          minRead: "min read"
+        }
+      };
+      
+      const translations = t[lang as 'fr' | 'en'] || t.fr;
+      
+      const formatDate = (dateString: string, lang: string) => {
+        const date = new Date(dateString);
+        const options: Intl.DateTimeFormatOptions = { 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        };
+        return date.toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', options);
+      };
+      
+      const card = document.createElement('article');
+      card.className = 'article-card';
+      card.style.cssText = 'opacity: 0; transform: translateY(20px);';
+      
+      let cardHTML = '';
+      
+      if (article.image) {
+        cardHTML += `
+          <a href="/${lang}/articles/${article.slug}" class="article-image-link">
+            <div class="article-image">
+              <img src="${article.image}" alt="${article.title}" loading="lazy" />
+            </div>
+          </a>
+        `;
+      }
+      
+      cardHTML += `
+        <div class="article-content">
+          <div class="article-meta">
+            <a href="/${lang}/articles/category/${article.categorySlug}" class="article-category" data-category-slug="${article.categorySlug}">
+              ${article.category}
+            </a>
+            <span class="article-date">${formatDate(article.date, lang)}</span>
+          </div>
+          
+          <h3 class="article-title">
+            <a href="/${lang}/articles/${article.slug}">
+              ${article.title}
+            </a>
+          </h3>
+          
+          <p class="article-excerpt">${article.excerpt}</p>
+          
+          <div class="article-footer">
+            <div class="article-info">
+              ${article.author ? `<span class="article-author">${translations.by} ${article.author}</span>` : ''}
+              ${article.readTime ? `<span class="article-read-time">${article.readTime} ${translations.minRead}</span>` : ''}
+            </div>
+            
+            <a href="/${lang}/articles/${article.slug}" class="article-link">
+              ${translations.readMore}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+          
+          ${article.tags && article.tags.length > 0 ? `
+            <div class="article-tags">
+              ${article.tags.map((tag: string) => `<span class="article-tag">${tag}</span>`).join('')}
+            </div>
+          ` : ''}
+        </div>
+      `;
+      
+      card.innerHTML = cardHTML;
+      return card;
+    }
+    
+    // Fonction pour filtrer les articles
+    function filterArticles(categorySlug: string) {
+      console.log('Filtering by category:', categorySlug);
+      
+      const grid = document.getElementById('articles-grid-container');
+      if (!grid) return;
+      
+      const paginationSection = document.getElementById('pagination-section');
+      const isFiltering = categorySlug !== 'all';
+      
+      // Déterminer la langue
+      const currentPath = window.location.pathname;
+      const lang = currentPath.includes('/en/') ? 'en' : 'fr';
+      
+      // Vérifier si cette catégorie a trop d'articles
+      const categoryHasMore = (window as any).categoryHasMore || {};
+      if (isFiltering && categoryHasMore[categorySlug]) {
+        // Rediriger vers la page dédiée de la catégorie
+        window.location.href = `/${lang}/articles/category/${categorySlug}`;
+        return;
+      }
+      
+      // Utiliser allArticlesData si disponible, sinon articlesData
+      const allData = (window as any).allArticlesData || (window as any).articlesData || [];
+      const pageData = (window as any).articlesData || [];
+      
+      // Filtrer les articles
+      let articlesToShow;
+      if (isFiltering) {
+        // Quand on filtre, on prend les articles de la catégorie (max 50)
+        articlesToShow = allData.filter((article: any) => article.categorySlug === categorySlug);
+      } else {
+        // Quand on ne filtre pas, on affiche seulement les articles de la page actuelle
+        articlesToShow = pageData;
+      }
+      
+      // Vider la grille et recréer les cartes
+      grid.innerHTML = '';
+      
+      if (articlesToShow.length > 0) {
+        articlesToShow.forEach((article: any, index: number) => {
+          const card = createArticleCard(article, lang);
+          grid.appendChild(card);
+          // Animation d'apparition décalée
+          setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, 10 + (index * 30));
+        });
+      } else {
+        const noResults = document.createElement('div');
+        noResults.className = 'no-articles-filtered';
+        noResults.innerHTML = `<p style="font-family: var(--font-family); font-size: var(--text-lg); color: var(--gray-muted); text-align: center; padding: 60px 20px;">
+          ${lang === 'fr' ? 'Aucun article dans cette catégorie' : 'No articles in this category'}
+        </p>`;
+        noResults.style.cssText = 'grid-column: 1/-1;';
+        grid.appendChild(noResults);
+      }
+      
+      // Cacher/Afficher la pagination selon le filtrage
+      if (paginationSection) {
+        if (isFiltering) {
+          paginationSection.style.display = 'none';
+        } else {
+          paginationSection.style.display = '';
+        }
+      }
+      
+      // Mettre à jour le titre et le sous-titre
+      const titleElement = document.querySelector('.articles-title') as HTMLElement;
+      const subtitleElement = document.querySelector('.articles-subtitle') as HTMLElement;
+      
+      if (isFiltering) {
+        const activeButton = document.querySelector('.filter-pill.active');
+        const categoryName = activeButton?.textContent?.replace(/\d+/g, '').trim() || '';
+        
+        if (titleElement) {
+          const originalTitle = titleElement.getAttribute('data-original-title');
+          if (!originalTitle) {
+            titleElement.setAttribute('data-original-title', titleElement.textContent || '');
+          }
+          titleElement.textContent = lang === 'fr' 
+            ? `Articles : ${categoryName}`
+            : `Articles: ${categoryName}`;
+        }
+        
+        if (subtitleElement) {
+          const originalSubtitle = subtitleElement.getAttribute('data-original-subtitle');
+          if (!originalSubtitle) {
+            subtitleElement.setAttribute('data-original-subtitle', subtitleElement.textContent || '');
+          }
+          if (lang === 'fr') {
+            subtitleElement.textContent = `${articlesToShow.length} article${articlesToShow.length !== 1 ? 's' : ''} trouvé${articlesToShow.length !== 1 ? 's' : ''} dans cette catégorie`;
+          } else {
+            subtitleElement.textContent = `${articlesToShow.length} article${articlesToShow.length !== 1 ? 's' : ''} found in this category`;
+          }
+        }
+      } else {
+        // Restaurer les titres originaux
+        if (titleElement) {
+          const originalTitle = titleElement.getAttribute('data-original-title');
+          if (originalTitle) {
+            titleElement.textContent = originalTitle;
+          }
+        }
+        
+        if (subtitleElement) {
+          const originalSubtitle = subtitleElement.getAttribute('data-original-subtitle');
+          if (originalSubtitle) {
+            subtitleElement.textContent = originalSubtitle;
+          }
+        }
+      }
+      
+      console.log('Articles to show:', articlesToShow.length);
+    }
+
+    // Expose la fonction pour utilisation externe
+    (window as any).filterArticles = filterArticles;
+    
+    // Ajouter TOUS les styles CSS nécessaires pour les cartes
+    const style = document.createElement('style');
+    style.textContent = `
+      .article-card {
+        background: var(--card-bg-light);
+        border-radius: 8px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      
+      .article-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px var(--card-shadow-lg);
+      }
+      
+      .article-image-link {
+        display: block;
+        text-decoration: none;
+      }
+      
+      .article-image {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        background: var(--bg);
+      }
+      
+      .article-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+      
+      .article-card:hover .article-image img {
+        transform: scale(1.05);
+      }
+      
+      .article-content {
+        padding: 24px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .article-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+        font-family: var(--font-family);
+        font-size: var(--text-xs);
+      }
+      
+      .article-category {
+        background: var(--accent);
+        color: var(--white) !important;
+        padding: 4px 10px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: background-color 0.2s ease;
+      }
+      
+      .article-category:hover {
+        background: var(--accent-dark);
+        color: var(--white) !important;
+      }
+      
+      .article-date {
+        color: var(--gray-muted);
+      }
+      
+      .article-title {
+        font-family: var(--font-family);
+        font-size: 20px;
+        font-weight: 600;
+        margin: 0 0 12px 0;
+        line-height: 1.4;
+      }
+      
+      .article-title a {
+        color: var(--fg);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+      
+      .article-title a:hover {
+        color: var(--accent);
+      }
+      
+      .article-excerpt {
+        font-family: var(--font-family);
+        font-size: var(--text-base);
+        color: var(--fg-secondary);
+        line-height: 1.6;
+        margin: 0 0 20px 0;
+        flex: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      
+      .article-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 16px;
+        border-top: 1px solid var(--card-border);
+        margin-top: auto;
+      }
+      
+      .article-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: var(--font-family);
+        font-size: var(--text-sm);
+        color: var(--gray-muted);
+      }
+      
+      .article-author {
+        font-weight: 500;
+      }
+      
+      .article-read-time::before {
+        content: "•";
+        margin-right: 8px;
+      }
+      
+      .article-link {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-family: var(--font-family);
+        font-size: var(--text-sm);
+        font-weight: 600;
+        color: var(--accent);
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+      
+      .article-link:hover {
+        gap: 10px;
+        color: var(--accent-dark);
+      }
+      
+      .article-link svg {
+        transition: transform 0.2s ease;
+      }
+      
+      .article-link:hover svg {
+        transform: translateX(2px);
+      }
+      
+      .article-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 16px;
+      }
+      
+      .article-tag {
+        font-family: var(--font-family);
+        font-size: var(--text-xs);
+        color: var(--gray-muted);
+        background: var(--bg);
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Initialiser tous les articles comme visibles
+    setTimeout(() => {
+      const cards = document.querySelectorAll('.article-card') as NodeListOf<HTMLElement>;
+      cards.forEach(card => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      });
+    }, 10);
+  });
+</script>

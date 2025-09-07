@@ -1,7 +1,7 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import Button from '../../components/ui/Button.astro';
-import Services from '../../components/Services.astro';
+import ServiceCards from '../../components/ServiceCards.astro';
 import FAQ from '../../components/FAQ.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
 // --- DONNÉES DE LA PAGE ---
@@ -177,11 +177,80 @@ const structuredData = {
     title="Nos services d'expertise comptable"
     subtitle="Des solutions complètes et sur-mesure pour les entrepreneurs et PME au Luxembourg. Nous allions rigueur, technologie et conseil stratégique pour garantir votre conformité et optimiser votre croissance."
   />
-  <Services
-    variant="cards"
-    title="Nos expertises à votre service"
-    subtitle="Découvrez notre gamme complète de services comptables, fiscaux et sociaux conçus pour accompagner votre croissance au Luxembourg"
-    services={allServices}
+  <ServiceCards
+    title="Nos Expertises"
+    subtitle="Solutions professionnelles adaptées à chaque besoin de votre entreprise"
+    cards={[
+      {
+        title: "Comptabilité Luxembourg BOB50 et logiciels pros",
+        description: "Tenue comptable professionnelle sur BOB 50, Horus ou Odoo. Bilans conformes eCDF, optimisation IRC/ICC/IF. Expert-comptable agréé pour PME luxembourgeoises.",
+        features: [
+          "BOB50 & Sage certifiés",
+          "Bilans conformes eCDF",
+          "Déclarations TVA",
+          "Tableaux de bord"
+        ],
+        price: "Dès 150€/mois"
+      },
+      {
+        title: "Création de société au Luxembourg (RCS)",
+        description: "Création complète de votre société : SARL, SAS, SARL-S, SA ou SCI. Inclut la rédaction des statuts, l'immatriculation au RCS et l'accompagnement bancaire.",
+        features: [
+          "Statuts notariés inclus",
+          "Dépôt RCS automatique",
+          "Délai rapide garanti",
+          "Accompagnement bancaire"
+        ],
+        buttonText: "Demander un devis",
+        buttonHref: "/fr/contact"
+      },
+      {
+        title: "Domiciliation d'entreprise à Luxembourg",
+        description: "Service de domiciliation prestigieux avec adresse de siège social conforme, gestion du courrier et accès à des salles de réunion.",
+        features: [
+          "Adresse prestigieuse",
+          "Réception du courrier",
+          "Permanence téléphonique",
+          "Conformité légale"
+        ],
+        price: "Dès 150€/mois"
+      },
+      {
+        title: "Gestion de la paie et déclarations CCSS",
+        description: "Gestion complète de la paie : fiches de salaires conformes CCSS, déclarations CNS, gestion des congés et portail RH digital pour vos employés.",
+        features: [
+          "Fiches de paie CCSS",
+          "Portail employé digital",
+          "Déclarations CNS auto",
+          "Gestion des congés"
+        ],
+        price: "15€/fiche"
+      },
+      {
+        title: "Conseil fiscal et optimisation",
+        description: "Accompagnement fiscal personnalisé : optimisation de votre structure, déclarations IRC/ICC/IF et TVA, planification fiscale et conformité aux réglementations luxembourgeoises.",
+        features: [
+          "Optimisation fiscale",
+          "Déclarations IRC/ICC/IF/TVA",
+          "Planification fiscale",
+          "Veille réglementaire"
+        ],
+        buttonText: "Sur devis",
+        buttonHref: "/fr/contact"
+      },
+      {
+        title: "Due Diligence & Business Plan",
+        description: "Services de conseil premium : due diligence d'acquisition, élaboration de business plans pour investisseurs et valorisation d'entreprise.",
+        features: [
+          "Due diligence M&A",
+          "Business plans complets",
+          "Valorisation d'entreprise",
+          "Accompagnement"
+        ],
+        buttonText: "Sur devis",
+        buttonHref: "/fr/contact"
+      }
+    ]}
   />
   <FAQ
     title="Questions Fréquentes"

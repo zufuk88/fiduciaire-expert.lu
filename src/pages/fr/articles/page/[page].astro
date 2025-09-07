@@ -3,10 +3,9 @@ import { getCollection } from 'astro:content';
 import LayoutI18n from '../../../../layouts/LayoutI18n.astro';
 import SearchBar from '../../../../components/SearchBar.astro';
 import StickyPageTop from '../../../../components/StickyPageTop.astro';
-import BlogCarousel from '../../../../components/BlogCarousel.astro';
-import '../../../../styles/blog-articles.css';
+import ArticlesGrid from '../../../../components/ArticlesGrid.astro';
 export async function getStaticPaths() {
-  const POSTS_PER_PAGE = 9;
+  const POSTS_PER_PAGE = 6;
   const allPosts = await getCollection('blog');
   const frenchCategories = ['Fiscalité', 'Social', 'Comptabilité', 'Juridique'];
   const frenchPosts = allPosts.filter(post => frenchCategories.includes(post.data.category) && post.data.draft !== true);
@@ -21,7 +20,7 @@ export async function getStaticPaths() {
   // Générer les paths pour chaque page additionnelle
   const paths = [];
   for (let page = 2; page <= totalPages; page++) {
-    const startIndex = (page - 1) * POSTS_PER_PAGE; // Page 2 commence à l'index 9
+    const startIndex = (page - 1) * POSTS_PER_PAGE; // Page 2 commence à l'index 6
     const endIndex = startIndex + POSTS_PER_PAGE;
     const pagePosts = sortedPosts.slice(startIndex, endIndex);
     // Générer seulement si il y a des articles pour cette page
@@ -41,6 +40,60 @@ export async function getStaticPaths() {
 }
 const { posts, currentPage, totalPages, allPostsCount } = Astro.props;
 const frenchCategories = ['Fiscalité', 'Social', 'Comptabilité', 'Juridique'];
+
+// Récupérer TOUS les articles pour avoir les vrais compteurs
+const allPosts = await getCollection('blog');
+const allFrenchPosts = allPosts.filter(post => {
+  const isFrench = post.slug.startsWith('fr/');
+  return isFrench && post.data.draft !== true;
+});
+
+// Préparer les catégories avec compteur TOTAL (pas seulement la page actuelle)
+const categoriesWithCount = frenchCategories.map(cat => {
+  const slug = cat.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-');
+  const count = allFrenchPosts.filter(post => 
+    post.data.category?.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-') === slug
+  ).length;
+  
+  return {
+    name: cat,
+    slug: slug,
+    count: count
+  };
+});
+
+// Transformer les posts de la page actuelle pour ArticlesGrid
+const articles = posts.map(post => ({
+  title: post.data.title,
+  excerpt: post.data.description || '',
+  slug: post.slug.replace('fr/', ''),
+  date: post.data.date.toISOString(),
+  category: post.data.category || 'Non catégorisé',
+  categorySlug: post.data.category?.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-') || 'non-categorise',
+  author: post.data.author || 'Fiduciaire Expert',
+  readTime: post.data.readingTime || '5',
+  image: post.data.image?.src,
+  tags: post.data.tags || []
+}));
+
+// Transformer TOUS les articles français pour le filtrage complet
+const allArticles = allFrenchPosts.sort((a, b) => {
+  const dateA = new Date(a.data.modified || a.data.date).getTime();
+  const dateB = new Date(b.data.modified || b.data.date).getTime();
+  return dateB - dateA;
+}).map(post => ({
+  title: post.data.title,
+  excerpt: post.data.description || '',
+  slug: post.slug.replace('fr/', ''),
+  date: post.data.date.toISOString(),
+  category: post.data.category || 'Non catégorisé',
+  categorySlug: post.data.category?.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-') || 'non-categorise',
+  author: post.data.author || 'Fiduciaire Expert',
+  readTime: post.data.readingTime || '5',
+  image: post.data.image?.src,
+  tags: post.data.tags || []
+}));
+
 const categories = frenchCategories;
 const formatDate = (date) => date.toLocaleDateString('fr-FR', {
   year: 'numeric', month: 'long', day: 'numeric'
@@ -94,78 +147,163 @@ const breadcrumbSchema = {
     ]}
     title="Nos derniers articles de blog"
     subtitle={`Page ${currentPage} sur ${totalPages} - Consultez nos analyses et conseils d'experts pour rester informé sur la comptabilité, la fiscalité, le payroll et le droit des sociétés au Luxembourg.`}
+    showFilters={true}
+    categories={categoriesWithCount}
+    lang="fr"
   />
-  <section class="blog-main-section">
-    <div class="container blog-layout">
-      <div class="posts-column">
-        <h2 class="section-title">Tous les articles - Page {currentPage}</h2>
-        <BlogCarousel 
-          title="" 
-          variant="grid" 
-          showAll={false}
-          showTitle={false}
-          showCTA={false}
-          columns={2}
-          posts={posts}
-          lang="fr"
-        />
-        {/* Pagination avec rel prev/next */}
-        <div class="pagination">
-          {currentPage === 2 ? (
-            <a href="/fr/articles" rel="prev" class="pagination-prev">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-              Articles précédents
-            </a>
-          ) : (
-            <a href={`/fr/articles/page/${currentPage - 1}`} rel="prev" class="pagination-prev">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-              Articles précédents
-            </a>
-          )}
-          <span class="pagination-info">
-            Page {currentPage} sur {totalPages}
-          </span>
-          {nextUrl ? (
-            <a href={nextUrl} rel="next" class="pagination-next">
-              Articles suivants
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </a>
-          ) : (
-            <span class="pagination-disabled">Fin des articles</span>
-          )}
-        </div>
-      </div>
-      <aside class="sidebar-column">
-        <div class="sidebar-widget">
-          <h3 class="widget-title">Catégories</h3>
-          <nav class="category-nav">
-            <a href="/fr/articles" class="category-link">Toutes les catégories</a>
-            {categories.map(cat => {
-              const slug = cat.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-');
-              return <a href={`/fr/articles/category/${slug}`} class="category-link">{cat}</a>;
-            })}
-          </nav>
-        </div>
-        <div class="sidebar-widget sidebar-search">
-          <h3 class="widget-title">Rechercher</h3>
-          <SearchBar placeholder="Rechercher" lang="fr" />
-        </div>
-      </aside>
+  <section class="articles-page">
+    <div class="container">
+      <SearchBar 
+        placeholder="Rechercher un article..." 
+        lang="fr"
+      />
+      
+      <ArticlesGrid
+        title={`Articles - Page ${currentPage}`}
+        subtitle={`Affichage de ${posts.length} articles sur ${allPostsCount} au total`}
+        articles={articles}
+        lang="fr"
+      />
     </div>
   </section>
+  
+  {/* Pagination améliorée */}
+  <div class="pagination-section" id="pagination-section">
+    <div class="container">
+      <div class="pagination">
+        {currentPage === 2 ? (
+          <a href="/fr/articles" rel="prev" class="pagination-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+            Articles précédents
+          </a>
+        ) : currentPage > 2 ? (
+          <a href={`/fr/articles/page/${currentPage - 1}`} rel="prev" class="pagination-prev">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+            Articles précédents
+          </a>
+        ) : (
+          <span class="pagination-disabled">Début</span>
+        )}
+        
+        <span class="pagination-info">
+          Page {currentPage} sur {totalPages}
+        </span>
+        
+        {nextUrl ? (
+          <a href={nextUrl} rel="next" class="pagination-next">
+            Articles suivants
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+        ) : (
+          <span class="pagination-disabled">Fin</span>
+        )}
+      </div>
+    </div>
+  </div>
+  
+  <script define:vars={{ articles, allArticles }}>
+    // Passer les données des articles à la fenêtre pour la recherche
+    window.articlesData = articles;
+    // Passer TOUS les articles pour le filtrage par catégorie
+    window.allArticlesData = allArticles;
+  </script>
 </LayoutI18n>
+
 <style>
-  /* Styles supplémentaires pour pagination disabled */
+  .articles-page {
+    padding: 40px 0;
+    background: var(--bg);
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .pagination-section {
+    padding: 40px 0 60px;
+    background: var(--bg);
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 20px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px var(--card-shadow-hover);
+  }
+  
+  .pagination-info {
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    color: var(--fg-secondary);
+    font-weight: 500;
+  }
+  
+  .pagination-prev,
+  .pagination-next {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--accent);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  
+  .pagination-prev:hover {
+    background: var(--accent-dark);
+    transform: translateX(-2px);
+  }
+  
+  .pagination-next:hover {
+    background: var(--accent-dark);
+    transform: translateX(2px);
+  }
+  
   .pagination-disabled {
-    padding: 0.75rem 1.5rem;
-    color: #94a3b8;
+    padding: 10px 20px;
+    color: var(--gray-muted);
+    font-family: var(--font-family);
+    font-size: var(--text-base);
     font-weight: 500;
     cursor: not-allowed;
+    opacity: 0.5;
+  }
+  
+  @media (max-width: 768px) {
+    .articles-page {
+      padding: 20px 0;
+    }
+    
+    .pagination-section {
+      padding: 20px 0 40px;
+    }
+    
+    .pagination {
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .pagination-prev,
+    .pagination-next {
+      width: 100%;
+      justify-content: center;
+    }
   }
 </style>

@@ -4,10 +4,9 @@ import { getCollection } from 'astro:content';
 import LayoutI18n from '../../../layouts/LayoutI18n.astro';
 import SearchBar from '../../../components/SearchBar.astro';
 import StickyPageTop from '../../../components/StickyPageTop.astro';
-import BlogCarousel from '../../../components/BlogCarousel.astro';
-import '../../../styles/blog-articles.css';
+import ArticlesGrid from '../../../components/ArticlesGrid.astro';
 // Pagination
-const POSTS_PER_PAGE = 9;
+const POSTS_PER_PAGE = 6;
 const currentPage = 1; // Home page = page 1
 // Fetch all articles
 const allPosts = await getCollection('blog');
@@ -20,10 +19,69 @@ const sortedPosts = englishPosts.sort((a, b) => {
   const dateB = new Date(b.data.modified || b.data.date).getTime();
   return dateB - dateA;
 });
-// Get categories that have English articles
-const categories = [...new Set(englishPosts.map(post => post.data.category))].filter(Boolean);
+// Prepare categories with counter
+const categoriesWithCount = englishCategories.map(cat => {
+  const slug = cat.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-');
+  const count = englishPosts.filter(post => 
+    post.data.category?.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-') === slug
+  ).length;
+  
+  return {
+    name: cat,
+    slug: slug,
+    count: count
+  };
+});
+
+// Limit to POSTS_PER_PAGE articles for first page
+const paginatedPosts = sortedPosts.slice(0, POSTS_PER_PAGE);
+
+// Transform paginated posts for ArticlesGrid
+const articles = paginatedPosts.map(post => ({
+  title: post.data.title,
+  excerpt: post.data.description || '',
+  slug: post.slug.replace('en/', ''),
+  date: post.data.date.toISOString(),
+  category: post.data.category || 'Uncategorized',
+  categorySlug: post.data.category?.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-') || 'uncategorized',
+  author: post.data.author || 'Fiduciaire Expert',
+  readTime: post.data.readingTime || '5',
+  image: post.data.image?.src,
+  tags: post.data.tags || []
+}));
+
+const categories = englishCategories;
 const totalPages = Math.max(1, Math.ceil(sortedPosts.length / POSTS_PER_PAGE));
 const hasMorePosts = sortedPosts.length > POSTS_PER_PAGE;
+
+// SCALABLE SOLUTION: Limit to 50 recent articles for quick filtering
+// Beyond that, redirect to dedicated category page
+const MAX_ARTICLES_FOR_INSTANT_FILTER = 50;
+const recentArticles = sortedPosts.slice(0, MAX_ARTICLES_FOR_INSTANT_FILTER);
+
+// Transform only the 50 most recent articles for filtering
+const allArticles = recentArticles.map(post => ({
+  title: post.data.title,
+  excerpt: post.data.description || '',
+  slug: post.slug.replace('en/', ''),
+  date: post.data.date.toISOString(),
+  category: post.data.category || 'Uncategorized',
+  categorySlug: post.data.category?.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-') || 'uncategorized',
+  author: post.data.author || 'Fiduciaire Expert',
+  readTime: post.data.readingTime || '5',
+  image: post.data.image?.src,
+  tags: post.data.tags || []
+}));
+
+// Calculate if each category has more articles than the limit
+const categoryHasMore = {};
+englishCategories.forEach(cat => {
+  const slug = cat.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-');
+  const totalInCategory = sortedPosts.filter(post => 
+    post.data.category?.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-') === slug
+  ).length;
+  categoryHasMore[slug] = totalInCategory > MAX_ARTICLES_FOR_INSTANT_FILTER;
+});
 // Schema.org for articles page
 const articlesSchema = {
   "@context": "https://schema.org",
@@ -105,58 +163,46 @@ const articlesSchema = {
     ]}
     title="Chartered accounting and tax articles"
     subtitle="Practical guides on Luxembourg accounting, CIT/MBT/NWT and VAT tax returns, CCSS payroll management and company formation."
+    showFilters={true}
+    categories={categoriesWithCount}
+    lang="en"
   />
   {sortedPosts.length > 0 ? (
     <>
-      <section class="blog-main-section">
-        <div class="container blog-layout">
-          <div class="posts-column">
-            <h2 class="section-title">All articles</h2>
-            <BlogCarousel 
-              title="" 
-              variant="grid" 
-              showAll={false}
-              showTitle={false}
-              showCTA={false}
-              columns={2}
-              maxPosts={7}
-              skipFirst={0}
-              lang="en"
-              featuredFirst={true}
-            />
-            {/* Pagination */}
-            {hasMorePosts && (
-              <div class="pagination">
-                <span class="pagination-info">
-                  Page {currentPage} of {totalPages}
-                </span>
-                <a href="/en/articles/page/2" rel="next" class="pagination-next">
-                  Next articles
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9 18l6-6-6-6" />
-                  </svg>
-                </a>
-              </div>
-            )}
-          </div>
-          <aside class="sidebar-column">
-            <div class="sidebar-widget">
-              <h3 class="widget-title">Expertise categories</h3>
-              <nav class="category-nav">
-                <a href="/en/articles" class="category-link is-active">All categories</a>
-                {categories.map(cat => {
-                  const slug = cat.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-');
-                  return <a href={`/en/articles/category/${slug}`} class="category-link">{cat}</a>;
-                })}
-              </nav>
-            </div>
-            <div class="sidebar-widget sidebar-search">
-              <h3 class="widget-title">Search</h3>
-              <SearchBar placeholder="Search" lang="en" />
-            </div>
-          </aside>
+      <section class="articles-page">
+        <div class="container">
+          <SearchBar 
+            placeholder="Search article..." 
+            lang="en"
+          />
+          
+          <ArticlesGrid
+            title="Our latest articles"
+            subtitle="Stay informed on tax and accounting news in Luxembourg"
+            articles={articles}
+            lang="en"
+          />
         </div>
       </section>
+      
+      {/* Pagination - hidden when filtering */}
+      {hasMorePosts && (
+        <div class="pagination-section" id="pagination-section">
+          <div class="container">
+            <div class="pagination">
+              <span class="pagination-info">
+                Page {currentPage} of {totalPages}
+              </span>
+              <a href="/en/articles/page/2" rel="next" class="pagination-next">
+                Next articles
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   ) : (
     <section class="no-posts-section">
@@ -165,4 +211,90 @@ const articlesSchema = {
       </div>
     </section>
   )}
+  <script define:vars={{ articles, allArticles, categoryHasMore }}>
+    // Pass article data to window for search
+    window.articlesData = articles;
+    // Pass the 50 most recent articles for quick filtering
+    window.allArticlesData = allArticles;
+    // Indicate which categories have too many articles for instant filtering
+    window.categoryHasMore = categoryHasMore;
+  </script>
 </LayoutI18n>
+
+<style>
+  .articles-page {
+    padding: 40px 0;
+    background: var(--bg);
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .pagination-section {
+    padding: 40px 0 60px;
+    background: var(--bg);
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 20px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px var(--card-shadow-hover);
+  }
+  
+  .pagination-info {
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    color: var(--fg-secondary);
+  }
+  
+  .pagination-next {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--accent);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  
+  .pagination-next:hover {
+    background: var(--accent-dark);
+    transform: translateX(2px);
+  }
+  
+  .no-posts-section {
+    padding: 80px 0;
+    text-align: center;
+    font-family: var(--font-family);
+    font-size: var(--text-lg);
+    color: var(--gray-muted);
+  }
+  
+  @media (max-width: 768px) {
+    .articles-page {
+      padding: 20px 0;
+    }
+    
+    .pagination-section {
+      padding: 20px 0 40px;
+    }
+    
+    .pagination {
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+</style>

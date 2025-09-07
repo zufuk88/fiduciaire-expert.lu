@@ -1,9 +1,9 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import Hero from '../../components/hero/Hero.astro';
-import Services from '../../components/Services.astro';
-import BlogCarousel from '../../components/BlogCarousel.astro';
-import WhyUs from '../../components/WhyUs.astro';
+import ServicesList from '../../components/ServicesList.astro';
+import BlogCards from '../../components/BlogCards.astro';
+import AboutUs from '../../components/AboutUs.astro';
 import FAQ from '../../components/FAQ.astro';
 import { Image } from 'astro:assets';
 import logoImage from '../../assets/images/Logo.webp';
@@ -190,35 +190,27 @@ const schema = {
       href: "/en/contact#get-quote"
     }}
   />
-  <Services 
-    variant="grid"
-    title="Complete accounting solutions: from incorporation to daily management"
-    subtitle="As a licensed accounting firm, we offer a complete range of services designed to meet all accounting and tax needs of businesses in Luxembourg."
+  <ServicesList
+    title="Our Services"
+    subtitle="Complete solutions for your Luxembourg business"
     services={[
-      {
-        title: "Annual Accounts Preparation",
-        description: "Chartered accountant services for balance sheets, income statements and management of all your tax returns (CIT, MBT, NWT and VAT) in perfect compliance with Luxembourg tax law.",
-        href: "/en/accounting"
-      },
-      {
-        title: "Company Formation",
-        description: "We handle the formation of your SARL, SA, SAS, SARL-S or SCI within 48 hours. A turnkey service, from drafting articles of association to RCS registration.",
-        href: "/en/company-formation-luxembourg"
-      },
-      {
-        title: "Payroll Management for SMEs",
-        description: "Management of your social obligations: payslips, CCSS declarations, and drafting of employment contracts in accordance with Luxembourg labor law.",
-        href: "/en/payroll"
-      }
+      { text: "Accounting and bookkeeping", href: "/en/accounting" },
+      { text: "Tax returns for companies and individuals", href: "/en/taxation" },
+      { text: "Financial management and optimization consulting", href: "/en/taxpertise" },
+      { text: "Company formation and management in Luxembourg", href: "/en/company-formation-luxembourg" },
+      "Training and assistance in accounting",
+      "Personalized training for internal teams",
+      "Workshops on new tax regulations",
+      { text: "Company domiciliation", href: "/en/domiciliation" }
     ]}
   />
-  <BlogCarousel 
-    title="Chartered Accountant blog: tax and accounting advice"
-    subtitle="Our chartered accountant articles to optimize your business management in Luxembourg"
+  <BlogCards
+    title="Latest Articles"
+    subtitle="Tips and news to optimize your business management"
     lang="en"
-    maxPosts={4}
+    maxPosts={6}
   />
-  <WhyUs 
+  <AboutUs
     title="Chartered Accountant in Luxembourg"
     subtitle="Chartered accounting firm specialized in CIT/MBT/NWT and VAT taxation and CCSS social management for Luxembourg SMEs and companies"
     metrics={[
@@ -242,7 +234,7 @@ const schema = {
       },
       {
         title: "Luxembourg tax expert",
-        description: "Complete mastery of CIT, MBT, NWT and   VAT and legal tax optimization for SMEs and holding companies."
+        description: "Complete mastery of CIT, MBT, NWT and VAT and legal tax optimization for SMEs and holding companies."
       },
       {
         title: "Personalized SME support",

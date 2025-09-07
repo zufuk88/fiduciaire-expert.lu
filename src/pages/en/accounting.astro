@@ -2,7 +2,10 @@
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
 import FAQ from '../../components/FAQ.astro';
-import Services from '../../components/Services.astro';
+import ContactForm from '../../components/forms/ContactForm.astro';
+import ServiceDetails from '../../components/ServiceDetails.astro';
+import ServiceCards from '../../components/ServiceCards.astro';
+import ServicesList from '../../components/ServicesList.astro';
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -63,834 +66,191 @@ const faqItems = [
     title="Chartered Accountant services in Luxembourg"
     subtitle="Entrust your accounting to certified experts who master Luxembourg regulations (PCN 2020, eCDF, RCS). We ensure complete compliance while optimizing your tax situation and financial performance."
   />
-  <!-- Legal Accounting Obligations Section -->
-  <Services
-    variant="presentation"
-    title="Legal accounting obligations for Luxembourg companies"
-    subtitle="Every company incorporated in Luxembourg must maintain proper accounting records according to the law of 19 December 2002. Understanding these requirements helps avoid penalties and ensure smooth operations."
-    services={[
-      {
-        title: "Complex regulatory framework",
-        content: [
-          "Luxembourg's regulatory environment requires accounting expertise that goes beyond basic bookkeeping. With over 20 years serving the Grand Duchy's business community, our chartered accountants combine deep technical knowledge with practical experience across diverse industries.",
-          "The accounting landscape has evolved with the PCN 2020 standard chart of accounts and mandatory eCDF electronic filing. These sit alongside the law of 18 December 2015 on annual and consolidated accounts and the framework around the RCS from the law of 19 December 2002, creating a comprehensive set of obligations for entities operating in Luxembourg. Depending on size, structure, and activities, each company must apply specific rules and thresholds.",
-          "Our approach integrates compliance with strategic financial advisory so your accounting function supports growth while meeting Luxembourg GAAP. Whether you're establishing a new entity through our company formation services (including SARL, SARL-S, or SAS structures), running ongoing operations, or planning expansion, professional accounting services provide a solid foundation for sustainable success in Luxembourg."
-        ],
-        bulletStyle: "none"
-      },
-      {
-        title: "Fundamental accounting requirements",
-        content: [
-          "All Luxembourg companies, regardless of size, must keep double-entry books with chronological, complete, and timely entries and retain supporting documents for every transaction. This includes establishing annual accounts comprising at minimum a balance sheet and profit & loss statement, and ensuring all accounting records are kept for a period of ten years.",
-          "These requirements form the foundation of Luxembourg's accounting regulatory framework and apply universally to all registered entities."
-        ],
-        bulletStyle: "none"
-      }
-    ]}
-  />
-  <!-- PCN Requirements Section -->
-  <Services
-    variant="categories"
+  
+  <!-- 2-column layout with ContactForm -->
+  <section class="two-columns-section">
+    <div class="container">
+      <div class="columns-wrapper">
+        <div class="left-column">
+          <ServiceDetails 
+            services={[
+              {
+                title: "Legal accounting obligations for Luxembourg companies",
+                description: "Every company incorporated in Luxembourg must maintain proper accounting records according to the law of 19 December 2002. Understanding these requirements helps avoid penalties and ensure smooth operations."
+              },
+              {
+                title: "Complex regulatory framework",
+                description: [
+                  "Luxembourg's regulatory environment requires accounting expertise that goes beyond basic bookkeeping. With over 20 years serving the Grand Duchy's business community, our chartered accountants combine deep technical knowledge with practical experience across diverse industries.",
+                  "The accounting landscape has evolved with the PCN 2020 standard chart of accounts and mandatory eCDF electronic filing. These sit alongside the law of 18 December 2015 on annual and consolidated accounts and the framework around the RCS from the law of 19 December 2002, creating a comprehensive set of obligations for entities operating in Luxembourg. Depending on size, structure, and activities, each company must apply specific rules and thresholds.",
+                  "Our approach integrates compliance with strategic financial advisory so your accounting function supports growth while meeting Luxembourg GAAP. Whether you're establishing a new entity through our company formation services (including SARL, SARL-S, or SAS structures), running ongoing operations, or planning expansion, professional accounting services provide a solid foundation for sustainable success in Luxembourg."
+                ]
+              },
+              {
+                title: "Fundamental accounting requirements",
+                description: [
+                  "All Luxembourg companies, regardless of size, must keep double-entry books with chronological, complete, and timely entries and retain supporting documents for every transaction. This includes establishing annual accounts comprising at minimum a balance sheet and profit & loss statement, and ensuring all accounting records are kept for a period of ten years.",
+                  "These requirements form the foundation of Luxembourg's accounting regulatory framework and apply universally to all registered entities."
+                ]
+              }
+            ]}
+          />
+        </div>
+        <div class="right-column">
+          <ContactForm lang="en" />
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- PCN Section with ServiceCards -->
+  <ServiceCards
     title="Plan Comptable Normalisé (PCN): Understanding your obligations"
-    backgroundColor="#f1f5f9"
-    sections={[
+    subtitle="The PCN 2020 standardizes Luxembourg financial reporting with mandatory eCDF electronic filing"
+    lang="en"
+    cards={[
       {
         title: "Companies subject to PCN requirements",
-        content: "The Plan Comptable Normalisé, updated in 2020 with the introduction of eCDF electronic filing, applies to most commercial companies in Luxembourg. Companies required to follow PCN include:",
-        items: [
+        description: "The Plan Comptable Normalisé, updated in 2020 with the introduction of eCDF electronic filing, applies to most commercial companies in Luxembourg. Companies required to follow PCN include:",
+        features: [
           "Sociétés Anonymes (SA)",
           "Sociétés à responsabilité limitée (SARL)",
           "Sociétés en commandite par actions (SCA)",
-          "Sociétés par actions simplifiées (SAS)"
-        ],
-        footer: "These entities must prepare their accounts according to the standardized chart of accounts and present them in the prescribed format."
+          "Sociétés par actions simplifiées (SAS)",
+          "These entities must prepare accounts according to the standardized chart"
+        ]
       },
       {
         title: "Entities not subject to PCN requirements",
-        content: "Certain entities are not subject to PCN or benefit from simplified accounting obligations:",
-        items: [
-          "Individual traders (commerçants personnes physiques) with annual turnover below €100,000 excl. VAT",
-          "General partnerships (SNC) with annual turnover below €100,000 excl. VAT",
-          "Special limited partnerships (SCSp) with annual turnover below €100,000 excl. VAT",
+        description: "Certain entities are not subject to PCN or benefit from simplified accounting obligations. The €100,000 excl. VAT threshold applies to determine PCN exemption.",
+        features: [
+          "Individual traders < €100,000 excl. VAT",
+          "General partnerships (SNC) < €100,000 excl. VAT",
+          "Special limited partnerships (SCSp) < €100,000 excl. VAT",
           "Civil companies not engaged in commercial activities",
           "Branches of foreign companies (modified requirements)"
-        ],
-        footer: "However, even entities not subject to PCN requirements must maintain sufficient accounting records to establish their tax obligations and comply with VAT regulations where applicable. The €100,000 excl. VAT threshold applies to determine PCN exemption for these specific legal forms."
-      }
-    ]}
-    highlight={{
-      title: "PCN 2020 and eCDF electronic filing",
-      content: "The PCN 2020 introduces enhanced digital requirements through the electronic Common Data Format (eCDF), which standardizes financial reporting across Luxembourg. This system requires companies to file their annual accounts electronically through the dedicated eCDF platform. Except for companies authorized to use IFRS standards, eCDF validation in PCN format is mandatory before any RCS filing."
-    }}
-  />
-  <!-- Company Size Categories Section -->
-  <Services
-    variant="categories"
-    title="Company size categories and their impact on obligations"
-    subtitle="Luxembourg law classifies companies into categories based on size criteria, each with specific accounting and audit requirements."
-    categories={[
-      {
-        badge: "SMALL",
-        title: "Small companies",
-        thresholds: [
-          { label: "Balance Sheet", value: "≤ €7,500,000" },
-          { label: "Net Turnover", value: "≤ €15,000,000" },
-          { label: "Employees", value: "≤ 50" }
-        ],
-        requirementsTitle: "Key benefits",
-        requirements: [
-          "Abridged balance sheet allowed",
-          "Simplified P&L statement",
-          "Limited notes disclosure",
-          "No statutory audit required"
         ]
       },
       {
-        badge: "MEDIUM",
-        title: "Medium-sized companies",
-        thresholds: [
-          { label: "Balance Sheet", value: "≤ €25,000,000" },
-          { label: "Net Turnover", value: "≤ €50,000,000" },
-          { label: "Employees", value: "≤ 250" }
-        ],
-        requirementsTitle: "Obligations",
-        requirements: [
-          "Complete financial statements",
-          "Mandatory statutory audit",
-          "Management report required",
-          "Certain disclosure exemptions"
+        title: "PCN 2020 and eCDF electronic filing",
+        description: "The PCN 2020 introduces enhanced digital requirements through the electronic Common Data Format (eCDF), which standardizes financial reporting across Luxembourg.",
+        features: [
+          "Mandatory electronic filing via eCDF platform",
+          "PCN format validation before RCS filing",
+          "Standardization of financial reporting",
+          "Exemption only for authorized IFRS companies"
         ]
       },
       {
-        badge: "LARGE",
-        title: "Large companies",
-        thresholds: [
-          { label: "Balance Sheet", value: "> €25,000,000" },
-          { label: "Net Turnover", value: "> €50,000,000" },
-          { label: "Employees", value: "> 250" }
-        ],
-        requirementsTitle: "Full compliance",
-        requirements: [
-          "Complete financial statements",
-          "Full notes required",
-          "Mandatory statutory audit",
-          "Detailed management report"
+        title: "Company size categories",
+        description: "Luxembourg law classifies companies into 3 categories with specific obligations. Must not exceed 2 of 3 criteria for 2 years to maintain classification.",
+        features: [
+          "SMALL: Balance ≤€7.5M, Turnover ≤€15M, ≤50 employees",
+          "Benefits: Abridged balance sheet, simplified P&L, no audit",
+          "MEDIUM: Balance ≤€25M, Turnover ≤€50M, ≤250 employees",
+          "Obligations: Complete statements, mandatory audit",
+          "LARGE: Balance >€25M, Turnover >€50M, >250 employees",
+          "Full compliance with all requirements"
         ]
       }
     ]}
-    note="Important: Companies must not exceed 2 of 3 criteria for two consecutive years to maintain their classification."
   />
-  <!-- eCDF Technical Requirements Section -->
-  <section class="section-white">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">PCN 2020 and eCDF electronic filing requirements</h2>
-        <p class="section-subtitle">The implementation of PCN 2020 represents a significant modernization of Luxembourg's accounting framework.</p>
-      </div>
-      <div class="requirements-grid">
-        <div class="info-box">
-          <h3>Technical requirements for eCDF filing</h3>
-          <p>The eCDF system requires companies to structure their financial data according to a specific XML schema that ensures consistency across all filings. This includes:</p>
-          <ul class="requirements-list">
-            <li>Using standardized account codes from the PCN 2020 chart of accounts</li>
-            <li>Applying prescribed calculation formulas for key financial indicators</li>
-            <li>Clear indication of the currency used with appropriate precision</li>
-            <li>Including structured data about legal form, registered office, and financial year</li>
-          </ul>
-        </div>
-        <div class="info-box">
-          <h3>Preparation and validation process</h3>
-          <p>Before submission, companies must validate their eCDF files through the eCDF platform of CTIE (Centre des Technologies de l'Information de l'État) or via XML transfer according to the official schema. This validation checks for:</p>
-          <ul class="requirements-list">
-            <li>Technical compliance with the official XML schema</li>
-            <li>Mathematical consistency between related figures</li>
-            <li>Completeness of mandatory fields</li>
-          </ul>
-          <p>Our accounting team manages the entire eCDF preparation process, from initial data structuring to validation on the CTIE platform, then online filing with the RCS, ensuring technical compliance while maintaining accuracy.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Critical Deadlines Section -->
-  <section class="section-grey">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Critical deadlines and administrative sanctions</h2>
-      </div>
-      <div class="deadline-grid">
-        <div class="deadline-card">
-          <h3>Filing deadlines for annual accounts</h3>
-          <div class="timeline">
-            <div class="timeline-item">
-              <span class="timeline-marker"></span>
-              <div class="timeline-content">
-                <strong>Year-end closing</strong>
-                <p>Finalize accounting records and prepare draft financial statements for the fiscal year</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <span class="timeline-marker"></span>
-              <div class="timeline-content">
-                <strong>Within 6 months after year-end</strong>
-                <p>Annual General Meeting must approve accounts. For December 31 year-end, deadline is June 30</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <span class="timeline-marker"></span>
-              <div class="timeline-content">
-                <strong>Within 1 month after AGM</strong>
-                <p>File approved annual accounts with Luxembourg Business Registers (RCS)</p>
-              </div>
-            </div>
-            <div class="timeline-item critical">
-              <span class="timeline-marker"></span>
-              <div class="timeline-content">
-                <strong>31 July (for December year-end)</strong>
-                <p>Absolute final deadline for RCS filing - late penalties apply immediately after this date</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="deadline-card">
-          <h3>Administrative and financial sanctions</h3>
-          <div class="penalty-table">
-            <div class="penalty-row">
-              <span class="delay">8th month after year-end</span>
-              <span class="amount">€50</span>
-            </div>
-            <div class="penalty-row">
-              <span class="delay">9th-11th month</span>
-              <span class="amount">€200</span>
-            </div>
-            <div class="penalty-row critical">
-              <span class="delay">12th month onwards</span>
-              <span class="amount">€500</span>
-            </div>
-          </div>
-          <p class="warning-text">Beyond financial penalties, persistent non-compliance can lead to:</p>
-          <ul class="consequences-list">
-            <li>Publication on non-compliant companies lists</li>
-            <li>Possible criminal penalties for directors</li>
-            <li>In case of persistence, judicial dissolution initiated by the public prosecutor</li>
-          </ul>
-        </div>
-      </div>
-      <div class="info-box">
-        <h3>Tax-related deadlines and penalties</h3>
-        <p>Corporate income tax (IRC) and municipal business tax (ICC) returns for a fiscal year must be filed by 31 December of the following year. Electronic filing via MyGuichet.lu is mandatory. Late filing may result in an administrative fine and, if tax remains unpaid, late-payment interest.</p>
-        <p>Net wealth tax (NWT) returns must be filed by 31 December of the tax year concerned. NWT is due if the company exists on January 1st of the tax year.</p>
-        <p>VAT returns are filed monthly, quarterly, or annually depending on turnover. Since 2025, the small business franchise regime threshold has been raised to €50,000 annual turnover (with 10% tolerance), allowing VAT exemption below this threshold. Late submission is subject to an administrative fine and interest on unpaid amounts.</p>
-        <p>Our tax compliance services ensure all deadlines are met, while our specialized tax advisory solution (<a href="/en/taxpertize">Taxpertize</a>) support comprehensive tax planning.</p>
-      </div>
-    </div>
-  </section>
-  <!-- Comprehensive Services Section -->
-  <section class="section-white">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Comprehensive accounting services we provide</h2>
-        <p class="section-subtitle">Transform your accounting function from a compliance burden into a strategic asset that drives business growth.</p>
-      </div>
-      <div class="services-grid">
-        <div class="service-category">
-          <h3>Day-to-day accounting management</h3>
-          <div class="service-items">
-            <div class="service-item">
-              <h4>Financial recording</h4>
-              <p>Complete transaction recording, accounts payable/receivable management, bank reconciliation, and expense categorization with robust internal controls.</p>
-            </div>
-            <div class="service-item">
-              <h4>Document management</h4>
-              <p>Digital solutions for invoice and document sharing, implementing IT best practices to facilitate seamless client communications and collaboration.</p>
-            </div>
-          </div>
-        </div>
-        <div class="service-category">
-          <h3>Financial reporting and compliance</h3>
-          <div class="service-items">
-            <div class="service-item">
-              <h4>Statutory reporting</h4>
-              <p>Preparation of all required financial statements according to Luxembourg GAAP or IFRS if authorized by law, ensuring full PCN 2020 compliance. Except for authorized IFRS, eCDF validation in PCN format is required before RCS filing.</p>
-            </div>
-            <div class="service-item">
-              <h4>eCDF filing</h4>
-              <p>Complete management of electronic filing requirements with technical validation and timely submission.</p>
-            </div>
-          </div>
-        </div>
-        <div class="service-category">
-          <h3>Tax compliance</h3>
-          <div class="service-items">
-            <div class="service-item">
-              <h4>Direct tax returns</h4>
-              <p>Preparation and filing of direct tax returns. For capital companies: form 500 unifying CIT, MBT and NWT via MyGuichet.lu.</p>
-            </div>
-            <div class="service-item">
-              <h4>VAT returns</h4>
-              <p>Management of periodic and annual VAT returns, plus recapitulative statements where required.</p>
-            </div>
-          </div>
-        </div>
-        <div class="service-category">
-          <h3>Advisory and strategic support</h3>
-          <div class="service-items">
-            <div class="service-item">
-              <h4>Financial analysis</h4>
-              <p>Cash flow forecasting, profitability analysis, investment appraisal, and financial modeling for strategic decision-making.</p>
-            </div>
-            <div class="service-item">
-              <h4>Due diligence</h4>
-              <p>Professional support for entrepreneurs acquiring companies in Luxembourg. Comprehensive accounting, tax, legal and social audit preparation.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Industry Expertise Section -->
-  <section class="section-grey">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Specialized expertise across industries</h2>
-        <p class="section-subtitle">Different industries face unique accounting challenges and regulatory requirements in Luxembourg.</p>
-      </div>
-      <div class="industry-grid">
-        <div class="industry-card">
-          <h3>Investment funds and financial services</h3>
-          <p>Navigate complex regulatory landscapes including CSSF reporting requirements, NAV calculations, and investor reporting. Expertise in UCITS, AIFs, and management companies. Discover how <a href="/en/articles/soparfi-luxembourg-holding-company-guide">SOPARFI holding structures</a> optimize investment operations.</p>
-        </div>
-        <div class="industry-card">
-          <h3>Real estate and construction</h3>
-          <p>Property valuation methods, construction contract accounting, VAT optimization for property transactions, and SPV structuring for real estate assets. Learn more about <a href="/en/articles/sci-luxembourg-real-estate-holding-company">SCI structures for real estate holdings</a>.</p>
-        </div>
-        <div class="industry-card">
-          <h3>Manufacturing and trading</h3>
-          <p>Inventory valuation, cost accounting, transfer pricing documentation, and customs duties optimization for complex supply chains.</p>
-        </div>
-        <div class="industry-card">
-          <h3>Professional services</h3>
-          <p>Accounting for engineering firms, consulting companies, and business service providers. Project-based accounting, revenue recognition, and professional expense management.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Software Solutions Section -->
-  <section class="section-white">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Professional accounting software</h2>
-        <p class="section-subtitle">Effective accounting management requires robust, reliable software that complies with Luxembourg's specific regulatory requirements.</p>
-      </div>
-      <div class="info-box">
-        <h3>Enterprise-grade solutions</h3>
-        <p>Luxembourg's accounting professionals work with established software platforms that meet regulatory requirements:</p>
-        <ul class="software-list">
-          <li><strong>Horus:</strong> AI-supported comprehensive functionality specifically designed for Luxembourg's regulatory environment with full PCN 2020 support</li>
-          <li><strong>Bob 50:</strong> Advanced financial reporting and multi-entity management capabilities</li>
-          <li><strong>Odoo:</strong> Modern, cloud-based modular platform configured for Luxembourg compliance</li>
-        </ul>
-        <p>Each system supports standardized chart of accounts, automated VAT calculations, and eCDF XML export if the publisher is homologated by eCDF. Professional implementation ensures proper configuration and data migration.</p>
-      </div>
-    </div>
-  </section>
+  
+  <!-- eCDF Electronic Filing Requirements with ServicesList -->
+  <ServicesList
+    title="PCN 2020 and eCDF electronic filing requirements"
+    subtitle="The implementation of PCN 2020 represents a significant modernization of Luxembourg's accounting framework."
+    services={[
+      "Technical requirements for eCDF filing",
+      "The eCDF system requires companies to structure their financial data according to a specific XML schema that ensures consistency across all filings. This includes:",
+      "Using standardized account codes from the PCN 2020 chart of accounts",
+      "Applying prescribed calculation formulas for key financial indicators",
+      "Clear indication of the currency used with appropriate precision",
+      "Including structured data about legal form, registered office, and financial year",
+      "Preparation and validation process",
+      "Before submission, companies must validate their eCDF files through the eCDF platform of CTIE (Centre des Technologies de l'Information de l'État) or via XML transfer according to the official schema. This validation checks for:",
+      "Technical compliance with the official XML schema",
+      "Mathematical consistency between related figures",
+      "Completeness of mandatory fields",
+      "Our accounting team manages the entire eCDF preparation process, from initial data structuring to validation on the CTIE platform, then online filing with the RCS, ensuring technical compliance while maintaining accuracy."
+    ]}
+  />
+  
+  <!-- Critical Deadlines and Sanctions with ServicesList -->
+  <ServicesList
+    title="Critical deadlines and administrative sanctions"
+    subtitle="Meet legal deadlines to avoid financial penalties and administrative consequences"
+    services={[
+      "📅 Filing deadlines timeline to avoid sanctions",
+      "1. Year-end closing: Finalize accounting records and prepare draft financial statements",
+      "2. Within 6 months after year-end: AGM must approve accounts (June 30 for December 31 closing)",
+      "3. Within 1 month after AGM: File approved annual accounts with RCS",
+      "⚠️ July 31 (for December year-end): Absolute deadline for RCS filing",
+      "💶 Administrative and financial sanctions",
+      "8th month after year-end: €50",
+      "9th-11th month: €200",
+      "12th month onwards: €500",
+      "Beyond penalties: Publication on non-compliant companies lists, possible criminal penalties for directors, possible judicial dissolution"
+    ]}
+  />
+  
   <FAQ
     title="Frequently asked questions about accounting in Luxembourg"
     subtitle="Essential information for managing your company's accounting obligations"
     faqItems={faqItems}
-    
     generateSchema={true}
-    backgroundColor="#f1f5f9"
   />
 </LayoutI18n>
+
 <style>
-  :root {
-    --color-primary: #005fcc;
-    --color-dark: #0f172a;
-    --color-text: #334155;
-    --color-text-secondary: #64748b;
-    --color-background: #ffffff;
-    --color-grey-light: #f1f5f9;
-    --color-grey: #f1f5f9;
-    --color-border: #e2e8f0;
-    --color-success: #10b981;
-    --color-warning: #f59e0b;
-    --color-danger: #ef4444;
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  .two-columns-section {
+    padding: var(--section-padding);
+    background: var(--bg);
   }
-  /* Section Styles */
-  .section-white {
-    padding: 5rem 0;
-    position: relative;
-    isolation: isolate;
-  }
-  .section-white::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: radial-gradient(circle at 1px 1px, rgba(0, 95, 204, 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
-    pointer-events: none;
-    z-index: 1;
-  }
-  .section-grey {
-    background: #f1f5f9;
-    padding: 5rem 0;
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-  }
-  .section-grey::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 40px,
-      rgba(0, 95, 204, 0.02) 40px,
-      rgba(0, 95, 204, 0.02) 41px
-    );
-    pointer-events: none;
-    z-index: 1;
-  }
-  .section-grey::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -10%;
-    width: 50%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(0, 85, 184, 0.03) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-  }
+
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.5rem;
-    position: relative;
-    z-index: 2;
+    padding: 0 20px;
   }
-  /* Typography */
-  .section-header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-  .section-title {
-    font-size: 2.5rem;
-    font-weight: 300;
-    color: var(--color-dark);
-    margin-bottom: 1rem;
-    line-height: 1.2;
-  }
-  .section-subtitle {
-    font-size: 1.125rem;
-    color: var(--color-text-secondary);
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.7;
-  }
-  /* Info Boxes */
-  .info-box {
-    background: var(--color-grey);
-    border-radius: 4px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-  }
-  .info-box h3 {
-    color: var(--color-dark);
-    font-size: 1.375rem;
-    font-weight: 300;
-    margin-bottom: 1rem;
-  }
-  .info-box p {
-    color: var(--color-text);
-    line-height: 1.7;
-    margin-bottom: 1rem;
-  }
-  .info-box p:last-child {
-    margin-bottom: 0;
-  }
-  .text-muted {
-    color: var(--color-text-secondary) !important;
-    font-size: 0.95rem;
-    font-style: italic;
-  }
-  /* Note Box */
-  .note-box {
-    background: #fef3c7;
-    border-left: 4px solid var(--color-warning);
-    border-radius: 4px;
-    padding: 1.5rem;
-    margin-top: 2rem;
-  }
-  .note-box p {
-    color: #92400e;
-    margin: 0;
-  }
-  /* Lists */
-  .requirements-list {
-    list-style: none;
-    padding: 0;
-    margin: 1rem 0;
-  }
-  .requirements-list li {
-    position: relative;
-    padding-left: 1.75rem;
-    margin-bottom: 0.75rem;
-    color: var(--color-text);
-  }
-  .requirements-list li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: var(--color-success);
-    font-weight: bold;
-  }
-  /* Company Size Categories */
-  .size-categories-grid {
+
+  .columns-wrapper {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-bottom: 2rem;
+    grid-template-columns: 1fr 400px;
+    gap: 40px;
+    align-items: start;
   }
-  .category-card {
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .category-card:hover {
-  }
-  .category-header {
-    padding: 1.5rem;
-    background: var(--color-grey-light);
-    border-bottom: 2px solid var(--color-border);
-  }
-  .category-badge {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 300;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-  .category-card.small .category-badge {
-    background: #dcfce7;
-    color: #166534;
-  }
-  .category-card.medium .category-badge {
-    background: #fed7aa;
-    color: #9a3412;
-  }
-  .category-card.large .category-badge {
-    background: #fecaca;
-    color: #991b1b;
-  }
-  .category-header h3 {
-    margin: 0;
-    color: var(--color-dark);
-    font-size: 1.25rem;
-    font-weight: 300;
-  }
-  .thresholds {
-    padding: 1.5rem;
-    background: var(--color-grey-light);
-  }
-  .threshold-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--color-border);
-  }
-  .threshold-item:last-child {
-    border-bottom: none;
-  }
-  .threshold-item .label {
-    color: var(--color-text-secondary);
-    font-size: 0.875rem;
-  }
-  .threshold-item .value {
-    color: var(--color-dark);
-    font-weight: 300;
-  }
-  .requirements {
-    padding: 1.5rem;
-  }
-  .requirements h4 {
-    color: var(--color-dark);
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    font-weight: 300;
-  }
-  .requirements ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .requirements li {
-    padding: 0.5rem 0;
-    padding-left: 1.5rem;
-    position: relative;
-    color: var(--color-text);
-    font-size: 0.875rem;
-  }
-  .requirements li::before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    color: var(--color-primary);
-  }
-  /* Deadline Section */
-  .deadline-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-bottom: 2rem;
-  }
-  .deadline-card {
-    border-radius: 4px;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-  }
-  .deadline-card h3 {
-    color: var(--color-dark);
-    font-size: 1.375rem;
-    margin-bottom: 1.5rem;
-    font-weight: 300;
-  }
-  .deadline-card:first-child {
-    min-height: 400px;
-  }
-  .timeline {
-    position: relative;
-    padding-left: 2rem;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 0.5rem;
-    top: 0.5rem;
-    bottom: 0;
-    width: 2px;
-    background: var(--color-border);
-  }
-  .timeline-item {
-    position: relative;
-    padding-bottom: 2.5rem;
+
+  .left-column {
     flex: 1;
   }
-  .timeline-item:last-child {
-    padding-bottom: 1rem;
+
+  .right-column {
+    position: sticky;
+    top: 100px;
   }
-  .timeline-marker {
-    position: absolute;
-    left: -1.5rem;
-    top: 0.25rem;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    background: var(--color-primary);
-    border: 3px solid white;
-  }
-  .timeline-item.critical .timeline-marker {
-    background: var(--color-danger);
-  }
-  .timeline-content strong {
-    color: var(--color-dark);
-    display: block;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-  }
-  .timeline-content p {
-    color: var(--color-text-secondary);
-    font-size: 0.9rem;
-    line-height: 1.5;
-  }
-  /* Penalty Table */
-  .penalty-table {
-    margin-bottom: 1.5rem;
-  }
-  .penalty-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.75rem;
-    background: var(--color-grey-light);
-    border-radius: 4px;
-    margin-bottom: 0.5rem;
-  }
-  .penalty-row.critical {
-    background: #fee2e2;
-  }
-  .penalty-row .delay {
-    color: var(--color-text);
-    font-size: 0.875rem;
-  }
-  .penalty-row .amount {
-    color: var(--color-danger);
-    font-weight: 300;
-  }
-  .warning-text {
-    color: var(--color-danger);
-    font-weight: 300;
-    margin: 1rem 0;
-  }
-  .consequences-list {
-    list-style: none;
-    padding: 0;
-  }
-  .consequences-list li {
-    padding: 0.5rem 0;
-    padding-left: 1.5rem;
-    position: relative;
-    color: var(--color-text);
-    font-size: 0.875rem;
-  }
-  .consequences-list li::before {
-    content: "⚠";
-    position: absolute;
-    left: 0;
-    color: var(--color-warning);
-  }
-  /* Services Grid */
-  .services-grid {
-    display: grid;
-    gap: 2rem;
-  }
-  .service-category {
-    background: var(--color-grey-light);
-    border-radius: 4px;
-    padding: 2rem;
-  }
-  .service-category h3 {
-    color: var(--color-dark);
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid var(--color-primary);
-    font-weight: 300;
-  }
-  .service-items {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
-  .service-item {
-    padding: 1.5rem;
-    border-radius: 4px;
-  }
-  .service-item h4 {
-    color: var(--color-primary);
-    font-size: 1.125rem;
-    margin-bottom: 0.75rem;
-    font-weight: 300;
-  }
-  .service-item p {
-    color: var(--color-text);
-    font-size: 0.875rem;
-    line-height: 1.6;
-  }
-  /* Industry Grid */
-  .industry-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
-  .industry-card {
-    padding: 2rem;
-    border-radius: 4px;
-  }
-  .industry-card:hover {
-  }
-  .industry-card h3 {
-    color: var(--color-primary);
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-    font-weight: 300;
-  }
-  .industry-card p {
-    color: var(--color-text);
-    line-height: 1.6;
-  }
-  /* Software List */
-  .software-list {
-    list-style: none;
-    padding: 0;
-    margin: 1.5rem 0;
-  }
-  .software-list li {
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--color-border);
-    color: var(--color-text);
-    line-height: 1.6;
-  }
-  .software-list li:last-child {
-    border-bottom: none;
-  }
-  /* Introduction Section */
-  .intro-content.info-box {
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  .intro-content p {
-    color: var(--color-text);
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-    text-align: justify;
-  }
-  .intro-content p.lead {
-    font-size: 1.125rem;
-    font-weight: 300;
-    color: var(--color-dark);
-    margin-bottom: 2rem;
-  }
-  .info-box a {
-    color: var(--color-primary);
-    text-decoration: none;
-    font-weight: 300;
-  }
-  .info-box a:hover {
-    text-decoration: underline;
-  }
+
   /* Responsive */
+  @media (max-width: 1024px) {
+    .columns-wrapper {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .right-column {
+      position: static;
+    }
+  }
+
   @media (max-width: 768px) {
-    .section-title {
-      font-size: 1.875rem;
+    .two-columns-section {
+      padding: var(--section-padding-tablet);
     }
-    .pcn-grid,
-    .requirements-grid,
-    .deadline-grid,
-    .industry-grid {
-      grid-template-columns: 1fr;
-    }
-    .size-categories-grid {
-      grid-template-columns: 1fr;
-    }
-    .service-items {
-      grid-template-columns: 1fr;
-    }
-    .deadline-card:first-child {
-      min-height: auto;
-    }
-    .timeline-item {
-      padding-bottom: 1.5rem;
-    }
-    .timeline-content strong {
-      font-size: 0.9rem;
-    }
-    .timeline-content p {
-      font-size: 0.85rem;
+  }
+
+  @media (max-width: 480px) {
+    .two-columns-section {
+      padding: var(--section-padding-mobile);
     }
   }
 </style>

@@ -114,7 +114,7 @@ const contactData = {
     padding: 24px;
     background: var(--card);
     border: 1px solid var(--card-border);
-    border-radius: 2px;
+    border-radius: 8px;
     text-decoration: none;
     color: inherit;
     position: relative;
@@ -123,9 +123,10 @@ const contactData = {
   
   
   .contact-item:hover:not(.contact-item--static) {
-    background: var(--card-hover);
-    border-color: var(--muted);
-    transform: translateY(-2px);
+    background: var(--white);
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px var(--card-shadow-lg);
   }
   
   .contact-item--static {
@@ -140,7 +141,8 @@ const contactData = {
     align-items: center;
     justify-content: center;
     background: var(--accent);
-    border-radius: 2px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
   }
   
   .item-icon svg {
@@ -156,7 +158,8 @@ const contactData = {
   }
   
   .item-content h3 {
-    font-size: 11px;
+    font-family: var(--font-family);
+    font-size: var(--text-xs);
     font-weight: 600;
     color: var(--muted);
     margin: 0 0 4px 0;
@@ -165,7 +168,8 @@ const contactData = {
   }
   
   .item-value {
-    font-size: var(--font-h4);
+    font-family: var(--font-family);
+    font-size: var(--text-lg);
     font-weight: 600;
     color: var(--accent);
     margin: 0 0 4px 0;
@@ -174,11 +178,17 @@ const contactData = {
   }
   
   .contact-item:hover:not(.contact-item--static) .item-value {
-    color: var(--fg-secondary);
+    color: var(--accent-dark);
+  }
+  
+  .contact-item:hover:not(.contact-item--static) .item-icon {
+    background: var(--accent-dark);
+    transform: scale(1.05);
   }
   
   .item-subtitle {
-    font-size: var(--font-h6);
+    font-family: var(--font-family);
+    font-size: var(--text-sm);
     color: var(--muted);
     margin: 0;
     font-weight: 400;
@@ -204,21 +214,4 @@ const contactData = {
       height: 18px;
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </style>

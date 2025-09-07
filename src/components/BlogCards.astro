@@ -1,0 +1,356 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import { calculateReadingTime } from '../utils/reading-time';
+
+export interface Props {
+  title: string;
+  subtitle?: string;
+  maxPosts?: number;
+  lang?: 'fr' | 'en';
+}
+
+const {
+  title,
+  subtitle,
+  maxPosts = 4,
+  lang = 'fr'
+} = Astro.props;
+
+// Récupérer les articles publiés et triés par date
+const allPosts = await getCollection('blog', ({ data, slug }) => {
+  const isCorrectLang = slug.startsWith(`${lang}/`);
+  return data.draft !== true && isCorrectLang;
+});
+
+const sortedPosts = allPosts
+  .sort((a, b) => {
+    const dateA = new Date(a.data.modified || a.data.date).getTime();
+    const dateB = new Date(b.data.modified || b.data.date).getTime();
+    return dateB - dateA;
+  })
+  .slice(0, maxPosts);
+
+// Fonction pour formater la date
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat(lang === 'fr' ? 'fr-FR' : 'en-GB', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+};
+
+// Fonction pour extraire un extrait du contenu
+const getExcerpt = (content: string, maxLength: number = 100) => {
+  const plainText = content
+    .replace(/^---[\s\S]*?---/m, '')
+    .replace(/<[^>]*>/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/[#*_`~]/g, '')
+    .trim();
+  return plainText.length > maxLength 
+    ? plainText.substring(0, maxLength) + '...' 
+    : plainText;
+};
+---
+
+<section class="blog-cards-section">
+  <div class="container">
+    <div class="blog-cards-wrapper">
+      <h2 class="blog-cards-title">{title}</h2>
+      {subtitle && <p class="blog-cards-subtitle">{subtitle}</p>}
+      
+      <div class="blog-cards-container">
+        <div class="blog-cards-track" id="blog-cards-carousel">
+          {sortedPosts.map((post) => (
+            <article class="blog-card">
+              {post.data.image && (
+                <a href={`/${lang}/articles/${post.slug.replace(`${lang}/`, '')}`} class="blog-card-image-link">
+                  <Image 
+                    src={post.data.image} 
+                    alt={post.data.title}
+                    width={280}
+                    height={160}
+                    loading="lazy"
+                    quality="mid"
+                    class="blog-card-image"
+                  />
+                </a>
+              )}
+              
+              <div class="blog-card-content">
+                <div class="blog-card-meta">
+                  <a href={`/${lang}/articles/category/${post.data.category.toLowerCase().replace(/\s+/g, '-')}`} class="blog-card-category">
+                    {post.data.category}
+                  </a>
+                  <span class="blog-card-date">
+                    {formatDate(post.data.modified && new Date(post.data.modified) > new Date(post.data.date) 
+                      ? new Date(post.data.modified) 
+                      : post.data.date)}
+                  </span>
+                  <span class="blog-card-reading-time">
+                    {calculateReadingTime(post.body, lang)} min
+                  </span>
+                </div>
+                
+                <h3 class="blog-card-title">
+                  <a href={`/${lang}/articles/${post.slug.replace(`${lang}/`, '')}`}>
+                    {post.data.title}
+                  </a>
+                </h3>
+                
+                <p class="blog-card-excerpt">
+                  {post.data.description || getExcerpt(post.body)}
+                </p>
+                
+                <a href={`/${lang}/articles/${post.slug.replace(`${lang}/`, '')}`} class="blog-card-read-more">
+                  {lang === 'fr' ? 'Lire →' : 'Read →'}
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .blog-cards-section {
+    padding: var(--section-padding);
+    width: 100%;
+    overflow-x: hidden; /* Empêche le débordement horizontal */
+    position: relative;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .blog-cards-wrapper {
+    background: var(--white);
+    border-radius: 12px;
+    padding: var(--card-padding);
+    box-shadow: 0 2px 8px var(--card-shadow-hover);
+    overflow: hidden; /* Empêche le débordement du carousel */
+  }
+
+  .blog-cards-title {
+    font-family: var(--font-family);
+    font-size: var(--card-title);
+    font-weight: 500;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .blog-cards-subtitle {
+    font-family: var(--font-family);
+    font-size: var(--card-subtitle);
+    color: var(--fg-secondary);
+    text-align: center;
+    margin-bottom: 48px;
+    line-height: 1.6;
+  }
+
+  .blog-cards-container {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+  }
+
+  .blog-cards-track {
+    display: flex;
+    gap: 24px;
+    animation: scroll 30s linear infinite;
+    width: fit-content;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .blog-cards-track:hover {
+    animation-play-state: paused;
+  }
+
+  /* Dupliquer les cartes pour l'effet infini */
+  .blog-cards-track::after {
+    content: '';
+    display: flex;
+    gap: 24px;
+  }
+
+  .blog-card {
+    flex: 0 0 280px;
+    background: var(--card-bg-light);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+    transition: all 0.3s ease;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px var(--card-shadow-lg);
+    border-color: var(--accent);
+  }
+
+  .blog-card-image-link {
+    display: block;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--bg) 0%, var(--gray-light) 100%);
+  }
+
+  .blog-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .blog-card:hover .blog-card-image {
+    transform: scale(1.05);
+  }
+
+  .blog-card-content {
+    padding: 20px;
+  }
+
+  .blog-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: var(--text-xs);
+    color: var(--gray-muted);
+  }
+
+  .blog-card-category {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .blog-card-category:hover {
+    color: var(--accent-dark);
+  }
+
+  .blog-card-date::before,
+  .blog-card-reading-time::before {
+    content: '•';
+    margin-right: 6px;
+    color: var(--gray-lighter);
+  }
+
+  .blog-card-title {
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+  }
+
+  .blog-card-title a {
+    color: var(--fg);
+    text-decoration: none;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .blog-card-title a:hover {
+    color: var(--accent);
+  }
+
+  .blog-card-excerpt {
+    font-family: var(--font-family);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    color: var(--fg-secondary);
+    margin: 0 0 16px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .blog-card-read-more {
+    font-family: var(--font-family);
+    font-size: var(--text-sm-mobile);
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+  }
+
+  .blog-card-read-more:hover {
+    color: var(--accent-dark);
+    padding-left: 5px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .blog-cards-section {
+      padding: var(--section-padding-tablet);
+    }
+
+    .blog-cards-wrapper {
+      padding: var(--card-padding-tablet);
+    }
+
+    .blog-cards-title {
+      font-size: var(--card-title-mobile);
+    }
+
+    .blog-cards-subtitle {
+      font-size: var(--card-subtitle-mobile);
+      margin-bottom: 36px;
+    }
+
+    .blog-card {
+      flex: 0 0 240px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .blog-cards-section {
+      padding: var(--section-padding-mobile);
+    }
+    
+    .blog-cards-wrapper {
+      padding: var(--card-padding-mobile);
+    }
+
+    .blog-card {
+      flex: 0 0 220px;
+    }
+
+    .blog-card-content {
+      padding: 16px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const track = document.getElementById('blog-cards-carousel');
+    if (!track) return;
+    
+    // Dupliquer les cartes pour créer un effet de défilement infini
+    const cards = track.innerHTML;
+    track.innerHTML = cards + cards;
+  });
+</script>

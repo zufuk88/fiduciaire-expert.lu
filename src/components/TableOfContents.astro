@@ -28,17 +28,19 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
 )}
 <style>
   .table-of-contents {
-    background: var(--card);
+    background: var(--white);
     border: 1px solid var(--card-border);
-    border-radius: 2px;
-    padding: 32px;
+    border-radius: 12px;
+    padding: var(--card-padding);
+    box-shadow: 0 2px 8px var(--card-shadow-hover);
     margin-bottom: 0;
     max-height: calc(100vh - 220px); /* Viewport height - header - sticky bar - spacing */
     display: flex;
     flex-direction: column;
   }
   .toc-title {
-    font-size: 14px;
+    font-family: var(--font-family);
+    font-size: var(--text-lg);
     font-weight: 600;
     color: var(--accent);
     margin-bottom: 20px;
@@ -64,9 +66,10 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
   .toc-link {
     display: block;
     padding: 10px 0;
-    color: var(--muted);
+    font-family: var(--font-family);
+    color: var(--fg-secondary);
     text-decoration: none;
-    font-size: 14px;
+    font-size: var(--text-sm);
     line-height: 1.5;
     border-left: 2px solid transparent;
     padding-left: 12px;
@@ -77,15 +80,15 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
   }
   .toc-link:hover {
     color: var(--accent);
-    border-left-color: var(--card-border);
-    background: var(--card-hover);
+    border-left-color: var(--gray-light);
+    background: var(--bg);
     padding-left: 16px;
   }
   .toc-link.active {
     color: var(--accent);
     font-weight: 600;
     border-left-color: var(--accent);
-    background: var(--card-hover);
+    background: var(--bg);
   }
   /* Scrollbar styles */
   .toc-list::-webkit-scrollbar {
@@ -95,16 +98,16 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
     background: transparent;
   }
   .toc-list::-webkit-scrollbar-thumb {
-    background: var(--card-border);
+    background: var(--gray-light);
     border-radius: 2px;
   }
   .toc-list::-webkit-scrollbar-thumb:hover {
-    background: var(--muted);
+    background: var(--gray-muted);
   }
   /* Firefox scrollbar */
   .toc-list {
     scrollbar-width: thin;
-    scrollbar-color: var(--card-border) transparent;
+    scrollbar-color: var(--gray-light) transparent;
   }
   /* Fade effect at bottom when scrollable */
   .table-of-contents::after {
@@ -114,7 +117,7 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
     left: 0;
     right: 0;
     height: 24px;
-    background: linear-gradient(to top, var(--card), transparent);
+    background: linear-gradient(to top, var(--white), transparent);
     pointer-events: none;
     opacity: 0;
   }
@@ -131,13 +134,14 @@ const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
   }
   @media (max-width: 768px) {
     .table-of-contents {
-      padding: 24px;
+      padding: var(--card-padding-tablet);
+      border-radius: 8px;
     }
     .toc-title {
-      font-size: 13px;
+      font-size: var(--text-base);
     }
     .toc-link {
-      font-size: 13px;
+      font-size: var(--text-sm-mobile);
       padding: 8px 0;
     }
   }

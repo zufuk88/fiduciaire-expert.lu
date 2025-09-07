@@ -76,16 +76,16 @@ const isArticlePage = route && route.startsWith('articles/') &&
     gap: 8px;
     padding: 8px 16px;
     background: transparent;
-    border: 1px solid rgba(224, 224, 224, 0.8);
+    border: 1px solid var(--card-border);
     border-radius: 2px;
     cursor: pointer;
     font-size: 0.875rem;
-    color: var(--color-text, #333);
+    color: var(--fg);
     font-weight: 500;
   }
   .lang-button:hover {
-    border-color: var(--color-primary, #005FCC);
-    color: var(--color-primary, #005FCC);
+    border-color: var(--accent);
+    color: var(--accent);
   }
   .chevron {
   }
@@ -96,8 +96,8 @@ const isArticlePage = route && route.startsWith('articles/') &&
     position: absolute;
     top: calc(100% + 4px);
     right: 0;
-    background: white;
-    border: 1px solid #e0e0e0;
+    background: var(--white);
+    border: 1px solid var(--card-border);
     border-radius: 2px;
     min-width: 150px;
     opacity: 0;
@@ -115,12 +115,12 @@ const isArticlePage = route && route.startsWith('articles/') &&
   .lang-option {
     display: block;
     padding: 12px 16px;
-    color: var(--color-text, #333);
+    color: var(--fg);
     text-decoration: none;
     font-size: 0.875rem;
   }
   .lang-option.disabled {
-    color: #999;
+    color: var(--gray-muted);
     cursor: not-allowed;
     opacity: 0.6;
     pointer-events: none;
@@ -133,12 +133,12 @@ const isArticlePage = route && route.startsWith('articles/') &&
     margin-left: 0.5rem;
   }
   .lang-option:not(.disabled):hover {
-    background: #f5f5f5;
-    color: var(--color-primary, #005FCC);
+    background: var(--bg);
+    color: var(--accent);
   }
   .lang-option.active {
-    background: rgba(0, 95, 204, 0.05);
-    color: var(--color-primary, #005FCC);
+    background: var(--bg);
+    color: var(--accent);
     font-weight: 600;
   }
   .lang-option:first-child {

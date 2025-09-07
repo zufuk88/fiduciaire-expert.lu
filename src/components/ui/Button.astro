@@ -86,6 +86,9 @@ const relValue = rel || (target === '_blank' ? 'noopener noreferrer' : undefined
     white-space: nowrap;
     position: relative;
     overflow: hidden;
+    /* Empêche le bouton de dépasser son conteneur */
+    max-width: 100%;
+    box-sizing: border-box;
   }
   /* --- États --- */
   .btn:hover:not(:disabled) {
@@ -99,38 +102,36 @@ const relValue = rel || (target === '_blank' ? 'noopener noreferrer' : undefined
     opacity: 0.6;
     cursor: not-allowed;
   }
-  /* --- Variante Principale: Bleu foncé avec texte blanc --- */
+  /* --- Variante Principale: Fond sombre avec texte clair --- */
   .btn-primary {
-    background: #1e3a5f;
-    color: white;
-    border: 2px solid #1e3a5f;
-    transition: all 0.2s ease;
+    background: #00695c; /* Vert plus lumineux */
+    color: #ffffff;
+    border: 2px solid #00695c;
+    transition: all 0.3s ease;
   }
   .btn-primary:hover:not(:disabled) {
-    background: white;
-    color: #1e3a5f;
-    border-color: #1e3a5f;
+    background: #ffffff; /* Fond blanc au hover */
+    color: #00695c; /* Texte vert */
+    border-color: #00695c;
   }
   .btn-primary:active:not(:disabled) {
-    background: #f3f2ef;
-    color: #1e3a5f;
+    transform: scale(0.98);
   }
-  /* --- Variante Secondaire: Blanc avec texte bleu foncé --- */
+  
+  /* --- Variante Secondaire: Fond blanc avec texte sombre --- */
   .btn-secondary {
-    background: white;
-    color: #1e3a5f;
-    border: 2px solid #1e3a5f;
-    font-weight: 500;
-    transition: all 0.2s ease;
+    background: #ffffff;
+    color: #333333; /* Gris foncé */
+    border: 2px solid #333333;
+    transition: all 0.3s ease;
   }
   .btn-secondary:hover:not(:disabled) {
-    background: #1e3a5f;
-    color: white;
-    border-color: #1e3a5f;
+    background: #333333; /* Fond gris foncé au hover */
+    color: #ffffff; /* Texte blanc */
+    border-color: #333333;
   }
   .btn-secondary:active:not(:disabled) {
-    background: #2c4a70;
-    color: white;
+    transform: scale(0.98);
   }
   /* --- Tailles --- */
   .btn-small {
@@ -144,9 +145,9 @@ const relValue = rel || (target === '_blank' ? 'noopener noreferrer' : undefined
     font-size: 0.9375rem;
   }
   .btn-large {
-    /* Taille big pour Hero et CTA importants */
-    padding: 18px 40px;
-    font-size: 17px;
+    /* Taille pour Hero et CTA importants - réduite */
+    padding: 14px 32px;
+    font-size: 16px;
     font-weight: 600;
     letter-spacing: 0.02em;
     gap: 0.625rem;
@@ -154,5 +155,7 @@ const relValue = rel || (target === '_blank' ? 'noopener noreferrer' : undefined
   /* --- Largeur Pleine --- */
   .btn-full {
     width: 100%;
+    max-width: 100%;
+    white-space: normal; /* Permet le retour à la ligne si nécessaire */
   }
 </style>

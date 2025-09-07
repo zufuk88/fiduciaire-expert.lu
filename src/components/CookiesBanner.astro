@@ -66,9 +66,9 @@ const privacyLink = lang === 'fr' ? '/fr/politique-confidentialite' : '/en/priva
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
-    border-top: 1px solid #e2e8f0;
-    box-shadow: 0 -4px 20px -4px rgba(0, 0, 0, 0.08);
+    background: var(--white);
+    border-top: 1px solid var(--card-border);
+    box-shadow: 0 -4px 20px -4px var(--card-shadow-lg);
     padding: 1rem 0;
     z-index: 9999;
     opacity: 0;
@@ -111,9 +111,9 @@ const privacyLink = lang === 'fr' ? '/fr/politique-confidentialite' : '/en/priva
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(96, 165, 250, 0.05));
+    background: var(--bg);
     border-radius: 8px;
-    color: #3b82f6;
+    color: var(--accent);
   }
   
   .cookies-icon svg {
@@ -123,13 +123,14 @@ const privacyLink = lang === 'fr' ? '/fr/politique-confidentialite' : '/en/priva
   
   .cookies-message {
     margin: 0;
-    font-size: 0.875rem;
-    color: #475569;
+    font-family: var(--font-family);
+    font-size: var(--text-sm);
+    color: var(--fg-secondary);
     line-height: 1.5;
   }
   
   .cookies-link {
-    color: #3b82f6;
+    color: var(--accent);
     text-decoration: none;
     font-weight: 500;
     margin-left: 0.25rem;
@@ -149,8 +150,9 @@ const privacyLink = lang === 'fr' ? '/fr/politique-confidentialite' : '/en/priva
   
   .cookies-btn {
     padding: 0.5rem 1.25rem;
-    border-radius: 2px;
-    font-size: 0.875rem;
+    border-radius: 8px;
+    font-family: var(--font-family);
+    font-size: var(--text-sm);
     font-weight: 500;
     border: none;
     cursor: pointer;
@@ -160,25 +162,25 @@ const privacyLink = lang === 'fr' ? '/fr/politique-confidentialite' : '/en/priva
   
   .cookies-btn-decline {
     background: transparent;
-    color: #64748b;
-    border: 1px solid #e2e8f0;
+    color: var(--gray-muted);
+    border: 1px solid var(--card-border);
   }
   
   .cookies-btn-decline:hover {
-    background: #f8fafc;
-    border-color: #cbd5e1;
+    background: var(--bg);
+    border-color: var(--gray-light);
   }
   
   .cookies-btn-accept {
-    background: #3b82f6;
-    color: white;
-    border: 1px solid #3b82f6;
+    background: var(--accent);
+    color: var(--white);
+    border: 1px solid var(--accent);
   }
   
   .cookies-btn-accept:hover {
-    background: #2563eb;
-    border-color: #2563eb;
-    box-shadow: 0 4px 12px -4px rgba(59, 130, 246, 0.3);
+    background: var(--accent-dark);
+    border-color: var(--accent-dark);
+    box-shadow: 0 4px 12px -4px var(--card-shadow-lg);
   }
   
   /* Mobile responsive */
@@ -206,11 +208,11 @@ const privacyLink = lang === 'fr' ? '/fr/politique-confidentialite' : '/en/priva
     
     .cookies-btn {
       padding: 0.625rem 1rem;
-      font-size: 0.8125rem;
+      font-size: var(--text-sm-mobile);
     }
     
     .cookies-message {
-      font-size: 0.8125rem;
+      font-size: var(--text-sm-mobile);
     }
     
     .cookies-icon {
@@ -228,7 +230,7 @@ const privacyLink = lang === 'fr' ? '/fr/politique-confidentialite' : '/en/priva
     }
     
     .cookies-message {
-      font-size: 0.75rem;
+      font-size: var(--text-xs);
     }
   }
 </style>

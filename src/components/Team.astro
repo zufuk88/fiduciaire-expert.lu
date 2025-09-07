@@ -1,0 +1,271 @@
+---
+import { Image } from 'astro:assets';
+
+export interface Props {
+  title: string;
+  subtitle?: string;
+  members: Array<{
+    name: string;
+    role: string;
+    image: ImageMetadata | string;
+    imageAlt: string;
+    description: string;
+    linkedin?: string;
+  }>;
+}
+
+const { title, subtitle, members } = Astro.props;
+---
+
+<section class="team-section">
+  <div class="container">
+    <div class="team-wrapper">
+      <h2 class="team-title">{title}</h2>
+      {subtitle && <p class="team-subtitle">{subtitle}</p>}
+      
+      <div class="team-grid">
+        {members.map((member) => (
+          <div class="team-card">
+            <div class="member-image-wrapper">
+              {typeof member.image === 'string' ? (
+                <img 
+                  src={member.image} 
+                  alt={member.imageAlt}
+                  class="member-image"
+                  loading="lazy"
+                />
+              ) : (
+                <Image 
+                  src={member.image} 
+                  alt={member.imageAlt}
+                  class="member-image"
+                  width={300}
+                  height={300}
+                  loading="lazy"
+                  quality="mid"
+                />
+              )}
+              {member.linkedin && (
+                <a 
+                  href={member.linkedin} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="linkedin-link"
+                  aria-label={`LinkedIn de ${member.name}`}
+                  title={`Voir le profil LinkedIn de ${member.name}`}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                </a>
+              )}
+            </div>
+            
+            <div class="member-info">
+              <h3 class="member-name">{member.name}</h3>
+              <p class="member-role">{member.role}</p>
+              <p class="member-description">{member.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .team-section {
+    padding: var(--section-padding);
+    width: 100%;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .team-wrapper {
+    background: var(--white);
+    border-radius: 12px;
+    padding: var(--card-padding);
+    box-shadow: 0 2px 8px var(--card-shadow-hover);
+  }
+
+  .team-title {
+    font-family: var(--font-family);
+    font-size: var(--card-title);
+    font-weight: 500;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .team-subtitle {
+    font-family: var(--font-family);
+    font-size: var(--card-subtitle);
+    color: var(--fg-secondary);
+    text-align: center;
+    margin-bottom: 48px;
+    line-height: 1.6;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 32px;
+  }
+
+  .team-card {
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .team-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .member-image-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+
+  .member-image {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--card-border);
+    transition: all 0.3s ease;
+  }
+
+  .team-card:hover .member-image {
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px var(--card-shadow-hover);
+  }
+
+  .linkedin-link {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 36px;
+    height: 36px;
+    background: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0077b5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    border: 2px solid var(--white);
+  }
+
+  .linkedin-link:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 119, 181, 0.3);
+  }
+
+  .member-info {
+    padding: 0 20px;
+  }
+
+  .member-name {
+    font-family: var(--font-family);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 0 0 8px 0;
+  }
+
+  .member-role {
+    font-family: var(--font-family);
+    font-size: var(--text-sm);
+    color: var(--gray-muted);
+    font-weight: 500;
+    margin: 0 0 16px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .member-description {
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    color: var(--fg-secondary);
+    line-height: 1.6;
+    margin: 0;
+    text-align: left;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .team-section {
+      padding: var(--section-padding-tablet);
+    }
+
+    .team-wrapper {
+      padding: var(--card-padding-tablet);
+    }
+
+    .team-title {
+      font-size: var(--card-title-mobile);
+    }
+
+    .team-subtitle {
+      font-size: var(--card-subtitle-mobile);
+      margin-bottom: 36px;
+    }
+
+    .team-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .member-image {
+      width: 150px;
+      height: 150px;
+    }
+
+    .member-name {
+      font-size: 18px;
+    }
+
+    .member-role {
+      font-size: var(--text-xs);
+    }
+
+    .member-description {
+      font-size: var(--text-base-mobile);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .team-section {
+      padding: var(--section-padding-mobile);
+    }
+    
+    .team-wrapper {
+      padding: var(--card-padding-mobile);
+    }
+
+    .member-image {
+      width: 120px;
+      height: 120px;
+      border-width: 3px;
+    }
+
+    .linkedin-link {
+      width: 32px;
+      height: 32px;
+    }
+
+    .linkedin-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .member-info {
+      padding: 0 10px;
+    }
+  }
+</style>
