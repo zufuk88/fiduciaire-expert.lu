@@ -2,7 +2,7 @@
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
 import FAQ from '../../components/FAQ.astro';
-import BlogCarousel from '../../components/BlogCarousel.astro';
+import BlogCards from '../../components/BlogCards.astro';
 import StatsSection from '../../components/StatsSection.astro';
 import ExpertiseSection from '../../components/ExpertiseSection.astro';
 import Services from '../../components/Services.astro';
@@ -223,14 +223,12 @@ const faqItems = [
     variant="vertical"
   />
   <div class="blog-carousel-wrapper">
-    <BlogCarousel
+    <BlogCards
       title="Articles sur la fiscalité au Luxembourg"
       subtitle="Découvrez nos derniers articles et conseils fiscaux"
       lang="fr"
       category="Fiscalité"
       maxPosts={4}
-      ctaText="Voir tous les articles fiscaux"
-      ctaHref="/fr/articles/category/fiscalite"
     />
   </div>
   <FAQ

@@ -3,7 +3,7 @@ import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import LegalFormInfo from '../../components/LegalFormInfo.astro';
 import ProcessTimeline from '../../components/ProcessTimeline.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
-import BlogCarousel from '../../components/BlogCarousel.astro';
+import BlogCards from '../../components/BlogCards.astro';
 import Services from '../../components/Services.astro';
 import FAQ from '../../components/FAQ.astro';
 // --- DONNÉES & SEO (INCHANGÉS) ---
@@ -144,13 +144,12 @@ const constitutionSchema = {
     societyTypes={societyTypes}
     lang="fr"
   />
-  <BlogCarousel
+  <BlogCards
     title="Articles sur la création de société"
     subtitle="Découvrez nos guides détaillés pour chaque forme juridique"
     category="Juridique"
     maxPosts={4}
     lang="fr"
-    backgroundColor="#f1f5f9"
   />
   <Services
     variant="grid"

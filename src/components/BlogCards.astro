@@ -8,19 +8,25 @@ export interface Props {
   subtitle?: string;
   maxPosts?: number;
   lang?: 'fr' | 'en';
+  category?: string;
+  excludeSlug?: string;
 }
 
 const {
   title,
   subtitle,
   maxPosts = 4,
-  lang = 'fr'
+  lang = 'fr',
+  category,
+  excludeSlug
 } = Astro.props;
 
 // Récupérer les articles publiés et triés par date
 const allPosts = await getCollection('blog', ({ data, slug }) => {
   const isCorrectLang = slug.startsWith(`${lang}/`);
-  return data.draft !== true && isCorrectLang;
+  const matchesCategory = category ? data.category === category : true;
+  const isNotExcluded = excludeSlug ? !slug.includes(excludeSlug.replace(`/${lang}/articles/`, '')) : true;
+  return data.draft !== true && isCorrectLang && matchesCategory && isNotExcluded;
 });
 
 const sortedPosts = allPosts
