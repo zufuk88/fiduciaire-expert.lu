@@ -16,7 +16,6 @@ const footerColumns = [
     { href: `/${lang}/${lang === 'en' ? 'tax' : 'fiscalite'}`, text: t('nav.tax') }
   ],
   [
-    { href: `/${lang}/taxpertize`, text: 'Taxpertize', isPremium: true },
     { href: `/${lang}/${lang === 'en' ? 'company-formation-luxembourg' : 'creation-societe-luxembourg'}`, text: t('nav.company-creation') },
     { href: `/${lang}/domiciliation`, text: t('nav.domiciliation') },
     { href: `/${lang}/${lang === 'en' ? 'payroll' : 'paie'}`, text: t('nav.payroll') }
@@ -69,7 +68,7 @@ const footerSchema = {
         {footerColumns.map((column) => (
           <div class="footer-nav-column">
             {column.map((link) => (
-              <a href={link.href} class:list={{'taxpertize-link': link.isPremium}}>{link.text}</a>
+              <a href={link.href}>{link.text}</a>
             ))}
           </div>
         ))}
@@ -239,21 +238,6 @@ const footerSchema = {
   .footer-nav a:hover::before {
     opacity: 1;
     background: var(--footer-fg);
-  }
-  /* Taxpertize - Style spécial */
-  .footer-nav a.taxpertize-link {
-    position: relative;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-  }
-  /* Taxpertize - accent special au hover */
-  .footer-nav a.taxpertize-link:hover {
-    color: var(--footer-fg) !important;
-    padding-left: 8px;
-  }
-  .footer-nav a.taxpertize-link:hover::before {
-    background: var(--footer-fg) !important;
-    opacity: 1;
   }
   /* Contact Column - Style harmonisé avec les autres colonnes */
   .footer-contact-column {

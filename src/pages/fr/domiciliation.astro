@@ -1,15 +1,11 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
-import SectionTitle from '../../components/SectionTitle.astro';
-import ServiceHero from '../../components/ServiceHero.astro';
-import ServiceOverview from '../../components/ServiceOverview.astro';
-import Services from '../../components/Services.astro';
-import ServiceProcess from '../../components/ServiceProcess.astro';
-import ServiceBenefits from '../../components/ServiceBenefits.astro';
-import ServiceRequirements from '../../components/ServiceRequirements.astro';
-import ServicePricing from '../../components/ServicePricing.astro';
 import FAQ from '../../components/FAQ.astro';
+import ContactForm from '../../components/forms/ContactForm.astro';
+import ServiceDetails from '../../components/ServiceDetails.astro';
+import ServiceCards from '../../components/ServiceCards.astro';
+import ServicesList from '../../components/ServicesList.astro';
 
 const metaDescription = "Service de domiciliation d'entreprise au Luxembourg strictement conforme, réservé aux sociétés patrimoniales (SOPARFI, holdings, SPV). Expert-comptable agréé, conformité AML/KYC complète.";
 
@@ -76,246 +72,310 @@ const faqItems = [
       { text: "Domiciliation" }
     ]}
     title="Domiciliation d'entreprise au Luxembourg"
-    subtitle="Service strictement conforme réservé aux sociétés patrimoniales"
+    subtitle="Service strictement conforme réservé aux sociétés patrimoniales. Solution complète de domiciliation pour holdings, SOPARFI et véhicules d'investissement avec conformité AML/KYC intégrale."
   />
 
-  <ServiceHero
-    title="Service de domiciliation professionnelle"
-    subtitle="Expert-comptable agréé Luxembourg"
-    description="Solution complète de domiciliation pour holdings, SOPARFI et véhicules d'investissement. Conformité AML/KYC intégrale et substance fiscale adaptée."
-    stats={[
-      { value: "100%", label: "Conformité" },
-      { value: "24h", label: "Traitement courrier" },
-      { value: "5+", label: "Années d'expérience" }
-    ]}
-    variant="default"
-  />
+  <!-- Layout 2 colonnes avec ContactForm -->
+  <section class="two-columns-section">
+    <div class="container">
+      <div class="columns-wrapper">
+        <div class="left-column">
+          <ServiceDetails
+            services={[
+              {
+                title: "Service de domiciliation professionnelle",
+                description: "Expert-comptable agréé Luxembourg avec 100% de conformité et traitement du courrier sous 24h."
+              },
+              {
+                title: "Ce que nous proposons",
+                description: [
+                  "Service de domiciliation strictement conforme et réservé aux sociétés patrimoniales (SOPARFI/holdings, SPV d'investissement, sociétés de propriété intellectuelle, SPF).",
+                  "Nous exigeons un lien de gestion effectif au Luxembourg et appliquons des contrôles KYC/AML complets.",
+                  "Important : Les activités commerciales opérationnelles (commerce, e-commerce, services exécutés au quotidien) nécessitent une autorisation d'établissement et des locaux appropriés. Une simple domiciliation ne suffit pas pour exploiter ces activités."
+                ]
+              },
+              {
+                title: "Qui peut domicilier ?",
+                description: [
+                  "Seules les professions réglementées établies au Luxembourg (liste limitative) : Établissements de crédit et professionnels du secteur financier (PFS) / du secteur des assurances, Avocats à la Cour (liste I) et avocats européens (liste IV), Réviseurs d'entreprises / réviseurs agréés, Experts-comptables (inscrits à l'OEC).",
+                  "Nous sommes expert-comptable agréé et intervenons dans ce cadre, selon des procédures internes strictes."
+                ]
+              }
+            ]}
+          />
+        </div>
+        <div class="right-column">
+          <ContactForm lang="fr" />
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <SectionTitle title="Ce que nous proposons" />
-  <ServiceOverview
-    lead="Service de domiciliation strictement conforme et réservé aux sociétés patrimoniales (SOPARFI/holdings, SPV d'investissement, sociétés de propriété intellectuelle, SPF)."
-    content="<p>Nous exigeons un lien de gestion effectif au Luxembourg et appliquons des contrôles KYC/AML complets.</p>"
-    alert={{
-      type: 'important',
-      title: 'Important',
-      message: "Les activités commerciales opérationnelles (commerce, e-commerce, services exécutés au quotidien) nécessitent une autorisation d'établissement et des locaux appropriés. Une simple domiciliation ne suffit pas pour exploiter ces activités."
-    }}
-  />
-
-  <SectionTitle 
-    title="Base légale et périmètre"
-    subtitle="Cadre réglementaire strict au Luxembourg"
-  />
-  <Services
-    variant="highlight"
-    services={[
+  <!-- Base légale et conditions avec ServiceCards -->
+  <ServiceCards
+    title="Base légale et conditions d'éligibilité"
+    subtitle="Cadre réglementaire strict au Luxembourg et critères requis"
+    lang="fr"
+    cards={[
       {
-        icon: "fas fa-gavel",
-        title: "Loi du 31 mai 1999",
-        description: "Régissant la domiciliation des sociétés (version consolidée)"
+        title: "Base légale",
+        description: "Cadre juridique luxembourgeois",
+        features: [
+          "Loi du 31 mai 1999 régissant la domiciliation des sociétés",
+          "Loi du 12 novembre 2004 relative à la lutte AML/CFT",
+          "Droit d'établissement (loi modifiée du 2 septembre 2011)",
+          "Locaux appropriés requis pour les activités soumises"
+        ]
       },
       {
-        icon: "fas fa-shield-alt",
-        title: "Loi du 12 novembre 2004",
-        description: "Relative à la lutte contre le blanchiment de capitaux et le financement du terrorisme (AML/CFT), telle que modifiée"
-      },
-      {
-        icon: "fas fa-building",
-        title: "Droit d'établissement",
-        description: "Loi modifiée du 2 septembre 2011 (locaux appropriés requis pour les activités soumises)"
-      }
-    ]}
-  />
-
-  <SectionTitle title="Qui peut domicilier ?" />
-  <ServiceOverview
-    lead="Seules les professions réglementées établies au Luxembourg (liste limitative) :"
-    highlights={[
-      "Établissements de crédit et professionnels du secteur financier (PFS) / du secteur des assurances",
-      "Avocats à la Cour (liste I) et avocats européens (liste IV)",
-      "Réviseurs d'entreprises / réviseurs agréés",
-      "Experts-comptables (inscrits à l'OEC)"
-    ]}
-    content="<p><strong>Nous sommes expert-comptable agréé et intervenons dans ce cadre, selon des procédures internes strictes.</strong></p>"
-  />
-
-  <SectionTitle title="Conditions d'éligibilité" />
-  <Services
-    variant="grid"
-    services={[
-      {
-        icon: "fas fa-chart-line",
         title: "Objet non commercial",
-        description: "Holding/financement, détention d'actifs, IP holding, véhicule d'investissement. Pour les activités commerciales : l'adresse de domiciliation ne remplace pas les locaux physiques requis."
+        description: "Types de sociétés éligibles",
+        features: [
+          "Holding et financement intragroupe",
+          "Détention d'actifs patrimoniaux",
+          "IP holding (propriété intellectuelle)",
+          "Véhicule d'investissement",
+          "L'adresse ne remplace pas les locaux d'exploitation"
+        ]
       },
       {
-        icon: "fas fa-map-marker-alt",
-        title: "Siège de direction effective",
-        description: "Réunions de gérance/conseil tenues au Luxembourg, décisions stratégiques prises au Luxembourg, signature locale prévue au besoin"
+        title: "Direction effective",
+        description: "Présence réelle au Luxembourg",
+        features: [
+          "Réunions de gérance/conseil au Luxembourg",
+          "Décisions stratégiques prises localement",
+          "Signature locale prévue au besoin",
+          "Secrétariat juridique sur place",
+          "Tenue des registres au Luxembourg"
+        ]
       },
       {
-        icon: "fas fa-layer-group",
-        title: "Substance adaptée",
-        description: "Secrétariat juridique, tenue des registres, comptabilité locale, prestataires et comptes bancaires opérationnels au Luxembourg"
-      },
-      {
-        icon: "fas fa-user-check",
         title: "Conformité KYC/AML",
-        description: "Identification des dirigeants, UBO, origine des fonds, évaluation de risque, monitoring continu"
+        description: "Contrôles obligatoires",
+        features: [
+          "Identification complète des dirigeants",
+          "Documentation des UBO",
+          "Vérification de l'origine des fonds",
+          "Évaluation de risque approfondie",
+          "Monitoring continu de la relation"
+        ]
       }
     ]}
   />
 
-  <SectionTitle title="Ce que comprend la domiciliation" />
-  <ServiceBenefits
-    benefits={[
+  <!-- Services inclus avec ServiceCards -->
+  <ServiceCards
+    title="Ce que comprend la domiciliation"
+    subtitle="Services complets pour votre siège social au Luxembourg"
+    lang="fr"
+    cards={[
       {
-        icon: "fas fa-map-pin",
-        title: "Adresse de siège social",
-        description: "Dans un quartier d'affaires à Luxembourg"
+        title: "Services de base",
+        description: "Prestations essentielles incluses",
+        features: [
+          "Adresse de siège social dans un quartier d'affaires",
+          "Réception et tri du courrier postal",
+          "Scan et notification des courriers importants",
+          "Conservation sécurisée des documents",
+          "Remise du courrier selon vos instructions"
+        ]
       },
       {
-        icon: "fas fa-envelope",
-        title: "Gestion du courrier",
-        description: "Réception, tri, scan/notification, conservation et remise sécurisée"
+        title: "Secrétariat juridique",
+        description: "Support administratif complet",
+        features: [
+          "Tenue du registre des sociétés domiciliées",
+          "Rappels des échéances légales",
+          "Assistance pour les formalités RESA/RCS",
+          "Préparation des réunions statutaires",
+          "Conservation des procès-verbaux"
+        ]
       },
       {
-        icon: "fas fa-file-alt",
-        title: "Secrétariat légal",
-        description: "Tenue d'un registre des sociétés domiciliées, rappels d'échéances, assistance RESA/RCS"
-      },
-      {
-        icon: "fas fa-users",
-        title: "Salles de réunion",
-        description: "Sur réservation pour les conseils d'administration/gérance"
-      },
-      {
-        icon: "fas fa-phone",
         title: "Services additionnels",
-        description: "Ligne d'accueil (option) et agenda de signatures"
+        description: "Options disponibles sur demande",
+        features: [
+          "Salles de réunion sur réservation",
+          "Ligne d'accueil téléphonique dédiée",
+          "Agenda de signatures local",
+          "Scans quotidiens du courrier",
+          "Secrétariat renforcé"
+        ]
       },
       {
-        icon: "fas fa-shield-alt",
         title: "Conformité AML",
-        description: "KYC/AML initial et revues annuelles"
+        description: "Contrôles réglementaires",
+        features: [
+          "KYC/AML initial complet",
+          "Revues annuelles obligatoires",
+          "Screening sanctions et PEP",
+          "Mise à jour des dossiers",
+          "Reporting réglementaire"
+        ]
       }
     ]}
-    columns={3}
   />
 
-  <SectionTitle title="Procédure en 4 étapes" />
-  <ServiceProcess
-    steps={[
-      {
-        title: "Pré-KYC & admissibilité",
-        description: "Informations sur l'activité, organigramme, UBO, origine des fonds, screening sanctions/PEP",
-        duration: "2-3 jours"
-      },
-      {
-        title: "Contrat de domiciliation écrit",
-        description: "Description des services, obligations réciproques, pouvoirs de notification RCS/RESA et clauses de résiliation",
-        duration: "1 jour"
-      },
-      {
-        title: "Mise en place",
-        description: "Ouverture des services, planification des réunions au Luxembourg, désignation des signataires/mandataires locaux",
-        duration: "3-5 jours"
-      },
-      {
-        title: "Suivi continu",
-        description: "Conservation des pièces, mises à jour KYC, rappels juridiques (AGO, dépôts), contrôles de substance",
-        duration: "Permanent"
-      }
+  <!-- Procédure avec ServicesList -->
+  <ServicesList
+    title="Procédure en 4 étapes"
+    subtitle="Mise en place rapide et conforme de votre domiciliation"
+    services={[
+      "**Étape 1 : Pré-KYC & admissibilité (2-3 jours)**",
+      "Informations sur l'activité et l'organigramme de la société",
+      "Identification des UBO et origine des fonds",
+      "Screening sanctions et personnes politiquement exposées (PEP)",
+      "Évaluation du profil de risque AML/CFT",
+      "",
+      "**Étape 2 : Contrat de domiciliation écrit (1 jour)**",
+      "Description détaillée des services fournis",
+      "Définition des obligations réciproques",
+      "Pouvoirs de notification RCS/RESA en cas de résiliation",
+      "Clauses de résiliation et conditions de sortie",
+      "",
+      "**Étape 3 : Mise en place (3-5 jours)**",
+      "Ouverture des services de domiciliation",
+      "Planification des réunions statutaires au Luxembourg",
+      "Désignation des signataires et mandataires locaux",
+      "Mise en place des procédures de gestion du courrier",
+      "",
+      "**Étape 4 : Suivi continu (permanent)**",
+      "Conservation des pièces légales pendant 5 ans minimum",
+      "Mises à jour annuelles du dossier KYC",
+      "Rappels des échéances juridiques (AGO, dépôts)",
+      "Contrôles réguliers de la substance économique"
     ]}
-    variant="timeline"
   />
 
-  <SectionTitle 
+  <!-- Obligations avec ServiceCards -->
+  <ServiceCards
     title="Obligations du domiciliataire"
     subtitle="Extraits des obligations légales principales"
-  />
-  <ServiceRequirements
-    categories={[
+    lang="fr"
+    cards={[
       {
         title: "Obligations précontractuelles",
-        icon: "fas fa-clipboard-check",
-        items: [
-          "Vérifier la conformité de la société aux règles du droit des sociétés",
-          "Contrôler le respect du droit d'établissement avant contrat",
-          "Évaluer le profil de risque AML/CFT"
+        description: "Vérifications avant signature",
+        features: [
+          "Vérifier la conformité aux règles du droit des sociétés",
+          "Contrôler le respect du droit d'établissement",
+          "Évaluer le profil de risque AML/CFT",
+          "Vérifier l'absence de sanctions internationales",
+          "Documenter l'analyse préalable"
         ]
       },
       {
         title: "Obligations de documentation",
-        icon: "fas fa-folder-open",
-        items: [
+        description: "Conservation des pièces",
+        features: [
           "Identifier et documenter l'organe de gestion",
           "Identifier l'ayant droit économique (UBO)",
-          "Conserver les pièces ≥ 5 ans après la fin de la relation"
+          "Conserver les pièces ≥ 5 ans après fin de relation",
+          "Tenir un registre des sociétés domiciliées",
+          "Archiver tous les échanges importants"
         ]
       },
       {
         title: "Obligations de notification",
-        icon: "fas fa-bell",
-        items: [
-          "Mettre fin au contrat en cas d'infraction constatée",
+        description: "Devoirs d'information",
+        features: [
+          "Mettre fin au contrat si infraction constatée",
           "Notifier le RCS de toute cessation",
-          "Informer la CSSF si société soumise (préavis 1 mois)"
+          "Informer la CSSF si société soumise (préavis 1 mois)",
+          "Déposer l'avis de cessation au RCS",
+          "Information au Procureur d'État via RCS"
         ]
       }
     ]}
-    note="Le domiciliataire dépose l'avis de cessation au RCS, la publication au RESA est effectuée, et le gestionnaire du RCS informe le Procureur d'État."
   />
 
-  <SectionTitle title="Sanctions et risques en cas de non-conformité" />
-  <Services
-    variant="cards"
-    services={[
+  <!-- Sanctions avec ServiceCards -->
+  <ServiceCards
+    title="Sanctions et risques en cas de non-conformité"
+    subtitle="Conséquences légales des manquements aux obligations"
+    lang="fr"
+    cards={[
       {
-        icon: "fas fa-ban",
         title: "Domiciliation illégale",
-        description: "Exercer la domiciliation sans être habilité : emprisonnement de 8 jours à 5 ans et/ou amende de 1 250 € à 125 000 €"
+        description: "Exercer sans être habilité",
+        features: [
+          "Emprisonnement de 8 jours à 5 ans",
+          "Amende de 1 250 € à 125 000 €",
+          "Sanctions cumulables",
+          "Interdiction d'exercer possible"
+        ]
       },
       {
-        icon: "fas fa-file-contract",
         title: "Absence de contrat écrit",
-        description: "Domicilier sans contrat écrit : emprisonnement de 8 jours à 5 ans et/ou amende de 1 250 € à 125 000 €"
+        description: "Domicilier sans contrat",
+        features: [
+          "Mêmes peines que domiciliation illégale",
+          "Nullité de la domiciliation",
+          "Responsabilité civile engagée",
+          "Sanctions disciplinaires OEC"
+        ]
       },
       {
-        icon: "fas fa-exclamation-triangle",
         title: "Manquements graves",
-        description: "Domiciliation irrégulière d'une société commerciale : fermeture ou liquidation judiciaire possible"
+        description: "Domiciliation irrégulière",
+        features: [
+          "Fermeture administrative possible",
+          "Liquidation judiciaire de la société",
+          "Perte du siège social",
+          "Conséquences fiscales graves"
+        ]
       },
       {
-        icon: "fas fa-gavel",
         title: "Résiliation/dénonciation",
-        description: "Publication RESA, perte du domicile légal, information du Procureur d'État"
+        description: "Fin de domiciliation",
+        features: [
+          "Publication obligatoire au RESA",
+          "Perte du domicile légal",
+          "Information du Procureur d'État",
+          "Délai de régularisation court"
+        ]
       }
     ]}
   />
 
-  <SectionTitle 
+  <!-- Tarification avec ServiceCards -->
+  <ServiceCards
     title="Tarification"
     subtitle="Tarifs transparents adaptés à vos besoins"
-  />
-  <ServicePricing
-    items={[
+    lang="fr"
+    cards={[
       {
-        label: "Domiciliation standard",
-        price: "À partir de 150€",
-        unit: "mois",
-        description: "Sociétés patrimoniales simples, risque AML standard",
-        highlighted: true
+        title: "Domiciliation standard",
+        description: "Sociétés patrimoniales simples avec risque AML standard",
+        features: [
+          "Adresse de siège social prestigieuse",
+          "Gestion complète du courrier",
+          "Secrétariat juridique de base",
+          "KYC/AML et revues annuelles",
+          "Rappels des échéances légales"
+        ],
+        price: "À partir de 150€/mois"
       },
       {
-        label: "Options additionnelles",
-        price: "Sur devis",
-        description: "Ligne d'accueil, salles de réunion, scans quotidiens, secrétariat renforcé"
+        title: "Options additionnelles",
+        description: "Services complémentaires sur mesure",
+        features: [
+          "Ligne d'accueil téléphonique dédiée",
+          "Salles de réunion équipées",
+          "Scans quotidiens du courrier",
+          "Secrétariat renforcé",
+          "Services de représentation"
+        ],
+        price: "Sur devis"
       }
     ]}
-    note="Le prix final dépend du profil de risque AML, du niveau de substance attendu et de la complexité du groupe. Un devis détaillé est émis après pré-KYC."
-    variant="list"
   />
+
+  <section class="pricing-note">
+    <div class="container">
+      <p class="note-text">Le prix final dépend du profil de risque AML, du niveau de substance attendu et de la complexité du groupe. Un devis détaillé est émis après pré-KYC.</p>
+    </div>
+  </section>
 
   <FAQ
     title="FAQ express"
@@ -324,3 +384,71 @@ const faqItems = [
     generateSchema={true}
   />
 </LayoutI18n>
+
+<style>
+  .two-columns-section {
+    padding: var(--section-padding);
+    background: var(--bg);
+  }
+
+  .container {
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--section-padding-x);
+  }
+
+  .columns-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: var(--gap-lg, 40px);
+    align-items: start;
+  }
+
+  .left-column {
+    flex: 1;
+  }
+
+  .right-column {
+    position: sticky;
+    top: var(--header-height, 100px);
+  }
+
+  .pricing-note {
+    padding: var(--section-padding-x);
+    background: var(--bg);
+    margin-top: calc(var(--gap-lg, 40px) * -1);
+  }
+
+  .note-text {
+    text-align: center;
+    color: var(--fg-secondary);
+    font-style: italic;
+    margin: 0;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .columns-wrapper {
+      grid-template-columns: 1fr;
+      gap: var(--gap-md, 30px);
+    }
+
+    .right-column {
+      position: static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .two-columns-section {
+      padding: var(--section-padding-tablet);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .two-columns-section {
+      padding: var(--section-padding-mobile);
+    }
+  }
+</style>

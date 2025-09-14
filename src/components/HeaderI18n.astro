@@ -19,9 +19,10 @@ const navItems = [
     subItems: [
       { href: `/${lang}/${lang === 'en' ? 'accounting' : 'comptabilite'}`, text: t('nav.accounting') },
       { href: `/${lang}/${lang === 'en' ? 'tax' : 'fiscalite'}`, text: t('nav.tax') },
-      { href: `/${lang}/taxpertize`, text: lang === 'fr' ? 'Conseil fiscal (Taxpertize by Fiduciaire Expert)' : 'Tax Advisory (Taxpertize by Fiduciaire Expert)', isSubItem: true },
       { href: `/${lang}/${lang === 'en' ? 'company-formation-luxembourg' : 'creation-societe-luxembourg'}`, text: t('nav.company-creation') },
-      { href: `/${lang}/${lang === 'en' ? 'payroll' : 'paie'}`, text: t('nav.payroll') }
+      { href: `/${lang}/domiciliation`, text: t('nav.domiciliation') },
+      { href: `/${lang}/${lang === 'en' ? 'payroll' : 'paie'}`, text: t('nav.payroll') },
+      { href: `/${lang}/${lang === 'en' ? 'training' : 'formations'}`, text: t(lang === 'en' ? 'nav.training' : 'nav.formations') }
     ]
   },
   { href: `/${lang}/articles`, text: t('nav.articles'), title: t('nav.articles') },
@@ -295,21 +296,6 @@ const isActive = (path: string) => {
       background: var(--bg);
       text-decoration: none;
       border-left-color: var(--accent);
-    }
-    /* Style pour Taxpertize - sous-élément de Fiscalité */
-    .submenu a.sub-item {
-      padding-left: 32px;
-      font-size: 13px;
-      color: var(--gray-muted);
-      background: transparent;
-      border-left: 2px solid var(--card-border);
-      margin-left: 12px;
-      font-weight: 400;
-    }
-    .submenu a.sub-item:hover {
-      color: var(--fg-secondary);
-      background: var(--bg);
-      border-left-color: var(--gray-muted);
     }
   }
   @media (max-width: 991px) {

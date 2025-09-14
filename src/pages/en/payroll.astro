@@ -2,8 +2,13 @@
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
 import FAQ from '../../components/FAQ.astro';
-import ProcessTimeline from '../../components/ProcessTimeline.astro';
+import ContactForm from '../../components/forms/ContactForm.astro';
+import ServiceDetails from '../../components/ServiceDetails.astro';
+import ServiceCards from '../../components/ServiceCards.astro';
+import ServicesList from '../../components/ServicesList.astro';
+
 const metaDescription = "Payroll outsourcing in Luxembourg. Complete and compliant service: payslips, CCSS/CNS declarations, HR management. Experts in Luxembourg labor law.";
+
 const payrollSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -20,6 +25,7 @@ const payrollSchema = {
   },
   "description": metaDescription
 };
+
 const faqItems = [
   {
     question: "What is the cost of outsourcing payroll in Luxembourg?",
@@ -60,448 +66,224 @@ const faqItems = [
     title="Payroll outsourcing in Luxembourg"
     subtitle="Turnkey Luxembourg payroll: compliant payslips, CCSS declarations via SECUline, MyGuichet tax cards, withholding tax form 950, annual certificates and sick leave/accident management, with deadlines met."
   />
-  <!-- Introduction Section -->
-  <section class="section-white">
+
+  <!-- 2-column layout with ContactForm -->
+  <section class="two-columns-section">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Comprehensive payroll and social obligations management</h2>
-        <p class="section-subtitle">We handle your employees' payroll in compliance with laws, regulations and collective agreements.</p>
-      </div>
-    </div>
-  </section>
-  <!-- Main Services Section -->
-  <section class="section-grey">
-    <div class="container">
-      <div class="services-grid">
-        <div class="service-block">
-          <div class="service-header">
-            <div class="service-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                <line x1="16" y1="2" x2="16" y2="6"/>
-                <line x1="8" y1="2" x2="8" y2="6"/>
-                <line x1="3" y1="10" x2="21" y2="10"/>
-              </svg>
-            </div>
-            <h3>Payslip preparation and monitoring</h3>
-          </div>
-          <ul class="service-list">
-            <li>Accurate calculation of fixed and variable salaries, bonuses, <a href="/en/articles/benefits-in-kind-luxembourg-company-car-housing" style="color: #005fcc; text-decoration: underline;">benefits in kind</a> and allowances</li>
-            <li>Preparation and mandatory monthly delivery of payslips with all legal requirements</li>
-            <li>Issuance of payroll journal and monitoring of adjustments</li>
-            <li>Issuance of annual remuneration certificates for each employee and filing of ECSP to ACD via MyGuichet before March 1st</li>
-            <li>Electronic tax card consultation on MyGuichet (mandatory since 01/01/2022, no more paper cards)</li>
-          </ul>
+      <div class="columns-wrapper">
+        <div class="left-column">
+          <ServiceDetails
+            services={[
+              {
+                title: "Comprehensive payroll and social obligations management",
+                description: "We handle your employees' payroll in compliance with laws, regulations and collective agreements."
+              },
+              {
+                title: "Expertise in Luxembourg labor law",
+                description: [
+                  "Payroll management in Luxembourg requires perfect mastery of the Labor Code, sector collective agreements and social obligations. Our specialized team ensures permanent monitoring of legislative and regulatory changes.",
+                  "We manage all aspects of payroll: calculation of salaries and benefits in kind, preparation of compliant payslips, CCSS declarations via SECUline, withholding tax management (form 950), issuance of annual certificates and monitoring of work incapacities.",
+                  "Our service also includes complete HR support: drafting employment contracts, managing entries/exits, organizing mandatory medical examinations and assistance during ITM or CCSS inspections."
+                ]
+              },
+              {
+                title: "Digital and secure solution",
+                description: [
+                  "We use official Luxembourg administration tools (MyGuichet, SECUline) to guarantee compliance of all declarations. Electronic tax cards are consulted directly on MyGuichet, in accordance with the obligation in force since 2022.",
+                  "Your secure portal allows you to transmit monthly variables and consult all payroll documents. 10-year legal archiving is ensured in compliance with GDPR."
+                ]
+              }
+            ]}
+          />
         </div>
-        <div class="service-block">
-          <div class="service-header">
-            <div class="service-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                <circle cx="9" cy="7" r="4"/>
-                <path d="M20 8v6"/>
-                <path d="M23 11h-6"/>
-              </svg>
-            </div>
-            <h3>Mandatory social declarations (CCSS)</h3>
-          </div>
-          <ul class="service-list">
-            <li>Entry declaration within 8 days via SECUline (DECAFF); if no registration number: DEMMAT then DECAFF</li>
-            <li>Exit declaration within 8 days to CCSS</li>
-            <li>Monthly remuneration and hours declarations via SECUline</li>
-            <li>Verification of monthly CCSS invoices</li>
-            <li>Incapacity management: employee sends IT to CNS by 3rd working day at latest; employer declares periods to CCSS; accidents to be declared to AAA (via MyGuichet)</li>
-            <li>Withholding tax declaration (form 950 via MyGuichet) within 10 days: monthly if ≥ €750, quarterly €75-750, annual < €75</li>
-          </ul>
-        </div>
-        <div class="service-block">
-          <div class="service-header">
-            <div class="service-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <polyline points="14 2 14 8 20 8"/>
-                <line x1="16" y1="13" x2="8" y2="13"/>
-                <line x1="16" y1="17" x2="8" y2="17"/>
-              </svg>
-            </div>
-            <h3>HR formalities and legal compliance</h3>
-          </div>
-          <ul class="service-list">
-            <li>Organization of mandatory pre-employment medical examination with an occupational health service (STM, ASTF, etc.)</li>
-            <li>Complete management of entries and exits (work certificates, attestations required by competent institutions, final settlement)</li>
-            <li>Application of sectoral collective agreements in force (Commerce, Banks, Horeca...)</li>
-          </ul>
-        </div>
-        <div class="service-block">
-          <div class="service-header">
-            <div class="service-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <polyline points="12 6 12 12 16 14"/>
-              </svg>
-            </div>
-            <h3>Social advisory and assistance</h3>
-          </div>
-          <ul class="service-list">
-            <li>Support during tax or social inspections</li>
-            <li>Drafting and updating employment contracts (permanent, fixed-term, apprentices, students)</li>
-            <li>Management of disciplinary procedures and contract terminations</li>
-          </ul>
+        <div class="right-column">
+          <ContactForm lang="en" />
         </div>
       </div>
     </div>
   </section>
-  <!-- Methodology Section -->
-  <ProcessTimeline
-    title="Our 4-step methodology"
-    steps={[
+
+  <!-- Main services with ServiceCards -->
+  <ServiceCards
+    title="Our payroll management services"
+    subtitle="A complete solution for managing your social and salary obligations"
+    lang="en"
+    cards={[
       {
-        number: "1",
-        title: "Onboarding and affiliation",
-        description: [
-          "Affiliation with occupational health service and organization of mandatory pre-employment medical examination",
-          "Entry declaration to the Joint Social Security Center within 8 days via SECUline",
-          "National registration number request if first affiliation",
+        title: "Payslip preparation and monitoring",
+        description: "Complete monthly payroll management",
+        features: [
+          "Accurate calculation of fixed and variable salaries, bonuses and benefits in kind",
+          "Preparation and monthly delivery of compliant payslips",
+          "Issuance of payroll journal and monitoring of adjustments",
+          "Annual remuneration certificates and ECSP filing before March 1st",
           "Electronic tax card consultation on MyGuichet"
         ]
       },
       {
-        number: "2",
-        title: "Monthly payroll management",
-        description: [
-          "Salary calculation and preparation of payslips with all mandatory legal requirements",
-          "Declaration of remuneration and hours worked to the Joint Center via SECUline",
-          "Verification of monthly Joint Center invoices"
+        title: "CCSS social declarations",
+        description: "Social security compliance",
+        features: [
+          "Entry declaration within 8 days via SECUline (DECAFF)",
+          "Exit declaration within 8 days to CCSS",
+          "Monthly remuneration declarations via SECUline",
+          "Verification of monthly CCSS invoices",
+          "Incapacity and accident management (CNS/AAA)",
+          "Withholding tax form 950 within 10 days"
         ]
       },
       {
-        number: "3",
-        title: "Tax and social declarations",
-        description: [
-          "Withholding tax declaration (form 950) within 10 days after the period",
-          "Adapted frequency: monthly if above 750 euros, quarterly between 75 and 750 euros, annual if below 75 euros",
-          "Management of sick leave and work accidents"
+        title: "HR formalities and compliance",
+        description: "Complete legal support",
+        features: [
+          "Pre-employment medical examination organization (STM, ASTF)",
+          "Entry/exit management and work certificates",
+          "Application of sector collective agreements",
+          "Drafting and updating employment contracts",
+          "Disciplinary procedures management",
+          "Support during ITM/CCSS inspections"
         ]
       },
       {
-        number: "4",
-        title: "Annual closure",
-        description: [
-          "Issuance of annual remuneration certificates for each employee",
-          "Filing of salary and pension account statements to the Direct Tax Administration before March 1st via MyGuichet",
-          "Secure archiving of documents for 10 years"
+        title: "Social advisory and assistance",
+        description: "Permanent expert support",
+        features: [
+          "Legislative and regulatory monitoring",
+          "Tax and social inspection assistance",
+          "Cross-border employee management",
+          "Severance payment calculation",
+          "Social charges optimization",
+          "Employer obligations training"
         ]
       }
     ]}
-    variant="vertical"
   />
-  <!-- Advantages Section -->
-  <section class="section-grey">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Why outsource payroll with our fiduciary?</h2>
-      </div>
-      <div class="advantages-grid">
-        <div class="advantage-card">
-          <div class="advantage-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-          </div>
-          <h3>Legal security</h3>
-          <p>Compliance with Labor Code and social security</p>
-        </div>
-        <div class="advantage-card">
-          <div class="advantage-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/>
-              <polyline points="12 6 12 12 16 14"/>
-            </svg>
-          </div>
-          <h3>Time savings</h3>
-          <p>Streamlined administrative management to focus on your business</p>
-        </div>
-        <div class="advantage-card">
-          <div class="advantage-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-            </svg>
-          </div>
-          <h3>Confidentiality</h3>
-          <p>Secure processing of HR data</p>
-        </div>
-      </div>
-    </div>
-  </section>
+
+  <!-- Methodology with ServicesList -->
+  <ServicesList
+    title="Our 4-step methodology"
+    subtitle="A structured process for optimal payroll management"
+    services={[
+      "**Step 1: Onboarding and affiliation**",
+      "Affiliation with occupational health service and organization of mandatory pre-employment medical examination",
+      "Entry declaration to the Joint Social Security Center within 8 days via SECUline",
+      "National registration number request if first affiliation",
+      "Electronic tax card consultation on MyGuichet",
+      "",
+      "**Step 2: Monthly payroll management**",
+      "Salary calculation and preparation of payslips with all mandatory legal requirements",
+      "Declaration of remuneration and hours worked to the Joint Center via SECUline",
+      "Verification of monthly Joint Center invoices",
+      "",
+      "**Step 3: Tax and social declarations**",
+      "Withholding tax declaration (form 950) within 10 days after the period",
+      "Adapted frequency: monthly if above €750, quarterly between €75 and €750, annual if below €75",
+      "Management of sick leave and work accidents",
+      "",
+      "**Step 4: Annual closure**",
+      "Issuance of annual remuneration certificates for each employee",
+      "Filing of salary and pension account statements to the Direct Tax Administration before March 1st via MyGuichet",
+      "Secure archiving of documents for 10 years"
+    ]}
+  />
+
+  <!-- Advantages with simplified ServiceCards -->
+  <ServiceCards
+    title="Why outsource payroll with our fiduciary?"
+    subtitle="Key advantages of our outsourcing solution"
+    lang="en"
+    cards={[
+      {
+        title: "Legal security",
+        description: "Guaranteed compliance with Luxembourg Labor Code and social security obligations. Permanent updates according to legislative changes.",
+        features: [
+          "Labor Code compliance",
+          "CCSS/CNS conformity",
+          "Regulatory monitoring",
+          "Risk minimization"
+        ]
+      },
+      {
+        title: "Time savings",
+        description: "Free yourself from time-consuming administrative tasks to focus on your core business.",
+        features: [
+          "Streamlined administration",
+          "Automated processes",
+          "Deadlines respected",
+          "Focus on your activity"
+        ]
+      },
+      {
+        title: "Confidentiality",
+        description: "Maximum protection of your sensitive HR data with strict security protocols.",
+        features: [
+          "Secured data",
+          "GDPR compliance",
+          "Restricted access",
+          "Secure archiving"
+        ]
+      }
+    ]}
+  />
+
+  <!-- FAQ -->
   <FAQ
     title="Frequently asked questions about payroll management"
     subtitle="Everything you need to know about outsourcing your payroll in Luxembourg"
     faqItems={faqItems}
-    
     generateSchema={true}
   />
 </LayoutI18n>
+
 <style>
-  :root {
-    --color-primary: #005fcc;
-    --color-dark: #0f172a;
-    --color-text: #334155;
-    --color-text-secondary: #64748b;
-    --color-background: #ffffff;
-    --color-grey-light: #f8fafc;
-    --color-grey: #f1f5f9;
-    --color-border: #e2e8f0;
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  .two-columns-section {
+    padding: var(--section-padding);
+    background: var(--bg);
   }
-  /* Sections */
-  .section-white {
-    background: var(--color-background);
-    padding: 5rem 0;
-    position: relative;
-  }
-  .section-grey {
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-    padding: 5rem 0;
-    position: relative;
-    overflow: hidden;
-  }
-  .section-grey::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: radial-gradient(circle at 1px 1px, rgba(0, 95, 204, 0.03) 1px, transparent 1px);
-    background-size: 50px 50px;
-    pointer-events: none;
-  }
+
   .container {
-    max-width: 1200px;
+    max-width: var(--container-max, 1200px);
     margin: 0 auto;
-    padding: 0 1.5rem;
-    position: relative;
-    z-index: 1;
+    padding: 0 var(--section-padding-x);
   }
-  /* Typography */
-  .section-header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-  .section-title {
-    font-size: 2.5rem;
-    font-weight: 300;
-    color: var(--color-dark);
-    margin-bottom: 1rem;
-    line-height: 1.2;
-  }
-  .section-subtitle {
-    font-size: 1.125rem;
-    color: var(--color-text-secondary);
-    max-width: 700px;
-    margin: 0 auto;
-    line-height: 1.7;
-  }
-  /* Services Grid */
-  .services-grid {
+
+  .columns-wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1fr 400px;
+    gap: var(--gap-lg, 40px);
+    align-items: start;
   }
-  .service-block {
-    background: white;
-    border-radius: 4px;
-    padding: 2rem;
-    border: 1px solid var(--color-border);
-  }
-  .service-block:hover {
-  }
-  .service-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-  .service-icon {
-    flex-shrink: 0;
-    width: 3rem;
-    height: 3rem;
-    padding: 0.75rem;
-    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-    border-radius: 4px;
-    color: var(--color-primary);
-  }
-  .service-header h3 {
-    font-size: 1.375rem;
-    font-weight: 300;
-    color: var(--color-dark);
-    margin: 0;
-    line-height: 1.3;
-  }
-  .service-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .service-list li {
-    position: relative;
-    padding: 0.75rem 0;
-    padding-left: 1.75rem;
-    color: var(--color-text);
-    line-height: 1.6;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  }
-  .service-list li:last-child {
-    border-bottom: none;
-  }
-  .service-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 1.125rem;
-    width: 4px;
-    height: 4px;
-    background: var(--color-primary);
-    border-radius: 50%;
-  }
-  /* Methodology Timeline */
-  .methodology-timeline {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 2rem 0;
-  }
-  .methodology-step {
-    display: flex;
-    align-items: flex-start;
-    gap: 2rem;
-    margin-bottom: 3rem;
-    position: relative;
-  }
-  .methodology-step:last-child {
-    margin-bottom: 0;
-  }
-  .methodology-step:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    left: 2rem;
-    top: 4.5rem;
-    bottom: -2.5rem;
-    width: 2px;
-    background: linear-gradient(to bottom, var(--color-primary), transparent);
-    opacity: 0.2;
-  }
-  .step-number {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 4rem;
-    height: 4rem;
-    background: white;
-    border: 2px solid var(--color-primary);
-    border-radius: 50%;
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: var(--color-primary);
-  }
-  .methodology-step:hover .step-number {
-    background: var(--color-primary);
-    color: white;
-    transform: scale(1.1);
-  }
-  .step-content {
+
+  .left-column {
     flex: 1;
-    padding-top: 0.5rem;
   }
-  .step-content h3 {
-    font-size: 1.375rem;
-    font-weight: 300;
-    color: var(--color-dark);
-    margin: 0 0 0.75rem 0;
+
+  .right-column {
+    position: sticky;
+    top: var(--header-height, 100px);
   }
-  .step-content p {
-    color: var(--color-text);
-    line-height: 1.7;
-    margin: 0;
-  }
-  /* Advantages Grid */
-  .advantages-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  .advantage-card {
-    text-align: center;
-    padding: 2rem;
-    background: white;
-    border-radius: 4px;
-    border: 1px solid var(--color-border);
-  }
-  .advantage-card:hover {
-    border-color: var(--color-primary);
-  }
-  .advantage-icon {
-    width: 4rem;
-    height: 4rem;
-    margin: 0 auto 1.5rem;
-    padding: 1rem;
-    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-    border-radius: 50%;
-    color: var(--color-primary);
-  }
-  .advantage-card h3 {
-    font-size: 1.25rem;
-    font-weight: 400;
-    color: var(--color-dark);
-    margin-bottom: 0.75rem;
-  }
-  .advantage-card p {
-    color: var(--color-text-secondary);
-    line-height: 1.6;
-    margin: 0;
-  }
+
   /* Responsive */
-  @media (max-width: 768px) {
-    .section-title {
-      font-size: 1.875rem;
-    }
-    .services-grid {
+  @media (max-width: 1024px) {
+    .columns-wrapper {
       grid-template-columns: 1fr;
+      gap: var(--gap-md, 30px);
     }
-    .methodology-step::after {
-      display: none;
-    }
-    .step-number {
-      width: 3rem;
-      height: 3rem;
-      font-size: 1.25rem;
-    }
-    .step-content h3 {
-      font-size: 1.125rem;
-    }
-    .advantages-grid {
-      grid-template-columns: 1fr;
+
+    .right-column {
+      position: static;
     }
   }
+
+  @media (max-width: 768px) {
+    .two-columns-section {
+      padding: var(--section-padding-tablet);
+    }
+  }
+
   @media (max-width: 480px) {
-    .section-white,
-    .section-grey {
-      padding: 3rem 0;
-    }
-    .section-title {
-      font-size: 1.5rem;
-    }
-    .service-header {
-      flex-direction: column;
-    }
-    .service-icon {
-      width: 2.5rem;
-      height: 2.5rem;
+    .two-columns-section {
+      padding: var(--section-padding-mobile);
     }
   }
 </style>

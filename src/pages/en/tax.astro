@@ -2,12 +2,13 @@
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
 import FAQ from '../../components/FAQ.astro';
-import BlogCards from '../../components/BlogCards.astro';
-import StatsSection from '../../components/StatsSection.astro';
-import ExpertiseSection from '../../components/ExpertiseSection.astro';
-import Services from '../../components/Services.astro';
-import ProcessTimeline from '../../components/ProcessTimeline.astro';
+import ContactForm from '../../components/forms/ContactForm.astro';
+import ServiceDetails from '../../components/ServiceDetails.astro';
+import ServiceCards from '../../components/ServiceCards.astro';
+import ServicesList from '../../components/ServicesList.astro';
+
 const metaDescription = "Luxembourg tax expert specializing in corporate compliance: CIT/MBT/NWT returns (form 500), VAT eCDF, withholding tax 950. SOPARFI optimization, IP Box, tax consolidation. OECD transfer pricing, tax authority support. Free quote.";
+
 const taxSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -59,6 +60,7 @@ const taxSchema = {
     ]
   }
 };
+
 const faqItems = [
   {
     question: "Which form and deadline for corporate tax returns in Luxembourg?",
@@ -74,7 +76,7 @@ const faqItems = [
   },
   {
     question: "How to optimize the tax burden in Luxembourg?",
-    answer: "Tax optimization relies on appropriate legal structuring (Sàrl/SA, SOPARFI, SCS/SCSp), proper application of treaties to avoid double taxation, OECD-compliant transfer pricing policies (local/master file, potential APAs) and controlled use of special regimes (participation exemption, IP 'nexus' regime). This includes neutral reorganizations (contributions, mergers, splits), financing management and interest limitations, VAT optimization of flows and supply chain, international mobility of executives/employees, as well as planning for losses and credits utilization. Our tailored advice covers diagnosis, quantified scenarios, legal and accounting implementation, documentation and governance (substance, DAC6), with annual monitoring to maintain compliance and performance. Support by Taxpertize to provide answers to your questions."
+    answer: "Tax optimization relies on appropriate legal structuring (Sàrl/SA, SOPARFI, SCS/SCSp), proper application of treaties to avoid double taxation, OECD-compliant transfer pricing policies (local/master file, potential APAs) and controlled use of special regimes (participation exemption, IP 'nexus' regime). This includes neutral reorganizations (contributions, mergers, splits), financing management and interest limitations, VAT optimization of flows and supply chain, international mobility of executives/employees, as well as planning for losses and credits utilization. Our tailored advice covers diagnosis, quantified scenarios, legal and accounting implementation, documentation and governance (substance, DAC6), with annual monitoring to maintain compliance and performance."
   }
 ];
 ---
@@ -95,165 +97,184 @@ const faqItems = [
     title="Tax compliance services in Luxembourg"
     subtitle="Tax compliance in Luxembourg: corporate income tax, municipal business tax, net wealth tax and value added tax fully managed. Accurate and timely filings, 100% digital."
   />
-  <!-- Key Metrics Section -->
-  <StatsSection
-    stats={[
-      { number: "23.87%", label: "Overall tax rate" },
-      { number: "17%", label: "Standard VAT" },
-      { number: "31 Dec", label: "Filing deadline" },
-      { number: "100%", label: "Digital" }
-    ]}
-    backgroundColor="#f1f5f9"
-  />
-  <!-- Services Section -->
-  <ExpertiseSection
+
+  <!-- 2-column layout with ContactForm -->
+  <section class="two-columns-section">
+    <div class="container">
+      <div class="columns-wrapper">
+        <div class="left-column">
+          <ServiceDetails
+            services={[
+              {
+                title: "Legal tax obligations for Luxembourg companies",
+                description: "Every company established in Luxembourg is subject to strict tax obligations defined by the Direct Tax Administration (ACD) and the Registration Duties and VAT Administration (AED). Tax compliance is not only a legal obligation but a key element of your company's reputation and sustainability."
+              },
+              {
+                title: "Complex and evolving tax environment",
+                description: [
+                  "The Luxembourg tax system combines sophisticated national rules with European directives and OECD international standards. This complexity, combined with constant regulatory changes such as the recent introduction of Pillar Two or ATAD modifications, requires specialized expertise and continuous monitoring.",
+                  "For over 20 years, our firm has supported companies in the complete management of their tax obligations. We combine in-depth knowledge of Luxembourg legislation with practical experience of international tax issues. Our approach goes beyond simple compliance: we optimize your tax burden while strictly respecting the legal framework.",
+                  "Corporate income tax (CIT) and municipal business tax (MBT) returns for a given year must be filed by 31 December of the following year. Electronic filing via MyGuichet.lu is mandatory. Net wealth tax (NWT) returns must be filed by 31 December of the year concerned. NWT is due if the company exists on 1 January of the tax year."
+                ]
+              },
+              {
+                title: "Tax rates and tax charges",
+                description: [
+                  "The overall corporate tax rate in Luxembourg amounts to 23.87% for companies established in Luxembourg City (17% CIT + 6.75% MBT after solidarity tax credit). This rate may vary depending on the municipality of establishment, with MBT rates ranging from 6.75% to 10.5%.",
+                  "VAT returns are filed monthly, quarterly or annually depending on turnover. Since 2025, the franchise regime for small businesses has been raised to €50,000 annual turnover. Our tax compliance services guarantee compliance with all deadlines and support your complete tax planning."
+                ]
+              }
+            ]}
+          />
+        </div>
+        <div class="right-column">
+          <ContactForm lang="en" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tax expertise areas with ServiceCards -->
+  <ServiceCards
     title="Tax expertise areas"
-    subtitle="Our firm supports Luxembourg and international companies in managing their complete tax obligations. With over 20 years of experience in the Luxembourg financial center, we have deep expertise in the Luxembourg tax system and its interactions with international regulations."
-    expertiseAreas={[
+    subtitle="Our firm supports Luxembourg and international companies in the complete management of their tax obligations"
+    lang="en"
+    cards={[
       {
         title: "Corporate taxation",
-        items: [
-          { label: "CIT", description: "Corporate Income Tax" },
-          { label: "MBT", description: "Municipal Business Tax" },
-          { label: "NWT", description: "Net Wealth Tax" },
-          { label: "Form 500", description: "Unified CIT+MBT+NWT return for capital companies" },
-          { label: "Advances", description: "Quarterly advance payments calculation & management" }
+        description: "Complete management of your corporate tax obligations",
+        features: [
+          "CIT - Corporate Income Tax",
+          "MBT - Municipal Business Tax",
+          "NWT - Net Wealth Tax",
+          "Form 500 - Unified return for capital companies",
+          "Calculation and management of quarterly advances"
         ]
       },
       {
         title: "VAT & international trade",
-        items: [
-          { label: "Periodic", description: "Monthly, quarterly or annual returns" },
-          { label: "Intra-EU", description: "Summary statement & Intrastat (thresholds: €250k arrivals / €200k dispatches)" },
-          { label: "Ecommerce", description: "OSS/IOSS regimes for online sales" },
-          { label: "Foreign", description: "Foreign VAT" }
+        description: "VAT compliance and international flow management",
+        features: [
+          "Monthly, quarterly or annual returns",
+          "ESL and Intrastat (thresholds: €250k arrivals / €200k dispatches)",
+          "OSS/IOSS regimes for online sales",
+          "Foreign VAT and fiscal representation",
+          "Flow optimization and VAT recovery"
         ]
       },
       {
         title: "Personal taxation",
-        items: [
-          { label: "Form 100", description: "Annual personal income tax return" },
-          { label: "Withholding", description: "Salary withholding tax optimization (form 950 since 2025)" },
-          { label: "Wealth", description: "Real estate and securities capital gains" },
-          { label: "Impatriates", description: "Impatriate regime: 50% exemption capped at €400k/year" }
+        description: "Tax support for executives and individuals",
+        features: [
+          "Form 100 - Personal income tax return",
+          "Withholding tax optimization (form 950)",
+          "Real estate and securities capital gains",
+          "Impatriate regime: 50% exemption capped at €400k/year",
+          "Wealth and succession planning"
+        ]
+      },
+      {
+        title: "Tax optimization",
+        description: "Legal strategies to reduce tax burden",
+        features: [
+          "SOPARFI structuring and holding regime",
+          "Tax consolidation and group integration",
+          "IP Box regime: effective rate ≈ 4.774% (2025)",
+          "OECD-compliant transfer pricing",
+          "Exploitation of 88 tax treaties"
         ]
       }
     ]}
   />
-  <!-- Optimization Section -->
-  <Services
-    variant="cards"
-    title="Tax Optimization Strategies"
-    subtitle="Legal tax optimization is an essential lever for competitiveness. Luxembourg offers an attractive tax environment with many favorable regimes recognized at European and international levels. Our role is to guide you in the optimal use of these mechanisms while ensuring perfect legal security."
-    backgroundColor="#f1f5f9"
+
+  <!-- Annual tax calendar with ServicesList -->
+  <ServicesList
+    title="Annual tax calendar"
+    subtitle="Punctuality in tax returns is crucial to avoid penalties and late interest"
     services={[
-      {
-        title: "SOPARFI Structuring",
-        description: "Holding regime for exempt participations and dividends"
-      },
-      {
-        title: "Tax Consolidation",
-        description: "Results consolidation within the group"
-      },
-      {
-        title: "IP Box Regime",
-        description: "80% exemption - effective rate ≈ 4.774% on intellectual property income (2025)"
-      },
-      {
-        title: "Transfer Pricing",
-        description: "OECD-compliant documentation and intragroup optimization"
-      },
-      {
-        title: "Tax Treaties",
-        description: "Optimal use of 88 international conventions in force"
-      },
-      {
-        title: "Tax Audits",
-        description: "Assistance and defense during ACD verifications"
-      }
+      "Quarter 1 (January - March)",
+      "February 10: MBT and NWT quarterly advance",
+      "March 10: CIT quarterly advance",
+      "Monthly VAT: 15th of each month",
+      "Withholding tax: form 950 declaration within 10 days",
+      "",
+      "Quarter 2 (April - June)",
+      "May 10: MBT and NWT quarterly advance",
+      "June 10: CIT quarterly advance",
+      "Quarterly VAT recapitulative statement",
+      "Intrastat declaration if threshold reached",
+      "",
+      "Quarter 3 (July - September)",
+      "August 10: MBT and NWT quarterly advance",
+      "September 10: CIT quarterly advance",
+      "Preparation of interim closures",
+      "Current year tax optimization review",
+      "",
+      "Quarter 4 (October - December)",
+      "November 10: Last MBT and NWT advance",
+      "December 10: Last CIT advance",
+      "December 31: Filing of CIT, MBT, NWT returns",
+      "Next year tax planning"
     ]}
   />
-  <!-- Calendar Section -->
-  <ProcessTimeline
-    title="Tax Calendar"
-    subtitle="Punctuality in tax returns is crucial to avoid penalties and late interest. Our proactive monitoring system guarantees compliance with all legal deadlines."
-    steps={[
-      {
-        number: "Q1",
-        title: "January - March",
-        description: [
-          "February 10: ICC and IF quarterly advance",
-          "March 10: IRC quarterly advance",
-          "Monthly VAT: 15th of each month",
-          "Withholding tax: form 950 declaration within 10 days"
-        ]
-      },
-      {
-        number: "Q2",
-        title: "April - June",
-        description: [
-          "May 10: ICC and IF quarterly advance",
-          "June 10: IRC quarterly advance",
-          "Quarterly VAT recapitulative statement",
-          "Intrastat declaration if threshold reached"
-        ]
-      },
-      {
-        number: "Q3",
-        title: "July - September",
-        description: [
-          "August 10: ICC and IF quarterly advance",
-          "September 10: IRC quarterly advance",
-          "Preparation of interim closures",
-          "Current year tax optimization review"
-        ]
-      },
-      {
-        number: "Q4",
-        title: "October - December",
-        description: [
-          "November 10: Last ICC and IF advance",
-          "December 10: Last IRC advance",
-          "December 31: Filing of IRC, ICC, IF returns",
-          "Next year tax planning"
-        ],
-        highlight: true
-      }
-    ]}
-    variant="vertical"
-  />
-  <div class="blog-carousel-wrapper">
-    <BlogCards
-      title="Tax Articles in Luxembourg"
-      subtitle="Discover our latest tax articles and advice"
-      lang="en"
-      category="Tax"
-      maxPosts={4}
-    />
-  </div>
+
   <FAQ
     title="Frequently Asked Questions about Taxation in Luxembourg"
     subtitle="Everything you need to know about your tax obligations"
     faqItems={faqItems}
-    
     generateSchema={true}
   />
 </LayoutI18n>
+
 <style>
-  :root {
-    --color-primary: #005fcc;
-    --color-dark: #0f172a;
-    --color-text: #334155;
-    --color-text-secondary: #64748b;
-    --color-background: #ffffff;
-    --color-grey-light: #f8fafc;
-    --color-grey: #f1f5f9;
-    --color-border: #e2e8f0;
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  .two-columns-section {
+    padding: var(--section-padding);
+    background: var(--bg);
   }
-  .blog-carousel-wrapper {
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-    padding: 5rem 0;
+
+  .container {
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--section-padding-x);
+  }
+
+  .columns-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: var(--gap-lg, 40px);
+    align-items: start;
+  }
+
+  .left-column {
+    flex: 1;
+  }
+
+  .right-column {
+    position: sticky;
+    top: var(--header-height, 100px);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .columns-wrapper {
+      grid-template-columns: 1fr;
+      gap: var(--gap-md, 30px);
+    }
+
+    .right-column {
+      position: static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .two-columns-section {
+      padding: var(--section-padding-tablet);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .two-columns-section {
+      padding: var(--section-padding-mobile);
+    }
   }
 </style>

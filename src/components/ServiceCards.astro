@@ -41,20 +41,21 @@ const defaultButtonText = lang === 'fr' ? 'Demander un devis' : 'Get a quote';
             </ul>
             
             <div class="card-footer">
-              {card.price ? (
+              {card.price && (
                 <span class="card-price">{card.price}</span>
-              ) : card.buttonText && card.buttonHref ? (
-                <Button 
-                  href={card.buttonHref} 
-                  variant="primary" 
+              )}
+              {card.buttonText && card.buttonHref ? (
+                <Button
+                  href={card.buttonHref}
+                  variant="primary"
                   size="small"
                 >
                   {card.buttonText}
                 </Button>
-              ) : (
-                <Button 
-                  href={contactUrl} 
-                  variant="secondary" 
+              ) : !card.price && (
+                <Button
+                  href={contactUrl}
+                  variant="secondary"
                   size="small"
                 >
                   {defaultButtonText}
@@ -176,8 +177,9 @@ const defaultButtonText = lang === 'fr' ? 'Demander un devis' : 'Get a quote';
     padding-top: 20px;
     border-top: 1px solid var(--card-border);
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    gap: 12px;
   }
 
   .card-price {
@@ -189,8 +191,19 @@ const defaultButtonText = lang === 'fr' ? 'Demander un devis' : 'Get a quote';
 
   /* Style pour les boutons dans les cartes */
   .card-footer :global(.btn) {
-    width: 100%;
+    flex: 1;
     text-align: center;
+    min-width: 120px;
+  }
+
+  /* Si prix seul, centrer */
+  .card-footer:has(.card-price):not(:has(.btn)) {
+    justify-content: center;
+  }
+
+  /* Si bouton seul, prendre toute la largeur */
+  .card-footer:not(:has(.card-price)) :global(.btn) {
+    width: 100%;
   }
 
   /* Responsive */

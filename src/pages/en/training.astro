@@ -1,0 +1,282 @@
+---
+import LayoutI18n from '../../layouts/LayoutI18n.astro';
+import StickyPageTop from '../../components/StickyPageTop.astro';
+import FAQ from '../../components/FAQ.astro';
+import ContactForm from '../../components/forms/ContactForm.astro';
+import ServiceDetails from '../../components/ServiceDetails.astro';
+import ServiceCards from '../../components/ServiceCards.astro';
+import ServicesList from '../../components/ServicesList.astro';
+
+const metaDescription = "Professional training Luxembourg: accounting, CIT/MBT/VAT taxation, company law. On-site client sessions, external training validated by Luxembourg Bar and OEC Luxembourg. Accounting software support.";
+
+const trainingSchema = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "Fiduciaire Expert Training Services",
+  "description": metaDescription,
+  "provider": {
+    "@type": "Organization",
+    "name": "Fiduciaire Expert",
+    "url": "https://www.fiduciaire-expert.lu",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "LU"
+    }
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Luxembourg"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Training programmes",
+    "itemListElement": [
+      {
+        "@type": "Course",
+        "name": "Accounting and standards training",
+        "description": "Training on the latest Luxembourg and international accounting standards"
+      },
+      {
+        "@type": "Course",
+        "name": "Tax training",
+        "description": "CIT, VAT, withholding tax, tax optimization"
+      },
+      {
+        "@type": "Course",
+        "name": "Company law training",
+        "description": "Latest legislative and regulatory developments"
+      },
+      {
+        "@type": "Course",
+        "name": "Software training",
+        "description": "Training on accounting and tax tools"
+      }
+    ]
+  }
+};
+
+const faqItems = [
+  {
+    question: "Are your training courses recognized by professional organizations?",
+    answer: "Yes, our firm regularly provides external training that is validated and recognized by the Luxembourg Bar and OEC Luxembourg (Order of Chartered Accountants). These training sessions count towards mandatory continuing education hours."
+  },
+  {
+    question: "Do you offer in-company training?",
+    answer: "Absolutely. We offer on-site services to train your teams at your premises. These customized training sessions can cover varied and complex topics tailored to your specific accounting and tax needs."
+  },
+  {
+    question: "What types of topics do you cover in your training?",
+    answer: "Our training covers the latest tax laws, recent accounting changes, IFRS standards, Luxembourg VAT, CIT/MBT, OECD transfer pricing, and the use of specialized accounting software."
+  },
+  {
+    question: "How are the training sessions organized?",
+    answer: "We offer flexible formats: group sessions at our premises, individualized training, webinars, and on-site interventions directly at your offices. Duration varies from a few hours to several days depending on the program."
+  },
+  {
+    question: "Do the training sessions include educational materials?",
+    answer: "Yes, each training session includes detailed materials, practical cases, concrete examples from the Luxembourg market, and access to our updated documentation on regulatory developments."
+  }
+];
+---
+
+<LayoutI18n
+  title="Professional Accounting Tax Training Luxembourg | Fiduciaire Expert"
+  description={metaDescription}
+  canonical="https://www.fiduciaire-expert.lu/en/training"
+  schema={trainingSchema}
+>
+  <StickyPageTop
+    breadcrumbItems={[
+      { text: "Home", href: "/en" },
+      { text: "Services", href: "/en/services" },
+      { text: "Training" }
+    ]}
+    title="Professional training"
+    subtitle="Develop your teams' skills with our specialized training in Luxembourg accounting, taxation and company law"
+  />
+
+  <!-- 2-column layout with ContactForm -->
+  <section class="two-columns-section">
+    <div class="container">
+      <div class="columns-wrapper">
+        <div class="left-column">
+          <ServiceDetails
+            services={[
+              {
+                title: "Professional training and team support",
+                description: "Our firm offers a complete training and support service to help your teams master the latest accounting and tax developments in Luxembourg. We provide both external training and on-site client services."
+              },
+              {
+                title: "Our pedagogical approach",
+                description: [
+                  "Drawing on our field experience as licensed chartered accountants, we develop training programs that combine theory and practice. Our trainers, all active professionals, share their daily expertise and feedback on the latest regulatory developments.",
+                  "We regularly work on-site with our clients to train their teams on varied and complex subjects. This approach enables optimal skills transfer, adapted to the specific context of each company.",
+                  "Our external training sessions are recognized and validated by Luxembourg professional bodies, notably the Luxembourg Bar and OEC Luxembourg, thus guaranteeing the quality and relevance of our programs."
+                ]
+              },
+              {
+                title: "Validated and certified training",
+                description: [
+                  "Our firm regularly provides external training that is validated and recognized by the Luxembourg Bar and OEC Luxembourg. These training sessions count towards the mandatory continuing education hours for legal and accounting professionals.",
+                  "We also offer customized on-site training, allowing your teams to be trained directly in their work environment on issues specific to your business."
+                ]
+              }
+            ]}
+          />
+        </div>
+        <div class="right-column">
+          <ContactForm lang="en" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Expertise domains section with ServiceCards -->
+  <ServiceCards
+    title="Our training expertise areas"
+    subtitle="We cover all training needs in accounting, taxation and business management"
+    cards={[
+      {
+        title: "Accounting and Standards",
+        description: "Complete training on accounting standards and financial reporting",
+        features: [
+          "Luxembourg accounting standards (LuxGAAP)",
+          "IFRS standards and their applications",
+          "Consolidation and financial reporting",
+          "Internal control and audit",
+          "Accounting digitalization"
+        ]
+      },
+      {
+        title: "Luxembourg Taxation",
+        description: "Mastering tax obligations and optimizations",
+        features: [
+          "CIT, MBT and net wealth tax (Form 500)",
+          "VAT: returns, eCDF and obligations",
+          "Withholding tax and form 950",
+          "Transfer pricing and BEPS documentation",
+          "Tax optimization and restructuring"
+        ]
+      },
+      {
+        title: "Company Law",
+        description: "Understanding the legal framework for businesses",
+        features: [
+          "Company formation and transformation",
+          "Legal obligations and compliance",
+          "Corporate governance",
+          "Corporate secretarial services",
+          "Mergers and acquisitions"
+        ]
+      },
+      {
+        title: "Tools and Digitalization",
+        description: "Mastering professional software and tools",
+        features: [
+          "Professional accounting software",
+          "Online filing platforms",
+          "Management and reporting tools",
+          "Process automation",
+          "Data security and protection"
+        ]
+      }
+    ]}
+  />
+
+  <!-- Training formats section with ServicesList -->
+  <ServicesList
+    title="Training formats tailored to your needs"
+    subtitle="We offer different formats to meet your constraints and objectives"
+    services={[
+      "Certified External Training",
+      "Programs recognized by the Luxembourg Bar and OEC Luxembourg",
+      "Validation of mandatory continuing education hours",
+      "Official certificates issued",
+      "",
+      "On-Site Training",
+      "Direct interventions at your premises",
+      "Content customized to your needs",
+      "Total schedule flexibility",
+      "Practical cases adapted to your sector",
+      "",
+      "Inter-Company Sessions",
+      "Group training at our premises",
+      "Enriching exchanges between participants",
+      "Professional networking",
+      "Preferential rates for groups",
+      "",
+      "Webinars and E-Learning",
+      "Distance learning for greater flexibility",
+      "Interactive live sessions",
+      "Self-paced e-learning modules",
+      "Downloadable materials and replays available"
+    ]}
+  />
+
+  <FAQ
+    title="Frequently asked questions about our training"
+    subtitle="Everything you need to know about our training programs"
+    faqItems={faqItems}
+    generateSchema={true}
+  />
+</LayoutI18n>
+
+<style>
+  .two-columns-section {
+    padding: var(--section-padding);
+    background: var(--bg);
+  }
+
+  .container {
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--section-padding-x);
+  }
+
+  .columns-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: var(--gap-lg, 40px);
+    align-items: start;
+  }
+
+  .left-column {
+    flex: 1;
+  }
+
+  .right-column {
+    position: sticky;
+    top: var(--header-height, 100px);
+  }
+
+  @media (max-width: 1024px) {
+    .columns-wrapper {
+      grid-template-columns: 1fr;
+      gap: var(--gap-md, 30px);
+    }
+
+    .right-column {
+      position: static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .two-columns-section {
+      padding: var(--section-padding-tablet);
+    }
+
+    .container {
+      padding: 0 var(--section-padding-x-tablet);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .two-columns-section {
+      padding: var(--section-padding-mobile);
+    }
+
+    .container {
+      padding: 0 var(--section-padding-x-mobile);
+    }
+  }
+</style>

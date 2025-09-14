@@ -204,15 +204,15 @@ const faqItems = [
   }
 
   .container {
-    max-width: 1200px;
+    max-width: var(--container-max, 1200px);
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 var(--section-padding-x);
   }
 
   .columns-wrapper {
     display: grid;
     grid-template-columns: 1fr 400px;
-    gap: 40px;
+    gap: var(--gap-lg, 40px);
     align-items: start;
   }
 
@@ -222,14 +222,14 @@ const faqItems = [
 
   .right-column {
     position: sticky;
-    top: 100px;
+    top: var(--header-height, 100px);
   }
 
   /* Responsive */
   @media (max-width: 1024px) {
     .columns-wrapper {
       grid-template-columns: 1fr;
-      gap: 30px;
+      gap: var(--gap-md, 30px);
     }
 
     .right-column {

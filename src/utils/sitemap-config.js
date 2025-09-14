@@ -21,8 +21,6 @@ export function customSitemapTransform(page) {
     '/en': 1.0, // Page d'accueil anglaise
     '/fr/fiscalite': 1.0, // Pages très importantes pour le SEO
     '/en/tax': 1.0,
-    '/fr/taxpertize': 1.0,
-    '/en/taxpertize': 1.0,
     '/fr/services': 0.9,
     '/en/services': 0.9,
     '/fr/creation-societe-luxembourg': 0.9,

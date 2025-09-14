@@ -1,0 +1,282 @@
+---
+import LayoutI18n from '../../layouts/LayoutI18n.astro';
+import StickyPageTop from '../../components/StickyPageTop.astro';
+import FAQ from '../../components/FAQ.astro';
+import ContactForm from '../../components/forms/ContactForm.astro';
+import ServiceDetails from '../../components/ServiceDetails.astro';
+import ServiceCards from '../../components/ServiceCards.astro';
+import ServicesList from '../../components/ServicesList.astro';
+
+const metaDescription = "Formations professionnelles Luxembourg : comptabilité, fiscalité IRC/TVA, droit des sociétés. Sessions en régie chez client, formations externes validées Barreau et OEC Luxembourg. Support logiciels comptables.";
+
+const formationsSchema = {
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "Services de Formation Fiduciaire Expert",
+  "description": metaDescription,
+  "provider": {
+    "@type": "Organization",
+    "name": "Fiduciaire Expert",
+    "url": "https://www.fiduciaire-expert.lu",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "LU"
+    }
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Luxembourg"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Programmes de formation",
+    "itemListElement": [
+      {
+        "@type": "Course",
+        "name": "Formation comptabilité et normes",
+        "description": "Formations sur les dernières normes comptables luxembourgeoises et internationales"
+      },
+      {
+        "@type": "Course",
+        "name": "Formation fiscalité",
+        "description": "IRC, TVA, retenue à la source, optimisation fiscale"
+      },
+      {
+        "@type": "Course",
+        "name": "Formation droit des sociétés",
+        "description": "Dernières évolutions législatives et réglementaires"
+      },
+      {
+        "@type": "Course",
+        "name": "Formation logiciels",
+        "description": "Formation sur les outils comptables et fiscaux"
+      }
+    ]
+  }
+};
+
+const faqItems = [
+  {
+    question: "Vos formations sont-elles reconnues par les ordres professionnels ?",
+    answer: "Oui, notre cabinet dispense régulièrement des formations externes qui sont validées et reconnues par le Barreau de Luxembourg et l'OEC Luxembourg (Ordre des Experts-Comptables). Ces formations comptent pour les heures de formation continue obligatoire."
+  },
+  {
+    question: "Proposez-vous des formations en entreprise ?",
+    answer: "Absolument. Nous proposons des services de régie chez le client pour former vos équipes sur site. Ces formations personnalisées peuvent couvrir des sujets variés et complexes adaptés à vos besoins spécifiques en comptabilité et fiscalité."
+  },
+  {
+    question: "Quels types de sujets couvrez-vous dans vos formations ?",
+    answer: "Nos formations couvrent les dernières lois fiscales, les changements comptables récents, les normes IFRS, la TVA luxembourgeoise, l'IRC/ICC, les prix de transfert OCDE, et l'utilisation de logiciels comptables spécialisés."
+  },
+  {
+    question: "Comment sont organisées les formations ?",
+    answer: "Nous proposons des formats flexibles : sessions en groupe dans nos locaux, formations individualisées, webinaires, et interventions en régie directement dans vos locaux. La durée varie de quelques heures à plusieurs jours selon le programme."
+  },
+  {
+    question: "Les formations incluent-elles des supports pédagogiques ?",
+    answer: "Oui, chaque formation inclut des supports détaillés, des cas pratiques, des exemples concrets du marché luxembourgeois, et un accès à notre documentation actualisée sur les évolutions réglementaires."
+  }
+];
+---
+
+<LayoutI18n
+  title="Formation Comptabilité Fiscalité Luxembourg | Fiduciaire Expert"
+  description={metaDescription}
+  canonical="https://www.fiduciaire-expert.lu/fr/formations"
+  schema={formationsSchema}
+>
+  <StickyPageTop
+    breadcrumbItems={[
+      { text: "Accueil", href: "/fr" },
+      { text: "Services", href: "/fr/services" },
+      { text: "Formations" }
+    ]}
+    title="Formations professionnelles"
+    subtitle="Développez les compétences de vos équipes avec nos formations spécialisées en comptabilité, fiscalité et droit des sociétés luxembourgeois"
+  />
+
+  <!-- Layout 2 colonnes avec ContactForm -->
+  <section class="two-columns-section">
+    <div class="container">
+      <div class="columns-wrapper">
+        <div class="left-column">
+          <ServiceDetails
+            services={[
+              {
+                title: "Formation professionnelle et accompagnement de vos équipes",
+                description: "Notre cabinet propose un service complet de formation et de support pour accompagner vos équipes dans la maîtrise des dernières évolutions comptables et fiscales au Luxembourg. Nous intervenons tant en formation externe qu'en régie chez nos clients."
+              },
+              {
+                title: "Notre approche pédagogique",
+                description: [
+                  "Fort de notre expérience terrain en tant qu'expert-comptable agréé, nous développons des programmes de formation qui allient théorie et pratique. Nos formateurs, tous professionnels en activité, partagent leur expertise quotidienne et leurs retours d'expérience sur les dernières évolutions réglementaires.",
+                  "Nous intervenons régulièrement en régie chez nos clients pour former leurs équipes sur des sujets variés et complexes. Cette approche permet un transfert de compétences optimal, adapté au contexte spécifique de chaque entreprise.",
+                  "Nos formations externes sont reconnues et validées par les instances professionnelles luxembourgeoises, notamment le Barreau de Luxembourg et l'OEC Luxembourg, garantissant ainsi la qualité et la pertinence de nos programmes."
+                ]
+              },
+              {
+                title: "Formations validées et certifiées",
+                description: [
+                  "Notre cabinet dispense régulièrement des formations externes qui sont validées et reconnues par le Barreau de Luxembourg et l'OEC Luxembourg. Ces formations comptent pour les heures de formation continue obligatoire des professionnels du droit et du chiffre.",
+                  "Nous proposons également des formations sur mesure en régie chez le client, permettant de former vos équipes directement dans votre environnement de travail sur des problématiques spécifiques à votre activité."
+                ]
+              }
+            ]}
+          />
+        </div>
+        <div class="right-column">
+          <ContactForm lang="fr" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Domaines d'expertise avec ServiceCards -->
+  <ServiceCards
+    title="Nos domaines d'expertise en formation"
+    subtitle="Nous couvrons l'ensemble des besoins de formation en comptabilité, fiscalité et gestion d'entreprise"
+    cards={[
+      {
+        title: "Comptabilité et Normes",
+        description: "Formation complète sur les normes comptables et le reporting financier",
+        features: [
+          "Normes comptables luxembourgeoises (PCN)",
+          "Standards IFRS et leurs applications",
+          "Consolidation et reporting financier",
+          "Contrôle interne et audit",
+          "Digitalisation comptable"
+        ]
+      },
+      {
+        title: "Fiscalité Luxembourgeoise",
+        description: "Maîtrise des obligations et optimisations fiscales",
+        features: [
+          "IRC, ICC et impôt fortune (Formulaire 500)",
+          "TVA : déclarations, eCDF et obligations",
+          "Retenue à la source et formulaire 950",
+          "Prix de transfert et documentation BEPS",
+          "Optimisation fiscale et restructuration"
+        ]
+      },
+      {
+        title: "Droit des Sociétés",
+        description: "Compréhension du cadre juridique des entreprises",
+        features: [
+          "Création et transformation de sociétés",
+          "Obligations légales et compliance",
+          "Gouvernance d'entreprise",
+          "Secrétariat juridique",
+          "Fusions et acquisitions"
+        ]
+      },
+      {
+        title: "Outils et Digitalisation",
+        description: "Maîtrise des logiciels et outils professionnels",
+        features: [
+          "Logiciels comptables professionnels",
+          "Plateformes de déclaration en ligne",
+          "Outils de gestion et reporting",
+          "Automatisation des processus",
+          "Sécurité et protection des données"
+        ]
+      }
+    ]}
+  />
+
+  <!-- Section Formats de formation avec ServicesList -->
+  <ServicesList
+    title="Formats de formation adaptés à vos besoins"
+    subtitle="Nous proposons différents formats pour répondre à vos contraintes et objectifs"
+    services={[
+      "Formations Externes Certifiées",
+      "Programmes reconnus par le Barreau et l'OEC Luxembourg",
+      "Validation des heures de formation continue obligatoire",
+      "Certificats officiels délivrés",
+      "",
+      "Formations en Régie",
+      "Interventions directes dans vos locaux",
+      "Contenu personnalisé selon vos besoins",
+      "Flexibilité horaire totale",
+      "Cas pratiques adaptés à votre secteur",
+      "",
+      "Sessions Inter-Entreprises",
+      "Formations groupées dans nos locaux",
+      "Échanges enrichissants entre participants",
+      "Networking professionnel",
+      "Tarifs préférentiels pour les groupes",
+      "",
+      "Webinaires et E-Learning",
+      "Formations à distance pour plus de flexibilité",
+      "Sessions live interactives",
+      "Modules e-learning à votre rythme",
+      "Supports téléchargeables et replay disponibles"
+    ]}
+  />
+
+  <FAQ
+    title="Questions fréquentes sur nos formations"
+    subtitle="Tout ce que vous devez savoir sur nos programmes de formation"
+    faqItems={faqItems}
+    generateSchema={true}
+  />
+</LayoutI18n>
+
+<style>
+  .two-columns-section {
+    padding: var(--section-padding);
+    background: var(--bg);
+  }
+
+  .container {
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--section-padding-x);
+  }
+
+  .columns-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: var(--gap-lg, 40px);
+    align-items: start;
+  }
+
+  .left-column {
+    flex: 1;
+  }
+
+  .right-column {
+    position: sticky;
+    top: var(--header-height, 100px);
+  }
+
+  @media (max-width: 1024px) {
+    .columns-wrapper {
+      grid-template-columns: 1fr;
+      gap: var(--gap-md, 30px);
+    }
+
+    .right-column {
+      position: static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .two-columns-section {
+      padding: var(--section-padding-tablet);
+    }
+
+    .container {
+      padding: 0 var(--section-padding-x-tablet);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .two-columns-section {
+      padding: var(--section-padding-mobile);
+    }
+
+    .container {
+      padding: 0 var(--section-padding-x-mobile);
+    }
+  }
+</style>

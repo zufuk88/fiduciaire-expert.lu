@@ -1,94 +1,84 @@
 ---
 import LayoutI18n from '../../layouts/LayoutI18n.astro';
-import LegalFormInfo from '../../components/LegalFormInfo.astro';
-import ProcessTimeline from '../../components/ProcessTimeline.astro';
 import StickyPageTop from '../../components/StickyPageTop.astro';
 import BlogCards from '../../components/BlogCards.astro';
-import Services from '../../components/Services.astro';
 import FAQ from '../../components/FAQ.astro';
+import ContactForm from '../../components/forms/ContactForm.astro';
+import ServiceDetails from '../../components/ServiceDetails.astro';
+import ServiceCards from '../../components/ServiceCards.astro';
+import ServicesList from '../../components/ServicesList.astro';
+
 // --- DATA & SEO ---
-const societyTypes = [
-  { type: "SARL-S (Simplified)", capital: "€1 to €12,000", notaire: false, description: "Reserved for natural persons, ideal for testing a project. Business license required before RCS registration.", avantages: ["No notary required", "Quick creation", "Flexible capital €1-12k"], cout: "€2,000 excl. VAT", link: "/en/articles/sarl-s-luxembourg-simplified-limited-liability-company" },
-  { type: "SARL", capital: "€12,000", notaire: true, description: "The most common and credible form for SMEs. Prior deposit of capital in blocked account. RCS registration possible before obtaining business license.", avantages: ["Maximum credibility", "Partner protection", "Scalable structure"], cout: "€3,500 excl. VAT", link: "/en/articles/creating-sarl-luxembourg-complete-guide" },
-  { type: "SA (Public Limited Company)", capital: "€30,000", notaire: true, description: "Adapted to large projects and opening capital to investors. Minimum 25% of capital paid up at incorporation, balance within 5 years.", avantages: ["Prestige", "Access to financial markets", "Easy share transfer"], cout: "€4,000 excl. VAT", link: "/en/articles/sa-luxembourg-public-limited-company-guide" },
-  { type: "SAS", capital: "€30,000", notaire: true, description: "Flexible legal form offering great statutory freedom. Minimum 25% of capital paid up at incorporation. Statutory auditor mandatory.", avantages: ["Statutory flexibility", "Customized governance", "Suitable for startups"], cout: "€3,500 excl. VAT", link: "/en/articles/sas-luxembourg-simplified-joint-stock-company-guide" },
-  { type: "SCI (Civil Company)", capital: "Variable", notaire: false, description: "Exclusively for real estate asset management, without commercial activity. Note: property contribution or transfer requires notarial deed.", avantages: ["Real estate management", "Family transmission", "Adapted taxation"], cout: "€1,000 excl. VAT", link: "/en/articles/sci-luxembourg-real-estate-holding-company" },
-  { type: "SCSp", capital: "Variable", notaire: false, description: "Special limited partnership, ideal for investment funds and private equity. Can be created by private deed.", avantages: ["Transparent structure", "Tax flexibility", "Ideal for funds"], cout: "On request", link: null }
-];
-const legalServices = [
+const societyTypesCards = [
   {
-    title: "Governance and corporate life",
-    description: "Complete organization of ordinary and extraordinary GMs, drafting of minutes, resolutions, RCS/RESA filings. Management of governing bodies and RBE declarations.",
-    href: "/en/services"
+    title: "SARL-S (Simplified)",
+    description: "Capital: €1 to €12,000 | No notary\nReserved for natural persons, ideal for testing a project. Business license required before RCS registration.",
+    features: ["No notary required", "Quick creation", "Flexible capital €1-12k", "Reserved for natural persons", "Ideal for testing projects"],
+    price: "€2,000 excl. VAT",
+    buttonText: "Learn more",
+    buttonHref: "/en/articles/sarl-s-luxembourg-simplified-limited-liability-company"
   },
   {
-    title: "Statutory changes and restructuring",
-    description: "Registered office transfers, capital operations, cross-border mergers, spin-offs and legal transformations. Coordination with Luxembourg notarial offices.",
-    href: "/en/services"
+    title: "SARL",
+    description: "Minimum capital: €12,000 | Notary required\nThe most common and credible form for SMEs. Prior deposit of capital in blocked account.",
+    features: ["Maximum credibility", "Partner protection", "Scalable structure", "RCS registration before license", "Suitable for SMEs"],
+    price: "€3,500 excl. VAT",
+    buttonText: "Learn more",
+    buttonHref: "/en/articles/creating-sarl-luxembourg-complete-guide"
   },
   {
-    title: "Commercial and corporate contracts",
-    description: "Drafting of transfer agreements, acquisitions, NDAs, shareholders' agreements. Due diligence, contract audit and complete compliance.",
-    href: "/en/services"
+    title: "SA (Public Limited Company)",
+    description: "Minimum capital: €30,000 | Notary required\nAdapted to large projects and opening capital. 25% capital paid up at incorporation.",
+    features: ["Prestige", "Access to financial markets", "Easy share transfer", "Large projects", "Open to investors"],
+    price: "€4,000 excl. VAT",
+    buttonText: "Learn more",
+    buttonHref: "/en/articles/sa-luxembourg-public-limited-company-guide"
   },
   {
-    title: "Liquidation and dissolution",
-    description: "Complete support: liquidation plan, legal publications, notarial coordination, tax clearance, creditor management and RCS Luxembourg deregistration.",
-    href: "/en/services"
+    title: "SAS",
+    description: "Minimum capital: €30,000 | Notary required\nFlexible legal form with great statutory freedom. Statutory auditor mandatory.",
+    features: ["Statutory flexibility", "Customized governance", "Suitable for startups", "Contractual freedom", "Legal innovation"],
+    price: "€3,500 excl. VAT",
+    buttonText: "Learn more",
+    buttonHref: "/en/articles/sas-luxembourg-simplified-joint-stock-company-guide"
   },
   {
-    title: "Domiciliation and administrative services",
-    description: "Prestigious registered office in Luxembourg, meeting rooms, legal archiving and maintenance of mandatory registers.",
-    href: "/en/services"
+    title: "SCI (Civil Company)",
+    description: "Capital: Variable | No notary (except property contribution)\nExclusively for real estate asset management, without commercial activity.",
+    features: ["Real estate management", "Family transmission", "Adapted taxation", "Protected assets", "Facilitated succession"],
+    price: "€1,000 excl. VAT",
+    buttonText: "Learn more",
+    buttonHref: "/en/articles/sci-luxembourg-real-estate-holding-company"
   },
   {
-    title: "Legal secretariat and compliance",
-    description: "RCS/RESA filings, AML/KYC obligations, beneficial owner register, Luxembourg/European regulatory monitoring, corporate housekeeping and audit preparation.",
-    href: "/en/services"
+    title: "SCSp",
+    description: "Capital: Variable | No notary\nSpecial limited partnership for investment funds and private equity.",
+    features: ["Transparent structure", "Tax flexibility", "Ideal for funds", "Private equity", "Investment vehicle"],
+    price: "On request"
   }
 ];
-const processSteps = [
+
+const faqItems = [
   {
-    number: "1",
-    title: "Initial analysis & advice",
-    description: [
-      "Study of your project and objectives",
-      "Recommendation of the most suitable legal form and tax regime",
-      "Identification of regulatory obligations specific to your activity",
-      "Preparation of documents for partners, directors and beneficial owners (KYC/AML)"
-    ]
+    question: "What is the difference between a SARL and a SARL-S in Luxembourg?",
+    answer: "The SARL-S is reserved for natural persons, ideal for testing a project with capital from €1 to €12,000. Business license required before RCS registration. The classic SARL requires minimum €12,000 capital with prior deposit in blocked account and a notarial deed. For SARL, RCS registration is possible before obtaining the business license."
   },
   {
-    number: "2",
-    title: "Preparation & drafting",
-    description: [
-      "Drafting of articles in coordination with a Luxembourg notary (mandatory for most corporate forms)",
-      "Assistance with opening a bank account and paying up share capital. Bank blocking certificate required for SA/SARL/SAS before notarial deed (not required for SARL-S)",
-      "Business license to be obtained via MyGuichet for any commercial, craft or industrial activity (not required for pure holdings and non-regulated activities)"
-    ],
-    highlight: true
+    question: "How much does it cost to create a company in Luxembourg?",
+    answer: "Company formation in Luxembourg starts from €1,000 excl. VAT for an SCI, €2,000 excl. VAT for a SARL-S, €3,500 excl. VAT for a SARL or SAS, and €4,000 excl. VAT for an SA. These rates include our fees, administrative costs and post-creation follow-up."
   },
   {
-    number: "3",
-    title: "Incorporation & registration",
-    description: [
-      "Presence at the signing of the notarial deed (or signature by proxy)",
-      "Filing with the Trade and Companies Register (RCS)",
-      "VAT registration and other tax obligations with the Registration Duties, Estates and VAT Authority",
-      "Mandatory declaration of beneficial owners to the RBE (Register of Beneficial Owners) - Criminal penalties up to €1,250,000 for failure to comply. Since February 1, 2025, public access restricted but declaration obligation maintained"
-    ]
+    question: "Is a notary mandatory to create a company?",
+    answer: "No, not always. The SARL-S (reserved for natural persons) and certain SCIs can be created without a notary. However, for a classic SARL or SA, the notarial deed is mandatory under Luxembourg law."
   },
   {
-    number: "4",
-    title: "Post-incorporation follow-up",
-    description: [
-      "Support for operational implementation and compliance",
-      "Assistance with final activation of bank account",
-      "Implementation of accounting and legal monitoring"
-    ]
+    question: "Can I create a company in Luxembourg without residing there?",
+    answer: "Yes, it is possible to create a company in Luxembourg without residing there. However, certain obligations apply: legal domiciliation in Luxembourg, appointment of a tax representative if necessary, and compliance with local accounting obligations."
   }
 ];
+
 const metaDescription = "Expert service for company formation in Luxembourg: SARL, SARL-S, SA, SCI. We handle all incorporation formalities and legal follow-up.";
+
 const constitutionSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
@@ -107,12 +97,12 @@ const constitutionSchema = {
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "Types of companies",
-    "itemListElement": societyTypes.map(society => ({
+    "itemListElement": societyTypesCards.map(society => ({
       "@type": "Offer",
       "itemOffered": {
         "@type": "Service",
-        "name": society.type,
-        "description": society.description
+        "name": society.title,
+        "description": society.description.split('\n')[1] // Take description without capital/notary
       }
     }))
   }
@@ -121,6 +111,9 @@ const constitutionSchema = {
 <LayoutI18n
   title="Company Formation in Luxembourg | SARL, SARL-S, SA"
   description={metaDescription}
+  canonical="https://www.fiduciaire-expert.lu/en/company-formation-luxembourg"
+  ogImage="/og-expert-comptable-luxembourg.jpg"
+  keywords="company formation luxembourg, SARL, SARL-S, SA, SCI, business incorporation, RCS registration"
   schema={constitutionSchema}
 >
   <StickyPageTop
@@ -132,18 +125,135 @@ const constitutionSchema = {
     title="Company formation in Luxembourg"
     subtitle="We support you from A to Z in the formation of your company (SARL, SARL-S, SA, SCI). Benefit from our expertise for a fast, compliant and optimized launch."
   />
-  <ProcessTimeline
+
+  <!-- 2-column layout with ContactForm -->
+  <section class="two-columns-section">
+    <div class="container">
+      <div class="columns-wrapper">
+        <div class="left-column">
+          <ServiceDetails
+            services={[
+              {
+                title: "Your partner for creating your company in Luxembourg",
+                description: "Creating a company in Luxembourg requires in-depth legal and tax expertise. Each legal form presents specific advantages depending on your business project, your sector of activity and your development objectives."
+              },
+              {
+                title: "A business-friendly legal framework",
+                description: [
+                  "Luxembourg offers a particularly attractive legal and tax environment for businesses. With modern and flexible legislation, the Grand Duchy allows you to quickly create a company while benefiting from maximum legal security.",
+                  "Our firm has been supporting you for over 20 years in all stages of creating your company. From the SARL-S accessible from €1 capital to the SA for large-scale projects, we advise you on the structure best suited to your needs.",
+                  "We handle all administrative formalities: drafting articles with our notary partners, obtaining the business license, RCS registration, declaration of beneficial owners to the RBE and compliance with AML/KYC obligations."
+                ]
+              },
+              {
+                title: "Mastered legal obligations",
+                description: [
+                  "Creating a company in Luxembourg involves compliance with strict legal obligations. The business license is required for any commercial, craft or industrial activity. The declaration of beneficial owners to the RBE is mandatory with penalties of up to €1,250,000 for omission.",
+                  "Our expertise allows us to anticipate these obligations and secure your project from the start. We coordinate all stakeholders (notaries, banks, administrations) for a quick and smooth incorporation of your company."
+                ]
+              }
+            ]}
+          />
+        </div>
+        <div class="right-column">
+          <ContactForm lang="en" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formation process with ServicesList -->
+  <ServicesList
     title="Company formation – simplified and compliant process"
-    subtitle="We manage all formalities to establish your company quickly and in compliance with Luxembourg law."
-    steps={processSteps}
-    variant="vertical"
+    subtitle="We manage all formalities to establish your company quickly and in compliance with Luxembourg law"
+    services={[
+      "**Step 1: Initial analysis & advice**",
+      "Study of your project and objectives",
+      "Recommendation of the most suitable legal form and tax regime",
+      "Identification of regulatory obligations specific to your activity",
+      "Preparation of documents for partners, directors and beneficial owners (KYC/AML)",
+      "",
+      "**Step 2: Preparation & drafting**",
+      "Drafting of articles in coordination with a Luxembourg notary (mandatory for most company forms)",
+      "Assistance with bank account opening and share capital payment",
+      "Bank blocking certificate required for SA/SARL/SAS before notary appointment (not required for SARL-S)",
+      "Business license to obtain via MyGuichet for any commercial, craft or industrial activity",
+      "",
+      "**Step 3: Formation & registration**",
+      "Presence at the signing of the notarial deed (or signature by proxy)",
+      "Filing with the Trade and Companies Register (RCS)",
+      "VAT registration and other tax obligations with the AED",
+      "Mandatory declaration of beneficial owners to the RBE - Penalties up to €1,250,000 for omission",
+      "",
+      "**Step 4: Post-formation follow-up**",
+      "Support for operational implementation and compliance with obligations",
+      "Assistance with final bank account activation",
+      "Implementation of accounting and legal monitoring"
+    ]}
   />
-  <LegalFormInfo
+
+  <!-- Legal forms with ServiceCards -->
+  <ServiceCards
     title="Which legal form to choose?"
-    subtitle="Each structure has its specificities. Here's a comparison to help you decide."
-    societyTypes={societyTypes}
+    subtitle="Each structure has its specificities. Here's a detailed comparison with required capital, advantages and rates to help you decide."
     lang="en"
+    cards={societyTypesCards}
   />
+
+  <!-- Corporate secretarial services with ServiceCards -->
+  <ServiceCards
+    title="Corporate secretarial – complete support"
+    subtitle="We ensure the legal and administrative management of your company throughout its life"
+    lang="en"
+    cards={[
+      {
+        title: "Governance and corporate life",
+        description: "Complete management of assemblies and governing bodies",
+        features: [
+          "Organization of ordinary and extraordinary GMs",
+          "Drafting of minutes and resolutions",
+          "RCS/RESA filings",
+          "Management of governing bodies",
+          "RBE declarations"
+        ]
+      },
+      {
+        title: "Statutory changes",
+        description: "Support in all your restructuring",
+        features: [
+          "Registered office transfers",
+          "Capital operations",
+          "Cross-border mergers",
+          "Spin-offs and transformations",
+          "Notarial coordination"
+        ]
+      },
+      {
+        title: "Contracts and corporate",
+        description: "Legal security for your operations",
+        features: [
+          "Transfer/acquisition agreements",
+          "NDAs and shareholders' agreements",
+          "Due diligence",
+          "Contract audit",
+          "Compliance"
+        ]
+      },
+      {
+        title: "Compliance and obligations",
+        description: "Compliance with all your legal obligations",
+        features: [
+          "AML/KYC obligations",
+          "Beneficial owners register",
+          "Regulatory monitoring",
+          "Corporate housekeeping",
+          "Audit preparation"
+        ]
+      }
+    ]}
+  />
+
+  <!-- Blog articles -->
   <BlogCards
     title="Articles on company formation"
     subtitle="Discover our detailed guides for each legal form"
@@ -151,32 +261,65 @@ const constitutionSchema = {
     maxPosts={4}
     lang="en"
   />
-  <Services
-    variant="grid"
-    title="Corporate secretarial – complete support"
-    subtitle="We ensure the legal and administrative management of your company throughout its life."
-    services={legalServices}
-  />
+
+  <!-- FAQ -->
   <FAQ
     title="Frequently Asked Questions about Company Formation"
-    backgroundColor="#f1f5f9"
-    faqItems={[
-      {
-        question: "What is the difference between a SARL and a SARL-S in Luxembourg?",
-        answer: "The SARL-S is reserved for natural persons, ideal for testing a project with capital from €1 to €12,000. Business license required before RCS registration. The classic SARL requires minimum €12,000 capital with prior deposit in blocked account and a notarial deed. For SARL, RCS registration is possible before obtaining the business license."
-      },
-      {
-        question: "How much does it cost to create a company in Luxembourg?",
-        answer: "Company formation in Luxembourg starts from €1,000 excl. VAT for an SCI, €2,000 excl. VAT for a SARL-S, €3,500 excl. VAT for a SARL or SAS, and €4,000 excl. VAT for an SA. These rates include our fees, administrative costs and post-creation follow-up."
-      },
-      {
-        question: "Is a notary mandatory to create a company?",
-        answer: "No, not always. The SARL-S (reserved for natural persons) and certain SCIs can be created without a notary. However, for a classic SARL or SA, the notarial deed is mandatory under Luxembourg law."
-      },
-      {
-        question: "Can I create a company in Luxembourg without residing there?",
-        answer: "Yes, it is possible to create a company in Luxembourg without residing there. However, certain obligations apply: legal domiciliation in Luxembourg, appointment of a tax representative if necessary, and compliance with local accounting obligations."
-      }
-    ]}
+    subtitle="Everything you need to know to create your company in Luxembourg"
+    faqItems={faqItems}
+    generateSchema={true}
   />
 </LayoutI18n>
+
+<style>
+  .two-columns-section {
+    padding: var(--section-padding);
+    background: var(--bg);
+  }
+
+  .container {
+    max-width: var(--container-max, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--section-padding-x);
+  }
+
+  .columns-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: var(--gap-lg, 40px);
+    align-items: start;
+  }
+
+  .left-column {
+    flex: 1;
+  }
+
+  .right-column {
+    position: sticky;
+    top: var(--header-height, 100px);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .columns-wrapper {
+      grid-template-columns: 1fr;
+      gap: var(--gap-md, 30px);
+    }
+
+    .right-column {
+      position: static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .two-columns-section {
+      padding: var(--section-padding-tablet);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .two-columns-section {
+      padding: var(--section-padding-mobile);
+    }
+  }
+</style>

@@ -112,26 +112,39 @@ const metaDescription = "Contact Chartered Accountant Luxembourg +352 20 60 58 5
 </LayoutI18n>
 <style>
   .contact-content {
-    padding: 5rem 0;
+    padding: var(--section-padding);
   }
   .container {
-    max-width: 1200px;
+    max-width: var(--container-max, 1200px);
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 var(--section-padding-x);
   }
   .contact-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 3rem;
+    gap: var(--gap-lg, 3rem);
     align-items: start;
   }
   @media (max-width: 768px) {
+    .contact-content {
+      padding: var(--section-padding-tablet);
+    }
+    .container {
+      padding: 0 var(--section-padding-x-tablet);
+    }
     .contact-grid {
       grid-template-columns: 1fr;
-      gap: 2rem;
+      gap: var(--gap-md, 2rem);
     }
   }
 
+  @media (max-width: 480px) {
+    .contact-content {
+      padding: var(--section-padding-mobile);
+    }
+    .container {
+      padding: 0 var(--section-padding-x-mobile);
+    }
   }
 
 </style>

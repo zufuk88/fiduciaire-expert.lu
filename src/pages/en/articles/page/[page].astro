@@ -214,18 +214,18 @@ const breadcrumbSchema = {
 
 <style>
   .articles-page {
-    padding: 40px 0;
+    padding: var(--section-padding);
     background: var(--bg);
   }
   
   .container {
-    max-width: 1200px;
+    max-width: var(--container-max, 1200px);
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 var(--section-padding-x);
   }
   
   .pagination-section {
-    padding: 40px 0 60px;
+    padding: var(--section-padding);
     background: var(--bg);
   }
   
@@ -233,10 +233,10 @@ const breadcrumbSchema = {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 24px;
-    padding: 20px;
+    gap: var(--gap-md, 24px);
+    padding: var(--section-padding-x);
     background: var(--white);
-    border-radius: 12px;
+    border-radius: var(--radius-lg, 12px);
     box-shadow: 0 2px 8px var(--card-shadow-hover);
   }
   
@@ -251,12 +251,12 @@ const breadcrumbSchema = {
   .pagination-next {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
+    gap: var(--gap-sm, 8px);
+    padding: var(--btn-padding-y, 10px) var(--btn-padding-x, 20px);
     background: var(--accent);
     color: var(--white);
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: var(--radius, 8px);
     font-family: var(--font-family);
     font-size: var(--text-base);
     font-weight: 500;
@@ -265,16 +265,16 @@ const breadcrumbSchema = {
   
   .pagination-prev:hover {
     background: var(--accent-dark);
-    transform: translateX(-2px);
+    transform: translateX(calc(var(--hover-translate, 2px) * -1));
   }
   
   .pagination-next:hover {
     background: var(--accent-dark);
-    transform: translateX(2px);
+    transform: translateX(var(--hover-translate, 2px));
   }
   
   .pagination-disabled {
-    padding: 10px 20px;
+    padding: var(--btn-padding-y, 10px) var(--btn-padding-x, 20px);
     color: var(--gray-muted);
     font-family: var(--font-family);
     font-size: var(--text-base);
@@ -285,22 +285,49 @@ const breadcrumbSchema = {
   
   @media (max-width: 768px) {
     .articles-page {
-      padding: 20px 0;
+      padding: var(--section-padding-tablet);
     }
-    
+
+    .container {
+      padding: 0 var(--section-padding-x-tablet);
+    }
+
     .pagination-section {
-      padding: 20px 0 40px;
+      padding: var(--section-padding-tablet);
     }
-    
+
     .pagination {
       flex-direction: column;
-      gap: 16px;
+      gap: var(--gap-md, 16px);
+      padding: var(--section-padding-x-tablet);
     }
-    
+
     .pagination-prev,
     .pagination-next {
       width: 100%;
       justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .articles-page {
+      padding: var(--section-padding-mobile);
+    }
+
+    .container {
+      padding: 0 var(--section-padding-x-mobile);
+    }
+
+    .pagination-section {
+      padding: var(--section-padding-mobile);
+    }
+
+    .pagination {
+      padding: var(--section-padding-x-mobile);
+    }
+
+    .pagination-disabled {
+      padding: var(--btn-padding-y, 10px) var(--btn-padding-x, 20px);
     }
   }
 </style>
