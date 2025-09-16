@@ -14,7 +14,7 @@ const { title, seoTitle, description, date, modified, category, image, imageAlt,
 // Calculate reading time
 const readingTime = rawContent ? calculateReadingTime(rawContent, 'en') : 5;
 const pageTitle = seoTitle || title;
-const siteUrl = Astro.site ? Astro.site.origin : "https://www.fiduciaire-expert.lu";
+const siteUrl = Astro.site ? Astro.site.origin : "https://fiduciaire-expert.lu";
 const articleUrl = new URL(Astro.url.pathname, siteUrl).href;
 // Get articles from the same category
 const allPosts = await getCollection('blog');

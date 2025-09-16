@@ -6,7 +6,7 @@ export function customSitemapTransform(page) {
 
   // Obtenir l'URL de manière sûre
   const url = typeof page === 'string' ? page : page.url || page;
-  const pathname = url.replace('https://www.fiduciaire-expert.lu', '').replace(/\/$/, '') || '/';
+  const pathname = url.replace('https://fiduciaire-expert.lu', '').replace(/\/$/, '') || '/';
 
   // Exclure les pages de recherche du sitemap
   if (pathname.includes('/recherche') || pathname.includes('/search')) {

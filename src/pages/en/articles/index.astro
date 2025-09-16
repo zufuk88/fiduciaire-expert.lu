@@ -88,12 +88,12 @@ const articlesSchema = {
   "@graph": [
     {
       "@type": "CollectionPage",
-      "@id": "https://www.fiduciaire-expert.lu/en/articles",
+      "@id": "https://fiduciaire-expert.lu/en/articles",
       "name": "Chartered Accountant Luxembourg Articles | Fiduciaire Expert Blog",
       "description": `Discover our ${sortedPosts.length} expert articles on accounting, CIT/MBT taxation, VAT and company formation in Luxembourg.`,
-      "url": "https://www.fiduciaire-expert.lu/en/articles",
+      "url": "https://fiduciaire-expert.lu/en/articles",
       "isPartOf": {
-        "@id": "https://www.fiduciaire-expert.lu/#website"
+        "@id": "https://fiduciaire-expert.lu/#website"
       },
       "breadcrumb": {
         "@type": "BreadcrumbList",
@@ -102,28 +102,28 @@ const articlesSchema = {
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://www.fiduciaire-expert.lu/en"
+            "item": "https://fiduciaire-expert.lu/en"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Articles",
-            "item": "https://www.fiduciaire-expert.lu/en/articles"
+            "item": "https://fiduciaire-expert.lu/en/articles"
           }
         ]
       }
     },
     {
       "@type": "Blog",
-      "@id": "https://www.fiduciaire-expert.lu/en/articles#blog",
+      "@id": "https://fiduciaire-expert.lu/en/articles#blog",
       "name": "Fiduciaire Expert Luxembourg Blog",
       "description": "Advice and news on accounting, taxation, payroll and corporate law in Luxembourg",
-      "url": "https://www.fiduciaire-expert.lu/en/articles",
+      "url": "https://fiduciaire-expert.lu/en/articles",
       "inLanguage": "en-GB",
       "publisher": {
         "@type": "Organization",
         "name": "Fiduciaire Expert",
-        "url": "https://www.fiduciaire-expert.lu"
+        "url": "https://fiduciaire-expert.lu"
       },
       "blogPost": sortedPosts.slice(0, 10).map(post => ({
         "@type": "BlogPosting",
@@ -131,8 +131,8 @@ const articlesSchema = {
         "description": post.data.description,
         "datePublished": post.data.date.toISOString(),
         "dateModified": (post.data.modified || post.data.date).toISOString(),
-        "url": `https://www.fiduciaire-expert.lu/en/articles/${post.slug.replace('en/', '')}`,
-        "image": post.data.image ? `https://www.fiduciaire-expert.lu${post.data.image.src}` : undefined,
+        "url": `https://fiduciaire-expert.lu/en/articles/${post.slug.replace('en/', '')}`,
+        "image": post.data.image ? `https://fiduciaire-expert.lu${post.data.image.src}` : undefined,
         "author": {
           "@type": "Organization",
           "name": "Fiduciaire Expert"
@@ -147,7 +147,7 @@ const articlesSchema = {
 <LayoutI18n
   title="Chartered Accountant Luxembourg Articles | Accounting Tax Blog"
   description={`${sortedPosts.length} chartered accounting articles: CIT/MBT, Luxembourg VAT, SARL/SA formation, CCSS payroll. Tax and accounting advice by certified experts.`}
-  canonical="https://www.fiduciaire-expert.lu/en/articles"
+  canonical="https://fiduciaire-expert.lu/en/articles"
   schema={articlesSchema}
 >
   {/* Link tag for next page SEO */}

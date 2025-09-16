@@ -91,12 +91,12 @@ const articlesSchema = {
   "@graph": [
     {
       "@type": "CollectionPage",
-      "@id": "https://www.fiduciaire-expert.lu/fr/articles",
+      "@id": "https://fiduciaire-expert.lu/fr/articles",
       "name": "Articles Expert Comptable Luxembourg | Blog Fiduciaire Expert",
       "description": `Découvrez nos ${sortedPosts.length} articles d'experts sur la comptabilité, fiscalité IRC/ICC/IF et TVA, création d'entreprise au Luxembourg.`,
-      "url": "https://www.fiduciaire-expert.lu/fr/articles",
+      "url": "https://fiduciaire-expert.lu/fr/articles",
       "isPartOf": {
-        "@id": "https://www.fiduciaire-expert.lu/#website"
+        "@id": "https://fiduciaire-expert.lu/#website"
       },
       "breadcrumb": {
         "@type": "BreadcrumbList",
@@ -105,28 +105,28 @@ const articlesSchema = {
             "@type": "ListItem",
             "position": 1,
             "name": "Accueil",
-            "item": "https://www.fiduciaire-expert.lu/fr"
+            "item": "https://fiduciaire-expert.lu/fr"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Articles",
-            "item": "https://www.fiduciaire-expert.lu/fr/articles"
+            "item": "https://fiduciaire-expert.lu/fr/articles"
           }
         ]
       }
     },
     {
       "@type": "Blog",
-      "@id": "https://www.fiduciaire-expert.lu/fr/articles#blog",
+      "@id": "https://fiduciaire-expert.lu/fr/articles#blog",
       "name": "Blog Fiduciaire Expert Luxembourg",
       "description": "Conseils et actualités en comptabilité, fiscalité, paie et droit des sociétés au Luxembourg",
-      "url": "https://www.fiduciaire-expert.lu/fr/articles",
+      "url": "https://fiduciaire-expert.lu/fr/articles",
       "inLanguage": "fr-FR",
       "publisher": {
         "@type": "Organization",
         "name": "Fiduciaire Expert",
-        "url": "https://www.fiduciaire-expert.lu"
+        "url": "https://fiduciaire-expert.lu"
       },
       "blogPost": sortedPosts.slice(0, 10).map(post => ({
         "@type": "BlogPosting",
@@ -134,8 +134,8 @@ const articlesSchema = {
         "description": post.data.description,
         "datePublished": post.data.date.toISOString(),
         "dateModified": (post.data.modified || post.data.date).toISOString(),
-        "url": `https://www.fiduciaire-expert.lu/fr/articles/${post.slug.replace('fr/', '')}`,
-        "image": post.data.image ? `https://www.fiduciaire-expert.lu${post.data.image.src}` : undefined,
+        "url": `https://fiduciaire-expert.lu/fr/articles/${post.slug.replace('fr/', '')}`,
+        "image": post.data.image ? `https://fiduciaire-expert.lu${post.data.image.src}` : undefined,
         "author": {
           "@type": "Organization",
           "name": "Fiduciaire Expert"
@@ -150,7 +150,7 @@ const articlesSchema = {
 <LayoutI18n
   title="Articles Expert Comptable Luxembourg | Blog Comptabilité Fiscalité"
   description={`${sortedPosts.length} articles d'expertise comptable : IRC/ICC/IF et TVA Luxembourg, création SARL/SA, paie CCSS. Conseils fiscaux et comptables par experts agréés.`}
-  canonical="https://www.fiduciaire-expert.lu/fr/articles"
+  canonical="https://fiduciaire-expert.lu/fr/articles"
   schema={articlesSchema}
 >
   {/* Balise link pour next page SEO */}

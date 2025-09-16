@@ -98,7 +98,7 @@ const formatDate = (date) => date.toLocaleDateString('en-GB', {
   year: 'numeric', month: 'long', day: 'numeric'
 });
 // URLs for rel prev/next
-const siteUrl = Astro.site ? Astro.site.origin : "https://www.fiduciaire-expert.lu";
+const siteUrl = Astro.site ? Astro.site.origin : "https://fiduciaire-expert.lu";
 const prevUrl = currentPage === 2 ? '/en/articles' : `/en/articles/page/${currentPage - 1}`;
 const nextUrl = currentPage < totalPages ? `/en/articles/page/${currentPage + 1}` : null;
 const canonicalUrl = `${siteUrl}/en/articles/page/${currentPage}`;

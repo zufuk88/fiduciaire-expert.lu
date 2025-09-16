@@ -99,7 +99,7 @@ const formatDate = (date) => date.toLocaleDateString('fr-FR', {
   year: 'numeric', month: 'long', day: 'numeric'
 });
 // URLs pour rel prev/next
-const siteUrl = Astro.site ? Astro.site.origin : "https://www.fiduciaire-expert.lu";
+const siteUrl = Astro.site ? Astro.site.origin : "https://fiduciaire-expert.lu";
 const prevUrl = currentPage === 2 ? '/fr/articles' : `/fr/articles/page/${currentPage - 1}`;
 const nextUrl = currentPage < totalPages ? `/fr/articles/page/${currentPage + 1}` : null;
 const canonicalUrl = `${siteUrl}/fr/articles/page/${currentPage}`;
