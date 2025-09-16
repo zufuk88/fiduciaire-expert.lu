@@ -3,7 +3,7 @@ import sitemap from '@astrojs/sitemap';
 import { customSitemapTransform } from './src/utils/sitemap-config.js';
 
 export default defineConfig({
-  site: 'https://www.fiduciaire-expert.lu',
+  site: 'https://fiduciaire-expert.lu',
   
   i18n: {
     defaultLocale: "fr",
