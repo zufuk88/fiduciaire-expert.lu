@@ -88,7 +88,7 @@
   from = "/"
   to = "/fr/"
   status = 301
-  force = false
+  force = true
 
 # Note: Pas de catch-all /* car cela peut interférer avec les assets statiques
 
