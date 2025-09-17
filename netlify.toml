@@ -73,14 +73,14 @@
   from = "/"
   to = "/fr/"
   status = 302
-  force = false
+  force = true
   conditions = {Language = ["fr", "fr-FR", "fr-LU", "fr-BE", "fr-CH", "fr-CA"]}
 
 [[redirects]]
   from = "/"
   to = "/en/"
   status = 302
-  force = false
+  force = true
   conditions = {Language = ["en", "en-US", "en-GB", "en-CA", "en-AU"]}
 
 # 3. FALLBACK par défaut vers le français
