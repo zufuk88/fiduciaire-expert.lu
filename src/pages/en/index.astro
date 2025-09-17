@@ -127,11 +127,6 @@ const schema = {
           }
         ]
       },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "reviewCount": "47"
-      },
       "priceRange": "€€"
     },
     // 3. BreadcrumbList
@@ -177,7 +172,7 @@ const schema = {
   title={pageTitle}
   description={pageDescription}
   keywords={pageKeywords}
-  ogImage="/images/og-chartered-accountant-luxembourg.jpg"
+  ogImage="/images/og-expert-comptable-luxembourg.jpg"
   schema={schema}
 >
   <!-- Preload critical resources -->
@@ -195,12 +190,11 @@ const schema = {
     subtitle="Complete solutions for your Luxembourg business"
     services={[
       { text: "Accounting and bookkeeping", href: "/en/accounting" },
-      { text: "Tax returns for companies and individuals", href: "/en/taxation" },
-      { text: "Financial management and optimization consulting", href: "/en/taxpertise" },
+      { text: "Tax returns for companies and individuals", href: "/en/tax" },
       { text: "Company formation and management in Luxembourg", href: "/en/company-formation-luxembourg" },
-      "Training and assistance in accounting",
-      "Personalized training for internal teams",
-      "Workshops on new tax regulations",
+      { text: "Training and assistance in accounting", href: "/en/training" },
+      { text: "Personalized training for internal teams", href: "/en/training" },
+      { text: "Workshops on new tax regulations", href: "/en/training" },
       { text: "Company domiciliation", href: "/en/domiciliation" }
     ]}
   />
