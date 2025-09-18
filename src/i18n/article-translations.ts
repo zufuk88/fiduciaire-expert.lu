@@ -26,8 +26,8 @@ export const articleTranslations: Record<string, Record<string, string>> = {
     // en: "sas-luxembourg-simplified-joint-stock-company-guide" // Draft article
   },
   "sci-luxembourg": {
-    fr: "sci-luxembourg"
-    // en: "sci-luxembourg-real-estate-holding-company" // Draft article
+    fr: "sci-luxembourg",
+    en: "sci-luxembourg-real-estate-holding-company"
   },
   "societe-anonyme-sa": {
     fr: "societe-anonyme-sa"
@@ -67,10 +67,10 @@ export const articleTranslations: Record<string, Record<string, string>> = {
   //   en: "sas-luxembourg-simplified-joint-stock-company-guide",
   //   fr: "SAS-luxembourg"
   // },
-  // "sci-luxembourg-real-estate-holding-company": { // Draft article
-  //   en: "sci-luxembourg-real-estate-holding-company",
-  //   fr: "sci-luxembourg"
-  // },
+  "sci-luxembourg-real-estate-holding-company": {
+    en: "sci-luxembourg-real-estate-holding-company",
+    fr: "sci-luxembourg"
+  },
   // "sa-luxembourg-public-limited-company-guide": { // Draft article
   //   en: "sa-luxembourg-public-limited-company-guide",
   //   fr: "societe-anonyme-sa"

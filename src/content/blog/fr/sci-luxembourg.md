@@ -5,7 +5,7 @@ date: "2025-07-25"
 category: "Fiscalité"
 image: "../../../assets/images/sci-luxembourg.webp"
 imageAlt: "SCI Luxembourg - Société civile immobilière pour la gestion et détention de biens immobiliers"
-translations: { en: "en/sci-luxembourg-real-estate-holding-company" }
+translations: { en: "sci-luxembourg-real-estate-holding-company" }
 ---
 
 La Société Civile Immobilière (SCI) est l'outil de prédilection pour détenir et gérer un bien immobilier à plusieurs au Luxembourg. Sa facilité de création et sa flexibilité en font un véhicule patrimonial puissant pour organiser la détention et anticiper la transmission. Contrairement aux [SARL](/fr/articles/sarl-luxembourg) ou [SA](/fr/articles/societe-anonyme-sa), la SCI est exclusivement dédiée à l'immobilier.
