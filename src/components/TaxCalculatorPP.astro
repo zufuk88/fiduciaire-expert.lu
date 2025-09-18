@@ -1,0 +1,575 @@
+---
+export interface Props {
+  title?: string;
+}
+
+const { title = "Calculateur d'Impôt sur le Revenu - Personnes Physiques" } = Astro.props;
+---
+
+<div class="tax-calculator-container">
+  <div class="calculator-card">
+    <h2 class="calculator-title">{title}</h2>
+    <p class="calculator-subtitle">Barème 2025 - Administration des contributions directes</p>
+
+    <div class="calculator-form">
+      <div class="form-group">
+        <label for="taxYear">Année d'imposition</label>
+        <select id="taxYear" class="form-input">
+          <option value="2025" selected>2025</option>
+          <option value="2024">2024</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="income">Revenu imposable ajusté annuel (€)</label>
+        <input
+          type="number"
+          id="income"
+          class="form-input"
+          placeholder="100000"
+          min="0"
+          step="100"
+        />
+        <small class="form-hint">Revenu brut après déductions sociales et frais d'obtention</small>
+      </div>
+
+      <div class="form-group">
+        <label for="status">Classe d'impôt</label>
+        <select id="status" class="form-input">
+          <option value="1">Classe 1 - Célibataire, divorcé ou veuf sans enfant</option>
+          <option value="1a">Classe 1a - Célibataire âgé de 65+ ou avec enfant(s)</option>
+          <option value="2">Classe 2 - Marié (imposition collective)</option>
+        </select>
+      </div>
+
+      <button id="calculateTax" class="calculate-btn">
+        Calculer l'impôt
+      </button>
+    </div>
+
+    <div id="results" class="results-section hidden">
+      <h3>Calcul détaillé de votre impôt</h3>
+
+      <div class="result-grid">
+        <div class="result-item">
+          <span class="result-label">Revenu imposable ajusté</span>
+          <span class="result-value" id="taxableIncome">-</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Classe d'impôt appliquée</span>
+          <span class="result-value" id="taxClass">-</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Impôt suivant barème</span>
+          <span class="result-value" id="baseTax">-</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Fonds pour l'emploi (7%)</span>
+          <span class="result-value" id="employmentFund">-</span>
+        </div>
+
+        <div class="result-item highlight">
+          <span class="result-label">Total dû (impôt annuel)</span>
+          <span class="result-value" id="totalTax">-</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Impôt mensuel</span>
+          <span class="result-value" id="monthlyTax">-</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Taux moyen (sans fonds pour l'emploi)</span>
+          <span class="result-value" id="effectiveRate">-</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Taux marginal d'imposition</span>
+          <span class="result-value" id="marginalRate">-</span>
+        </div>
+      </div>
+
+      <div class="calculation-details" id="calculationDetails">
+        <h4>Détail du calcul</h4>
+        <div id="calculationSteps"></div>
+      </div>
+
+      <div class="disclaimer">
+        <p>⚠️ Ce calcul est basé sur le barème fiscal de l'Administration des contributions directes du Luxembourg. Il s'agit d'une simulation simplifiée ne tenant pas compte de toutes les déductions et crédits d'impôt possibles.</p>
+        <p>📌 Le fonds pour l'emploi est plafonné à 3.174,51 € pour la classe 1 et 1a, et 6.349,02 € pour la classe 2.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .tax-calculator-container {
+    width: 100%;
+    max-width: 750px;
+    margin: 2rem auto;
+  }
+
+  .calculator-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .calculator-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .calculator-subtitle {
+    text-align: center;
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
+
+  .calculator-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #4a4a4a;
+  }
+
+  .form-input {
+    padding: 0.75rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  }
+
+  .form-hint {
+    font-size: 0.85rem;
+    color: #666;
+    font-style: italic;
+  }
+
+  .calculate-btn {
+    background: linear-gradient(135deg, #0066cc, #004499);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+  }
+
+  .calculate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 102, 204, 0.3);
+  }
+
+  .calculate-btn:active {
+    transform: translateY(0);
+  }
+
+  .results-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #f0f0f0;
+    animation: slideIn 0.5s ease;
+  }
+
+  .results-section.hidden {
+    display: none;
+  }
+
+  .results-section h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+  }
+
+  .result-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+  }
+
+  .result-item.highlight {
+    background: linear-gradient(135deg, #e8f4ff, #f0f8ff);
+    border: 2px solid #0066cc;
+  }
+
+  .result-label {
+    font-size: 0.95rem;
+    color: #666;
+  }
+
+  .result-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+
+  .calculation-details {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+
+  .calculation-details h4 {
+    margin: 0 0 1rem 0;
+    color: #333;
+    font-size: 1.1rem;
+  }
+
+  #calculationSteps {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #555;
+  }
+
+  .calculation-step {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    background: white;
+    border-left: 3px solid #0066cc;
+    border-radius: 4px;
+  }
+
+  .disclaimer {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    border-radius: 4px;
+  }
+
+  .disclaimer p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: #856404;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .calculator-card {
+      padding: 1.5rem;
+    }
+
+    .calculator-title {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  const calculateBtn = document.getElementById('calculateTax') as HTMLButtonElement;
+  const resultsSection = document.getElementById('results') as HTMLDivElement;
+
+  // Barème fiscal officiel Luxembourg - Ces valeurs sont exactes selon l'administration fiscale
+  // Source: Administration des contributions directes Luxembourg
+
+  function calculateLuxembourgTax(income: number, year: string = '2025'): number {
+    // Barème progressif par tranches (méthode officielle)
+    if (income <= 12438) return 0;
+
+    let tax = 0;
+
+    // Calcul par tranches successives
+    if (income > 12438) {
+      // Tranche 8%
+      const tranche1 = Math.min(income - 12438, 14508 - 12438);
+      tax += tranche1 * 0.08;
+    }
+
+    if (income > 14508) {
+      // Tranche 9%
+      const tranche2 = Math.min(income - 14508, 16578 - 14508);
+      tax += tranche2 * 0.09;
+    }
+
+    if (income > 16578) {
+      // Tranche 10%
+      const tranche3 = Math.min(income - 16578, 18648 - 16578);
+      tax += tranche3 * 0.10;
+    }
+
+    if (income > 18648) {
+      // Tranche 11%
+      const tranche4 = Math.min(income - 18648, 20718 - 18648);
+      tax += tranche4 * 0.11;
+    }
+
+    if (income > 20718) {
+      // Tranche 12%
+      const tranche5 = Math.min(income - 20718, 22788 - 20718);
+      tax += tranche5 * 0.12;
+    }
+
+    if (income > 22788) {
+      // Tranche 14%
+      const tranche6 = Math.min(income - 22788, 24858 - 22788);
+      tax += tranche6 * 0.14;
+    }
+
+    if (income > 24858) {
+      // Tranche 16%
+      const tranche7 = Math.min(income - 24858, 26928 - 24858);
+      tax += tranche7 * 0.16;
+    }
+
+    if (income > 26928) {
+      // Tranche 18%
+      const tranche8 = Math.min(income - 26928, 28998 - 26928);
+      tax += tranche8 * 0.18;
+    }
+
+    if (income > 28998) {
+      // Tranche 20%
+      const tranche9 = Math.min(income - 28998, 31068 - 28998);
+      tax += tranche9 * 0.20;
+    }
+
+    if (income > 31068) {
+      // Tranche 22%
+      const tranche10 = Math.min(income - 31068, 33138 - 31068);
+      tax += tranche10 * 0.22;
+    }
+
+    if (income > 33138) {
+      // Tranche 24%
+      const tranche11 = Math.min(income - 33138, 35208 - 33138);
+      tax += tranche11 * 0.24;
+    }
+
+    if (income > 35208) {
+      // Tranche 26%
+      const tranche12 = Math.min(income - 35208, 37278 - 35208);
+      tax += tranche12 * 0.26;
+    }
+
+    if (income > 37278) {
+      // Tranche 28%
+      const tranche13 = Math.min(income - 37278, 39348 - 37278);
+      tax += tranche13 * 0.28;
+    }
+
+    if (income > 39348) {
+      // Tranche 30%
+      const tranche14 = Math.min(income - 39348, 41418 - 39348);
+      tax += tranche14 * 0.30;
+    }
+
+    if (income > 41418) {
+      // Tranche 32%
+      const tranche15 = Math.min(income - 41418, 43488 - 41418);
+      tax += tranche15 * 0.32;
+    }
+
+    if (income > 43488) {
+      // Tranche 34%
+      const tranche16 = Math.min(income - 43488, 45558 - 43488);
+      tax += tranche16 * 0.34;
+    }
+
+    if (income > 45558) {
+      // Tranche 36%
+      const tranche17 = Math.min(income - 45558, 47628 - 45558);
+      tax += tranche17 * 0.36;
+    }
+
+    if (income > 47628) {
+      // Tranche 38%
+      const tranche18 = Math.min(income - 47628, 49698 - 47628);
+      tax += tranche18 * 0.38;
+    }
+
+    if (income > 49698) {
+      // Tranche 39%
+      const tranche19 = Math.min(income - 49698, 113868 - 49698);
+      tax += tranche19 * 0.39;
+    }
+
+    if (income > 113868) {
+      // Tranche 40%
+      const tranche20 = Math.min(income - 113868, 228138 - 113868);
+      tax += tranche20 * 0.40;
+    }
+
+    if (income > 228138) {
+      // Tranche 42%
+      tax += (income - 228138) * 0.42;
+    }
+
+    return Math.round(tax * 100) / 100;
+  }
+
+  // Fonction pour obtenir le taux marginal
+  function getMarginalRate(income: number): number {
+    if (income <= 12438) return 0;
+    if (income <= 14508) return 8;
+    if (income <= 16578) return 9;
+    if (income <= 18648) return 10;
+    if (income <= 20718) return 11;
+    if (income <= 22788) return 12;
+    if (income <= 24858) return 14;
+    if (income <= 26928) return 16;
+    if (income <= 28998) return 18;
+    if (income <= 31068) return 20;
+    if (income <= 33138) return 22;
+    if (income <= 35208) return 24;
+    if (income <= 37278) return 26;
+    if (income <= 39348) return 28;
+    if (income <= 41418) return 30;
+    if (income <= 43488) return 32;
+    if (income <= 45558) return 34;
+    if (income <= 47628) return 36;
+    if (income <= 49698) return 38;
+    if (income <= 113868) return 39;
+    if (income <= 228138) return 40;
+    return 42;
+  }
+
+  calculateBtn?.addEventListener('click', () => {
+    const income = parseFloat((document.getElementById('income') as HTMLInputElement).value) || 0;
+    const taxClass = (document.getElementById('status') as HTMLSelectElement).value;
+    const taxYear = (document.getElementById('taxYear') as HTMLSelectElement).value;
+
+    if (income <= 0) {
+      alert('Veuillez entrer un revenu valide');
+      return;
+    }
+
+    // Calcul de l'impôt
+    let finalTax = 0;
+    let classDescription = '';
+
+    if (taxClass === '2') {
+      // Classe 2: splitting conjugal
+      const halfIncome = income / 2;
+      const halfTax = calculateLuxembourgTax(halfIncome, taxYear);
+      finalTax = halfTax * 2;
+      classDescription = 'Classe 2';
+    } else if (taxClass === '1a') {
+      // Classe 1a: abattement extra-professionnel
+      const baseTax = calculateLuxembourgTax(income, taxYear);
+      finalTax = Math.max(0, baseTax - 936);
+      classDescription = 'Classe 1a';
+    } else {
+      // Classe 1
+      finalTax = calculateLuxembourgTax(income, taxYear);
+      classDescription = 'Classe 1';
+    }
+
+    // Calcul du Fonds pour l'emploi (7% de l'impôt)
+    let employmentFund = finalTax * 0.07;
+
+    // Plafonds du fonds pour l'emploi (valeurs 2025)
+    const employmentFundCap = (taxClass === '2') ? 6349.02 : 3174.51;
+    employmentFund = Math.min(employmentFund, employmentFundCap);
+
+    // Total avec fonds pour l'emploi
+    const totalTax = finalTax + employmentFund;
+
+    // Calcul des taux
+    const effectiveRate = (finalTax / income) * 100;
+    const marginalRate = getMarginalRate(income);
+    const monthlyTax = totalTax / 12;
+
+    // Affichage des résultats
+    document.getElementById('taxableIncome')!.textContent = formatCurrency(income);
+    document.getElementById('taxClass')!.textContent = classDescription;
+    document.getElementById('baseTax')!.textContent = formatCurrency(finalTax);
+    document.getElementById('employmentFund')!.textContent = formatCurrency(employmentFund);
+    document.getElementById('totalTax')!.textContent = formatCurrency(totalTax);
+    document.getElementById('monthlyTax')!.textContent = formatCurrency(monthlyTax);
+    document.getElementById('effectiveRate')!.textContent = effectiveRate.toFixed(2) + '%';
+    document.getElementById('marginalRate')!.textContent = marginalRate + '%';
+
+    // Détails du calcul
+    const stepsHtml = `
+      <div class="calculation-step">
+        <strong>Année d'imposition:</strong> ${taxYear}
+      </div>
+      <div class="calculation-step">
+        <strong>Méthode de calcul:</strong> Barème progressif par tranches
+      </div>
+      <div class="calculation-step">
+        <strong>Taux marginal appliqué:</strong> ${marginalRate}%
+      </div>
+      ${taxClass !== '1' ? `
+      <div class="calculation-step">
+        <strong>Ajustement ${classDescription}:</strong> ${taxClass === '1a' ?
+          `Abattement de 936€ appliqué` :
+          `Splitting conjugal appliqué`}
+      </div>` : ''}
+      <div class="calculation-step">
+        <strong>Impôt suivant barème:</strong> ${formatCurrency(finalTax)}
+      </div>
+      <div class="calculation-step">
+        <strong>Fonds pour l'emploi (7%):</strong> ${formatCurrency(employmentFund)} ${employmentFund === employmentFundCap ? '(plafonné)' : ''}
+      </div>
+      <div class="calculation-step">
+        <strong>Total dû:</strong> ${formatCurrency(totalTax)} par an, soit ${formatCurrency(monthlyTax)} par mois
+      </div>
+    `;
+
+    document.getElementById('calculationSteps')!.innerHTML = stepsHtml;
+
+    resultsSection.classList.remove('hidden');
+    resultsSection.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  function formatCurrency(amount: number): string {
+    return new Intl.NumberFormat('fr-LU', {
+      style: 'currency',
+      currency: 'EUR',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(amount);
+  }
+</script>

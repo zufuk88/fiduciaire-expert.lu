@@ -14,8 +14,15 @@ const { title, seoTitle, description, date, modified, category, image, imageAlt,
 // Calculer le temps de lecture
 const readingTime = rawContent ? calculateReadingTime(rawContent, 'fr') : 5;
 const pageTitle = seoTitle || title;
-const siteUrl = Astro.site ? Astro.site.origin : "https://fiduciaire-expert.lu";
-const articleUrl = new URL(Astro.url.pathname, siteUrl).href;
+const rawSiteOrigin = import.meta.env.PUBLIC_SITE_URL ?? Astro.site?.origin ?? 'https://fiduciaire-expert.lu';
+const siteUrl = rawSiteOrigin.replace(/\/+$/, '');
+
+const ensureTrailingSlash = (path: string) => {
+  if (!path || path === '/') return '/';
+  return path.endsWith('/') ? path : `${path}/`;
+};
+
+const articleUrl = new URL(ensureTrailingSlash(Astro.url.pathname), siteUrl).href;
 // Récupérer les articles de la même catégorie
 const allPosts = await getCollection('blog');
 const relatedPosts = allPosts

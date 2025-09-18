@@ -1,0 +1,429 @@
+---
+export interface Props {
+  title?: string;
+}
+
+const { title = "Calculateur de Retraite Luxembourg" } = Astro.props;
+---
+
+<div class="retirement-calculator-container">
+  <div class="calculator-card">
+    <h2 class="calculator-title">{title}</h2>
+
+    <div class="calculator-form">
+      <div class="form-group">
+        <label for="currentAge">Âge actuel</label>
+        <input
+          type="number"
+          id="currentAge"
+          class="form-input"
+          placeholder="35"
+          min="18"
+          max="64"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="retirementAge">Âge de départ à la retraite souhaité</label>
+        <select id="retirementAge" class="form-input">
+          <option value="57">57 ans (retraite anticipée)</option>
+          <option value="60">60 ans (retraite anticipée)</option>
+          <option value="65" selected>65 ans (âge légal)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="currentSalary">Salaire mensuel brut actuel (€)</label>
+        <input
+          type="number"
+          id="currentSalary"
+          class="form-input"
+          placeholder="4000"
+          min="0"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="yearsWorked">Années déjà cotisées</label>
+        <input
+          type="number"
+          id="yearsWorked"
+          class="form-input"
+          placeholder="10"
+          min="0"
+          max="50"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="savingsRate">Épargne mensuelle supplémentaire (€)</label>
+        <input
+          type="number"
+          id="savingsRate"
+          class="form-input"
+          placeholder="500"
+          min="0"
+        />
+        <small class="form-hint">Pour votre retraite complémentaire privée</small>
+      </div>
+
+      <button id="calculateRetirement" class="calculate-btn">
+        Calculer ma retraite
+      </button>
+    </div>
+
+    <div id="retirementResults" class="results-section hidden">
+      <h3>Projection de votre retraite</h3>
+
+      <div class="result-grid">
+        <div class="result-item">
+          <span class="result-label">Années restantes avant la retraite</span>
+          <span class="result-value" id="yearsRemaining">-</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Total années cotisées à la retraite</span>
+          <span class="result-value" id="totalYears">-</span>
+        </div>
+
+        <div class="result-item highlight">
+          <span class="result-label">Pension mensuelle estimée (régime général)</span>
+          <span class="result-value" id="monthlyPension">-</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Taux de remplacement</span>
+          <span class="result-value" id="replacementRate">-</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Capital épargne retraite estimé</span>
+          <span class="result-value" id="savingsCapital">-</span>
+        </div>
+
+        <div class="result-item">
+          <span class="result-label">Rente mensuelle du capital (sur 20 ans)</span>
+          <span class="result-value" id="monthlyRent">-</span>
+        </div>
+
+        <div class="result-item success">
+          <span class="result-label">Revenu total mensuel à la retraite</span>
+          <span class="result-value" id="totalMonthlyRetirement">-</span>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <h4>💡 Comprendre votre calcul</h4>
+        <ul>
+          <li>La pension luxembourgeoise est basée sur vos années de cotisation et vos revenus</li>
+          <li>40 années de cotisation donnent droit à une pension complète</li>
+          <li>Le taux de remplacement varie entre 73% et 93% selon vos revenus</li>
+          <li>Une retraite anticipée réduit votre pension de 0.2% par mois d'anticipation</li>
+        </ul>
+      </div>
+
+      <div class="disclaimer">
+        <p>⚠️ Cette simulation est basée sur les règles actuelles du système de retraite luxembourgeois. Pour une évaluation personnalisée, consultez la CNAP ou un conseiller en planification financière.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .retirement-calculator-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 2rem auto;
+  }
+
+  .calculator-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .calculator-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .calculator-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #4a4a4a;
+  }
+
+  .form-input {
+    padding: 0.75rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: #28a745;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+  }
+
+  .form-hint {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.25rem;
+  }
+
+  .calculate-btn {
+    background: linear-gradient(135deg, #28a745, #218838);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+  }
+
+  .calculate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
+  }
+
+  .calculate-btn:active {
+    transform: translateY(0);
+  }
+
+  .results-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #f0f0f0;
+    animation: slideIn 0.5s ease;
+  }
+
+  .results-section.hidden {
+    display: none;
+  }
+
+  .results-section h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+  }
+
+  .result-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+  }
+
+  .result-item.highlight {
+    background: linear-gradient(135deg, #fff8e1, #fffaf0);
+    border: 2px solid #ffc107;
+  }
+
+  .result-item.success {
+    background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+    border: 2px solid #28a745;
+  }
+
+  .result-label {
+    font-size: 0.95rem;
+    color: #666;
+    flex: 1;
+  }
+
+  .result-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-align: right;
+  }
+
+  .info-box {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #e3f2fd;
+    border-radius: 8px;
+    border-left: 4px solid #2196f3;
+  }
+
+  .info-box h4 {
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    color: #1565c0;
+  }
+
+  .info-box ul {
+    margin: 0;
+    padding-left: 1.5rem;
+  }
+
+  .info-box li {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: #333;
+  }
+
+  .disclaimer {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    border-radius: 4px;
+  }
+
+  .disclaimer p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #856404;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .calculator-card {
+      padding: 1.5rem;
+    }
+
+    .calculator-title {
+      font-size: 1.5rem;
+    }
+
+    .result-label {
+      font-size: 0.85rem;
+    }
+
+    .result-value {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<script>
+  const calculateRetirementBtn = document.getElementById('calculateRetirement') as HTMLButtonElement;
+  const resultsSection = document.getElementById('retirementResults') as HTMLDivElement;
+
+  calculateRetirementBtn?.addEventListener('click', () => {
+    const currentAge = parseInt((document.getElementById('currentAge') as HTMLInputElement).value) || 0;
+    const retirementAge = parseInt((document.getElementById('retirementAge') as HTMLSelectElement).value) || 65;
+    const currentSalary = parseFloat((document.getElementById('currentSalary') as HTMLInputElement).value) || 0;
+    const yearsWorked = parseInt((document.getElementById('yearsWorked') as HTMLInputElement).value) || 0;
+    const savingsRate = parseFloat((document.getElementById('savingsRate') as HTMLInputElement).value) || 0;
+
+    if (currentAge <= 0 || currentAge >= retirementAge) {
+      alert('Veuillez entrer un âge valide');
+      return;
+    }
+
+    if (currentSalary <= 0) {
+      alert('Veuillez entrer un salaire valide');
+      return;
+    }
+
+    // Calculs
+    const yearsRemaining = retirementAge - currentAge;
+    const totalYears = yearsWorked + yearsRemaining;
+
+    // Calcul de la pension luxembourgeoise (simplifié)
+    // Base: 1.844% du salaire de référence par année de cotisation
+    // Plus des majorations forfaitaires
+    const annualSalary = currentSalary * 12;
+    const referenceIncome = Math.min(annualSalary, 132119); // Plafond cotisable 2024
+
+    // Partie proportionnelle (1.844% par année)
+    const proportionalPension = referenceIncome * 0.01844 * Math.min(totalYears, 40);
+
+    // Majorations forfaitaires (environ 500€/mois pour 40 ans)
+    const flatRateIncrease = (500 / 40) * Math.min(totalYears, 40) * 12;
+
+    // Pension annuelle totale
+    let annualPension = proportionalPension + flatRateIncrease;
+
+    // Réduction pour retraite anticipée
+    if (retirementAge < 65) {
+      const monthsEarly = (65 - retirementAge) * 12;
+      const reduction = monthsEarly * 0.002; // 0.2% par mois
+      annualPension *= (1 - reduction);
+    }
+
+    const monthlyPension = annualPension / 12;
+
+    // Taux de remplacement
+    const replacementRate = (monthlyPension / currentSalary) * 100;
+
+    // Calcul de l'épargne retraite
+    const monthsToRetirement = yearsRemaining * 12;
+    const annualReturn = 0.03; // 3% de rendement annuel estimé
+    const monthlyReturn = annualReturn / 12;
+
+    // Formule de la valeur future d'une série de paiements
+    let savingsCapital = 0;
+    if (savingsRate > 0) {
+      savingsCapital = savingsRate * ((Math.pow(1 + monthlyReturn, monthsToRetirement) - 1) / monthlyReturn);
+    }
+
+    // Rente mensuelle sur 20 ans
+    const monthlyRent = savingsCapital / (20 * 12);
+
+    // Total mensuel à la retraite
+    const totalMonthlyRetirement = monthlyPension + monthlyRent;
+
+    // Affichage des résultats
+    document.getElementById('yearsRemaining')!.textContent = `${yearsRemaining} ans`;
+    document.getElementById('totalYears')!.textContent = `${totalYears} ans`;
+    document.getElementById('monthlyPension')!.textContent = formatCurrency(monthlyPension);
+    document.getElementById('replacementRate')!.textContent = `${replacementRate.toFixed(1)}%`;
+    document.getElementById('savingsCapital')!.textContent = formatCurrency(savingsCapital);
+    document.getElementById('monthlyRent')!.textContent = formatCurrency(monthlyRent);
+    document.getElementById('totalMonthlyRetirement')!.textContent = formatCurrency(totalMonthlyRetirement);
+
+    resultsSection.classList.remove('hidden');
+    resultsSection.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  function formatCurrency(amount: number): string {
+    return new Intl.NumberFormat('fr-LU', {
+      style: 'currency',
+      currency: 'EUR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(amount);
+  }
+</script>

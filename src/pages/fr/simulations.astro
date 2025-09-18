@@ -1,0 +1,339 @@
+---
+import LayoutI18n from '../../layouts/LayoutI18n.astro';
+import TaxCalculatorPP from '../../components/TaxCalculatorPP.astro';
+import RetirementCalculator from '../../components/RetirementCalculator.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+
+const meta = {
+  title: 'Simulateurs Fiscaux et Retraite - Fiduciaire Expert Luxembourg',
+  description: 'Calculez vos impôts et estimez votre retraite au Luxembourg avec nos simulateurs gratuits. Outils de calcul fiscal et projection retraite personnalisés.',
+  keywords: 'calculateur impôts Luxembourg, simulation retraite Luxembourg, calcul fiscal, pension Luxembourg, simulateur fiscal gratuit'
+};
+---
+
+<LayoutI18n
+  title={meta.title}
+  description={meta.description}
+  lang="fr"
+  currentPath="/fr/simulations"
+>
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            Simulateurs <span class="highlight">Fiscaux & Retraite</span>
+          </h1>
+          <p class="hero-subtitle">
+            Estimez vos impôts et planifiez votre retraite au Luxembourg avec nos outils de simulation gratuits et personnalisés
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Introduction -->
+    <section class="intro-section">
+      <div class="container">
+        <div class="intro-grid">
+          <div class="intro-card">
+            <div class="intro-icon tax-icon">💰</div>
+            <h3>Optimisez vos impôts</h3>
+            <p>Calculez votre charge fiscale et découvrez votre revenu net après impôts</p>
+          </div>
+          <div class="intro-card">
+            <div class="intro-icon retirement-icon">🎯</div>
+            <h3>Préparez votre retraite</h3>
+            <p>Projetez vos revenus futurs et planifiez sereinement votre retraite</p>
+          </div>
+          <div class="intro-card">
+            <div class="intro-icon expert-icon">👨‍💼</div>
+            <h3>Conseils d'experts</h3>
+            <p>Bénéficiez de l'expertise de nos conseillers pour optimiser votre situation</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tax Calculator Section -->
+    <section class="calculator-section">
+      <div class="container">
+        <SectionTitle
+          title="Calculateur d'Impôts"
+          subtitle="Estimez votre impôt sur le revenu au Luxembourg"
+        />
+        <TaxCalculatorPP />
+      </div>
+    </section>
+
+    <!-- Retirement Calculator Section -->
+    <section class="calculator-section bg-gray">
+      <div class="container">
+        <SectionTitle
+          title="Simulateur de Retraite"
+          subtitle="Projetez vos revenus à la retraite et planifiez votre avenir"
+        />
+        <RetirementCalculator />
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-card">
+          <h2>Besoin d'un conseil personnalisé ?</h2>
+          <p>Nos experts fiscaux sont à votre disposition pour une analyse approfondie de votre situation</p>
+          <div class="cta-buttons">
+            <a href="/fr/contact" class="btn btn-primary">
+              Demander un rendez-vous
+            </a>
+            <a href="/fr/services" class="btn btn-secondary">
+              Découvrir nos services
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="info-section">
+      <div class="container">
+        <div class="info-content">
+          <h2>À propos de nos simulateurs</h2>
+          <div class="info-grid">
+            <div class="info-item">
+              <h3>📊 Calculs basés sur la législation actuelle</h3>
+              <p>Nos simulateurs sont régulièrement mis à jour pour refléter les dernières modifications fiscales et sociales du Luxembourg.</p>
+            </div>
+            <div class="info-item">
+              <h3>🔒 Confidentialité garantie</h3>
+              <p>Aucune donnée n'est enregistrée. Vos simulations restent totalement privées et confidentielles.</p>
+            </div>
+            <div class="info-item">
+              <h3>⚡ Résultats instantanés</h3>
+              <p>Obtenez une estimation immédiate de votre situation fiscale ou de votre future retraite en quelques clics.</p>
+            </div>
+            <div class="info-item">
+              <h3>🎯 Simulations indicatives</h3>
+              <p>Ces outils fournissent des estimations à titre indicatif. Pour un calcul précis, consultez nos experts.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</LayoutI18n>
+
+<style>
+  .hero-section {
+    background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+    padding: 6rem 0 4rem;
+    color: white;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .hero-title .highlight {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    opacity: 0.95;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .intro-section {
+    padding: 4rem 0;
+    background: #f8f9fa;
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .intro-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .intro-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .intro-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .intro-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #1a1a1a;
+  }
+
+  .intro-card p {
+    color: #666;
+    line-height: 1.5;
+  }
+
+  .calculator-section {
+    padding: 4rem 0;
+  }
+
+  .calculator-section.bg-gray {
+    background: #f8f9fa;
+  }
+
+  .cta-section {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+  }
+
+  .cta-card {
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .cta-card h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .cta-card p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #1a1a1a;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+
+  .btn-secondary:hover {
+    background: white;
+    color: #1a1a1a;
+  }
+
+  .info-section {
+    padding: 4rem 0;
+    background: white;
+  }
+
+  .info-content h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    color: #1a1a1a;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .info-item {
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #0066cc;
+  }
+
+  .info-item h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #1a1a1a;
+  }
+
+  .info-item p {
+    color: #666;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+    }
+
+    .cta-card h2 {
+      font-size: 1.8rem;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .btn {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+</style>
