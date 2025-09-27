@@ -2,10 +2,10 @@
 title: "Salarié d'ambassade au Luxembourg : impôts & cotisations sociales (y compris cas binational)"
 seoTitle: "Ambassade Luxembourg 2025 : Fiscalité, CCSS, Convention de Vienne"
 description: "Qui est imposé, qui est exonéré, et dans quel pays cotiser quand on travaille pour une ambassade au Luxembourg ? Guide pratique fondé sur la Convention de Vienne et les règles de sécurité sociale (UE 883/2004)."
-date: "2025-08-07"
+date: "2025-09-26"
 category: "Fiscalité"
 image: "../../../assets/images/ambassade-luxembourg-fiscalite.jpg"
-draft: true
+draft: false
 translations:
   en: "en/embassy-employees-luxembourg-tax-social-security"
 ---
