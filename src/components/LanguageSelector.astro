@@ -26,9 +26,10 @@ const isArticlePage = route && route.startsWith('articles/') &&
       const linkUrl = alternateLinks[code as Language];
       const hasTranslation = linkUrl && typeof linkUrl === 'string' && linkUrl.length > 0;
       // Pour les articles de blog sans traduction, on désactive le lien
-      if (isArticlePage && !hasTranslation) {
+      // MAIS pas pour la langue actuelle de l'article
+      if (isArticlePage && !hasTranslation && code !== currentLang) {
         return (
-          <span 
+          <span
             class:list={['lang-option', 'disabled', { active: code === currentLang }]}
             lang={code}
             title={`Cet article n'est pas disponible en ${name}`}

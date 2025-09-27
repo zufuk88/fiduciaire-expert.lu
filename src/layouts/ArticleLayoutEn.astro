@@ -831,12 +831,93 @@ const combinedSchema = {
     text-decoration: underline;
     color: var(--accent-dark);
   }
-  .article-content :global(img) { 
-    max-width: 100%; 
-    height: auto; 
+  .article-content :global(img) {
+    max-width: 100%;
+    height: auto;
     margin: 2rem 0;
     border-radius: 4px;
     border: 1px solid #e2e8f0;
+  }
+
+  /* Styles for footnotes */
+  .article-content :global(.footnotes),
+  .article-content :global([data-footnotes="true"]) {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e2e8f0;
+    position: relative;
+    scroll-margin-top: 140px; /* Compensate for sticky header */
+  }
+
+  /* Hide "Footnotes" title visually but keep in DOM */
+  .article-content :global(.footnotes h2),
+  .article-content :global([data-footnotes="true"] h2),
+  .article-content :global(h2:has(+ ol.footnotes)),
+  .article-content :global(h2#footnote-label) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Footnotes list */
+  .article-content :global(.footnotes ol),
+  .article-content :global([data-footnotes="true"] ol) {
+    padding-left: 1.5rem;
+    margin: 0;
+    list-style-type: decimal;
+  }
+
+  .article-content :global(.footnotes li),
+  .article-content :global([data-footnotes="true"] li) {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: #64748b;
+    margin-bottom: 0.75rem;
+    scroll-margin-top: 140px; /* Compensate for sticky header */
+  }
+
+  .article-content :global(.footnotes p),
+  .article-content :global([data-footnotes="true"] p) {
+    margin: 0;
+    display: inline;
+    font-size: 0.875rem;
+  }
+
+  /* Return links */
+  .article-content :global(.footnotes a),
+  .article-content :global([data-footnotes="true"] a) {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .article-content :global(.footnotes a:hover),
+  .article-content :global([data-footnotes="true"] a:hover) {
+    text-decoration: underline;
+  }
+
+  /* Footnote references in text */
+  .article-content :global(sup) {
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+    top: -0.5em;
+    scroll-margin-top: 140px; /* Compensate for sticky header */
+  }
+
+  .article-content :global(sup a) {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .article-content :global(sup a:hover) {
+    text-decoration: underline;
   }
   /* Responsive wrapper for tables */
   .article-content :global(.table-wrapper) {
@@ -994,6 +1075,18 @@ const combinedSchema = {
   }
 
 
+  /* Fix offset for all anchors */
+  .article-content :global([id]) {
+    scroll-margin-top: 140px; /* Header height + sticky bar height + gap */
+  }
+
+  /* Specific for footnote references */
+  .article-content :global(.footnote-ref),
+  .article-content :global(.footnote-backref),
+  .article-content :global([data-footnote-ref]),
+  .article-content :global([data-footnote-backref]) {
+    scroll-margin-top: 140px;
+  }
 </style>
 
 <script>

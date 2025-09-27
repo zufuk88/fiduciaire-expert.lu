@@ -9,7 +9,18 @@ export interface Props {
 }
 const { headings, lang = 'fr' } = Astro.props;
 // Filtrer seulement les h2 et h3 pour la table des matières
-const tocHeadings = headings.filter(heading => heading.depth === 2 || heading.depth === 3);
+const tocHeadings = headings
+  .filter(heading => heading.depth === 2 || heading.depth === 3)
+  .map(heading => {
+    // Traduire "Footnotes" selon la langue
+    let text = heading.text;
+    if (heading.text === 'Footnotes' && lang === 'fr') {
+      text = 'Notes';
+    } else if ((heading.text === 'Notes' || heading.text === 'Notes de bas de page') && lang === 'en') {
+      text = 'Footnotes';
+    }
+    return { ...heading, text };
+  });
 const title = lang === 'fr' ? 'Table des matières' : 'Table of Contents';
 ---
 {tocHeadings.length > 2 && (
