@@ -4,7 +4,7 @@ seoTitle: "La holding exonérée d'impôt au Luxembourg"
 description: "Découvrez comment la SPF luxembourgeoise optimise la fiscalité des traders actifs : exonération d'impôts, taxe d'abonnement limitée, gestion patrimoniale, plus-values et dividendes capitalisés."
 date: "2025-09-27"
 category: "Fiscalité"
-image: "../../../assets/images/avantage-nature-voiture.jpg"
+image: "../../../assets/images/SPF-Luxembourg.jpg"
 imageAlt: "SPF avec bénéfices exonérés, rémunération souple et efficacité."
 ---
 
