@@ -1,4 +1,13 @@
 User-agent: *
 Allow: /
 
+# Bloquer les pages de remerciement et formulaires
+Disallow: /fr/merci
+Disallow: /en/contact/thank-you
+Disallow: /fr/recherche
+Disallow: /en/search
+
+# Laissez Googlebot accéder aux assets CSS/JS pour le rendu
+
+# Sitemap principal
 Sitemap: https://fiduciaire-expert.lu/sitemap-index.xml

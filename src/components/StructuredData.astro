@@ -1,0 +1,112 @@
+---
+export interface Props {
+  lang: 'fr' | 'en';
+  pageType?: 'home' | 'service' | 'contact' | 'article';
+}
+
+const { lang, pageType = 'home' } = Astro.props;
+const siteUrl = "https://fiduciaire-expert.lu";
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "AccountingService",
+  "@id": `${siteUrl}/#organization`,
+  "name": "Fiduciaire Expert Luxembourg",
+  "alternateName": "Cabinet Fiduciaire Expert",
+  "url": siteUrl,
+  "logo": `${siteUrl}/images/Logo.webp`,
+  "image": `${siteUrl}/images/og-expert-comptable-luxembourg.jpg`,
+  "description": lang === 'fr'
+    ? "Cabinet d'expertise comptable et fiduciaire à Luxembourg. Services de comptabilité, fiscalité, création de société, domiciliation et paie pour PME et indépendants."
+    : "Accounting and fiduciary firm in Luxembourg. Accounting, tax, company formation, domiciliation and payroll services for SMEs and freelancers.",
+  "telephone": "+352 20 60 20 60",
+  "email": "contact@fiduciaire-expert.lu",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "2 Rue de la Fonderie",
+    "addressLocality": "Luxembourg",
+    "postalCode": "L-1531",
+    "addressCountry": "LU"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "49.6116",
+    "longitude": "6.1319"
+  },
+  "openingHours": "Mo-Fr 08:30-18:00",
+  "priceRange": "€€",
+  "areaServed": {
+    "@type": "Country",
+    "name": "Luxembourg"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/company/fiduciaire-expert-luxembourg",
+    "https://www.facebook.com/fiduciaireexpertlux"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": lang === 'fr' ? "Services fiduciaires" : "Fiduciary services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": lang === 'fr' ? "Comptabilité" : "Accounting",
+          "description": lang === 'fr'
+            ? "Tenue complète de la comptabilité, bilans annuels et reporting financier"
+            : "Complete bookkeeping, annual financial statements and financial reporting"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": lang === 'fr' ? "Fiscalité" : "Tax services",
+          "description": lang === 'fr'
+            ? "Optimisation fiscale, déclarations TVA et IRC, conseil fiscal personnalisé"
+            : "Tax optimization, VAT and corporate tax returns, personalized tax advice"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": lang === 'fr' ? "Création de société" : "Company formation",
+          "description": lang === 'fr'
+            ? "Constitution SARL, SA, SCI et autres formes juridiques au Luxembourg"
+            : "Formation of SARL, SA, SCI and other legal forms in Luxembourg"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": lang === 'fr' ? "Domiciliation" : "Domiciliation",
+          "description": lang === 'fr'
+            ? "Adresse légale et siège social pour entreprises au Luxembourg"
+            : "Legal address and registered office for companies in Luxembourg"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": lang === 'fr' ? "Paie et social" : "Payroll and social",
+          "description": lang === 'fr'
+            ? "Gestion complète de la paie et des déclarations sociales"
+            : "Complete payroll management and social declarations"
+        }
+      }
+    ]
+  }
+};
+
+// Si vous avez des avis Google Business, décommentez et complétez:
+// "aggregateRating": {
+//   "@type": "AggregateRating",
+//   "ratingValue": "4.8",
+//   "reviewCount": "42"
+// }
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />

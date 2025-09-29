@@ -2,6 +2,7 @@
 import HeaderI18n from '../components/HeaderI18n.astro';
 import Footer from '../components/Footer.astro';
 import CookiesBanner from '../components/CookiesBanner.astro';
+import StructuredData from '../components/StructuredData.astro';
 import { getLangFromUrl, getAlternateLinks } from '../i18n/utils';
 import { useTranslation, type Language } from '../i18n/translations';
 import '../styles/styles.css';
@@ -29,7 +30,9 @@ const {
   schema
 } = Astro.props;
 const siteUrl = "https://fiduciaire-expert.lu";
-const canonicalURL = canonical || new URL(Astro.url.pathname, siteUrl).href;
+// Ensure canonical URL is clean and includes trailing slash for consistency
+const cleanPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const canonicalURL = canonical || `${siteUrl}${cleanPath}/`.replace(/\/+$/, '/');
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -53,10 +56,14 @@ const finalSchema = schema ? schema : websiteSchema;
   {noindex && <meta name="robots" content="noindex, nofollow" />}
   <!-- Canonical -->
   <link rel="canonical" href={canonicalURL} />
-  <!-- Hreflang tags for SEO -->
-  {alternateLinks.fr && <link rel="alternate" hreflang="fr-LU" href={`${siteUrl}${alternateLinks.fr}`} />}
-  {alternateLinks.en && <link rel="alternate" hreflang="en-US" href={`${siteUrl}${alternateLinks.en}`} />}
-  <link rel="alternate" hreflang="x-default" href={`${siteUrl}/fr`} />
+  <!-- Hreflang tags for SEO with Luxembourg geolocation -->
+  {alternateLinks.fr && (
+    <link rel="alternate" hreflang="fr-LU" href={`${siteUrl}${alternateLinks.fr}/`.replace(/\/+$/, '/')} />
+  )}
+  {alternateLinks.en && (
+    <link rel="alternate" hreflang="en-LU" href={`${siteUrl}${alternateLinks.en}/`.replace(/\/+$/, '/')} />
+  )}
+  <link rel="alternate" hreflang="x-default" href={`${siteUrl}/fr/`} />
   <!-- RSS Feeds -->
   <link rel="alternate" type="application/rss+xml" title="Fiduciaire Expert - Blog (FR)" href={`${siteUrl}/fr/rss.xml`} />
   <link rel="alternate" type="application/rss+xml" title="Fiduciaire Expert - Blog (EN)" href={`${siteUrl}/en/rss.xml`} />
@@ -75,6 +82,8 @@ const finalSchema = schema ? schema : websiteSchema;
   <meta name="twitter:image" content={new URL(ogImage, siteUrl).href} />
   <!-- Schema.org -->
   <script type="application/ld+json" set:html={JSON.stringify(finalSchema)} />
+  <!-- AccountingService Schema -->
+  <StructuredData lang={lang} />
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />

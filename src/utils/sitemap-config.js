@@ -17,7 +17,18 @@ export function customSitemapTransform(page) {
   const url = typeof page === 'string' ? page : page.url || page;
   const pathname = extractPathname(url);
 
+  // Exclure pages de recherche et pages sans langue
   if (pathname.includes('/recherche') || pathname.includes('/search')) {
+    return null;
+  }
+
+  // Exclure les pages merci/thank-you du sitemap (pour éviter l'indexation)
+  if (pathname.includes('/merci') || pathname.includes('/thank-you')) {
+    return null;
+  }
+
+  // S'assurer que toutes les pages ont une langue (fr ou en)
+  if (!pathname.startsWith('/fr') && !pathname.startsWith('/en') && pathname !== '/') {
     return null;
   }
 
@@ -27,20 +38,23 @@ export function customSitemapTransform(page) {
     '/en': 1.0,
     '/fr/fiscalite': 1.0,
     '/en/tax': 1.0,
-    '/fr/services': 0.9,
-    '/en/services': 0.9,
     '/fr/creation-societe-luxembourg': 0.9,
     '/en/company-formation-luxembourg': 0.9,
+    '/fr/services': 0.9,
+    '/en/services': 0.9,
     '/fr/comptabilite': 0.8,
     '/en/accounting': 0.8,
     '/fr/paie': 0.8,
     '/en/payroll': 0.8,
+    '/fr/formations': 0.8,
+    '/en/training': 0.8,
     '/fr/domiciliation': 0.7,
     '/en/domiciliation': 0.7,
     '/fr/contact': 0.7,
     '/en/contact': 0.7,
     '/fr/a-propos': 0.7,
     '/en/about': 0.7,
+    '/fr/simulations': 0.6,
     '/fr/articles': 0.6,
     '/en/articles': 0.6,
     default: 0.5,

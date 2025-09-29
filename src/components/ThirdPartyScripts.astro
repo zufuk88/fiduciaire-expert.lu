@@ -1,0 +1,105 @@
+---
+export interface Props {
+  loadCrisp?: boolean;
+  loadAnalytics?: boolean;
+}
+
+const { loadCrisp = false, loadAnalytics = false } = Astro.props;
+---
+
+{loadCrisp && (
+  <script is:inline>
+    // Charger Crisp Chat de façon asynchrone après l'interaction utilisateur
+    function loadCrisp() {
+      window.$crisp = [];
+      window.CRISP_WEBSITE_ID = "votre-id-crisp";
+
+      const script = document.createElement('script');
+      script.src = 'https://client.crisp.chat/l.js';
+      script.async = true;
+      document.head.appendChild(script);
+
+      // Retirer les écouteurs après le chargement
+      document.removeEventListener('scroll', loadCrisp);
+      document.removeEventListener('click', loadCrisp);
+      document.removeEventListener('mousemove', loadCrisp);
+    }
+
+    // Charger après la première interaction
+    if (document.readyState === 'complete') {
+      setTimeout(() => {
+        document.addEventListener('scroll', loadCrisp, { once: true });
+        document.addEventListener('click', loadCrisp, { once: true });
+        document.addEventListener('mousemove', loadCrisp, { once: true });
+      }, 3000);
+    } else {
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          document.addEventListener('scroll', loadCrisp, { once: true });
+          document.addEventListener('click', loadCrisp, { once: true });
+          document.addEventListener('mousemove', loadCrisp, { once: true });
+        }, 3000);
+      });
+    }
+  </script>
+)}
+
+{loadAnalytics && (
+  <script is:inline>
+    // Google Analytics avec chargement différé
+    function loadAnalytics() {
+      const script = document.createElement('script');
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=VOTRE-ID';
+      script.async = true;
+      document.head.appendChild(script);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'VOTRE-ID');
+    }
+
+    // Charger après 2 secondes d'inactivité
+    if (document.readyState === 'complete') {
+      setTimeout(loadAnalytics, 2000);
+    } else {
+      window.addEventListener('load', () => {
+        setTimeout(loadAnalytics, 2000);
+      });
+    }
+  </script>
+)}
+
+<script>
+  // Optimisation des images lazy loading
+  if ('loading' in HTMLImageElement.prototype) {
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    images.forEach(img => {
+      if (img.dataset.src) {
+        img.src = img.dataset.src;
+      }
+    });
+  } else {
+    // Fallback pour navigateurs plus anciens
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
+    document.body.appendChild(script);
+  }
+
+  // Préchargement des liens au survol
+  document.addEventListener('DOMContentLoaded', () => {
+    const links = document.querySelectorAll('a[href^="/"]');
+
+    links.forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        const href = link.getAttribute('href');
+        if (href && !document.querySelector(`link[rel="prefetch"][href="${href}"]`)) {
+          const prefetch = document.createElement('link');
+          prefetch.rel = 'prefetch';
+          prefetch.href = href;
+          document.head.appendChild(prefetch);
+        }
+      });
+    });
+  });
+</script>

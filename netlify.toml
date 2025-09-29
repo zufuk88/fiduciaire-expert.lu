@@ -3,87 +3,103 @@
   command = "npm run build"
 
 # ===========================================
-# REWRITES INVISIBLES (status 200)
+# REDIRECTIONS 301 PERMANENTES (anciennes URLs)
 # ===========================================
 
-# 1. REWRITES SPÉCIFIQUES pour les anciennes URLs (plus prioritaires)
+# 1. Redirections directes vers les URLs finales
 [[redirects]]
   from = "/services"
   to = "/fr/services"
-  status = 200
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/comptabilite"
   to = "/fr/comptabilite"
-  status = 200
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/fiscalite"
   to = "/fr/fiscalite"
-  status = 200
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/creation-societe-luxembourg"
   to = "/fr/creation-societe-luxembourg"
-  status = 200
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/paie"
   to = "/fr/paie"
-  status = 200
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/domiciliation"
   to = "/fr/domiciliation"
-  status = 200
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/a-propos"
   to = "/fr/a-propos"
-  status = 200
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/contact"
   to = "/fr/contact"
-  status = 200
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/articles"
   to = "/fr/articles"
-  status = 200
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/articles/*"
   to = "/fr/articles/:splat"
-  status = 200
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/mentions-legales"
   to = "/fr/mentions-legales"
-  status = 200
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/politique-confidentialite"
   to = "/fr/politique-confidentialite"
-  status = 200
-
-# 2. DÉTECTION DE LANGUE pour la page d'accueil
-# Note: Netlify utilise "Language" pour le header Accept-Language
-[[redirects]]
-  from = "/"
-  to = "/fr/"
-  status = 302
+  status = 301
   force = true
-  conditions = {Language = ["fr", "fr-FR", "fr-LU", "fr-BE", "fr-CH", "fr-CA"]}
+
+# Redirections pour anciennes URLs company-formation
+[[redirects]]
+  from = "/company-formation"
+  to = "/fr/creation-societe-luxembourg"
+  status = 301
+  force = true
 
 [[redirects]]
-  from = "/"
-  to = "/en/"
-  status = 302
+  from = "/en/company-formation"
+  to = "/en/company-formation-luxembourg"
+  status = 301
   force = true
-  conditions = {Language = ["en", "en-US", "en-GB", "en-CA", "en-AU"]}
 
-# 3. FALLBACK par défaut vers le français
+[[redirects]]
+  from = "/constitution-sarl"
+  to = "/fr/creation-societe-luxembourg"
+  status = 301
+  force = true
+
+# 2. DÉTECTION DE LANGUE pour la page d'accueil (une seule redirection)
+# Redirection par défaut vers le français
 [[redirects]]
   from = "/"
   to = "/fr/"
