@@ -110,7 +110,11 @@ export function customSitemapTransform(page) {
     articleDates.get(pathname) ||
     staticPageDates.get(pathname);
 
-  const lastmod = candidateLastmod || new Date().toISOString();
+  const nowIso = new Date().toISOString();
+  const sanitizedLastmod =
+    candidateLastmod && candidateLastmod > nowIso ? nowIso : candidateLastmod;
+
+  const lastmod = sanitizedLastmod || nowIso;
 
   return {
     url,
@@ -266,14 +270,12 @@ function normalizeDate(value) {
     return null;
   }
 
-  if (value instanceof Date) {
-    return value.toISOString();
-  }
-
-  const parsed = new Date(value);
+  const parsed = value instanceof Date ? value : new Date(value);
   if (Number.isNaN(parsed.getTime())) {
     return null;
   }
 
-  return parsed.toISOString();
+  const iso = parsed.toISOString();
+  const nowIso = new Date().toISOString();
+  return iso > nowIso ? nowIso : iso;
 }

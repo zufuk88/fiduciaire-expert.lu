@@ -11,6 +11,24 @@ import { calculateReadingTime } from '../utils/reading-time';
 import '../styles/blog-articles.css';
 const { frontmatter } = Astro.props;
 const { title, seoTitle, description, date, modified, category, image, imageAlt, author, rawContent, headings } = frontmatter;
+
+const parseDate = (value?: string | Date) => {
+  if (!value) return null;
+  const parsed = value instanceof Date ? value : new Date(value);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+};
+
+const now = new Date();
+const clampToNow = (input: Date | null) => {
+  if (!input) return null;
+  return input.getTime() > now.getTime() ? now : input;
+};
+
+const publishedDateObj = clampToNow(parseDate(date)) ?? now;
+const modifiedDateObj = clampToNow(parseDate(modified)) ?? publishedDateObj;
+const isoPublishedDate = publishedDateObj.toISOString();
+const isoModifiedDate = modifiedDateObj.toISOString();
+
 // Calculer le temps de lecture
 const readingTime = rawContent ? calculateReadingTime(rawContent, 'fr') : 5;
 const pageTitle = seoTitle || title;
@@ -44,8 +62,8 @@ const articleSchema = {
   "headline": title,
   "description": description,
   "image": image ? (typeof image === 'string' ? image : new URL(image.src, siteUrl).href) : undefined,
-  "datePublished": date,
-  "dateModified": modified || date,
+  "datePublished": isoPublishedDate,
+  "dateModified": isoModifiedDate,
   "author": {
     "@type": "Organization",
     "name": "Fiduciaire Expert",
@@ -136,8 +154,8 @@ const combinedSchema = {
             <line x1="8" y1="2" x2="8" y2="6"/>
             <line x1="3" y1="10" x2="21" y2="10"/>
           </svg>
-          <time datetime={modified || date}>
-            {new Date(modified || date).toLocaleDateString('fr-FR', { 
+          <time datetime={isoModifiedDate}>
+            {modifiedDateObj.toLocaleDateString('fr-FR', { 
               day: 'numeric', 
               month: 'long', 
               year: 'numeric' 

@@ -32,7 +32,23 @@ const {
 const siteUrl = "https://fiduciaire-expert.lu";
 // Ensure canonical URL is clean and includes trailing slash for consistency
 const cleanPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
-const canonicalURL = canonical || `${siteUrl}${cleanPath}/`.replace(/\/+$/, '/');
+
+const normalizeCanonical = (input?: string) => {
+  const ensureSlash = (rawUrl: string) => {
+    const parsed = new URL(rawUrl, siteUrl);
+    const trimmedPath = parsed.pathname.replace(/\/+$/, '');
+    parsed.pathname = trimmedPath ? `${trimmedPath}/` : '/';
+    return parsed.href;
+  };
+
+  if (!input) {
+    return ensureSlash(`${siteUrl}${cleanPath}`);
+  }
+
+  return ensureSlash(input);
+};
+
+const canonicalURL = normalizeCanonical(canonical);
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
