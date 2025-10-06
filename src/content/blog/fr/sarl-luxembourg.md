@@ -4,7 +4,7 @@ seoTitle: "Créer une SARL Luxembourg 2025 : Capital 12000€, Coûts, Démarche
 description: "Le Guide pour créer une SARL au Luxembourg. Capital, coûts, procédure, fiscalité et avantages. Devenez entrepreneur au Grand-Duché."
 date: "2025-07-25"
 modified: "2025-08-14"
-author: "Expert Fiduciaire"
+author: "Fiduciaire Expert"
 category: "Juridique"
 translations:
   en: "creating-sarl-luxembourg-complete-guide"

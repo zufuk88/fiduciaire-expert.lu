@@ -4,6 +4,7 @@ import LayoutI18n from '../../../../layouts/LayoutI18n.astro';
 import SearchBar from '../../../../components/SearchBar.astro';
 import StickyPageTop from '../../../../components/StickyPageTop.astro';
 import ArticlesGrid from '../../../../components/ArticlesGrid.astro';
+import { calculateReadingTime } from '../../../../utils/reading-time';
 export async function getStaticPaths() {
   const POSTS_PER_PAGE = 6;
   const allPosts = await getCollection('blog');
@@ -61,6 +62,8 @@ const categoriesWithCount = englishCategories.map(cat => {
   };
 });
 
+const computeReadTime = (post) => String(calculateReadingTime(post.body ?? '', 'en'));
+
 // Transform current page posts for ArticlesGrid
 const articles = posts.map(post => ({
   title: post.data.title,
@@ -70,7 +73,7 @@ const articles = posts.map(post => ({
   category: post.data.category || 'Uncategorized',
   categorySlug: post.data.category?.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-') || 'uncategorized',
   author: post.data.author || 'Fiduciaire Expert',
-  readTime: post.data.readingTime || '5',
+  readTime: computeReadTime(post),
   image: post.data.image?.src,
   tags: post.data.tags || []
 }));
@@ -88,7 +91,7 @@ const allArticles = allEnglishPosts.sort((a, b) => {
   category: post.data.category || 'Uncategorized',
   categorySlug: post.data.category?.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-') || 'uncategorized',
   author: post.data.author || 'Fiduciaire Expert',
-  readTime: post.data.readingTime || '5',
+  readTime: computeReadTime(post),
   image: post.data.image?.src,
   tags: post.data.tags || []
 }));

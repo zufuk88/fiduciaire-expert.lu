@@ -4,7 +4,7 @@ seoTitle: "Create SARL Luxembourg 2025: €12,000 Capital, Costs, Process"
 description: "Complete guide to create your SARL in Luxembourg. Capital requirements, costs, procedure, taxation and advantages. Start your business in the Grand Duchy."
 date: "2025-07-25"
 modified: "2025-08-14"
-author: "Expert Fiduciaire"
+author: "Fiduciaire Expert"
 category: "Corporate Law"
 translations:
   fr: "sarl-luxembourg"

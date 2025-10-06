@@ -5,6 +5,7 @@ import LayoutI18n from '../../../layouts/LayoutI18n.astro';
 import SearchBar from '../../../components/SearchBar.astro';
 import StickyPageTop from '../../../components/StickyPageTop.astro';
 import ArticlesGrid from '../../../components/ArticlesGrid.astro';
+import { calculateReadingTime } from '../../../utils/reading-time';
 // Pagination
 const POSTS_PER_PAGE = 6;
 const currentPage = 1; // Home page = page 1
@@ -19,6 +20,8 @@ const sortedPosts = englishPosts.sort((a, b) => {
   const dateB = new Date(b.data.modified || b.data.date).getTime();
   return dateB - dateA;
 });
+
+const computeReadTime = (post) => String(calculateReadingTime(post.body ?? '', 'en'));
 // Prepare categories with counter
 const categoriesWithCount = englishCategories.map(cat => {
   const slug = cat.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-');
@@ -45,7 +48,7 @@ const articles = paginatedPosts.map(post => ({
   category: post.data.category || 'Uncategorized',
   categorySlug: post.data.category?.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-') || 'uncategorized',
   author: post.data.author || 'Fiduciaire Expert',
-  readTime: post.data.readingTime || '5',
+  readTime: computeReadTime(post),
   image: post.data.image?.src,
   tags: post.data.tags || []
 }));
@@ -68,7 +71,7 @@ const allArticles = recentArticles.map(post => ({
   category: post.data.category || 'Uncategorized',
   categorySlug: post.data.category?.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-') || 'uncategorized',
   author: post.data.author || 'Fiduciaire Expert',
-  readTime: post.data.readingTime || '5',
+  readTime: computeReadTime(post),
   image: post.data.image?.src,
   tags: post.data.tags || []
 }));

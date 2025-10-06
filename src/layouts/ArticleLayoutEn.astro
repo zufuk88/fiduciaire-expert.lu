@@ -24,10 +24,20 @@ const clampToNow = (input: Date | null) => {
   return input.getTime() > now.getTime() ? now : input;
 };
 
-const publishedDateObj = clampToNow(parseDate(date)) ?? now;
-const modifiedDateObj = clampToNow(parseDate(modified)) ?? publishedDateObj;
+const originalPublishedDate = parseDate(date);
+const originalModifiedDate = parseDate(modified);
+const publishedDateObj = clampToNow(originalPublishedDate) ?? now;
+const modifiedDateObj = clampToNow(originalModifiedDate) ?? publishedDateObj;
 const isoPublishedDate = publishedDateObj.toISOString();
 const isoModifiedDate = modifiedDateObj.toISOString();
+const isUpdated = Boolean(
+  originalModifiedDate &&
+  originalPublishedDate &&
+  originalModifiedDate.getTime() > originalPublishedDate.getTime()
+);
+const displayDateObj = isUpdated ? modifiedDateObj : publishedDateObj;
+const displayDateIso = isUpdated ? isoModifiedDate : isoPublishedDate;
+const dateLabel = isUpdated ? 'Updated on' : 'Published on';
 
 // Calculate reading time
 const readingTime = rawContent ? calculateReadingTime(rawContent, 'en') : 5;
@@ -154,8 +164,9 @@ const combinedSchema = {
             <line x1="8" y1="2" x2="8" y2="6"/>
             <line x1="3" y1="10" x2="21" y2="10"/>
           </svg>
-          <time datetime={isoModifiedDate}>
-            {modifiedDateObj.toLocaleDateString('en-US', { 
+          <time datetime={displayDateIso}>
+            <span class="meta-item-label">{dateLabel}&nbsp;</span>
+            {displayDateObj.toLocaleDateString('en-US', { 
               day: 'numeric', 
               month: 'long', 
               year: 'numeric' 

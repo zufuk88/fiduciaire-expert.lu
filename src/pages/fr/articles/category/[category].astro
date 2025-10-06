@@ -6,6 +6,7 @@ import LayoutI18n from '../../../../layouts/LayoutI18n.astro';
 import SearchBar from '../../../../components/SearchBar.astro';
 import StickyPageTop from '../../../../components/StickyPageTop.astro';
 import ArticlesGrid from '../../../../components/ArticlesGrid.astro';
+import { calculateReadingTime } from '../../../../utils/reading-time';
 // 1. Génère une page pour chaque catégorie en utilisant getCollection (inchangé)
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');
@@ -50,6 +51,8 @@ const categoriesWithCount = frenchCategories.map(cat => {
   };
 });
 
+const computeReadTime = (post) => String(calculateReadingTime(post.body ?? '', 'fr'));
+
 // Transformer les posts pour ArticlesGrid
 const articles = filteredPosts.map(post => ({
   title: post.data.title,
@@ -59,7 +62,7 @@ const articles = filteredPosts.map(post => ({
   category: post.data.category || 'Non catégorisé',
   categorySlug: post.data.category?.toLowerCase().replace(/\s+/g, '-').replace(/'/g, '-') || 'non-categorise',
   author: post.data.author || 'Fiduciaire Expert',
-  readTime: post.data.readingTime || '5',
+  readTime: computeReadTime(post),
   image: post.data.image?.src,
   tags: post.data.tags || []
 }));
@@ -126,4 +129,3 @@ const formatDate = (date) => date.toLocaleDateString('fr-FR', {
     }
   }
 </style>
-
