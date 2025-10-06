@@ -5,8 +5,7 @@ import ServicesList from '../../components/ServicesList.astro';
 import BlogCards from '../../components/BlogCards.astro';
 import AboutUs from '../../components/AboutUs.astro';
 import FAQ from '../../components/FAQ.astro';
-import { Image } from 'astro:assets';
-import logoImage from '../../assets/images/Logo.webp';
+import heroLogo from '../../assets/images/Fiduciaire-Expert-Logo-Light.png';
 // SEO Metadata - Optimized for 10/10
 const pageTitle = "Chartered Accountant Luxembourg | Fiduciaire Expert - OEC Licensed";
 const pageDescription = "Luxembourg's leading chartered accounting firm. Expert tax advisory, company formation (SARL, SA), and payroll services for SMEs. Licensed OEC member.";
@@ -35,6 +34,9 @@ const faqItems = [
   }
 ];
 // Structured Data JSON-LD - Enhanced semantic structure
+const logoPath = (typeof heroLogo === 'string' ? heroLogo : heroLogo?.src) ?? '/favicon-96x96.png';
+const logoAbsoluteUrl = Astro.site ? new URL(logoPath, Astro.site).toString() : logoPath;
+
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -47,11 +49,11 @@ const schema = {
       "url": "https://fiduciaire-expert.lu/en/",
       "logo": {
         "@type": "ImageObject",
-        "url": `https://fiduciaire-expert.lu${logoImage.src}`,
+        "url": logoAbsoluteUrl,
         "width": 250,
         "height": 60
       },
-      "image": `https://fiduciaire-expert.lu${logoImage.src}`,
+      "image": logoAbsoluteUrl,
       "telephone": "+352 20 60 58 57",
       "email": "info@fiduciaire-expert.lu",
       "address": {
@@ -77,7 +79,7 @@ const schema = {
       "@id": "https://fiduciaire-expert.lu/en/#service",
       "name": "Fiduciaire Expert - Accounting Services for SMEs",
       "description": "Licensed accounting firm for Luxembourg companies and SMEs. We master accounting, company formation (SARL, SA), taxation (CIT, MBT, NWT, VAT) and social management.",
-      "image": `https://fiduciaire-expert.lu${logoImage.src}`,
+      "image": logoAbsoluteUrl,
       "provider": {
         "@id": "https://fiduciaire-expert.lu/#organization"
       },
@@ -176,7 +178,7 @@ const schema = {
   schema={schema}
 >
   <!-- Preload critical resources -->
-  <link slot="head" rel="preload" as="image" href={logoImage.src} fetchpriority="high" />
+  <link slot="head" rel="preload" as="image" href={logoPath} fetchpriority="high" />
   <Hero 
     title="Luxembourg Chartered Accountant & Tax Advisor"
     subtitle="<strong>Licensed accounting firm</strong> for financing companies and SMEs in Luxembourg. Bookkeeping, publication of annual accounts, payroll management, preparation of tax returns and VAT declarations."
@@ -184,6 +186,7 @@ const schema = {
       text: "Contact us",
       href: "/en/contact#get-quote"
     }}
+    backgroundLogo={logoPath}
   />
   <ServicesList
     title="Our Services"

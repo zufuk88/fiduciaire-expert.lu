@@ -96,7 +96,7 @@ const faqItems = [
             ]}
           />
         </div>
-        <div class="right-column">
+        <div class="right-column" data-sticky-parent>
           <ContactForm lang="en" />
         </div>
       </div>
@@ -260,7 +260,7 @@ const faqItems = [
 
   .right-column {
     position: sticky;
-    top: var(--header-height, 100px);
+    top: max(24px, calc(50vh - var(--contact-form-half-height, 240px) + var(--contact-form-offset-adjust, 0px)));
   }
 
   /* Responsive */
@@ -272,6 +272,7 @@ const faqItems = [
 
     .right-column {
       position: static;
+      top: auto;
     }
   }
 

@@ -5,7 +5,7 @@ import ServicesList from '../../components/ServicesList.astro';
 import BlogCards from '../../components/BlogCards.astro';
 import AboutUs from '../../components/AboutUs.astro';
 import FAQ from '../../components/FAQ.astro';
-import logoImage from '../../assets/images/Logo.webp';
+import heroLogo from '../../assets/images/Fiduciaire-Expert-Logo-Light.png';
 // SEO Metadonnées - Optimisées pour le 10/10
 const pageTitle = "Fiduciaire Luxembourg | Expert-Comptable Agréé - Fiduciaire Expert";
 const pageDescription = "Fiduciaire Expert, votre fiduciaire et cabinet d'expert-comptable agréé au Luxembourg. Services fiduciaires complets pour PME : comptabilité, fiscalité, création de SARL et gestion sociale.";
@@ -34,6 +34,9 @@ const faqItems = [
   }
 ];
 // Données Structurées JSON-LD - Réarchitecturées pour une sémantique parfaite
+const logoPath = (typeof heroLogo === 'string' ? heroLogo : heroLogo?.src) ?? '/favicon-96x96.png';
+const logoAbsoluteUrl = Astro.site ? new URL(logoPath, Astro.site).toString() : logoPath;
+
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -42,7 +45,7 @@ const schema = {
       "@id": "https://fiduciaire-expert.lu/#organization",
       "name": "Fiduciaire Expert",
       "url": "https://fiduciaire-expert.lu/fr/",
-      "logo": logoImage.src,
+      "logo": logoAbsoluteUrl,
       "telephone": "+352 20 60 58 57",
       "address": {
         "@type": "PostalAddress",
@@ -57,7 +60,7 @@ const schema = {
       "@id": "https://fiduciaire-expert.lu/fr/#service",
       "name": "Fiduciaire Expert - Services Comptables pour PME",
       "description": "Cabinet d'expertise comptable agréé pour les sociétés et PME luxembourgeoises. Nous maîtrisons la comptabilité, la création de société (SARL, SA), la fiscalité (IRC, ICC, IF, TVA) et la gestion sociale.",
-      "image": logoImage.src,
+      "image": logoAbsoluteUrl,
       "provider": {
         "@id": "https://fiduciaire-expert.lu/#organization"
       },
@@ -115,6 +118,7 @@ const schema = {
       text: "Contactez-nous",
       href: "/fr/contact#devis-express"
     }}
+    backgroundLogo={logoPath}
   />
   <ServicesList
     title="Solutions fiduciaires complètes pour PME et sociétés luxembourgeoises"
